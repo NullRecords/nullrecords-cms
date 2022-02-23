@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+<!--Artist page included here -->
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block extra_css %}
+
+<link rel="stylesheet" href="{% static 'css/artist_page.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+
+<main class="main">
+  <div class="main-text">
+
+    <div class="open-source">
+      <h1>New Artists</h1>
+      <p>Coming soon</p>
+      
+    </div>
+
+  </div>
+</main>
+
+{% endblock content %}
