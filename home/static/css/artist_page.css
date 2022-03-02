@@ -170,7 +170,7 @@ svg:not(:root) {
 }
 
 #container>p{
-    margin-left: 60px;
+    margin-left: 10px;
 }
 
 #container > ul, li {
@@ -213,7 +213,6 @@ svg:not(:root) {
 #container > .menu{
   text-align: center;
   margin-top: 10px;
-  margin-left: 70px;
 }
 
 #container > .menu li{
