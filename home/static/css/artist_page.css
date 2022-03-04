@@ -16,33 +16,12 @@ svg:not(:root) {
     overflow: hidden;
 }
 
-.logo a {
-    display: block;
-}
-
-.nav {
-    float: right;
-}
-
-.figure-logo {
-    max-width: 150px;
-    max-height: 55.1px;
-}
-
-.release-notes {
-    font-size: 14px;
-}
-
 .main {
     padding: 40px 0;
     margin: 0 auto;
     text-align: center;
     width: 75%;
     height: 100%;
-}
-
-.figure-space {
-    max-width: 265px;
 }
 
 @-webkit-keyframes pos {
@@ -90,35 +69,12 @@ svg:not(:root) {
     height: 370px;
 }
 
-.intro {
-    width: 100%;
-    margin: 5px auto;
-    margin: 40px 0px;
-    padding: 18px;
-    text-align: center;
-    height: 200px;
-}
-.intro h1{
-    font-weight: bold;
-    text-align: center;
-}
-.pright{
-  text-align: right;
-}
 .nullrecords{
     color: #ff5757d0;
     font-weight: 700;
     font-style: italic;
     font-size: 24px;
     text-shadow: 0px 7px 7px rgba(0, 0, 0, 0.66);
-}
-
-.main-text h1 {
-    font-size: 2em;
-}
-
-.main-text p {
-    margin: 15px auto 0;
 }
 
 .section1{
@@ -213,6 +169,7 @@ svg:not(:root) {
 #container > .menu{
   text-align: center;
   margin-top: 10px;
+  width: 500px;
 }
 
 #container > .menu li{
