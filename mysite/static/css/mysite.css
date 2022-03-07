@@ -5,7 +5,7 @@
 html {
     color: white;
     box-sizing: border-box;
-    background-image: url("/static/img/sol.jpg");
+    
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-attachment: fixed;
@@ -64,6 +64,7 @@ main {
     justify-content: center;
     height: 70px;
     width: 100%;
+    top: 0px;
 }
 
 .header-link{
@@ -98,7 +99,7 @@ aside{
     float: right;
     position: fixed;
     right: 20px;
-    margin-top: 39vh;
+    margin-top: 25vh;
     margin-right: 20px;
 }
 .sc{
