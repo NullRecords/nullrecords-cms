@@ -22,6 +22,8 @@
         {% block extra_css %}
             {# Override this in templates to add extra stylesheets #}
         {% endblock %}
+        {% include 'material/includes/material_css.html' %}
+        {% include 'material/includes/material_js.html' %}
     </head>
     {% include "includes/header.html" %}
     <body class="{% block body_class %}{% endblock %}">
@@ -34,5 +36,5 @@
             {# Override this in templates to add extra javascript #}
         {% endblock %}
     </body>
-    {% include "includes/footer.html" %} 
+    {% include "includes/footer.html" %}
 </html>
