@@ -2,6 +2,15 @@ svg:not(:root) {
     overflow: hidden;
 }
 
+html {
+    color: white;
+    box-sizing: border-box;
+    background-image: url("/static/img/sol.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    background-color: #072103;
+}
 .main {
     padding: 40px 0;
     margin: 0 auto;
@@ -43,6 +52,7 @@ svg:not(:root) {
 
 .main-text {
     margin: 5px auto;
+    color: white;
 }
 
 .video{
@@ -60,7 +70,7 @@ svg:not(:root) {
     text-align: center;
     align-items: center;
     height: 370px;
-} 
+}
 
 .intro {
     width: 100%;
@@ -69,12 +79,12 @@ svg:not(:root) {
     text-align: center;
 }
 .intro p:nth-child(2) a{
-    color: black;
+    color: #cc1212;
     font-weight: 750;
 }
 
 .nullrecords{
-    color: #ff5757d0;
+    color: #cc1212;
     font-weight: 700;
     font-style: italic;
     font-size: 24px;
@@ -90,7 +100,7 @@ svg:not(:root) {
 }
 
 .contats{
-    height: 400px; 
+    height: 400px;
 }
 .contact{
     height: 100%;

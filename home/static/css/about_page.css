@@ -5,6 +5,7 @@
 html {
     color: white;
     box-sizing: border-box;
+    background-image: url("/static/img/sol.jpg");
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-attachment: fixed;
@@ -81,7 +82,7 @@ svg:not(:root) {
 .section1{
     display: flex;
     justify-content: space-around;
-    
+
 }
 
 @media (max-width: 996px) {
