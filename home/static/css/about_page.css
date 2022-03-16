@@ -62,15 +62,6 @@ svg:not(:root) {
     margin: 5px auto;
 }
 
-.video {
-    width: 100%;
-    margin: 40px auto;
-    padding: 18px 18px 0px 18px;
-    text-align: center;
-    align-items: center;
-    height: 370px;
-}
-
 .nullrecords{
     color: #ff5757d0;
     font-weight: 700;
@@ -79,7 +70,7 @@ svg:not(:root) {
     text-shadow: 0px 7px 7px rgba(0, 0, 0, 0.66);
 }
 
-.section1{
+.section1{ /*  */
     display: flex;
     justify-content: space-around;
 
@@ -112,7 +103,8 @@ svg:not(:root) {
         margin: 0 auto;
     }
 }
-
+ 
+/*  */
 #slider {color: rgb(255, 255, 255);}
    #slider #slide1 {background: rgba(0, 0, 0, 0.801); border-radius: 5px;}
    #slider #slide2 {background: rgba(0, 0, 0); border-radius: 5px;}

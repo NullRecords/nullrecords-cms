@@ -11,6 +11,7 @@ html {
     background-attachment: fixed;
     background-color: #072103;
 }
+
 .main {
     padding: 40px 0;
     margin: 0 auto;
@@ -52,7 +53,6 @@ html {
 
 .main-text {
     margin: 5px auto;
-    color: white;
 }
 
 .video{
@@ -70,7 +70,7 @@ html {
     text-align: center;
     align-items: center;
     height: 370px;
-}
+} 
 
 .intro {
     width: 100%;
@@ -79,12 +79,12 @@ html {
     text-align: center;
 }
 .intro p:nth-child(2) a{
-    color: #cc1212;
+    color: black;
     font-weight: 750;
 }
 
 .nullrecords{
-    color: #cc1212;
+    color: #ff5757d0;
     font-weight: 700;
     font-style: italic;
     font-size: 24px;
@@ -100,12 +100,12 @@ html {
 }
 
 .contats{
-    height: 400px;
+    height: 400px; 
 }
 .contact{
     height: 100%;
     padding: 10px;
-    width: 45%;
+    width: 400px;
     border-radius: 5px;
     text-align: center;
     display: inline-block;
@@ -148,8 +148,8 @@ html {
     font-size: 14px;
 }
 
-@media (max-width: 996px) {
-    body {
-        max-width: 780px;
+@media (max-width: 520px) {
+    .contact {
+        width: 280px;
     }
 }
