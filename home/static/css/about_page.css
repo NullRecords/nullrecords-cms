@@ -5,6 +5,7 @@
 html {
     color: white;
     box-sizing: border-box;
+    background-image: url("/static/img/sol.jpg");
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-attachment: fixed;
@@ -69,6 +70,12 @@ svg:not(:root) {
     text-shadow: 0px 7px 7px rgba(0, 0, 0, 0.66);
 }
 
+.section1{ /*  */
+    display: flex;
+    justify-content: space-around;
+
+}
+
 @media (max-width: 996px) {
     body {
         max-width: 780px;
@@ -95,4 +102,90 @@ svg:not(:root) {
         width: 300px;
         margin: 0 auto;
     }
+}
+ 
+/*  */
+#slider {color: rgb(255, 255, 255);}
+   #slider #slide1 {background: rgba(0, 0, 0, 0.801); border-radius: 5px;}
+   #slider #slide2 {background: rgba(0, 0, 0); border-radius: 5px;}
+   #slider #slide3 {background: rgba(0, 0, 0); border-radius: 5px;}
+
+#container{
+  margin: auto;
+  max-width: 840px;
+  width: 100%;
+  padding: 30px;
+  height: 380px;
+  box-sizing: border-box;
+}
+
+#container>p{
+    margin-left: 10px;
+}
+
+#container > ul, li {
+    padding: 0;
+    margin-left: 20px;
+    list-style: none;
+}
+
+#container > ul#slider{
+  position: relative;
+  width: 500px;
+  height: 200px;
+  margin-top: 20px;
+}
+
+#container > ul#slider li {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    opacity: 0;
+    width: inherit;
+    height: inherit;
+    padding: 20px;
+    transition: opacity .5s;
+    overflow: hidden;
+}
+
+#container > ul#slider li p{
+  font-size: 20px;
+}
+
+#container > ul#slider li:first-child {
+    opacity: 1; /*Mostramos el primer <li>*/
+}
+
+#container > ul#slider li:target {
+    opacity: 1; /*Mostramos el <li> del enlace que pulsemos*/
+}
+
+#container > .menu{
+  text-align: center;
+  margin-top: 10px;
+  width: 500px;
+}
+
+#container > .menu li{
+  display: inline-block;
+  text-align: center;
+}
+
+#container > .menu li a{
+  display: inline-block;
+  color: white;
+  text-decoration: none;
+  background-color: rgb(201, 189, 189);
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+}
+
+#slider img{
+    width: 25px;
+    padding: 0px;
+    background-color: var(--red);
+    border-radius: 20px;
+    margin-right: 8px;
+    margin-top: 5px;
 }

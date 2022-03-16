@@ -5,7 +5,7 @@
 html {
     color: white;
     box-sizing: border-box;
-    background-image: url("/static/img/disco.jpg");
+    background-image: url("/static/img/background.jpg");
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-attachment: fixed;
@@ -95,6 +95,8 @@ svg:not(:root) {
     justify-content: center;
     flex-direction: column;
     
+    justify-content: space-around;
+
 }
 
 @media (max-width: 996px) {
