@@ -9,7 +9,7 @@ svg:not(:root) {
 html {
     color: rgb(255, 255, 255);
     box-sizing: border-box;
-    background-image: url("/static/img/bg.jpg");
+    background-image: url("/static/img/bg2.jpg");
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-attachment: fixed;
@@ -59,11 +59,11 @@ html {
 }
 .section1{
     height: 390px;
+    margin-top: 20px;
     display: flex;
     overflow: scroll;
-    background-image: url("/static/img/sol.jpg");
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+    background: rgb(255,87,88);
+    background: radial-gradient(circle, rgba(255,87,88,1) 0%, rgba(0,0,0,1) 89%);
     justify-content: center;
 }
 .video{
@@ -123,11 +123,11 @@ html {
     display: inline-block;
     flex-direction: column;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.39);
+    background: #ff57572a;
 }
 .contact h1{
     margin-top: 3px;
-    color: black;
+    color: white;
 }
 .inputxt{
     height: 100%;
