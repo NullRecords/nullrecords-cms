@@ -8,7 +8,8 @@ html {
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-attachment: fixed;
-    background-color: #072103;
+    background-color: black;
+    font-family: 'Quicksand', sans-serif;
 }
 
 *,
@@ -20,7 +21,6 @@ html {
 header, main, section, footer{
     margin: 0 auto;
     padding: 0 15px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     line-height: 1.40;
 }
 
@@ -107,6 +107,9 @@ aside{
 }
 .yt{
     padding: 2.2px;
+}
+.bc{
+    padding: 2px;
 }
 .logosocialmed{
     width: 33px;

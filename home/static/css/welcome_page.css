@@ -1,15 +1,18 @@
+:root{
+    --red:#ff5758;
+    --grey: rgb(75, 74, 74);
+}
 svg:not(:root) {
     overflow: hidden;
 }
 
 html {
-    color: white;
+    color: rgb(255, 255, 255);
     box-sizing: border-box;
-    background-image: url("/static/img/sol.jpg");
+    background-image: url("/static/img/bg2.jpg");
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-attachment: fixed;
-    background-color: #072103;
 }
 
 .main {
@@ -54,10 +57,18 @@ html {
 .main-text {
     margin: 5px auto;
 }
-
+.section1{
+    height: 390px;
+    margin-top: 20px;
+    display: flex;
+    overflow: scroll;
+    background: rgb(255,87,88);
+    background: radial-gradient(circle, rgba(255,87,88,1) 0%, rgba(0,0,0,1) 89%);
+    justify-content: center;
+}
 .video{
     width: 100%;
-    margin: 40px auto;
+    margin-top: 20px;
     padding: 18px 18px 0px 18px;
     text-align: center;
     align-items: center;
@@ -74,17 +85,17 @@ html {
 
 .intro {
     width: 100%;
-    margin-top: 40px;
+    margin-top: 20px;
     padding: 10px 0px;
     text-align: center;
 }
 .intro p:nth-child(2) a{
-    color: black;
+    color: var(--red);
     font-weight: 750;
 }
 
 .nullrecords{
-    color: #ff5757d0;
+    color: var(--red);
     font-weight: 700;
     font-style: italic;
     font-size: 24px;
@@ -104,6 +115,7 @@ html {
 }
 .contact{
     height: 100%;
+    margin-top: 30px;
     padding: 10px;
     width: 400px;
     border-radius: 5px;
@@ -111,10 +123,11 @@ html {
     display: inline-block;
     flex-direction: column;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.39);
+    background: #ff57572a;
 }
 .contact h1{
     margin-top: 3px;
+    color: white;
 }
 .inputxt{
     height: 100%;
