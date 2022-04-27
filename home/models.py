@@ -14,3 +14,12 @@ class ArtistsPage(Page):
 
 class SubmitPage(Page):
     pass
+
+class ArtPge(Page):
+    pass
+
+class LivestreamPage(Page):
+    pass
+
+class LiveStreamUkrainePage(Page):
+    pass
