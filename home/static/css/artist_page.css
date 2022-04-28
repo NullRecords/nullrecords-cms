@@ -5,7 +5,6 @@
 html {
     color: white;
     box-sizing: border-box;
-    background-image: url("/static/img/disco.jpg");
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-attachment: fixed;
@@ -167,6 +166,7 @@ svg:not(:root) {
     padding: 20px;
     transition: opacity .5s;
     overflow: hidden;
+    border: 2px solid #f8abab73;
 }
 
 #container > ul#slider li p{
