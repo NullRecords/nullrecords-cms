@@ -93,6 +93,39 @@ a.head{
     -webkit-filter: drop-shadow(5px 5px 5px #222);
     filter: drop-shadow(5px 5px 5px #222);
 }
+.header-link .art {
+    position: relative;
+}
+
+.submenu{
+    
+    position: absolute;
+    border-radius: 5px;
+    padding: 5px;
+     /* background: #ff57572a; */
+    
+}
+
+.submenu li{
+    list-style: none;
+    width: 152px;
+}
+
+.submenu > li > a{
+    font-weight: bolder;
+    color: white;
+    transition: 0.1s linear;
+    display: block;
+}
+.submenu > li > a:hover{
+    color: var(--red);
+    opacity: 0.7;
+    border-bottom: 4px solid var(--red);
+}
+
+.art > li:hover .submenu{
+    display: block;
+}
 
 /* social media aside*/
 aside{
