@@ -5,10 +5,12 @@
 html {
     color: white;
     box-sizing: border-box;
+    background-image: url("/static/img/bg2.jpg");
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-attachment: fixed;
-    background-color: #072103;
+    background-color: black;
+    font-family: 'Quicksand', sans-serif;
 }
 
 *,
@@ -20,7 +22,6 @@ html {
 header, main, section, footer{
     margin: 0 auto;
     padding: 0 15px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     line-height: 1.40;
 }
 
@@ -81,9 +82,12 @@ main {
 }
 a.head{
     color: #ffffff;
+    transition: 0.1s linear;
 }
 .head:hover{
     color: var(--red);
+    opacity: 0.7;
+    border-bottom: 3px solid var(--red);
 }
 
 .logo{
@@ -91,6 +95,41 @@ a.head{
     margin-right: 50%;
     -webkit-filter: drop-shadow(5px 5px 5px #222);
     filter: drop-shadow(5px 5px 5px #222);
+}
+.header-link .art {
+    position: relative;
+}
+
+.menu{
+    list-style: none;
+}
+
+.submenu{
+    display: none;
+    position: absolute;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.submenu li{
+    list-style: none;
+    width: 152px;
+}
+
+.submenu > li > a{
+    font-weight: bolder;
+    color: white;
+    transition: 0.1s linear;
+    display: block;
+}
+.submenu > li > a:hover{
+    color: var(--red);
+    opacity: 0.7;
+    border-bottom: 3px solid var(--red);
+}
+
+.menu li:hover .submenu{
+    display: block;
 }
 
 /* social media aside*/
@@ -107,6 +146,12 @@ aside{
 }
 .yt{
     padding: 2.2px;
+}
+.bc{
+    padding: 2px;
+}
+.p{
+    padding: 7px;
 }
 .logosocialmed{
     width: 33px;

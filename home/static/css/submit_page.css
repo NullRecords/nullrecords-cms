@@ -3,9 +3,8 @@
 }
 
 html {
-    color: white;
+    color: rgb(75, 74, 74);
     box-sizing: border-box;
-    background-image: url("/static/img/disco.jpg");
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-attachment: fixed;
@@ -70,12 +69,6 @@ svg:not(:root) {
     text-shadow: 0px 7px 7px rgba(0, 0, 0, 0.66);
 }
 
-.section1{
-    display: flex;
-    justify-content: space-around;
-
-}
-
 @media (max-width: 996px) {
     body {
         max-width: 780px;
@@ -103,4 +96,3 @@ svg:not(:root) {
         margin: 0 auto;
     }
 }
-
