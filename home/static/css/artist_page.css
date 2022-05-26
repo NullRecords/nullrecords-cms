@@ -170,7 +170,7 @@ svg:not(:root) {
 }
 
 #container > ul#slider li p{
-  font-size: 20px;
+  font-size: 18px;
 }
 
 #container > ul#slider li:first-child {
