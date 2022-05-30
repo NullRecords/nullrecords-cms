@@ -1,0 +1,115 @@
+:root {
+    --dark: #232830;
+    --white: #FFFFFF;
+    --black: #000000;
+    --hospital-green: #ACD9B2;
+    --very-light-pink: #C7C7C7;
+    --text-input-field: #F7F7F7;
+    --sm: 14px;
+    --md: 16px;
+    --lg: 18px;
+}
+
+body {
+    font-family: 'Quicksand', sans-serif;
+}
+
+.raya {
+    background-color: #694747;
+    width: 100%;
+    height: 40px;
+    margin: 0;
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 240px);
+    gap: 26px;
+    place-content: center;
+    margin-top: 70px;
+    margin-bottom: 30px;
+}
+
+.card-container:nth-child(1) {
+    z-index: 1;
+}
+
+.card-container:nth-child(3) {
+    z-index: 2;
+}
+
+.project-card {
+    width: 240px;
+    padding-bottom: 5px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background-color: #694747;
+}
+
+.project-card:nth-child(1):hover {
+    z-index: 4;
+    height: 320px;
+    width: 250px;
+    transition: 0.3s ease;
+    left: -5px;
+    border: 3px solid var(--hospital-green);
+}
+
+.project-card img {
+    width: 240px;
+    height: 240px;
+    border-radius: 20px;
+    object-fit: cover;
+}
+
+.project-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.project-info figure {
+    margin: 0 0 0 10px;
+}
+
+.project-info figure img {
+    width: 35px;
+    height: 35px;
+}
+
+.project-info div p:nth-child(1) {
+    font-weight: bold;
+    font-size: var(--md);
+    margin-top: 0;
+    margin-bottom: 4px;
+    color: azure;
+}
+
+.project-info div p:nth-child(2) {
+    font-weight: bold;
+    font-size: var(--sm);
+    margin-top: 0;
+    margin-bottom: 0;
+    color: var(--very-light-pink);
+}
+
+@media (max-width: 640px) {
+    .card-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 140px);
+    }
+
+    .project-card {
+        width: 140px;
+    }
+
+    .project-card img {
+        width: 140px;
+        height: 140px;
+    }
+}
