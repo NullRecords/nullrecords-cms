@@ -129,6 +129,35 @@
         </div>
     </div>
 </section>
+
+<section class="music">
+    <div class="open-source">
+        <div class="popup"><img src="https://img.icons8.com/ios-glyphs/30/undefined/sort-up.png"/></div>
+        <h1>Null Records Livestream Radio</h1>
+        <div class="open-source">
+          <iframe src="https://live.nullrecords.com/public/nullrecords/" frameborder="0" allowtransparency="true"
+            style="width: 90%; height: 330px; border-radius: 5px;"></iframe>
+        </div>
+      </div>
+      
+      <div class="main">
+        <script src="https://unpkg.com/wavesurfer.js"></script>
+  
+        <div id="waveform"></div>
+        <script>
+          var wavesurfer = WaveSurfer.create({
+            container: '#waveform',
+            waveColor: 'violet',
+            progressColor: 'purple'
+          });
+  
+          wavesurfer.load('https://live.nullrecords.com:8000/radio.mp3');
+        </script>
+      </div>
+</section>
+
+<!-- <a target="_blank" href="https://icons8.com/icon/99979/sort-up">Sort Up icon by Icons8</a>
+ -->
 </main>
 
 {% endblock content %}
