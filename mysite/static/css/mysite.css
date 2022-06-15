@@ -65,6 +65,7 @@ main {
     height: 70px;
     width: 100%;
     top: 0px;
+    z-index: 100;
 }
 
 .header-link{
@@ -91,7 +92,7 @@ a.head{
 }
 
 .logo{
-    width: 135px;
+    width: 120px;
     margin-right: 50%;
     -webkit-filter: drop-shadow(5px 5px 5px #222);
     filter: drop-shadow(5px 5px 5px #222);
@@ -140,6 +141,7 @@ aside{
     right: 20px;
     margin-top: 25vh;
     margin-right: 20px;
+    z-index: 90;
 }
 .sc{
     padding: 2px;
