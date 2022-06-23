@@ -35,10 +35,6 @@ a {
     text-decoration: none;
 }
 
-a:hover {
-    color: var(--red);
-}
-
 h1,
 h2,
 h3,
@@ -92,7 +88,7 @@ a.head{
 }
 
 .logo{
-    width: 120px;
+    width: 150px;
     margin-right: 50%;
     -webkit-filter: drop-shadow(5px 5px 5px #222);
     filter: drop-shadow(5px 5px 5px #222);
