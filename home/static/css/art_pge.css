@@ -18,7 +18,7 @@ body {
 .card-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, 300px);
-    gap: 26px;
+    gap: 70px;
     place-content: center;
     margin-top: 80px;
     margin-bottom: 30px;
@@ -35,7 +35,8 @@ body {
 }
 
 .project-card {
-    width: 300px;
+    width: 330px;
+    height: 380px;
     padding-bottom: 5px;
     position: relative;
     display: flex;
@@ -61,15 +62,12 @@ body {
     align-items: center;
     margin-top: 5px;
 }
-
-.project-info figure {
-    margin: 0 0 0 10px;
-}
-
-.project-info figure img {
-    width: 35px;
-    height: 35px;
-}
+.project-info div img{
+    width: 25px;
+    height: 25px;
+    background-color: blanchedalmond;
+    border-radius: 50%;
+}    
 
 .project-info div p:nth-child(1) {
     font-weight: bold;
