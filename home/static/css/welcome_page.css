@@ -22,6 +22,10 @@ html {
     width: 75%;
 }
 
+.main-text p {
+    margin: 15px auto 0;
+}
+
 @-webkit-keyframes pos {
     0%, 100% {
         -webkit-transform: rotate(-6deg);
@@ -111,17 +115,8 @@ html {
     font-size: 16px;
 }
 
-.main-text h1 {
-    font-size: 2em;
-}
 
-.main-text p {
-    margin: 15px auto 0;
-}
-
-.contats{
-    height: 400px; 
-}
+/* contact form */
 .contact{
     height: 100%;
     margin-top: 40px;
