@@ -72,6 +72,7 @@ main {
     width: 90px;
     height: 70px;
 }
+
 .head{
     width: 20px;
     font-size: 18px;
@@ -94,12 +95,12 @@ a.head{
     -webkit-filter: drop-shadow(5px 5px 5px #222);
     filter: drop-shadow(5px 5px 5px #222);
 }
+
 .header-link .art {
     position: relative;
 }
 
-
-.menu{
+#menu{
     list-style: none;
 }
 
@@ -127,9 +128,10 @@ a.head{
     border-bottom: 3px solid var(--red);
 }
 
-.menu li:hover .submenu{
+#menu li:hover .submenu{
     display: block;
 }
+
 
 /* social media aside*/
 aside{
