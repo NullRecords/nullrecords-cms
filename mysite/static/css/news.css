@@ -1,0 +1,26 @@
+:root{
+    --red:#ff5758;
+    --grey: rgb(75, 74, 74);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.news-container{
+    padding: 10px;
+    border-radius: 10px;
+    display: inline-block;
+    flex-direction: column;
+    justify-content: center;
+    background: #ff57572a;
+}
+
+.news-container p{
+    color: white;
+}
+
+.date{
+    font-size: 12px;
+}
