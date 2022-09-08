@@ -66,16 +66,16 @@
             <img alt="{{ blog_page.header_image.title }}" src="{{ header_image.url }}" />
         </span>
         {% endif %}
-        <!--  <div class="container">
+        <div class="container">
             <section class="{% if blog_page.header_image %}title-section-image{% else %}title-section{% endif %}">
-                <h1 class="title-header">
+                {% comment %} <h1 class="title-header">
                     <a href="{% pageurl blog_page %}">{{ blog_page.title }}</a>
                 </h1>
                 {% if not blog_page.header_image %}
                     <h2>{{ blog_page.description }}</h2>
-                {% endif %}
+                {% endif %} {% endcomment %}
             </section>
-        </div> -->
+        </div> 
     </div>
 
     {% endblock blog_header %} {% wagtailuserbar %}
@@ -83,7 +83,9 @@
     <div class="container container-blog">
         <div class="row">
             <div class="col-sm-8 col-md-9">
+                {% comment %}  
                 {% block content %}{% endblock content %} {% block extra_content %}{% endblock extra_content %}
+                {% endcomment %}
 
                 <div class="news-container">
                     <figure class="littlesam"><img src="{% static 'img/littlesam.png' %}" alt=""></figure>
