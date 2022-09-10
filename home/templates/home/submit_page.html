@@ -13,16 +13,46 @@
 
 <main class="main">
   <div class="main-text">
-
     <div class="open-source">
-      <h1>Music and Visual Artists</h1>
+      <h1>Music and Visual Artist</h1>
       <p>Submit your music or background visual art, for consideration on our streaming playlist and distribution.
         <br>
-        <a href="/#contact">Get in touch with us here.</a>
-      </p>      
+      <p>Cheer up and fill out the form to show us your proposals!!!</p>
+      <a href="/#contact">Get in touch with us here.</a>
+      </p>
     </div>
-
   </div>
+
+  <section class="contacts">
+    <div class="contact" id="contact">
+      <h1>Send art</h1>
+      <form action="mailto:info@nullrecords.com" method="get">
+        <div class="inputcontainer">
+          <input class="inputxt" type="text" name="name" id="name" placeholder="Artist name">
+        </div>
+
+        <div class="inputcontainer">
+          <input class="inputxt" type="email" name="email" id="email" placeholder="Email adress">
+        </div>
+
+        <div class="inputcontainer">
+          <input class="inputxt" type="text" name="socialMedia" id="socialMedia" placeholder="Social medias link">
+        </div>
+
+        <!-- <div class="div-file">
+          <p class="text">Add file</p>
+          <input type="file" class="btn-submit">
+        </div> -->
+
+        <div class="textacontainer">
+          <textarea class="textareaa" name="message" id="message" cols="30"
+            rows="10" placeholder=""></textarea>
+        </div>
+
+        <div><button class="button" type="submit">Send</button></div>
+      </form>
+    </div>
+  </section>
 </main>
 
 {% endblock content %}

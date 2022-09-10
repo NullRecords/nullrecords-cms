@@ -1,0 +1,40 @@
+:root{
+    --red:#ff5758;
+    --grey: rgb(75, 74, 74);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.news-container{
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.news-container p{
+    color: white;
+}
+
+.date{
+    font-size: 12px;
+}
+
+.littlesam{
+    float: left;
+    
+}
+.littlesam img{
+    width: 100%;
+}
+
+.news-p{
+    padding: 10px;
+    display: inline-block;
+    flex-direction: column;
+    border-radius: 10px;
+    background: #ff57572a;
+}
