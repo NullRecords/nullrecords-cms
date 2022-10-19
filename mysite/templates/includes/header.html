@@ -2,48 +2,52 @@
 {% load static %}
 <!--header included here -->
 <header class="header">
-  <div class="logo">
-    <a href="/">
-      <img class="logo" src="{% static 'img/logo.png' %}" alt="">
-    </a>
+  <div class="wapper__logo">
+    <div class="logo">
+      <a class="logo__a" href="/">
+        <img class="logo__img" src="{% static 'img/logo.png' %}" alt="" style="width: 160px; margin-top: -30px;">
+      </a>
+    </div>
   </div>
 
-  <div class="header-link">
-    <ul id="menu">
-      <li><a class="head art" href="/artists/">
-          {% trans "Artists" %}</a>
-          <ul class="submenu">
-            <li><a href="/visual-art/">Visual Art</a></li>
-            <li><a href="/livestream/">Livestream</a></li>
-            <li><a href="/livesukraine/">Livestream Ukraine</a></li>
-          </ul>
-      </li>
-    </ul>
-  </div>
+  <div class="wrapper__links">
+    <div class="header-link">
+      <ul id="menu">
+        <li><a class="head art" href="/artists/">
+            {% trans "Artists" %}</a>
+            <ul class="submenu">
+              <li><a href="/visual-art/">Visual Art</a></li>
+              <li><a href="/livestream/">Livestream</a></li>
+              <li><a href="/livesukraine/">Livestream Ukraine</a></li>
+            </ul>
+        </li>
+      </ul>
+    </div>
 
-  <div class="header-link">
-    <a class="head" href="/news/">
-      {% trans "News" %}
-    </a>
-  </div>
+    <div class="header-link">
+      <a class="head" href="/news/">
+        {% trans "News" %}
+      </a>
+    </div>
 
-  <div class="header-link cont">
-    <a class="head" href="/#contact">
-      {% trans "Contact" %}
-    </a>
-  </div>
+    <div class="header-link cont">
+      <a class="head" href="/#contact">
+        {% trans "Contact" %}
+      </a>
+    </div>
 
-  <div class="header-link">
-    <a class="head" href="/submit/">
-      {% trans "Submit" %}
-    </a>
-  </div>
-  <div class="header-link">
-    <a class="head" href="/about/">
-      {% trans "About" %}
-    </a>
-  </div>
+    <div class="header-link">
+      <a class="head" href="/submit/">
+        {% trans "Submit" %}
+      </a>
+    </div>
 
+    <div class="header-link">
+      <a class="head" href="/about/">
+        {% trans "About" %}
+      </a>
+    </div>
+  </div>
 </header>
 
 <!-- social media -->
