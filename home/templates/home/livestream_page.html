@@ -38,6 +38,30 @@
         wavesurfer.load('https://live.nullrecords.com:8000/radio.mp3');
       </script>
     </div>
+<<<<<<< HEAD
+=======
+
+  </div>
+  <div class="main">
+    <script src="https://unpkg.com/wavesurfer.js"></script>
+    <script>
+    var wavesurfer = WaveSurfer.create({
+        container: '#waveform',
+        waveColor: 'violet',
+        progressColor: 'purple'
+    });
+
+    wavesurfer.load('https://live.nullrecords.com:8000/radio.mp3');
+
+    wavesurfer.on('ready', function () {
+        wavesurfer.play();
+    });
+    </script>
+
+    <div id="waveform"></div>
+
+  </div>
+>>>>>>> 5517924 (update livestream)
 </main>
 
 {% endblock content %}
