@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+<!--Artist page included here -->
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block extra_css %}
+
+<link rel="stylesheet" href="{% static 'css/submit_page.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+
+<main class="main">
+  <div class="main-text">
+    <div class="open-source">
+      <h1>Music and Visual Artist</h1>
+      <p>Submit your music or background visual art, for consideration on our streaming playlist and distribution.
+        <br>
+      <p>Cheer up and fill out the form to show us your proposals!!!</p>
+      <a href="/#contact">Get in touch with us here.</a>
+      </p>
+    </div>
+  </div>
+
+  <section class="contacts">
+    <div class="contact" id="contact">
+      <h1>Send art</h1>
+      <form action="/submit-art" method="post">
+        <div class="inputcontainer">
+          <input class="inputxt" type="text" name="name" id="name" placeholder="Artist Name">
+        </div>
+
+        <div class="inputcontainer">
+          <input class="inputxt" type="email" name="email" id="email" placeholder="Email address">
+        </div>
+
+        <div class="inputcontainer">
+          <input class="inputxt" type="text" name="socialMedia" id="socialMedia" placeholder="Social media links">
+        </div>
+
+        <div class="div-file">
+          <p class="text">Upload Example Art/Music file</p>
+          <input type="file" class="btn-submit">
+        </div>
+
+        <div class="div-link">
+          <p class="text">Link to Example Art/Music</p>
+          <input class="inputxt" type="text" name="art_url" id="art_url" placeholder="https://www.portfolio.com/mygreatart">
+        </div>
+
+        <div class="textacontainer">
+          <textarea class="textareaa" name="message" id="message" cols="30"
+            rows="10" placeholder=""></textarea>
+        </div>
+
+        <div><button class="button" type="submit">Send</button></div>
+      </form>
+    </div>
+  </section>
+</main>
+
+{% endblock content %}
