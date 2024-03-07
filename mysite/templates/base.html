@@ -1,48 +1,35 @@
 {% load static wagtailcore_tags wagtailuserbar %}
 
-<!DOCTYPE html>
-<html class="no-js" lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>
-            {% block title %}
-                {% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}
-            {% endblock %}
-            {% block title_suffix %}
-                {% wagtail_site as current_site %}
-                {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
-            {% endblock %}
-        </title>
-        <meta name="description" content="Discover the ultimate playlist for studying, relaxing, and unwinding with the best LoFi music on Spotify. Find your new favorite artist and album. Artist collective and collaboration for music and visual art and animation.  Sharing and streaming for the independent musician and visual artist">
-        <meta name="keywords" content="artists, band, lofi, livestreaming, record label, distribution, listening, visual artist, animation, music, jazz, independent, LoFi music, study music, relax music, Spotify playlists, chill music, LoFi hip-hop, jazz, chill hop, music for productivity">
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-        {# Global stylesheets #}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/mysite.css' %}">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
-
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@800&display=swap" rel="stylesheet"> 
-
-        {% block extra_css %}
-            {# Override this in templates to add extra stylesheets #}
-        {% endblock %}
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-2WVCJM4NKR"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'G-2WVCJM4NKR');
-        </script>
-    </head>
+    {% include "includes/top_header.html" %}
     {% include "includes/header.html" %}
-    <body class="{% block body_class %}{% endblock %}">
-        {% block content %}{% endblock %}
+
+        {% if request.path == '/' %}
+        <!-- ======= Hero Section ======= -->
+        <section>
+
+            <div class="container d-flex align-items-center justify-content-between">
+        {% elif 'artist' in request.path %}
+
+        <link href="{% static 'assets/css/port-style.css' %}" rel="stylesheet">
+            <!-- ======= Breadcrumbs ======= -->
+            <section id="breadcrumbs" class="breadcrumbs">
+            <div class="container">
+        
+                <ol>
+                <li><a href="/">Home</a></li>
+                <li>{{ page.title }}</li>
+                </ol>
+                <h2>{{ page.title }}</h2>
+        
+            </div>
+            </section><!-- End Breadcrumbs -->
+            <section class="inner-page">
+                <div class="container">
+        {% endif %}
+    
+            {% block content %}{% endblock %}
+            </div>
+        </section>
 
         {# Global javascript #}
         <script type="text/javascript" src="{% static 'js/mysite.js' %}"></script>

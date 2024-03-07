@@ -6,11 +6,11 @@
 html {
     color: white;
     box-sizing: border-box;
-    background-image: url("/static/img/bg2.jpg");
+
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-attachment: fixed;
-    background-color: black;
+    background-color: rgb(221, 217, 217);
     font-family: 'Quicksand', sans-serif;
 }
 
