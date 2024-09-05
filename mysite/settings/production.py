@@ -17,6 +17,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['nullrecords-cms-6xw4e.ondigitalocean.app', 'nullrecords.com', '127.0.0.1', '[::1]','www.nullrecords.com']
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 try:
     from .local import *
 except ImportError:
