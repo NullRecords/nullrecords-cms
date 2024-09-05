@@ -4,3 +4,4 @@ wagtail-markdown==0.11.0
 django-social-share==2.2.1
 puput==2.1.1
 mysqlclient==2.1.0
+colorful
