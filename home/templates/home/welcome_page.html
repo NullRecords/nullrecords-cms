@@ -25,99 +25,126 @@
   <!-- ======= About Section ======= -->
   <section id="latest-articles" class="about">
     <div class="container">
-      <h3>Latest News</h3>
-      <div class="article-list">
-        {% for article in latest_articles %}
-          <div class="article">
-            <h3>{{ article.title }}</h3>
-            <p>{{ article.content }}</p>
-            <p>Published on: {{ article.publish_date }}</p>
+      <div class="row">
+        <div class="col-lg-6">
+          <h3>Null Records News</h3>
+          <div class="article-list">
+            {% for article in latest_articles %}
+              <div class="article">
+                <h3>{{ article.title }}</h3>
+                <p>{{ article.content }}</p>
+                <p>Published on: {{ article.publish_date }}</p>
+              </div>
+            {% endfor %}
           </div>
-        {% endfor %}
+        </div>
+        <div class="col-lg-6">
+          <h3>Null Records Playlists - The Best LoFi Music to Study and Relax or be Productive </h3>
+          <div class="image">
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/684lIQlsexvUQzh094wU7K?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
+          <div class="image">
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/3W2UcHhkiCg8VLaOdLAH7s?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>      
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-
-
-<!-- ======= About Section ======= -->
-<section id="about" class="about">
-  <div class="container">
-
-    <h3>Null Records Playlists - The Best LoFi Music to Study and Relax or be Productive </h3>
-    <div class="image">
-      <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/684lIQlsexvUQzh094wU7K?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-    </div>
-    <div class="image">
-      <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/3W2UcHhkiCg8VLaOdLAH7s?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>      
-    </div>
-
-  </div>
-</section>
-
   <!-- ======= About Section ======= -->
   <section id="about" class="about">
-    <div class="container">
-      <h2>New Release</h2>
-      <div class="image">
-        <a href="/news/new-release-from-my-evil-robot-army/" style="border: 0;">
-          <img class="section2__img" src="{% static 'img/MERA-Explorations.png' %}" alt="Null Records My Evil Robot Release" style="float:middle;">
-        </a>
+    <h3>New Releases</h3>
+    <div id="album" class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <h4>Space Jazz</h4>
+          <div class="image">
+            <a href="https://open.spotify.com/album/3EPQ9RzyXp2PaY5Lxm6v60" style="border: 0;">
+              <img id="album" src="{% static 'img/My Evil Robot Army-Space Jazz.png' %}" alt="Null Records My Evil Robot Release">
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <h4>Travel Beyond</h4>
+          <div class="image">
+            <a href="https://open.spotify.com/album/3ky8cniOH5jNCxarEGinKO" style="border: 0;">
+              <img id="album" src="{% static 'img/MERA-Travel Beyond.png' %}" alt="Null Records My Evil Robot Release">
+            </a>
+          </div>
+        </div>
       </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <h4>Explorations</h4>
+          <div class="image">
+            <a href="https://open.spotify.com/album/3ky8cniOH5jNCxarEGinKO" style="border: 0;">
+              <img class="album" src="{% static 'img/MERA-Explorations.png' %}" alt="Null Records My Evil Robot Release">
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <h4>Explorations in Blue</h4>
+          <div class="image">
+            <a href="https://open.spotify.com/album/3ky8cniOH5jNCxarEGinKO" style="border: 0;">
+              <img class="album" src="{% static 'img/MERA-Explorations in Blue -3000x3000 copy.png' %}" alt="Null Records My Evil Robot Release">
+            </a>
+          </div>
+        </div>
+      </div>  
     </div>
   </section>
 
 <!-- ======= Why Us Section ======= -->
 <section id="why-us" class="why-us">
   <div class="container">
-    <div class="video">
-      <iframe width="500" height="282"
-      src="https://www.youtube.com/embed?list=PL8aY_HOIei7xVCkeIe8O5IYK-fJvw75WG&index=4"
-        title="YouTube video player" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen></iframe>
-        <h3 class="nullrecords title">LoFi, chillhop, chill beats</h3>
-    </div>
-
-    <div class="video">
-      <iframe width="500" height="282"
-        src="https://www.youtube.com/embed/videoseries?list=PL8aY_HOIei7xVCkeIe8O5IYK-fJvw75WG"
-        title="YouTube video player" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen></iframe>
-        <h3 class="nullrecords title">My Evil Robot Army - Tone Poem lo-fi, jazz and chillbeat</h3>
-    </div>
-
-    <div class="video">
-      <iframe width="500" height="282"
-        src="https://www.youtube.com/embed?list=PL8aY_HOIei7xVCkeIe8O5IYK-fJvw75WG&index=3"
-        title="YouTube video player" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen></iframe>
-        <h3 class="nullrecords title">MERA low-fi tone poem from In My Nature.</h3>
-    </div>
-    </div>
-  </section>
-
-<!-- ======= Contact Section ======= -->
-<section id="contact" class="contact">
-  <div class="container">
-    <div class="contact" id="contact">
-      <h1>Contact us</h1>
-      <form action="mailto:info@nullrecords.com" method="get">
-        <div class="inputcontainer"><input class="inputxt" type="text" name="name" id="name" placeholder="Your name">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="video">
+          <iframe width="500" height="282"
+          src="https://www.youtube.com/embed?list=PL8aY_HOIei7xVCkeIe8O5IYK-fJvw75WG&index=4"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+            <h4 class="nullrecords title">LoFi, chillhop, chill beats</h4>
         </div>
 
-        <div class="inputcontainer"><input class="inputxt" type="text" name="subjet" id="subjet" placeholder="Subjet">
+        <div class="video">
+          <iframe width="500" height="282"
+            src="https://www.youtube.com/embed/videoseries?list=PL8aY_HOIei7xVCkeIe8O5IYK-fJvw75WG"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+            <h4 class="nullrecords title">My Evil Robot Army - Tone Poem lo-fi, jazz and chillbeat</h4>
         </div>
 
-        <div class="inputcontainer"><input class="inputxt" type="email" name="email" id="email"
-            placeholder="Email adress"></div>
-        <div class="textacontainer"><textarea class="textareaa" name="message" id="message" cols="30"
-            rows="10"></textarea></div>
-        <div><button class="button" type="submit">Send</button></div>
-      </form>
-    </div>
+        <div class="video">
+          <iframe width="500" height="282"
+            src="https://www.youtube.com/embed?list=PL8aY_HOIei7xVCkeIe8O5IYK-fJvw75WG&index=3"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+            <h4 class="nullrecords title">MERA low-fi tone poem from In My Nature.</h4>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="contact" id="contact">
+          <h3>Contact us</h3>
+          <form action="mailto:info@nullrecords.com" method="get">
+            <div class="inputcontainer"><input class="inputxt" type="text" name="name" id="name" placeholder="Your name">
+            </div>
+
+            <div class="inputcontainer"><input class="inputxt" type="text" name="subjet" id="subjet" placeholder="Subjet">
+            </div>
+
+            <div class="inputcontainer"><input class="inputxt" type="email" name="email" id="email"
+                placeholder="Email adress"></div>
+            <div class="textacontainer"><textarea class="textareaa" name="message" id="message" cols="30"
+                rows="10"></textarea></div>
+            <div><button class="button" type="submit">Send</button></div>
+          </form>
+        </div>
+      </div>
+     </div 
   </div>
 </section>
 

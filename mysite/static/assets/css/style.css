@@ -33,10 +33,23 @@ h6 {
   font-family: 'Press Start 2P', cursive;
 }
 
+#album .container {
+  width: 800px; /* adjust to container size as needed */
+  height: 800px; /* adjust to container size as needed */
+}
+
+#album img {
+  max-width: 95%;
+  max-height: 350px;
+  display: block;
+  image-rendering: pixelated;
+  border-color: #ff5758;
+  border-width: 3px;
+}
+
 img {
   image-rendering: pixelated;
 }
-
 
 /*--------------------------------------------------------------
 # Back to top button

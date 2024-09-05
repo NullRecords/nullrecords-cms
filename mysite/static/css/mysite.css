@@ -9,6 +9,12 @@ body {
   font-family: 'Press Start 2P', cursive;
 }
 
+.album img {
+    image-rendering: pixelated;
+    max-width: 200px;
+    border-color: #ff5758;
+    border-width: 3px;
+  }
 
 html {
     color: white;
