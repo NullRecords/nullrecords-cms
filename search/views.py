@@ -1,8 +1,7 @@
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.template.response import TemplateResponse
 
-from wagtail import Page
-from wagtail.search.models import Query
+from wagtail.models import Page
 
 
 def search(request):
