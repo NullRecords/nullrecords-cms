@@ -1,8 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 body {
-  font-family: "Open Sans", sans-serif;
-  color: #444444;
+  font-family: 'Press Start 2P', cursive;
+  color: #FFFFFF;
+  background-color: #222222;
 }
+
+.btn {
+  background-color: #0f0;
+  border: 2px solid #000;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
 
 a {
   color: #cc1616;
@@ -20,8 +30,13 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Raleway", sans-serif;
+  font-family: 'Press Start 2P', cursive;
 }
+
+img {
+  image-rendering: pixelated;
+}
+
 
 /*--------------------------------------------------------------
 # Back to top button
@@ -675,7 +690,7 @@ section {
   font-size: 14px;
   line-height: 24px;
   margin-bottom: 0;
-  font-family: "Raleway", sans-serif;
+  font-family: 'Press Start 2P', cursive;
 }
 
 #footer .footer-top .social-links a {

@@ -3,6 +3,13 @@
     --grey: #101314;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+  font-family: 'Press Start 2P', cursive;
+}
+
+
 html {
     color: white;
     box-sizing: border-box;
@@ -11,7 +18,7 @@ html {
     background-size: 100% 100%;
     background-attachment: fixed;
     background-color: rgb(221, 217, 217);
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Press Start 2P', cursive;
 }
 
 *{
