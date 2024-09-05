@@ -1,6 +1,6 @@
 from django.db import models
 
-from wagtail.core.models import Page
+from wagtail import Page
 
 from django.db import models
 from datetime import timedelta
