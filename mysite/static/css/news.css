@@ -7,7 +7,7 @@
     position: relative;
     border-bottom: 0;
     padding: 10px 20px 20px 20px;
-    background: #ebd0d4;
+    background: #ecedf5;
     margin-bottom: 20px;
 }
 
@@ -25,8 +25,15 @@ ul.links li a {
 
 ul.sidebar {
     border-top: 2px solid var(--main-color);
-    background-color: #69926f;
+    background-color: #919ed7;
     padding: 20px;
     margin-bottom: 50px;
     list-style: none;
+}
+
+.blog_grid .article .social-share li.social-item i {
+    color: #4a0c0c;
+    text-align: center;
+    width: 100%;
+    margin-top: 6px;
 }
