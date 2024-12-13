@@ -2,6 +2,7 @@
   "dependencies": {
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
-    "boxicons": "^2.1.4"
+    "boxicons": "^2.1.4",
+    "swiper": "^11.1.15"
   }
 }
