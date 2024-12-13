@@ -8,3 +8,4 @@ djangorestframework==3.14.0
 sendgrid
 django-cors-headers
 django-import-export
+django-bootstrap-v5

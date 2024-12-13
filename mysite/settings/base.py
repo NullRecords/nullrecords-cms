@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'django_social_share',
     'puput',
     'colorful',
+    'bootstrap5',
 ]
 
 MIDDLEWARE = [
