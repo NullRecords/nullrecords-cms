@@ -469,8 +469,8 @@ img {
 
 /* space divs */
 .div-space {
-  background: radial-gradient(circle, #2a2a2a 20%, #000 80%); /* Gradient radiating from center */
-  background-size: 40px 40px; /* Makes gradient pixelated */
+  background: radial-gradient(circle, #646262 30%, #000 70%); /* Gradient radiating from center */
+  background-size: 15px 15px; /* Makes gradient pixelated */
   image-rendering: pixelated; /* Forces pixelation effect */
   position: relative;
   overflow: hidden;
