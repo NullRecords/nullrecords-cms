@@ -467,6 +467,39 @@ img {
   content: "/";
 }
 
+/* space divs */
+.div-space {
+  background-color: black; /* Space background */
+  position: relative;
+  overflow: hidden;
+  height: 500px; /* Adjust height as needed */
+}
+
+.star {
+  width: 8px; /* Pixel star size */
+  height: 8px;
+  background-color: white;
+  position: absolute;
+  box-shadow: 
+    50px 80px white, 
+    100px 200px white, 
+    300px 400px white, 
+    600px 800px white; 
+  /* Add more shadows for scattered stars */
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.star {
+  animation: twinkle 2s infinite;
+}
 
 /*--------------------------------------------------------------
 # Hero Section
