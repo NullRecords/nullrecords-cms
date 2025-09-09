@@ -1,0 +1,34 @@
+# GitHub Pages Configuration for NullRecords
+title: "NullRecords"
+description: "The Intersection of Music, Art and Technology"
+url: "https://nullrecords.github.io"
+baseurl: "/nullrecords-cms"
+
+# Theme
+theme: minima
+
+# Exclude files from processing
+exclude:
+  - README.md
+  - .gitignore
+
+# Include static assets
+include:
+  - static/
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Social links
+github_username: NullRecords
+twitter_username: nullrecords1
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+# Site settings
+author: NullRecords
+email: info@nullrecords.com
