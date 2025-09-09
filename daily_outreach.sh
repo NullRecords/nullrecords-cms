@@ -26,7 +26,15 @@ fi
 
 # Run daily outreach
 echo "🚀 Starting daily outreach..." | tee -a "$LOG_FILE"
-python3 music_outreach.py --daily >> "$LOG_FILE" 2>&1
+
+# Check if running interactively (terminal attached)
+if [ -t 0 ]; then
+    echo "🎯 Interactive mode - you'll review emails before sending"
+    python3 music_outreach.py --interactive --notify "greg@nullrecords.com" | tee -a "$LOG_FILE"
+else
+    echo "🤖 Automated mode - sending pre-approved emails"
+    python3 music_outreach.py --daily --notify "greg@nullrecords.com" >> "$LOG_FILE" 2>&1
+fi
 
 EXIT_CODE=$?
 

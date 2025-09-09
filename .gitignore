@@ -7,6 +7,7 @@ outreach_data.json
 outreach_sources.json
 outreach_contacts_export.json
 outreach_schedule.json
+outreach_config.json
 daily_outreach_log.json
 outreach.log
 daily_outreach_*.log

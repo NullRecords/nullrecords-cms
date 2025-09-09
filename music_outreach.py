@@ -861,39 +861,53 @@ About NullRecords: Founded in 2020, NullRecords is an independent music collecti
         return successful_outreach
     
     def send_email(self, to_email: str, subject: str, body: str) -> bool:
-        """Send email (placeholder - requires SMTP configuration)"""
+        """Send email via Brevo SMTP"""
         if not EMAIL_AVAILABLE:
-            logging.warning("Email libraries not available - using placeholder mode")
-            
-        logging.info(f"📧 [PLACEHOLDER] Would send email to {to_email}")
-        logging.info(f"Subject: {subject}")
-        logging.info("Configure SMTP settings in send_email method to enable actual sending")
-        return True  # Placeholder success
-        
-        # Uncomment and configure for actual email sending:
-        """
-        if not EMAIL_AVAILABLE:
-            logging.error("Email libraries not installed")
+            logging.error("Email libraries not installed - install email packages")
             return False
             
         try:
             msg = MimeMultipart()
-            msg['From'] = "team@nullrecords.com"  # Configure your email
+            msg['From'] = "team@nullrecords.com"
             msg['To'] = to_email
             msg['Subject'] = subject
             msg.attach(MimeText(body, 'plain'))
             
-            # Configure your SMTP server
-            server = smtplib.SMTP('smtp.gmail.com', 587)  # Example
+            # Brevo SMTP Configuration
+            server = smtplib.SMTP('smtp-relay.brevo.com', 587)
             server.starttls()
-            server.login("your_email@gmail.com", "your_app_password")
+            server.login("96af72001@smtp-brevo.com", "F9BCg30JqkyZmVWw")
             server.sendmail("team@nullrecords.com", to_email, msg.as_string())
             server.quit()
+            
+            logging.info(f"✅ Email sent successfully to {to_email}")
             return True
+            
         except Exception as e:
-            logging.error(f"Email sending failed: {e}")
+            logging.error(f"❌ Email sending failed to {to_email}: {e}")
             return False
-        """
+    
+    def send_notification_email(self, recipient: str, subject: str, body: str) -> bool:
+        """Send notification email (for daily summaries, etc.)"""
+        try:
+            msg = MimeMultipart()
+            msg['From'] = "team@nullrecords.com"
+            msg['To'] = recipient
+            msg['Subject'] = f"[NullRecords Outreach] {subject}"
+            msg.attach(MimeText(body, 'plain'))
+            
+            server = smtplib.SMTP('smtp-relay.brevo.com', 587)
+            server.starttls()
+            server.login("96af72001@smtp-brevo.com", "F9BCg30JqkyZmVWw")
+            server.sendmail("team@nullrecords.com", recipient, msg.as_string())
+            server.quit()
+            
+            logging.info(f"📱 Notification sent to {recipient}")
+            return True
+            
+        except Exception as e:
+            logging.error(f"❌ Notification failed: {e}")
+            return False
     
     def generate_report(self):
         """Generate outreach status report"""
@@ -978,7 +992,147 @@ STATUS BREAKDOWN:
         logging.info("Daily schedule configuration created")
         return schedule_config
     
-    def run_daily_outreach(self, dry_run=False):
+    def interactive_preview_and_send(self, contacts_to_send, notification_recipient=None):
+        """Interactive CLI preview and approval system"""
+        if not contacts_to_send:
+            print("📭 No contacts ready for outreach today.")
+            return 0
+        
+        print(f"\n🎵 NullRecords Daily Outreach Preview")
+        print(f"=" * 50)
+        print(f"📅 Date: {datetime.now().strftime('%Y-%m-%d %H:%M')}")
+        print(f"📊 Contacts Ready: {len(contacts_to_send)}")
+        print(f"=" * 50)
+        
+        approved_contacts = []
+        
+        for i, (contact, subject, body) in enumerate(contacts_to_send, 1):
+            print(f"\n📧 Email Preview {i}/{len(contacts_to_send)}")
+            print(f"─" * 40)
+            print(f"👤 To: {contact.name} ({contact.type})")
+            print(f"📧 Email: {contact.email or 'Contact Form'}")
+            print(f"🎯 Confidence: {contact.confidence_score:.2f}")
+            print(f"🔄 Attempt: #{contact.outreach_count + 1}")
+            print(f"🌐 Website: {contact.website or 'N/A'}")
+            print(f"📝 Subject: {subject}")
+            print(f"─" * 40)
+            print("📄 Message Preview:")
+            print(body[:300] + "..." if len(body) > 300 else body)
+            print(f"─" * 40)
+            
+            while True:
+                choice = input(f"\n[s]end, [skip], [edit subject], [view full], [quit]: ").lower().strip()
+                
+                if choice in ['s', 'send']:
+                    approved_contacts.append((contact, subject, body))
+                    print(f"✅ Approved for sending")
+                    break
+                elif choice in ['skip', 'n', 'no']:
+                    print(f"⏭️  Skipped")
+                    break
+                elif choice in ['e', 'edit', 'edit subject']:
+                    new_subject = input(f"📝 Enter new subject: ").strip()
+                    if new_subject:
+                        subject = new_subject
+                        print(f"✏️  Subject updated: {subject}")
+                elif choice in ['v', 'view', 'view full', 'full']:
+                    print(f"\n📄 Full Message:")
+                    print("─" * 60)
+                    print(body)
+                    print("─" * 60)
+                elif choice in ['q', 'quit', 'exit']:
+                    print("🛑 Outreach cancelled by user")
+                    return 0
+                else:
+                    print("❓ Please choose: [s]end, [skip], [edit subject], [view full], [quit]")
+        
+        if not approved_contacts:
+            print("\n📭 No emails approved for sending.")
+            return 0
+        
+        # Final confirmation
+        print(f"\n🚀 Ready to Send Summary")
+        print(f"=" * 40)
+        print(f"📧 Approved Emails: {len(approved_contacts)}")
+        for contact, subject, body in approved_contacts:
+            print(f"  • {contact.name} ({contact.type})")
+        print(f"=" * 40)
+        
+        final_confirm = input(f"\n🎯 Send {len(approved_contacts)} emails? [y/N]: ").lower().strip()
+        
+        if final_confirm not in ['y', 'yes']:
+            print("🛑 Sending cancelled")
+            return 0
+        
+        # Send approved emails
+        successful_sends = 0
+        print(f"\n📤 Sending emails...")
+        
+        for contact, subject, body in approved_contacts:
+            print(f"📧 Sending to {contact.name}...", end=" ")
+            
+            if contact.email:
+                success = self.send_email(contact.email, subject, body)
+            else:
+                success = False
+                print("❌ No email address")
+                continue
+            
+            if success:
+                contact.outreach_count += 1
+                contact.last_outreach = datetime.now().isoformat()
+                if contact.outreach_count == 1:
+                    contact.status = "contacted"
+                    contact.contacted_date = datetime.now().isoformat()
+                successful_sends += 1
+                print("✅")
+            else:
+                print("❌")
+            
+            # Rate limiting
+            time.sleep(random.uniform(1, 3))
+        
+        self.save_contacts()
+        
+        # Send notification if requested
+        if notification_recipient and successful_sends > 0:
+            self.send_daily_notification(notification_recipient, successful_sends, len(approved_contacts))
+        
+        print(f"\n🎉 Outreach Complete!")
+        print(f"✅ Successfully sent: {successful_sends}")
+        print(f"❌ Failed: {len(approved_contacts) - successful_sends}")
+        
+        return successful_sends
+    
+    def send_daily_notification(self, recipient: str, sent_count: int, approved_count: int):
+        """Send daily summary notification"""
+        subject = f"Daily Outreach Summary - {sent_count} emails sent"
+        
+        body = f"""
+🎵 NullRecords Daily Outreach Summary
+Date: {datetime.now().strftime('%Y-%m-%d %H:%M')}
+
+📊 RESULTS:
+✅ Emails Successfully Sent: {sent_count}
+📝 Emails Approved: {approved_count}
+❌ Failed Sends: {approved_count - sent_count}
+
+📈 CAMPAIGN STATS:
+{self.generate_report()}
+
+🔗 Next Steps:
+- Monitor responses in your email
+- Update contact status when responses received
+- Review tomorrow's outreach queue
+
+---
+NullRecords Outreach Automation
+https://nullrecords.com
+"""
+        
+        return self.send_notification_email(recipient, subject, body)
+    
+    def run_daily_outreach(self, dry_run=False, interactive=True, notification_recipient=None):
         """Run the daily automated outreach process"""
         logging.info("🚀 Starting daily automated outreach...")
         
@@ -993,32 +1147,74 @@ STATUS BREAKDOWN:
             logging.info("Daily outreach is disabled in schedule config")
             return
         
-        # Run targeted outreach based on distribution
-        total_sent = 0
+        # Discover new sources first
+        if schedule["daily_outreach"]["discovery_enabled"]:
+            try:
+                new_contacts = self.discover_new_sources(max_new_sources=5)
+                for contact in new_contacts:
+                    if contact.confidence_score >= 0.6:
+                        self.contacts.append(contact)
+                        logging.info(f"Added new contact: {contact.name} (confidence: {contact.confidence_score:.2f})")
+                
+                if new_contacts:
+                    self.save_contacts()
+            except Exception as e:
+                logging.error(f"Source discovery failed: {e}")
+        
+        # Prepare outreach emails
         target_dist = schedule["daily_outreach"]["target_distribution"]
         max_daily = schedule["daily_outreach"]["max_contacts_per_day"]
+        
+        all_prepared_emails = []
         
         for contact_type, percentage in target_dist.items():
             type_limit = int(max_daily * percentage)
             if type_limit > 0:
-                sent = self.send_outreach_emails(
-                    target_types=[contact_type],
-                    dry_run=dry_run,
-                    limit=type_limit,
-                    discover_new=(contact_type == 'publication')  # Only discover for publications
-                )
-                total_sent += sent
+                eligible_contacts = self.get_eligible_contacts([contact_type])
+                # Sort by priority and limit
+                eligible_contacts.sort(key=lambda c: (c.outreach_count, -c.confidence_score))
+                type_contacts = eligible_contacts[:type_limit]
                 
-                # Small delay between contact types
-                if not dry_run:
-                    time.sleep(random.uniform(5, 10))
+                for contact in type_contacts:
+                    if contact.email or contact.contact_form_url:
+                        subject, body = self.generate_press_kit_email(contact)
+                        all_prepared_emails.append((contact, subject, body))
+        
+        if dry_run:
+            print(f"🧪 DRY RUN MODE - No emails will be sent")
+            print(f"📊 Would prepare {len(all_prepared_emails)} emails for review")
+            return 0
+        
+        # Interactive mode or automated sending
+        if interactive:
+            total_sent = self.interactive_preview_and_send(all_prepared_emails, notification_recipient)
+        else:
+            # Automated sending (for cron jobs with pre-approval)
+            total_sent = 0
+            for contact, subject, body in all_prepared_emails:
+                if contact.email:
+                    success = self.send_email(contact.email, subject, body)
+                    if success:
+                        contact.outreach_count += 1
+                        contact.last_outreach = datetime.now().isoformat()
+                        if contact.outreach_count == 1:
+                            contact.status = "contacted"
+                            contact.contacted_date = datetime.now().isoformat()
+                        total_sent += 1
+                    time.sleep(random.uniform(2, 5))
+            
+            self.save_contacts()
+            
+            if notification_recipient:
+                self.send_daily_notification(notification_recipient, total_sent, len(all_prepared_emails))
         
         # Log daily summary
         daily_summary = {
             "date": datetime.now().isoformat(),
             "contacts_reached": total_sent,
             "discovery_run": schedule["daily_outreach"]["discovery_enabled"],
-            "target_distribution": target_dist
+            "target_distribution": target_dist,
+            "interactive_mode": interactive
         }
         
         # Save daily log
@@ -1052,6 +1248,8 @@ def main():
     parser.add_argument('--export', action='store_true', help='Export contact list')
     parser.add_argument('--init', action='store_true', help='Initialize contact database')
     parser.add_argument('--daily', action='store_true', help='Run daily automated outreach')
+    parser.add_argument('--interactive', action='store_true', help='Run daily outreach with interactive preview/approval')
+    parser.add_argument('--notify', type=str, help='Email address to send daily notifications')
     parser.add_argument('--discover', action='store_true', help='Discover new sources only')
     parser.add_argument('--schedule', action='store_true', help='Create daily schedule configuration')
     
@@ -1089,8 +1287,13 @@ def main():
         print(f"✅ Discovered {len(new_contacts)} new contacts")
         return
     
-    if args.daily:
-        outreach.run_daily_outreach(dry_run=args.dry_run)
+    if args.daily or args.interactive:
+        interactive_mode = args.interactive or not args.daily  # Default to interactive if not explicitly daily
+        outreach.run_daily_outreach(
+            dry_run=args.dry_run, 
+            interactive=interactive_mode,
+            notification_recipient=args.notify
+        )
         print("\n" + outreach.generate_report())
         return
     
