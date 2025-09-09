@@ -1,10 +1,123 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UT    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Structured Data for Artists -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "NullRecords Artists",
+        "description": "Independent artists creating innovative LoFi jazz fusion, electronic music and multimedia art",
+        "url": "https://nullrecords.com/artists.html",
+        "mainEntity": [
+            {
+                "@type": "MusicGroup",
+                "name": "My Evil Robot Army",
+                "alternateName": "MERA",
+                "description": "Experimental electronic soundscapes blending jazz fusion with lo-fi aesthetics, exploring the relationship between human creativity and artificial intelligence",
+                "genre": ["Electronic Jazz", "LoFi", "Experimental", "Ambient", "Jazz Fusion"],
+                "foundingDate": "2020",
+                "url": "https://nullrecords.com/artists.html#my-evil-robot-army",
+                "image": "https://nullrecords.com/static/img/evilrobot.jpg",
+                "recordLabel": {
+                    "@type": "MusicLabel",
+                    "name": "NullRecords"
+                },
+                "album": [
+                    {
+                        "@type": "MusicAlbum",
+                        "name": "Evil Robot",
+                        "genre": "Electronic Jazz",
+                        "description": "Debut album exploring AI consciousness through experimental jazz fusion"
+                    },
+                    {
+                        "@type": "MusicAlbum", 
+                        "name": "Little Sam",
+                        "genre": "LoFi Jazz",
+                        "description": "Intimate lo-fi compositions blending organic and synthetic elements"
+                    }
+                ],
+                "sameAs": [
+                    "https://open.spotify.com/artist/myevilrobotarmy",
+                    "https://soundcloud.com/myevilrobotarmy"
+                ]
+            },
+            {
+                "@type": "Person",
+                "name": "MERA",
+                "description": "Solo artist and producer creating ambient lo-fi compositions that explore the intersection of nature, technology, and human emotion",
+                "genre": ["Ambient", "LoFi", "Instrumental", "Electronic"],
+                "url": "https://nullrecords.com/artists.html#mera",
+                "image": "https://nullrecords.com/static/assets/img/logo.png",
+                "memberOf": {
+                    "@type": "MusicGroup",
+                    "name": "NullRecords"
+                },
+                "sameAs": [
+                    "https://open.spotify.com/artist/mera",
+                    "https://soundcloud.com/mera-music"
+                ]
+            }
+        ],
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "NullRecords",
+            "url": "https://nullrecords.com"
+        }
+    }
+    </script>8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artists - NullRecords</title>
-    <meta name="description" content="Meet the artists of NullRecords - independent musicians creating the intersection of music, art and technology.">
+    <title>Artists - NullRecords | LoFi Jazz Fusion & Electronic Music</title>
+    <meta name="description" content="Discover the innovative artists behind NullRecords - My Evil Robot Army and MERA creating experimental LoFi jazz fusion, electronic instrumentals, and multimedia art collaborations.">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="keywords" content="NullRecords artists, My Evil Robot Army, MERA, LoFi jazz fusion, electronic jazz, instrumental music, experimental music, multimedia art, AI music, visual collaborations">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://nullrecords.com/artists.html">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Artists - NullRecords | LoFi Jazz Fusion & Electronic Music">
+    <meta property="og:description" content="Discover the innovative artists behind NullRecords - My Evil Robot Army and MERA creating experimental LoFi jazz fusion and multimedia art.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nullrecords.com/artists.html">
+    <meta property="og:image" content="https://nullrecords.com/static/assets/img/logo.png">
+    <meta property="og:site_name" content="NullRecords">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Artists - NullRecords | LoFi Jazz Fusion & Electronic Music">
+    <meta name="twitter:description" content="Discover the innovative artists behind NullRecords creating experimental LoFi jazz fusion and multimedia art.">
+    <meta name="twitter:image" content="https://nullrecords.com/static/assets/img/logo.png">
+    <meta name="twitter:site" content="@nullrecords1">
+    
+    <!-- Music & Performance Schema -->
+    <meta name="music:album" content="https://nullrecords.com/artists.html">
+    <meta name="music:musician" content="My Evil Robot Army, MERA">
+    
+    <!-- Additional SEO -->
+    <meta name="author" content="NullRecords">
+    <meta name="publisher" content="NullRecords">
+    <meta name="copyright" content="© 2024 NullRecords">
+    <meta name="language" content="English">
+    <meta name="distribution" content="global">
+    <meta name="rating" content="general">
+    
+    <!-- Performance & Preconnects -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://open.spotify.com">
+    <link rel="preconnect" href="https://www.youtube.com">
+    <link rel="preconnect" href="https://soundcloud.com">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" href="/static/assets/img/favicon.png">
+    <link rel="apple-touch-icon" href="/static/assets/img/apple-touch-icon.png">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -167,7 +280,7 @@
                             <div class="grid grid-cols-2 gap-4">
                                 <div class="group cursor-pointer">
                                     <div class="aspect-square rounded overflow-hidden border-2 border-cyber-red/30 group-hover:border-cyber-red transition-colors">
-                                        <img src="static/img/My Evil Robot Army-Space Jazz.png" 
+                                        <img src="/static/img/My Evil Robot Army-Space Jazz.png" 
                                              alt="Space Jazz" 
                                              class="w-full h-full object-cover group-hover:scale-105 transition-transform">
                                     </div>
@@ -175,7 +288,7 @@
                                 </div>
                                 <div class="group cursor-pointer">
                                     <div class="aspect-square rounded overflow-hidden border-2 border-cyber-red/30 group-hover:border-cyber-red transition-colors">
-                                        <img src="static/img/MERA-Travel Beyond.png" 
+                                        <img src="/static/img/MERA-Travel Beyond.png" 
                                              alt="Travel Beyond" 
                                              class="w-full h-full object-cover group-hover:scale-105 transition-transform">
                                     </div>
@@ -194,7 +307,7 @@
                             <div class="grid grid-cols-2 gap-4 mb-4">
                                 <div class="group cursor-pointer">
                                     <div class="aspect-square rounded overflow-hidden border-2 border-cyber-red/30 group-hover:border-cyber-red transition-colors">
-                                        <img src="static/img/MERA-Explorations.png" 
+                                        <img src="/static/img/MERA-Explorations.png" 
                                              alt="Explorations" 
                                              class="w-full h-full object-cover group-hover:scale-105 transition-transform">
                                     </div>
@@ -202,7 +315,7 @@
                                 </div>
                                 <div class="group cursor-pointer">
                                     <div class="aspect-square rounded overflow-hidden border-2 border-cyber-red/30 group-hover:border-cyber-red transition-colors">
-                                        <img src="static/img/MERA-Explorations in Blue -3000x3000 copy.png" 
+                                        <img src="/static/img/MERA-Explorations in Blue -3000x3000 copy.png" 
                                              alt="Explorations in Blue" 
                                              class="w-full h-full object-cover group-hover:scale-105 transition-transform">
                                     </div>

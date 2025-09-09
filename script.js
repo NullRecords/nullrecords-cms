@@ -147,16 +147,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent default form submission
+            
             const name = document.getElementById('name').value;
             const subject = document.getElementById('subject').value;
             const email = document.getElementById('email').value;
             const message = document.getElementById('message').value;
 
-            // Update the mailto link with form data
+            // Create the mailto link with form data
             const mailtoLink = `mailto:info@nullrecords.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
             
-            // Update form action
-            contactForm.action = mailtoLink;
+            // Open the email client
+            window.location.href = mailtoLink;
         });
     }
 
