@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NullRecords - The Intersection of Music, Art and Technology</title>
+    <meta name="description" content="NullRecords helps independent artists connect with fans and sponsors like never before. The collective power of a label organized as a collective of visual and musical artists.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cyber-red': '#ff5758',
+                        'cyber-blue': '#00ffff',
+                        'cyber-pink': '#ff00ff',
+                        'cyber-green': '#00ff41',
+                        'dark-bg': '#0a0a0a',
+                        'dark-card': '#1a1a1a',
+                        'dark-border': '#333333'
+                    },
+                    fontFamily: {
+                        'pixel': ['"Press Start 2P"', 'cursive'],
+                        'mono': ['JetBrains Mono', 'Consolas', 'Monaco', 'monospace']
+                    },
+                    animation: {
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'matrix': 'matrix 20s linear infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                        'scan': 'scan 2s linear infinite'
+                    },
+                    keyframes: {
+                        glow: {
+                            '0%': { boxShadow: '0 0 5px #ff5758, 0 0 10px #ff5758, 0 0 15px #ff5758' },
+                            '100%': { boxShadow: '0 0 10px #ff5758, 0 0 20px #ff5758, 0 0 30px #ff5758' }
+                        },
+                        matrix: {
+                            '0%': { transform: 'translateY(-100%)' },
+                            '100%': { transform: 'translateY(100vh)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        },
+                        scan: {
+                            '0%': { transform: 'translateX(-100%)' },
+                            '100%': { transform: 'translateX(100vw)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <style>
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.03;
+        }
+        
+        .glitch {
+            position: relative;
+        }
+        
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .glitch::before {
+            animation: glitch-1 0.5s infinite;
+            color: #ff00ff;
+            z-index: -1;
+        }
+        
+        .glitch::after {
+            animation: glitch-2 0.5s infinite;
+            color: #00ffff;
+            z-index: -2;
+        }
+        
+        @keyframes glitch-1 {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+        
+        @keyframes glitch-2 {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(2px, 2px); }
+            40% { transform: translate(2px, -2px); }
+            60% { transform: translate(-2px, 2px); }
+            80% { transform: translate(-2px, -2px); }
+        }
+        
+        .retro-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            border: 2px solid #ff5758;
+            box-shadow: 0 0 20px rgba(255, 87, 88, 0.3);
+        }
+        
+        .neon-text {
+            text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+        }
+    </style>
+</head>
+
+<body class="bg-dark-bg text-white font-mono overflow-x-hidden">
+    <!-- Matrix Rain Background -->
+    <div class="matrix-bg">
+        <canvas id="matrix-rain" class="w-full h-full"></canvas>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-dark-bg/90 backdrop-blur-sm border-b border-cyber-red/30">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center space-x-4">
+                    <img src="static/assets/img/logo.png" alt="NullRecords Logo" class="h-10 w-auto animate-float">
+                    <span class="font-pixel text-cyber-red text-sm hidden md:block">NULLRECORDS</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300 text-sm font-pixel">HOME</a>
+                    <a href="#news" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300 text-sm font-pixel">NEWS</a>
+                    <a href="#artists" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300 text-sm font-pixel">ARTISTS</a>
+                    <a href="#releases" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300 text-sm font-pixel">RELEASES</a>
+                    <a href="#contact" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300 text-sm font-pixel">CONTACT</a>
+                </div>
+
+                <!-- Social Links -->
+                <div class="hidden lg:flex items-center space-x-4">
+                    <a href="https://www.twitter.com/nullrecords1" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/nullrecords.1" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.987 11.987s11.987-5.367 11.987-11.987C24.014 5.367 18.648.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.596-3.197-1.531-.284-.355-.284-.355-.568-.71C3.437 13.293 3.437 11.049 4.684 9.595c.748-.935 1.9-1.531 3.197-1.531s2.448.596 3.197 1.531c1.247 1.454 1.247 3.698 0 5.152-.748.935-1.9 1.531-3.197 1.531zm7.552-2.27c-.748.935-1.9 1.531-3.197 1.531s-2.448-.596-3.197-1.531c-1.247-1.454-1.247-3.698 0-5.152.748-.935 1.9-1.531 3.197-1.531s2.448.596 3.197 1.531c1.247 1.454 1.247 3.698 0 5.152z"/></svg>
+                    </a>
+                    <a href="https://www.youtube.com/nullrecords" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-cyber-blue hover:text-cyber-red">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <div class="flex flex-col space-y-4">
+                    <a href="#home" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300 text-sm font-pixel">HOME</a>
+                    <a href="#news" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300 text-sm font-pixel">NEWS</a>
+                    <a href="#artists" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300 text-sm font-pixel">ARTISTS</a>
+                    <a href="#releases" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300 text-sm font-pixel">RELEASES</a>
+                    <a href="#contact" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300 text-sm font-pixel">CONTACT</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center pt-16 px-4 relative overflow-hidden">
+        <!-- Scanning Line Effect -->
+        <div class="absolute top-0 left-0 w-1 h-full bg-cyber-red opacity-30 animate-scan"></div>
+        
+        <div class="container mx-auto text-center z-10">
+            <div class="flex flex-col lg:flex-row items-center justify-center gap-12">
+                <!-- Logo/Image -->
+                <div class="flex-shrink-0">
+                    <img src="static/img/littlesam.png" alt="Null Records Rocket Logo" 
+                         class="w-64 h-64 lg:w-80 lg:h-80 object-contain animate-float retro-card p-8 rounded-lg">
+                </div>
+                
+                <!-- Hero Text -->
+                <div class="max-w-2xl">
+                    <h1 class="font-pixel text-2xl md:text-4xl lg:text-5xl text-cyber-red mb-6 glitch neon-text" data-text="NULLRECORDS">
+                        NULLRECORDS
+                    </h1>
+                    <h2 class="font-pixel text-sm md:text-lg text-cyber-blue mb-8 neon-text">
+                        THE INTERSECTION OF MUSIC, ART AND TECHNOLOGY
+                    </h2>
+                    <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-8">
+                        NullRecords helps independent artists connect with fans and sponsors like never before. 
+                        The collective power of a label organized as a collective of visual and musical artists 
+                        managing their own channels and their own destiny.
+                    </p>
+                    
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="#releases" class="px-8 py-3 bg-cyber-red text-dark-bg font-pixel text-sm hover:bg-cyber-red/80 
+                                   transition-all duration-300 animate-glow rounded border-2 border-cyber-red">
+                            EXPLORE MUSIC
+                        </a>
+                        <a href="#artists" class="px-8 py-3 border-2 border-cyber-blue text-cyber-blue font-pixel text-sm 
+                                   hover:bg-cyber-blue hover:text-dark-bg transition-all duration-300 rounded">
+                            MEET ARTISTS
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section id="news" class="py-20 px-4 bg-dark-card/30">
+        <div class="container mx-auto">
+            <h2 class="font-pixel text-2xl md:text-3xl text-cyber-red text-center mb-12 neon-text">
+                LATEST_NEWS.EXE
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- News Articles -->
+                <div class="retro-card p-6 rounded-lg">
+                    <h3 class="font-pixel text-cyber-blue text-lg mb-4">SYSTEM_UPDATE.LOG</h3>
+                    <div class="space-y-4">
+                        <article class="border-b border-dark-border pb-4">
+                            <h4 class="text-cyber-green text-sm mb-2">New Release: Space Jazz EP</h4>
+                            <p class="text-gray-400 text-xs mb-2">My Evil Robot Army drops their latest experimental electronic jazz fusion</p>
+                            <span class="text-xs text-cyber-red">2025.09.01</span>
+                        </article>
+                        <article class="border-b border-dark-border pb-4">
+                            <h4 class="text-cyber-green text-sm mb-2">Artist Spotlight: MERA</h4>
+                            <p class="text-gray-400 text-xs mb-2">Exploring the intersection of lo-fi and ambient soundscapes</p>
+                            <span class="text-xs text-cyber-red">2025.08.28</span>
+                        </article>
+                        <article class="pb-4">
+                            <h4 class="text-cyber-green text-sm mb-2">Label Collective Expansion</h4>
+                            <p class="text-gray-400 text-xs mb-2">Welcoming new independent artists to the NullRecords family</p>
+                            <span class="text-xs text-cyber-red">2025.08.15</span>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- Spotify Playlist -->
+                <div class="retro-card p-6 rounded-lg">
+                    <h3 class="font-pixel text-cyber-blue text-lg mb-4">AUDIO_STREAM.PLY</h3>
+                    <p class="text-gray-400 text-sm mb-4">The Best LoFi Music to Study and Relax or be Productive</p>
+                    <div class="aspect-square rounded overflow-hidden">
+                        <iframe 
+                            src="https://open.spotify.com/embed/playlist/684lIQlsexvUQzh094wU7K?utm_source=generator" 
+                            width="100%" 
+                            height="100%" 
+                            frameBorder="0" 
+                            allowfullscreen="" 
+                            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                            loading="lazy"
+                            class="rounded">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Releases Section -->
+    <section id="releases" class="py-20 px-4">
+        <div class="container mx-auto">
+            <h2 class="font-pixel text-2xl md:text-3xl text-cyber-red text-center mb-12 neon-text">
+                NEW_RELEASES.DAT
+            </h2>
+            
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Space Jazz -->
+                <div class="group cursor-pointer">
+                    <div class="retro-card p-4 rounded-lg transform hover:scale-105 transition-transform duration-300">
+                        <div class="aspect-square mb-4 rounded overflow-hidden border-2 border-cyber-red/50 group-hover:border-cyber-red transition-colors">
+                            <img src="static/img/My Evil Robot Army-Space Jazz.png" 
+                                 alt="Space Jazz Album" 
+                                 class="w-full h-full object-cover image-rendering-pixelated group-hover:animate-pulse">
+                        </div>
+                        <h3 class="font-pixel text-cyber-blue text-sm mb-2">SPACE_JAZZ.MP3</h3>
+                        <p class="text-gray-400 text-xs mb-3">My Evil Robot Army</p>
+                        <a href="https://open.spotify.com/album/3EPQ9RzyXp2PaY5Lxm6v60" 
+                           class="inline-block px-4 py-2 bg-cyber-green text-dark-bg text-xs font-pixel rounded hover:bg-cyber-green/80 transition-colors">
+                            PLAY_NOW
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Travel Beyond -->
+                <div class="group cursor-pointer">
+                    <div class="retro-card p-4 rounded-lg transform hover:scale-105 transition-transform duration-300">
+                        <div class="aspect-square mb-4 rounded overflow-hidden border-2 border-cyber-red/50 group-hover:border-cyber-red transition-colors">
+                            <img src="static/img/MERA-Travel Beyond.png" 
+                                 alt="Travel Beyond Album" 
+                                 class="w-full h-full object-cover image-rendering-pixelated group-hover:animate-pulse">
+                        </div>
+                        <h3 class="font-pixel text-cyber-blue text-sm mb-2">TRAVEL_BEYOND.MP3</h3>
+                        <p class="text-gray-400 text-xs mb-3">MERA</p>
+                        <a href="https://open.spotify.com/album/3ky8cniOH5jNCxarEGinKO" 
+                           class="inline-block px-4 py-2 bg-cyber-green text-dark-bg text-xs font-pixel rounded hover:bg-cyber-green/80 transition-colors">
+                            PLAY_NOW
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Explorations -->
+                <div class="group cursor-pointer">
+                    <div class="retro-card p-4 rounded-lg transform hover:scale-105 transition-transform duration-300">
+                        <div class="aspect-square mb-4 rounded overflow-hidden border-2 border-cyber-red/50 group-hover:border-cyber-red transition-colors">
+                            <img src="static/img/MERA-Explorations.png" 
+                                 alt="Explorations Album" 
+                                 class="w-full h-full object-cover image-rendering-pixelated group-hover:animate-pulse">
+                        </div>
+                        <h3 class="font-pixel text-cyber-blue text-sm mb-2">EXPLORATIONS.MP3</h3>
+                        <p class="text-gray-400 text-xs mb-3">MERA</p>
+                        <a href="https://open.spotify.com/album/3ky8cniOH5jNCxarEGinKO" 
+                           class="inline-block px-4 py-2 bg-cyber-green text-dark-bg text-xs font-pixel rounded hover:bg-cyber-green/80 transition-colors">
+                            PLAY_NOW
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Explorations in Blue -->
+                <div class="group cursor-pointer">
+                    <div class="retro-card p-4 rounded-lg transform hover:scale-105 transition-transform duration-300">
+                        <div class="aspect-square mb-4 rounded overflow-hidden border-2 border-cyber-red/50 group-hover:border-cyber-red transition-colors">
+                            <img src="static/img/MERA-Explorations in Blue -3000x3000 copy.png" 
+                                 alt="Explorations in Blue Album" 
+                                 class="w-full h-full object-cover image-rendering-pixelated group-hover:animate-pulse">
+                        </div>
+                        <h3 class="font-pixel text-cyber-blue text-sm mb-2">EXP_BLUE.MP3</h3>
+                        <p class="text-gray-400 text-xs mb-3">MERA</p>
+                        <a href="https://open.spotify.com/album/3ky8cniOH5jNCxarEGinKO" 
+                           class="inline-block px-4 py-2 bg-cyber-green text-dark-bg text-xs font-pixel rounded hover:bg-cyber-green/80 transition-colors">
+                            PLAY_NOW
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Artists/Videos Section -->
+    <section id="artists" class="py-20 px-4 bg-dark-card/30">
+        <div class="container mx-auto">
+            <h2 class="font-pixel text-2xl md:text-3xl text-cyber-red text-center mb-12 neon-text">
+                ARTIST_DATABASE.VID
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Video 1 -->
+                <div class="retro-card p-6 rounded-lg">
+                    <div class="aspect-video mb-4 rounded overflow-hidden">
+                        <iframe 
+                            width="100%" 
+                            height="100%" 
+                            src="https://www.youtube.com/embed/D_m33guIGQg?si=LIAU8yR5zo5BQAtT" 
+                            title="YouTube video player" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            referrerpolicy="strict-origin-when-cross-origin" 
+                            allowfullscreen
+                            class="rounded">
+                        </iframe>
+                    </div>
+                    <h4 class="font-pixel text-cyber-blue text-sm mb-2">SYSTEM_OVERVIEW.VID</h4>
+                    <p class="text-gray-400 text-xs">The Intersection of Music, Art and Technology</p>
+                </div>
+
+                <!-- Video 2 -->
+                <div class="retro-card p-6 rounded-lg">
+                    <div class="aspect-video mb-4 rounded overflow-hidden">
+                        <iframe 
+                            width="100%" 
+                            height="100%" 
+                            src="https://www.youtube.com/embed/Ui97ifiAm74?si=Cot1Jf7GGFVeKZf1" 
+                            title="YouTube video player" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            referrerpolicy="strict-origin-when-cross-origin" 
+                            allowfullscreen
+                            class="rounded">
+                        </iframe>
+                    </div>
+                    <h4 class="font-pixel text-cyber-blue text-sm mb-2">MERA_PROFILE.VID</h4>
+                    <p class="text-gray-400 text-xs">My Evil Robot Army - Tone Poem lo-fi, jazz and chillbeat</p>
+                </div>
+
+                <!-- Additional Playlist Embed -->
+                <div class="retro-card p-6 rounded-lg md:col-span-2">
+                    <h4 class="font-pixel text-cyber-blue text-sm mb-4">SECONDARY_STREAM.PLY</h4>
+                    <div class="aspect-video rounded overflow-hidden">
+                        <iframe 
+                            src="https://open.spotify.com/embed/playlist/3W2UcHhkiCg8VLaOdLAH7s?utm_source=generator" 
+                            width="100%" 
+                            height="100%" 
+                            frameBorder="0" 
+                            allowfullscreen="" 
+                            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                            loading="lazy"
+                            class="rounded">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-4">
+        <div class="container mx-auto max-w-2xl">
+            <h2 class="font-pixel text-2xl md:text-3xl text-cyber-red text-center mb-12 neon-text">
+                CONTACT_FORM.EXE
+            </h2>
+            
+            <div class="retro-card p-8 rounded-lg">
+                <form id="contact-form" action="mailto:info@nullrecords.com" method="get" class="space-y-6">
+                    <div>
+                        <label class="block font-pixel text-cyber-blue text-xs mb-2">NAME:</label>
+                        <input type="text" 
+                               name="name" 
+                               id="name" 
+                               placeholder="Enter your designation..." 
+                               class="w-full p-3 bg-dark-bg border-2 border-cyber-red/50 rounded text-white placeholder-gray-500 
+                                      focus:border-cyber-red focus:outline-none transition-colors">
+                    </div>
+
+                    <div>
+                        <label class="block font-pixel text-cyber-blue text-xs mb-2">SUBJECT:</label>
+                        <input type="text" 
+                               name="subject" 
+                               id="subject" 
+                               placeholder="Message protocol..." 
+                               class="w-full p-3 bg-dark-bg border-2 border-cyber-red/50 rounded text-white placeholder-gray-500 
+                                      focus:border-cyber-red focus:outline-none transition-colors">
+                    </div>
+
+                    <div>
+                        <label class="block font-pixel text-cyber-blue text-xs mb-2">EMAIL:</label>
+                        <input type="email" 
+                               name="email" 
+                               id="email" 
+                               placeholder="your.email@domain.net" 
+                               class="w-full p-3 bg-dark-bg border-2 border-cyber-red/50 rounded text-white placeholder-gray-500 
+                                      focus:border-cyber-red focus:outline-none transition-colors">
+                    </div>
+
+                    <div>
+                        <label class="block font-pixel text-cyber-blue text-xs mb-2">MESSAGE:</label>
+                        <textarea name="body" 
+                                  id="message" 
+                                  rows="6" 
+                                  placeholder="Transmit your message..."
+                                  class="w-full p-3 bg-dark-bg border-2 border-cyber-red/50 rounded text-white placeholder-gray-500 
+                                         focus:border-cyber-red focus:outline-none transition-colors resize-none"></textarea>
+                    </div>
+
+                    <button type="submit" 
+                            class="w-full px-8 py-3 bg-cyber-red text-dark-bg font-pixel text-sm hover:bg-cyber-red/80 
+                                   transition-all duration-300 animate-glow rounded border-2 border-cyber-red">
+                        SEND_MESSAGE.EXE
+                    </button>
+                </form>
+
+                <!-- Contact Info -->
+                <div class="mt-8 pt-8 border-t border-dark-border text-center">
+                    <p class="font-pixel text-cyber-blue text-xs mb-4">DIRECT_LINK:</p>
+                    <a href="mailto:info@nullrecords.com" 
+                       class="text-cyber-green hover:text-cyber-red transition-colors">
+                        info@nullrecords.com
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark-card border-t border-cyber-red/30 py-8 px-4">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p class="font-pixel text-cyber-blue text-xs">© 2025 NULLRECORDS.SYS</p>
+                    <p class="text-gray-400 text-xs mt-1">All rights reserved in the digital realm</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="https://www.twitter.com/nullrecords1" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                    </a>
+                    <a href="https://www.facebook.com/nullrecords.1" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/nullrecords.1" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.987 11.987s11.987-5.367 11.987-11.987C24.014 5.367 18.648.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.596-3.197-1.531-.284-.355-.284-.355-.568-.71C3.437 13.293 3.437 11.049 4.684 9.595c.748-.935 1.9-1.531 3.197-1.531s2.448.596 3.197 1.531c1.247 1.454 1.247 3.698 0 5.152-.748.935-1.9 1.531-3.197 1.531zm7.552-2.27c-.748.935-1.9 1.531-3.197 1.531s-2.448-.596-3.197-1.531c-1.247-1.454-1.247-3.698 0-5.152.748-.935 1.9-1.531 3.197-1.531s2.448.596 3.197 1.531c1.247 1.454 1.247 3.698 0 5.152z"/></svg>
+                    </a>
+                    <a href="https://www.youtube.com/nullrecords" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    </a>
+                    <a href="https://www.soundcloud.com/nullrecords" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M1.175 12.225c-.051 0-.094.046-.094.105l-.032 2.355c0 .06.043.105.094.105s.094-.046.094-.105l.032-2.355c0-.06-.043-.105-.094-.105zm-.692-.105c-.051 0-.094.046-.094.105l-.032 2.355c0 .06.043.105.094.105s.094-.046.094-.105l.032-2.355c0-.06-.043-.105-.094-.105zm1.385-.105c-.051 0-.094.046-.094.105l-.032 2.355c0 .06.043.105.094.105s.094-.046.094-.105l.032-2.355c0-.06-.043-.105-.094-.105zm.692 0c-.051 0-.094.046-.094.105l-.032 2.355c0 .06.043.105.094.105s.094-.046.094-.105l.032-2.355c0-.06-.043-.105-.094-.105zm.693 0c-.051 0-.094.046-.094.105l-.032 2.355c0 .06.043.105.094.105s.094-.046.094-.105l.032-2.355c0-.06-.043-.105-.094-.105zm.692 0c-.051 0-.094.046-.094.105l-.032 2.355c0 .06.043.105.094.105s.094-.046.094-.105l.032-2.355c0-.06-.043-.105-.094-.105zm.693 0c-.051 0-.094.046-.094.105l-.032 2.355c0 .06.043.105.094.105s.094-.046.094-.105l.032-2.355c0-.06-.043-.105-.094-.105zm.692 0c-.051 0-.094.046-.094.105l-.032 2.355c0 .06.043.105.094.105s.094-.046.094-.105l.032-2.355c0-.06-.043-.105-.094-.105z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>

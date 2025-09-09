@@ -1,12 +1,11 @@
-# Byte-compiled / optimized / DLL files
+# Static website - this is now a GitHub Pages site
+# Keep only the necessary static assets
+
+# Old Django/Python artifacts (cleaned up)
 __pycache__/
 *.py[cod]
 *$py.class
-
-# C extensions
 *.so
-
-# Distribution / packaging
 .Python
 build/
 develop-eggs/

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artists - NullRecords</title>
+    <meta name="description" content="Meet the artists of NullRecords - independent musicians creating the intersection of music, art and technology.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cyber-red': '#ff5758',
+                        'cyber-blue': '#00ffff',
+                        'cyber-pink': '#ff00ff',
+                        'cyber-green': '#00ff41',
+                        'dark-bg': '#0a0a0a',
+                        'dark-card': '#1a1a1a',
+                        'dark-border': '#333333'
+                    },
+                    fontFamily: {
+                        'pixel': ['"Press Start 2P"', 'cursive'],
+                        'mono': ['JetBrains Mono', 'Consolas', 'Monaco', 'monospace']
+                    },
+                    animation: {
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'float': 'float 3s ease-in-out infinite'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <style>
+        .retro-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            border: 2px solid #ff5758;
+            box-shadow: 0 0 20px rgba(255, 87, 88, 0.3);
+        }
+        
+        .neon-text {
+            text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+        }
+    </style>
+</head>
+
+<body class="bg-dark-bg text-white font-mono">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-dark-bg/90 backdrop-blur-sm border-b border-cyber-red/30">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center space-x-4">
+                    <img src="static/assets/img/logo.png" alt="NullRecords Logo" class="h-10 w-auto animate-float">
+                    <span class="font-pixel text-cyber-red text-sm hidden md:block">NULLRECORDS</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300 text-sm font-pixel">HOME</a>
+                    <a href="#news" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300 text-sm font-pixel">NEWS</a>
+                    <a href="artists.html" class="text-cyber-red font-pixel text-sm">ARTISTS</a>
+                    <a href="index.html#releases" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300 text-sm font-pixel">RELEASES</a>
+                    <a href="index.html#contact" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300 text-sm font-pixel">CONTACT</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-cyber-blue hover:text-cyber-red">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <div class="flex flex-col space-y-4">
+                    <a href="index.html" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300 text-sm font-pixel">HOME</a>
+                    <a href="#news" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300 text-sm font-pixel">NEWS</a>
+                    <a href="artists.html" class="text-cyber-red font-pixel text-sm">ARTISTS</a>
+                    <a href="index.html#releases" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300 text-sm font-pixel">RELEASES</a>
+                    <a href="index.html#contact" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300 text-sm font-pixel">CONTACT</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <section class="pt-24 pb-12 px-4">
+        <div class="container mx-auto text-center">
+            <h1 class="font-pixel text-3xl md:text-5xl text-cyber-red mb-4 neon-text">
+                ARTIST_DATABASE.SYS
+            </h1>
+            <p class="text-gray-400 text-sm md:text-base max-w-2xl mx-auto">
+                Meet the independent artists creating the future of music at the intersection of art and technology
+            </p>
+        </div>
+    </section>
+
+    <!-- Artists Section -->
+    <section class="py-12 px-4">
+        <div class="container mx-auto">
+            <div class="grid gap-12">
+                <!-- My Evil Robot Army -->
+                <div class="retro-card p-8 rounded-lg">
+                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                        <div>
+                            <h2 class="font-pixel text-2xl text-cyber-blue mb-4 neon-text">
+                                MY_EVIL_ROBOT_ARMY.EXE
+                            </h2>
+                            <div class="space-y-4 text-gray-300">
+                                <p class="text-sm leading-relaxed">
+                                    My Evil Robot Army crafts experimental electronic soundscapes that blend jazz fusion 
+                                    with lo-fi aesthetics and chillbeat rhythms. Their algorithmic approach to composition 
+                                    creates unique sonic experiences that transport listeners to digital realms.
+                                </p>
+                                <p class="text-sm leading-relaxed">
+                                    Known for their innovative use of synthesizers and drum machines, MERA pushes the 
+                                    boundaries between organic and artificial sound creation, resulting in music that 
+                                    feels both nostalgic and futuristic.
+                                </p>
+                            </div>
+                            
+                            <!-- Artist Links -->
+                            <div class="flex flex-wrap gap-4 mt-6">
+                                <a href="https://open.spotify.com/artist/mera" 
+                                   class="px-4 py-2 bg-cyber-green text-dark-bg font-pixel text-xs rounded hover:bg-cyber-green/80 transition-colors">
+                                    SPOTIFY
+                                </a>
+                                <a href="https://www.youtube.com/channel/mera" 
+                                   class="px-4 py-2 border border-cyber-red text-cyber-red font-pixel text-xs rounded hover:bg-cyber-red hover:text-dark-bg transition-colors">
+                                    YOUTUBE
+                                </a>
+                                <a href="https://soundcloud.com/mera" 
+                                   class="px-4 py-2 border border-cyber-blue text-cyber-blue font-pixel text-xs rounded hover:bg-cyber-blue hover:text-dark-bg transition-colors">
+                                    SOUNDCLOUD
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Artist Image/Video -->
+                        <div class="space-y-4">
+                            <div class="aspect-video rounded overflow-hidden border-2 border-cyber-red/50">
+                                <iframe 
+                                    width="100%" 
+                                    height="100%" 
+                                    src="https://www.youtube.com/embed/Ui97ifiAm74?si=Cot1Jf7GGFVeKZf1" 
+                                    title="My Evil Robot Army - Tone Poem" 
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                    referrerpolicy="strict-origin-when-cross-origin" 
+                                    allowfullscreen
+                                    class="rounded">
+                                </iframe>
+                            </div>
+                            
+                            <!-- Featured Releases -->
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="group cursor-pointer">
+                                    <div class="aspect-square rounded overflow-hidden border-2 border-cyber-red/30 group-hover:border-cyber-red transition-colors">
+                                        <img src="static/img/My Evil Robot Army-Space Jazz.png" 
+                                             alt="Space Jazz" 
+                                             class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                                    </div>
+                                    <p class="font-pixel text-xs text-cyber-blue mt-2">SPACE_JAZZ</p>
+                                </div>
+                                <div class="group cursor-pointer">
+                                    <div class="aspect-square rounded overflow-hidden border-2 border-cyber-red/30 group-hover:border-cyber-red transition-colors">
+                                        <img src="static/img/MERA-Travel Beyond.png" 
+                                             alt="Travel Beyond" 
+                                             class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                                    </div>
+                                    <p class="font-pixel text-xs text-cyber-blue mt-2">TRAVEL_BEYOND</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MERA -->
+                <div class="retro-card p-8 rounded-lg">
+                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                        <div class="order-2 md:order-1">
+                            <!-- Featured Releases -->
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div class="group cursor-pointer">
+                                    <div class="aspect-square rounded overflow-hidden border-2 border-cyber-red/30 group-hover:border-cyber-red transition-colors">
+                                        <img src="static/img/MERA-Explorations.png" 
+                                             alt="Explorations" 
+                                             class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                                    </div>
+                                    <p class="font-pixel text-xs text-cyber-blue mt-2">EXPLORATIONS</p>
+                                </div>
+                                <div class="group cursor-pointer">
+                                    <div class="aspect-square rounded overflow-hidden border-2 border-cyber-red/30 group-hover:border-cyber-red transition-colors">
+                                        <img src="static/img/MERA-Explorations in Blue -3000x3000 copy.png" 
+                                             alt="Explorations in Blue" 
+                                             class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                                    </div>
+                                    <p class="font-pixel text-xs text-cyber-blue mt-2">EXP_BLUE</p>
+                                </div>
+                            </div>
+                            
+                            <!-- YouTube Playlist -->
+                            <div class="aspect-video rounded overflow-hidden border-2 border-cyber-blue/50">
+                                <iframe 
+                                    width="100%" 
+                                    height="100%"
+                                    src="https://www.youtube.com/embed?list=PL8aY_HOIei7xVCkeIe8O5IYK-fJvw75WG&index=3"
+                                    title="MERA Playlist" 
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen
+                                    class="rounded">
+                                </iframe>
+                            </div>
+                        </div>
+                        
+                        <div class="order-1 md:order-2">
+                            <h2 class="font-pixel text-2xl text-cyber-blue mb-4 neon-text">
+                                MERA.SYS
+                            </h2>
+                            <div class="space-y-4 text-gray-300">
+                                <p class="text-sm leading-relaxed">
+                                    MERA specializes in ambient lo-fi compositions that explore the relationship between 
+                                    nature and technology. Their tone poems create immersive soundscapes perfect for 
+                                    study, relaxation, and creative work.
+                                </p>
+                                <p class="text-sm leading-relaxed">
+                                    Drawing inspiration from mathematical patterns and organic textures, MERA's music 
+                                    serves as a bridge between the digital and analog worlds, offering listeners a 
+                                    space for contemplation and focus.
+                                </p>
+                                <p class="text-sm leading-relaxed">
+                                    Recent projects include the acclaimed "Explorations" series, which delves into 
+                                    color theory through sound, creating synesthetic experiences that blur the lines 
+                                    between auditory and visual art.
+                                </p>
+                            </div>
+                            
+                            <!-- Artist Links -->
+                            <div class="flex flex-wrap gap-4 mt-6">
+                                <a href="https://open.spotify.com/artist/mera" 
+                                   class="px-4 py-2 bg-cyber-green text-dark-bg font-pixel text-xs rounded hover:bg-cyber-green/80 transition-colors">
+                                    SPOTIFY
+                                </a>
+                                <a href="https://www.youtube.com/channel/mera" 
+                                   class="px-4 py-2 border border-cyber-red text-cyber-red font-pixel text-xs rounded hover:bg-cyber-red hover:text-dark-bg transition-colors">
+                                    YOUTUBE
+                                </a>
+                                <a href="https://soundcloud.com/mera" 
+                                   class="px-4 py-2 border border-cyber-blue text-cyber-blue font-pixel text-xs rounded hover:bg-cyber-blue hover:text-dark-bg transition-colors">
+                                    SOUNDCLOUD
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Collective Information -->
+                <div class="retro-card p-8 rounded-lg">
+                    <div class="text-center mb-8">
+                        <h2 class="font-pixel text-2xl text-cyber-red mb-4 neon-text">
+                            JOIN_THE_COLLECTIVE.EXE
+                        </h2>
+                        <p class="text-gray-300 text-sm leading-relaxed max-w-3xl mx-auto">
+                            NullRecords is always looking for innovative artists who share our vision of merging 
+                            music, art, and technology. If you create experimental electronic music, lo-fi beats, 
+                            ambient soundscapes, or any genre that pushes creative boundaries, we want to hear from you.
+                        </p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-3 gap-8 text-center">
+                        <div class="space-y-4">
+                            <div class="w-16 h-16 mx-auto bg-cyber-red/20 rounded-lg flex items-center justify-center">
+                                <svg class="w-8 h-8 text-cyber-red" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2L2 7v10c0 5.55 3.84 9.739 9 11 5.16-1.261 9-5.45 9-11V7l-10-5z"/>
+                                </svg>
+                            </div>
+                            <h3 class="font-pixel text-cyber-blue text-sm">CREATIVE_FREEDOM</h3>
+                            <p class="text-gray-400 text-xs">Maintain full creative control over your music and artistic direction</p>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="w-16 h-16 mx-auto bg-cyber-green/20 rounded-lg flex items-center justify-center">
+                                <svg class="w-8 h-8 text-cyber-green" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                                </svg>
+                            </div>
+                            <h3 class="font-pixel text-cyber-blue text-sm">COLLECTIVE_GROWTH</h3>
+                            <p class="text-gray-400 text-xs">Collaborate with like-minded artists and grow together</p>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="w-16 h-16 mx-auto bg-cyber-blue/20 rounded-lg flex items-center justify-center">
+                                <svg class="w-8 h-8 text-cyber-blue" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                </svg>
+                            </div>
+                            <h3 class="font-pixel text-cyber-blue text-sm">TECH_SUPPORT</h3>
+                            <p class="text-gray-400 text-xs">Access to digital distribution, promotion, and technical resources</p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-8">
+                        <a href="index.html#contact" 
+                           class="inline-block px-8 py-3 bg-cyber-red text-dark-bg font-pixel text-sm hover:bg-cyber-red/80 
+                                  transition-all duration-300 rounded border-2 border-cyber-red">
+                            SUBMIT_DEMO.EXE
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark-card border-t border-cyber-red/30 py-8 px-4 mt-12">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p class="font-pixel text-cyber-blue text-xs">© 2025 NULLRECORDS.SYS</p>
+                    <p class="text-gray-400 text-xs mt-1">All rights reserved in the digital realm</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="https://www.twitter.com/nullrecords1" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                    </a>
+                    <a href="https://www.facebook.com/nullrecords.1" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/nullrecords.1" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.987 11.987s11.987-5.367 11.987-11.987C24.014 5.367 18.648.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.596-3.197-1.531-.284-.355-.284-.355-.568-.71C3.437 13.293 3.437 11.049 4.684 9.595c.748-.935 1.9-1.531 3.197-1.531s2.448.596 3.197 1.531c1.247 1.454 1.247 3.698 0 5.152-.748.935-1.9 1.531-3.197 1.531zm7.552-2.27c-.748.935-1.9 1.531-3.197 1.531s-2.448-.596-3.197-1.531c-1.247-1.454-1.247-3.698 0-5.152.748-.935 1.9-1.531 3.197-1.531s2.448.596 3.197 1.531c1.247 1.454 1.247 3.698 0 5.152z"/></svg>
+                    </a>
+                    <a href="https://www.youtube.com/nullrecords" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    </a>
+                    <a href="https://www.soundcloud.com/nullrecords" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M1.175 12.225c-.051 0-.094.046-.094.105l-.032 2.355c0 .06.043.105.094.105s.094-.046.094-.105l.032-2.355c0-.06-.043-.105-.094-.105zm-.692-.105c-.051 0-.094.046-.094.105l-.032 2.355c0 .06.043.105.094.105s.094-.046.094-.105l.032-2.355c0-.06-.043-.105-.094-.105zm1.385-.105c-.051 0-.094.046-.094.105l-.032 2.355c0 .06.043.105.094.105s.094-.046.094-.105l.032-2.355c0-.06-.043-.105-.094-.105zm.692 0c-.051 0-.094.046-.094.105l-.032 2.355c0 .06.043.105.094.105s.094-.046.094-.105l.032-2.355c0-.06-.043-.105-.094-.105zm.693 0c-.051 0-.094.046-.094.105l-.032 2.355c0 .06.043.105.094.105s.094-.046.094-.105l.032-2.355c0-.06-.043-.105-.094-.105zm.692 0c-.051 0-.094.046-.094.105l-.032 2.355c0 .06.043.105.094.105s.094-.046.094-.105l.032-2.355c0-.60-.043-.105-.094-.105zm.693 0c-.051 0-.094.046-.094.105l-.032 2.355c0 .06.043.105.094.105s.094-.046.094-.105l.032-2.355c0-.06-.043-.105-.094-.105zm.692 0c-.051 0-.094.046-.094.105l-.032 2.355c0 .06.043.105.094.105s.094-.046.094-.105l.032-2.355c0-.06-.043-.105-.094-.105z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
