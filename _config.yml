@@ -1,8 +1,8 @@
 # GitHub Pages Configuration for NullRecords
 title: "NullRecords"
 description: "The Intersection of Music, Art and Technology"
-url: "https://nullrecords.github.io"
-baseurl: "/nullrecords-cms"
+url: "https://nullrecords.com"
+baseurl: ""
 
 # Theme
 theme: minima
