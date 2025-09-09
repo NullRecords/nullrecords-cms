@@ -1,0 +1,5 @@
+# NullRecords Music Outreach Tool Requirements
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+dataclasses>=0.6
+pathlib>=1.0.1

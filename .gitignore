@@ -1,6 +1,17 @@
 # Static website - this is now a GitHub Pages site
 # Keep only the necessary static assets
 
+# Outreach tool data (keep private)
+outreach_contacts.json
+outreach_data.json
+outreach_sources.json
+outreach_contacts_export.json
+outreach_schedule.json
+daily_outreach_log.json
+outreach.log
+daily_outreach_*.log
+*.log
+
 # Old Django/Python artifacts (cleaned up)
 __pycache__/
 *.py[cod]
