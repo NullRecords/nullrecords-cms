@@ -117,17 +117,23 @@ show_installed_jobs() {
 test_cron_environment() {
     print_info "Testing cron environment..."
     
-    # Create a test cron job that runs in 1 minute (macOS compatible)
-    next_minute=$(( $(date +%M) + 1 ))
+    # Create a test cron job that runs in 1 minute (handle leading zeros properly)
+    current_minute=$(date +%M | sed 's/^0*//')
+    current_hour=$(date +%H | sed 's/^0*//')
+    
+    # Handle empty strings (when minute/hour is 00)
+    [ -z "$current_minute" ] && current_minute=0
+    [ -z "$current_hour" ] && current_hour=0
+    
+    next_minute=$((current_minute + 1))
     if [ $next_minute -eq 60 ]; then
         next_minute=0
-        current_hour=$(date +%H)
         test_hour=$((current_hour + 1))
         if [ $test_hour -eq 24 ]; then
             test_hour=0
         fi
     else
-        test_hour=$(date +%H)
+        test_hour=$current_hour
     fi
     
     test_job="$next_minute $test_hour * * * cd $SCRIPT_DIR && echo 'Cron test successful at \$(date)' >> ~/nullrecords_cron_test.log"
@@ -139,15 +145,14 @@ test_cron_environment() {
     print_info "Check ~/nullrecords_cron_test.log in 2 minutes to verify it worked"
     
     # Schedule cleanup of test job in 5 minutes
-    cleanup_minute=$(( $(date +%M) + 5 ))
+    cleanup_minute=$((current_minute + 5))
+    cleanup_hour=$current_hour
     if [ $cleanup_minute -ge 60 ]; then
         cleanup_minute=$((cleanup_minute - 60))
-        cleanup_hour=$(( $(date +%H) + 1 ))
+        cleanup_hour=$((current_hour + 1))
         if [ $cleanup_hour -eq 24 ]; then
             cleanup_hour=0
         fi
-    else
-        cleanup_hour=$(date +%H)
     fi
     
     cleanup_job="$cleanup_minute $cleanup_hour * * * crontab -l | grep -v 'nullrecords_cron_test' | crontab -"
