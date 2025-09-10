@@ -45,8 +45,8 @@ except ImportError:
     SCRAPING_AVAILABLE = False
 
 try:
-    from email.mime.text import MimeText
-    from email.mime.multipart import MimeMultipart
+    from email.mime.text import MIMEText
+    from email.mime.multipart import MIMEMultipart
     EMAIL_AVAILABLE = True
 except ImportError:
     EMAIL_AVAILABLE = False
@@ -872,7 +872,7 @@ About NullRecords: Founded in 2020, NullRecords is an independent music collecti
         return successful_outreach
     
     def send_email(self, to_email: str, subject: str, body: str) -> bool:
-        """Send email via Brevo SMTP with BCC to greg@nullrecords.com"""
+        """Send email via Brevo SMTP with BCC to team@nullrecords.com"""
         if not EMAIL_AVAILABLE:
             logging.error("Email libraries not installed - install email packages")
             return False
@@ -880,24 +880,24 @@ About NullRecords: Founded in 2020, NullRecords is an independent music collecti
         # Get SMTP credentials from environment variables
         smtp_user = os.getenv('SMTP_USER')
         smtp_password = os.getenv('SMTP_PASSWORD')
-        smtp_server = os.getenv('SMTP_SERVER', 'smtp-relay.brevo.com')
+        smtp_server = os.getenv('SMTP_SERVER')
         smtp_port = int(os.getenv('SMTP_PORT', '587'))
-        sender_email = os.getenv('SENDER_EMAIL', 'team@nullrecords.com')
-        bcc_email = os.getenv('BCC_EMAIL', 'greg@nullrecords.com')
+        sender_email = os.getenv('SENDER_EMAIL')
+        bcc_email = os.getenv('BCC_EMAIL')
         
-        if not smtp_user or not smtp_password:
+        if not smtp_user or not smtp_password or not smtp_server or not sender_email or not bcc_email:
             logging.error("SMTP credentials not found in environment variables")
-            logging.error("Please set SMTP_USER and SMTP_PASSWORD environment variables")
+            logging.error("Please set SMTP_USER, SMTP_PASSWORD, SMTP_SERVER, SENDER_EMAIL, and BCC_EMAIL environment variables")
             return False
             
         try:
-            msg = MimeMultipart()
+            msg = MIMEMultipart()
             msg['From'] = sender_email
             msg['To'] = to_email
             msg['Subject'] = subject
             # Add BCC header (hidden from recipient)
             msg['Bcc'] = bcc_email
-            msg.attach(MimeText(body, 'plain'))
+            msg.attach(MIMEText(body, 'plain'))
             
             # Prepare recipient list (includes BCC)
             recipients = [to_email, bcc_email]
@@ -921,21 +921,21 @@ About NullRecords: Founded in 2020, NullRecords is an independent music collecti
         # Get SMTP credentials from environment variables
         smtp_user = os.getenv('SMTP_USER')
         smtp_password = os.getenv('SMTP_PASSWORD')
-        smtp_server = os.getenv('SMTP_SERVER', 'smtp-relay.brevo.com')
+        smtp_server = os.getenv('SMTP_SERVER')
         smtp_port = int(os.getenv('SMTP_PORT', '587'))
-        sender_email = os.getenv('SENDER_EMAIL', 'team@nullrecords.com')
+        sender_email = os.getenv('SENDER_EMAIL')
         
-        if not smtp_user or not smtp_password:
+        if not smtp_user or not smtp_password or not smtp_server or not sender_email:
             logging.error("SMTP credentials not found in environment variables")
-            logging.error("Please set SMTP_USER and SMTP_PASSWORD environment variables")
+            logging.error("Please set SMTP_USER, SMTP_PASSWORD, SMTP_SERVER, and SENDER_EMAIL environment variables")
             return False
             
         try:
-            msg = MimeMultipart()
+            msg = MIMEMultipart()
             msg['From'] = sender_email
             msg['To'] = recipient
             msg['Subject'] = f"[NullRecords Outreach] {subject}"
-            msg.attach(MimeText(body, 'plain'))
+            msg.attach(MIMEText(body, 'plain'))
             
             server = smtplib.SMTP(smtp_server, smtp_port)
             server.starttls()

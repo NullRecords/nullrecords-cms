@@ -1,0 +1,110 @@
+[
+  {
+    "id": "8bdf8c667a7a",
+    "title": "My Evil Robot Army's Space Jazz EP Blends Lo-Fi with Experimental Electronic",
+    "content": "The latest release from My Evil Robot Army showcases a unique fusion of jazz elements with lo-fi production techniques. The Space Jazz EP demonstrates the project's evolution toward more sophisticated electronic compositions while maintaining its signature experimental edge.",
+    "source": "Electronic Music Weekly",
+    "url": "https://example.com/articles/my-evil-robot-army's-space-jazz-ep-blends-lo-fi-with-experimental-electronic",
+    "author": null,
+    "published_date": "2025-08-19T10:39:39.822926",
+    "discovered_date": "2025-09-10T10:39:39.823443",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ],
+    "sentiment": "positive",
+    "article_type": "review",
+    "status": "new",
+    "tags": [],
+    "excerpt": "The latest release from My Evil Robot Army showcases a unique fusion of jazz elements with lo-fi production techniques. The Space Jazz EP demonstrates the project's evolution toward more sophisticated..."
+  },
+  {
+    "id": "f01828c9ba43",
+    "title": "MERA's 'Explorations in Blue' Receives Critical Acclaim",
+    "content": "MERA's ambient electronic album 'Explorations in Blue' has been praised by critics for its immersive soundscapes and innovative use of synthesized textures. The album represents a significant step forward in the artist's sonic exploration.",
+    "source": "Ambient Music Review",
+    "url": "https://example.com/articles/mera's-'explorations-in-blue'-receives-critical-acclaim",
+    "author": null,
+    "published_date": "2025-08-30T10:39:39.823881",
+    "discovered_date": "2025-09-10T10:39:39.823890",
+    "artist_mentioned": [
+      "MERA"
+    ],
+    "sentiment": "positive",
+    "article_type": "review",
+    "status": "new",
+    "tags": [],
+    "excerpt": "MERA's ambient electronic album 'Explorations in Blue' has been praised by critics for its immersive soundscapes and innovative use of synthesized textures. The album represents a significant step for..."
+  },
+  {
+    "id": "fe08dd3e0ff0",
+    "title": "NullRecords: The Independent Label Pushing Electronic Music Boundaries",
+    "content": "NullRecords has emerged as a compelling force in the independent electronic music scene, with a roster that challenges conventional genre boundaries. Their artists consistently deliver innovative compositions that blend traditional and digital elements.",
+    "source": "Independent Music Today",
+    "url": "https://example.com/articles/nullrecords:-the-independent-label-pushing-electronic-music-boundaries",
+    "author": null,
+    "published_date": "2025-08-11T10:39:39.823902",
+    "discovered_date": "2025-09-10T10:39:39.823906",
+    "artist_mentioned": [
+      "NullRecords"
+    ],
+    "sentiment": "positive",
+    "article_type": "feature",
+    "status": "new",
+    "tags": [],
+    "excerpt": "NullRecords has emerged as a compelling force in the independent electronic music scene, with a roster that challenges conventional genre boundaries. Their artists consistently deliver innovative comp..."
+  },
+  {
+    "id": "8bdf8c667a7a",
+    "title": "My Evil Robot Army's Space Jazz EP Blends Lo-Fi with Experimental Electronic",
+    "content": "The latest release from My Evil Robot Army showcases a unique fusion of jazz elements with lo-fi production techniques. The Space Jazz EP demonstrates the project's evolution toward more sophisticated electronic compositions while maintaining its signature experimental edge.",
+    "source": "Electronic Music Weekly",
+    "url": "https://example.com/articles/my-evil-robot-army's-space-jazz-ep-blends-lo-fi-with-experimental-electronic",
+    "author": null,
+    "published_date": "2025-08-15T10:57:37.486446",
+    "discovered_date": "2025-09-10T10:57:37.486743",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ],
+    "sentiment": "positive",
+    "article_type": "review",
+    "status": "new",
+    "tags": [],
+    "excerpt": "The latest release from My Evil Robot Army showcases a unique fusion of jazz elements with lo-fi production techniques. The Space Jazz EP demonstrates the project's evolution toward more sophisticated..."
+  },
+  {
+    "id": "f01828c9ba43",
+    "title": "MERA's 'Explorations in Blue' Receives Critical Acclaim",
+    "content": "MERA's ambient electronic album 'Explorations in Blue' has been praised by critics for its immersive soundscapes and innovative use of synthesized textures. The album represents a significant step forward in the artist's sonic exploration.",
+    "source": "Ambient Music Review",
+    "url": "https://example.com/articles/mera's-'explorations-in-blue'-receives-critical-acclaim",
+    "author": null,
+    "published_date": "2025-08-16T10:57:37.486976",
+    "discovered_date": "2025-09-10T10:57:37.486988",
+    "artist_mentioned": [
+      "MERA"
+    ],
+    "sentiment": "positive",
+    "article_type": "review",
+    "status": "new",
+    "tags": [],
+    "excerpt": "MERA's ambient electronic album 'Explorations in Blue' has been praised by critics for its immersive soundscapes and innovative use of synthesized textures. The album represents a significant step for..."
+  },
+  {
+    "id": "fe08dd3e0ff0",
+    "title": "NullRecords: The Independent Label Pushing Electronic Music Boundaries",
+    "content": "NullRecords has emerged as a compelling force in the independent electronic music scene, with a roster that challenges conventional genre boundaries. Their artists consistently deliver innovative compositions that blend traditional and digital elements.",
+    "source": "Independent Music Today",
+    "url": "https://example.com/articles/nullrecords:-the-independent-label-pushing-electronic-music-boundaries",
+    "author": null,
+    "published_date": "2025-08-22T10:57:37.487018",
+    "discovered_date": "2025-09-10T10:57:37.487032",
+    "artist_mentioned": [
+      "NullRecords"
+    ],
+    "sentiment": "positive",
+    "article_type": "feature",
+    "status": "new",
+    "tags": [],
+    "excerpt": "NullRecords has emerged as a compelling force in the independent electronic music scene, with a roster that challenges conventional genre boundaries. Their artists consistently deliver innovative comp..."
+  }
+]
