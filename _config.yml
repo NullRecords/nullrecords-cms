@@ -4,6 +4,13 @@ description: "The Intersection of Music, Art and Technology"
 url: "https://nullrecords.com"
 baseurl: ""
 
+# GitHub Pages specific settings
+plugins:
+  - jekyll-relative-links
+relative_links:
+  enabled: true
+  collections: true
+
 # Theme
 theme: minima
 

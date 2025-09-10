@@ -872,7 +872,7 @@ About NullRecords: Founded in 2020, NullRecords is an independent music collecti
         return successful_outreach
     
     def send_email(self, to_email: str, subject: str, body: str) -> bool:
-        """Send email via Brevo SMTP"""
+        """Send email via Brevo SMTP with BCC to greg@nullrecords.com"""
         if not EMAIL_AVAILABLE:
             logging.error("Email libraries not installed - install email packages")
             return False
@@ -883,6 +883,7 @@ About NullRecords: Founded in 2020, NullRecords is an independent music collecti
         smtp_server = os.getenv('SMTP_SERVER', 'smtp-relay.brevo.com')
         smtp_port = int(os.getenv('SMTP_PORT', '587'))
         sender_email = os.getenv('SENDER_EMAIL', 'team@nullrecords.com')
+        bcc_email = os.getenv('BCC_EMAIL', 'greg@nullrecords.com')
         
         if not smtp_user or not smtp_password:
             logging.error("SMTP credentials not found in environment variables")
@@ -894,13 +895,18 @@ About NullRecords: Founded in 2020, NullRecords is an independent music collecti
             msg['From'] = sender_email
             msg['To'] = to_email
             msg['Subject'] = subject
+            # Add BCC header (hidden from recipient)
+            msg['Bcc'] = bcc_email
             msg.attach(MimeText(body, 'plain'))
+            
+            # Prepare recipient list (includes BCC)
+            recipients = [to_email, bcc_email]
             
             # Brevo SMTP Configuration
             server = smtplib.SMTP(smtp_server, smtp_port)
             server.starttls()
             server.login(smtp_user, smtp_password)
-            server.sendmail(sender_email, to_email, msg.as_string())
+            server.sendmail(sender_email, recipients, msg.as_string())
             server.quit()
             
             logging.info(f"✅ Email sent successfully to {to_email}")
