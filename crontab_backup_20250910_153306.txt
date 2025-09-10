@@ -1,0 +1,76 @@
+# =====================================
+# 
+# Add these entries to your crontab with: crontab -e
+# Or import this file with: crontab cron_schedule.txt
+#
+# All times are in 24-hour format
+
+# Set PATH and environment
+PATH=/usr/local/bin:/usr/bin:/bin
+SHELL=/bin/bash
+
+# Daily music outreach - 9:00 AM (workday start)
+
+# News collection - Every 6 hours
+
+# Release monitoring - Twice daily (10 AM, 8 PM)
+
+# Generate news pages - Daily at 7 AM
+
+# Update main site with news - Daily at 7:30 AM  
+
+# Daily report email - 8:00 AM (after news update)
+
+# Deploy all changes to GitHub Pages - 8:30 AM
+
+# Weekly comprehensive report - Sundays at 6 PM
+
+# Monthly archive and cleanup - First day of month at 2 AM
+
+# Example manual commands for testing:
+# NullRecords Automated Daily Operations
+# =====================================
+# 
+# Add these entries to your crontab with: crontab -e
+# Or import this file with: crontab cron_schedule.txt
+#
+# All times are in 24-hour format
+# Logs are saved to ~/nullrecords_cron.log for debugging
+
+# Set PATH and environment
+PATH=/usr/local/bin:/usr/bin:/bin
+SHELL=/bin/bash
+
+# Daily music outreach - 9:00 AM (workday start)
+0 9 * * * cd /Users/greglind/Projects/NullRecords/ob-cms/scripts && python3 scripts/music_outreach.py --daily --limit 5 >> ~/nullrecords_cron.log 2>&1
+
+# News collection - Every 6 hours
+0 6,12,18,0 * * * cd /Users/greglind/Projects/NullRecords/ob-cms/scripts && ./scripts/news_system.sh collect >> ~/nullrecords_cron.log 2>&1
+
+# Release monitoring - Twice daily (10 AM, 8 PM)
+0 10,20 * * * cd /Users/greglind/Projects/NullRecords/ob-cms/scripts && ./scripts/news_system.sh releases >> ~/nullrecords_cron.log 2>&1
+
+# Generate news pages - Daily at 7 AM
+0 7 * * * cd /Users/greglind/Projects/NullRecords/ob-cms/scripts && ./scripts/news_system.sh generate >> ~/nullrecords_cron.log 2>&1
+
+# Update main site with news - Daily at 7:30 AM  
+30 7 * * * cd /Users/greglind/Projects/NullRecords/ob-cms/scripts && ./scripts/news_system.sh update >> ~/nullrecords_cron.log 2>&1
+
+# Daily report email - 8:00 AM (after news update)
+0 8 * * * cd /Users/greglind/Projects/NullRecords/ob-cms/scripts && ./scripts/daily_report_system.sh email >> ~/nullrecords_cron.log 2>&1
+
+# Deploy all changes to GitHub Pages - 8:30 AM
+30 8 * * * cd /Users/greglind/Projects/NullRecords/ob-cms/scripts && git add . && git commit -m "Automated daily update - $(date)" && git push origin main >> ~/nullrecords_cron.log 2>&1
+
+# Weekly comprehensive report - Sundays at 6 PM
+0 18 * * 0 cd /Users/greglind/Projects/NullRecords/ob-cms/scripts && ./scripts/news_system.sh report >> ~/nullrecords_cron.log 2>&1
+
+# Monthly archive and cleanup - First day of month at 2 AM
+0 2 1 * * cd /Users/greglind/Projects/NullRecords/ob-cms/scripts && find . -name "*.log" -mtime +30 -delete >> ~/nullrecords_cron.log 2>&1
+
+# Example manual commands for testing:
+# cd /Users/greglind/Projects/NullRecords/ob-cms/scripts && python3 scripts/music_outreach.py --daily --limit 3
+# cd /Users/greglind/Projects/NullRecords/ob-cms/scripts && ./scripts/daily_report_system.sh email  
+# cd /Users/greglind/Projects/NullRecords/ob-cms/scripts && ./scripts/news_system.sh full
+27 15 * * * cd /Users/greglind/Projects/NullRecords/ob-cms/scripts && echo 'Cron test successful at $(date)' >> ~/nullrecords_cron_test.log
+31 15 * * * crontab -l | grep -v 'nullrecords_cron_test' | crontab -

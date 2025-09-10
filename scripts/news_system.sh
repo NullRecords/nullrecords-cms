@@ -6,7 +6,8 @@
 set -e  # Exit on any error
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$SCRIPT_DIR"
+PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
+cd "$PROJECT_DIR"
 
 # Colors for output
 RED='\033[0;31m'
@@ -53,27 +54,27 @@ check_dependencies() {
 
 run_news_collection() {
     print_info "Collecting news articles..."
-    python3 news_monitor.py --collect
+    python3 scripts/news_monitor.py --collect
 }
 
 monitor_releases() {
     print_info "Monitoring streaming platforms for new releases..."
-    python3 news_monitor.py --releases
+    python3 scripts/news_monitor.py --releases
 }
 
 generate_pages() {
     print_info "Generating HTML pages..."
-    python3 news_monitor.py --generate
+    python3 scripts/news_monitor.py --generate
 }
 
 update_main_site() {
     print_info "Updating main site news section..."
-    python3 news_monitor.py --update-site
+    python3 scripts/news_monitor.py --update-site
 }
 
 show_report() {
     print_info "Generating monitoring report..."
-    python3 news_monitor.py --report
+    python3 scripts/news_monitor.py --report
 }
 
 deploy_changes() {

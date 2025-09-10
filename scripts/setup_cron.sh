@@ -6,7 +6,8 @@
 set -e  # Exit on any error
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$SCRIPT_DIR"
+PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
+cd "$PROJECT_DIR"
 
 # Colors for output
 RED='\033[0;31m'
@@ -41,8 +42,8 @@ check_prerequisites() {
     print_info "Checking prerequisites..."
     
     # Check if we're in the right directory
-    if [[ ! -f "music_outreach.py" ]]; then
-        print_error "music_outreach.py not found - make sure you're in the NullRecords project directory"
+    if [[ ! -f "scripts/music_outreach.py" ]]; then
+        print_error "scripts/music_outreach.py not found - make sure you're in the NullRecords project directory"
         exit 1
     fi
     
@@ -56,8 +57,8 @@ check_prerequisites() {
     print_info "Testing systems..."
     
     # Test validation
-    if ! python3 validate_env.py > /dev/null 2>&1; then
-        print_error "Environment validation failed - run: python3 validate_env.py"
+    if ! python3 scripts/validate_env.py > /dev/null 2>&1; then
+        print_error "Environment validation failed - run: python3 scripts/validate_env.py"
         exit 1
     fi
     
@@ -78,8 +79,8 @@ backup_existing_crontab() {
 install_cron_jobs() {
     print_info "Installing NullRecords cron jobs..."
     
-    # Update paths in cron file to use current directory
-    sed "s|/Users/greglind/Projects/NullRecords/ob-cms|$SCRIPT_DIR|g" cron_schedule.txt > temp_cron.txt
+    # Update paths in cron file to use project directory
+    sed "s|/Users/greglind/Projects/NullRecords/ob-cms|$PROJECT_DIR|g" cron_schedule.txt > temp_cron.txt
     
     # Get current crontab (if any)
     if crontab -l > /dev/null 2>&1; then
@@ -213,7 +214,7 @@ print_usage_instructions() {
     echo ""
     echo "Manual Operations:"
     echo "  ./daily_report_system.sh email    # Send daily report now"
-    echo "  python3 music_outreach.py --daily # Run outreach campaign now"  
+    echo "  python3 scripts/music_outreach.py --daily # Run outreach campaign now"  
     echo "  ./news_system.sh full             # Complete news update now"
     echo ""
     echo "Monitoring:"

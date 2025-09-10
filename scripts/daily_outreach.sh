@@ -3,8 +3,10 @@
 # NullRecords Daily Outreach Automation Script
 # Add this to your crontab to run daily: 0 10 * * * /path/to/daily_outreach.sh
 
-# Set working directory
-cd "$(dirname "$0")"
+# Set working directory to project root
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
+cd "$PROJECT_DIR"
 
 # Log file with timestamp
 LOG_FILE="daily_outreach_$(date +%Y%m%d).log"
@@ -13,8 +15,8 @@ echo "🎵 NullRecords Daily Outreach - $(date)" | tee -a "$LOG_FILE"
 echo "========================================" | tee -a "$LOG_FILE"
 
 # Check if Python script exists
-if [ ! -f "music_outreach.py" ]; then
-    echo "❌ music_outreach.py not found!" | tee -a "$LOG_FILE"
+if [ ! -f "scripts/music_outreach.py" ]; then
+    echo "❌ scripts/music_outreach.py not found!" | tee -a "$LOG_FILE"
     exit 1
 fi
 
@@ -30,10 +32,10 @@ echo "🚀 Starting daily outreach..." | tee -a "$LOG_FILE"
 # Check if running interactively (terminal attached)
 if [ -t 0 ]; then
     echo "🎯 Interactive mode - you'll review emails before sending"
-    python3 music_outreach.py --interactive --notify "greg@nullrecords.com" | tee -a "$LOG_FILE"
+    python3 scripts/music_outreach.py --interactive --notify "greg@nullrecords.com" | tee -a "$LOG_FILE"
 else
     echo "🤖 Automated mode - sending pre-approved emails"
-    python3 music_outreach.py --daily --notify "greg@nullrecords.com" >> "$LOG_FILE" 2>&1
+    python3 scripts/music_outreach.py --daily --notify "greg@nullrecords.com" >> "$LOG_FILE" 2>&1
 fi
 
 EXIT_CODE=$?

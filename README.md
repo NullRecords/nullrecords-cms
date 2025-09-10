@@ -17,6 +17,28 @@ NullRecords helps independent artists connect with fans and sponsors like never 
   - Hover effects and transitions
 - **Modern Tech Stack**: Built with Tailwind CSS and vanilla JavaScript
 - **GitHub Pages Ready**: Optimized for static hosting
+- **Automated Operations**: Daily outreach, analytics reporting, and news monitoring
+- **Music Industry Integration**: Contact discovery, email campaigns, and release tracking
+
+## 📁 Project Structure
+
+```
+ob-cms/
+├── devdocs/                 # Development documentation
+├── scripts/                 # Automation and utility scripts  
+├── .github/prompts/        # Development guides and AI prompts
+├── assets/                 # Source assets (CSS, JS, images)
+├── news/                   # Generated news content
+├── static/                 # Compiled static files
+├── home/                   # Django home app
+├── mysite/                 # Django project settings
+└── src/                    # Additional source code
+```
+
+### Key Directories
+- **`devdocs/`** - Comprehensive documentation for all systems
+- **`scripts/`** - Python and shell scripts for automation
+- **`.github/prompts/`** - Development guides and setup instructions
 
 ## 🎨 Design Elements
 
@@ -47,21 +69,44 @@ This is a static website that can be opened directly in a browser or served thro
 
 ### Local Development
 1. Clone the repository
-2. Open `index.html` in your browser
-3. For live reload during development, use a local server like:
-   - Python: `python -m http.server 8000`
-   - Node.js: `npx serve`
-   - VS Code Live Server extension
+2. Set up environment: `cp .env.template .env` and configure credentials
+3. Install dependencies: `pip install -r requirements.txt && npm install`
+4. Validate setup: `python3 scripts/validate_env.py`
+5. Open `index.html` in your browser or run: `python -m http.server 8000`
+
+### Automated Operations
+Set up daily automation:
+```bash
+# Install automated daily operations
+./scripts/setup_cron.sh install
+
+# Monitor system status
+./scripts/monitor_cron.sh
+
+# Manual operations
+python3 scripts/music_outreach.py --daily --limit 5
+./scripts/daily_report_system.sh email
+./scripts/news_system.sh collect
+```
 
 ### Deployment
-The site is configured for GitHub Pages deployment from the main branch.
+- **GitHub Pages**: Automatic deployment from main branch
+- **Daily Updates**: Automated content updates at 8:30 AM
+- **Manual Deploy**: Push to main branch triggers deployment
 
 ## 🎵 Artists Featured
 
 - **My Evil Robot Army**: Experimental electronic jazz fusion
 - **MERA**: Ambient lo-fi and tone poems
 
-## 🔗 Links
+## � Documentation
+
+For comprehensive development information:
+- **[Development Guide](.github/prompts/development-guide.md)** - Complete setup and workflow guide
+- **[Scripts Documentation](scripts/README.md)** - Automation scripts and usage
+- **[DevDocs](devdocs/README.md)** - Detailed technical documentation
+
+## �🔗 Links
 
 - [Spotify](https://open.spotify.com/artist/nullrecords)
 - [YouTube](https://www.youtube.com/nullrecords)

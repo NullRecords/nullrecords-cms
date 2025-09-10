@@ -3,6 +3,11 @@
 # NullRecords Interactive Daily Outreach
 # Run this manually each day to review and approve outreach emails
 
+# Set working directory to project root
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
+cd "$PROJECT_DIR"
+
 clear
 echo "🎵 NullRecords Interactive Outreach System"
 echo "=========================================="
@@ -34,7 +39,7 @@ echo "   (You'll review each email before it's sent)"
 echo ""
 
 # Run interactive outreach
-python3 music_outreach.py --interactive --notify "greg@nullrecords.com"
+python3 scripts/music_outreach.py --interactive --notify "greg@nullrecords.com"
 
 RESULT=$?
 
@@ -49,7 +54,7 @@ fi
 
 echo ""
 echo "📊 Current campaign status:"
-python3 music_outreach.py --report
+python3 scripts/music_outreach.py --report
 
 echo ""
 echo "🎵 Thank you for promoting NullRecords!"

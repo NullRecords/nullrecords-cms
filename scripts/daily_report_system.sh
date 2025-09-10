@@ -6,7 +6,8 @@
 set -e  # Exit on any error
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$SCRIPT_DIR"
+PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
+cd "$PROJECT_DIR"
 
 # Colors for output
 RED='\033[0;31m'
@@ -96,18 +97,18 @@ check_environment() {
 
 generate_report() {
     print_info "Generating daily report..."
-    python3 daily_report.py
+    python3 scripts/daily_report.py
 }
 
 send_report_email() {
     print_info "Generating and sending daily report email..."
-    python3 daily_report.py --send-email
+    python3 scripts/daily_report.py --send-email
 }
 
 generate_historical_report() {
     local date="$1"
     print_info "Generating historical report for $date..."
-    python3 daily_report.py --date "$date"
+    python3 scripts/daily_report.py --date "$date"
 }
 
 view_recent_reports() {
@@ -217,7 +218,7 @@ case "${1:-help}" in
         check_dependencies
         check_environment
         print_info "Running test report generation..."
-        python3 daily_report.py
+        python3 scripts/daily_report.py
         print_success "Test completed - check daily_report_*.html file"
         ;;
     "help"|*)
