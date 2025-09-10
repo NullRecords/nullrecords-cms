@@ -59,8 +59,19 @@ check_dependencies() {
     print_success "Dependencies checked"
 }
 
+load_environment() {
+    # Load .env file if it exists
+    if [[ -f ".env" ]]; then
+        export $(grep -v '^#' .env | xargs)
+        print_info "Loaded environment variables from .env file"
+    fi
+}
+
 check_environment() {
     print_info "Checking environment configuration..."
+    
+    # Load environment first
+    load_environment
     
     # Check for SMTP credentials (use same as outreach system)
     if [[ -z "${SMTP_USER}" || -z "${SMTP_PASSWORD}" || -z "${SMTP_SERVER}" || -z "${SENDER_EMAIL}" ]]; then

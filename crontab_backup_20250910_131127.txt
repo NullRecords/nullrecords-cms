@@ -1,0 +1,3 @@
+0 9 * * * /Users/greglind/Projects/NullRecords/MysteryQuest/scripts/daily_update.sh
+0 9 * * * cd /Users/greglind/Projects/NullRecords/MysteryQuest/scripts && /Users/greglind/Projects/NullRecords/MysteryQuest/.venv/bin/python daily_status_reporter.py >> /Users/greglind/Projects/NullRecords/MysteryQuest/scripts/daily_report.log 2>&1
+0 10 * * * cd /Users/greglind/Projects/NullRecords/MysteryQuest/scripts && echo 'y' | /Users/greglind/Projects/NullRecords/MysteryQuest/.venv/bin/python /Users/greglind/Projects/NullRecords/MysteryQuest/scripts/production_outreach.py >> /Users/greglind/Projects/NullRecords/MysteryQuest/scripts/daily_outreach.log 2>&1
