@@ -14,6 +14,7 @@ import time
 import random
 import smtplib
 import re
+import os
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional, Set
 import logging
@@ -22,6 +23,16 @@ from pathlib import Path
 import argparse
 from urllib.parse import urljoin, urlparse
 import hashlib
+
+# Load environment variables from .env file if it exists
+try:
+    from dotenv import load_dotenv
+    if os.path.exists('.env'):
+        load_dotenv('.env')
+        logging.info("✅ Environment variables loaded from .env file")
+except ImportError:
+    logging.warning("⚠️  python-dotenv not installed - using system environment variables only")
+    logging.info("💡 Install with: pip install python-dotenv")
 
 # Optional imports for web scraping and email functionality
 try:
@@ -866,18 +877,30 @@ About NullRecords: Founded in 2020, NullRecords is an independent music collecti
             logging.error("Email libraries not installed - install email packages")
             return False
             
+        # Get SMTP credentials from environment variables
+        smtp_user = os.getenv('SMTP_USER')
+        smtp_password = os.getenv('SMTP_PASSWORD')
+        smtp_server = os.getenv('SMTP_SERVER', 'smtp-relay.brevo.com')
+        smtp_port = int(os.getenv('SMTP_PORT', '587'))
+        sender_email = os.getenv('SENDER_EMAIL', 'team@nullrecords.com')
+        
+        if not smtp_user or not smtp_password:
+            logging.error("SMTP credentials not found in environment variables")
+            logging.error("Please set SMTP_USER and SMTP_PASSWORD environment variables")
+            return False
+            
         try:
             msg = MimeMultipart()
-            msg['From'] = "team@nullrecords.com"
+            msg['From'] = sender_email
             msg['To'] = to_email
             msg['Subject'] = subject
             msg.attach(MimeText(body, 'plain'))
             
             # Brevo SMTP Configuration
-            server = smtplib.SMTP('smtp-relay.brevo.com', 587)
+            server = smtplib.SMTP(smtp_server, smtp_port)
             server.starttls()
-            server.login("96af72001@smtp-brevo.com", "F9BCg30JqkyZmVWw")
-            server.sendmail("team@nullrecords.com", to_email, msg.as_string())
+            server.login(smtp_user, smtp_password)
+            server.sendmail(sender_email, to_email, msg.as_string())
             server.quit()
             
             logging.info(f"✅ Email sent successfully to {to_email}")
@@ -889,17 +912,29 @@ About NullRecords: Founded in 2020, NullRecords is an independent music collecti
     
     def send_notification_email(self, recipient: str, subject: str, body: str) -> bool:
         """Send notification email (for daily summaries, etc.)"""
+        # Get SMTP credentials from environment variables
+        smtp_user = os.getenv('SMTP_USER')
+        smtp_password = os.getenv('SMTP_PASSWORD')
+        smtp_server = os.getenv('SMTP_SERVER', 'smtp-relay.brevo.com')
+        smtp_port = int(os.getenv('SMTP_PORT', '587'))
+        sender_email = os.getenv('SENDER_EMAIL', 'team@nullrecords.com')
+        
+        if not smtp_user or not smtp_password:
+            logging.error("SMTP credentials not found in environment variables")
+            logging.error("Please set SMTP_USER and SMTP_PASSWORD environment variables")
+            return False
+            
         try:
             msg = MimeMultipart()
-            msg['From'] = "team@nullrecords.com"
+            msg['From'] = sender_email
             msg['To'] = recipient
             msg['Subject'] = f"[NullRecords Outreach] {subject}"
             msg.attach(MimeText(body, 'plain'))
             
-            server = smtplib.SMTP('smtp-relay.brevo.com', 587)
+            server = smtplib.SMTP(smtp_server, smtp_port)
             server.starttls()
-            server.login("96af72001@smtp-brevo.com", "F9BCg30JqkyZmVWw")
-            server.sendmail("team@nullrecords.com", recipient, msg.as_string())
+            server.login(smtp_user, smtp_password)
+            server.sendmail(sender_email, recipient, msg.as_string())
             server.quit()
             
             logging.info(f"📱 Notification sent to {recipient}")

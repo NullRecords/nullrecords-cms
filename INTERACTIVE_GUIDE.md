@@ -95,7 +95,7 @@ Recent Activity: 8 contacts
 Already configured with your Brevo settings:
 - **Server**: smtp-relay.brevo.com
 - **Port**: 587  
-- **Username**: 96af72001@smtp-brevo.com
+- **Username**: 96afc8001@smtp-brevo.com
 - **From**: team@nullrecords.com
 
 ## 📅 Daily Workflow Options

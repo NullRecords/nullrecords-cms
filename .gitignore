@@ -13,6 +13,18 @@ outreach.log
 daily_outreach_*.log
 *.log
 
+# Environment Variables (SECURITY: Never commit credentials)
+.env
+.env.local
+.env.production
+.env.staging
+
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
 # Old Django/Python artifacts (cleaned up)
 __pycache__/
 *.py[cod]

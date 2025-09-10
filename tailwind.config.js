@@ -20,7 +20,10 @@ module.exports = {
         'glitch': 'glitch 0.3s ease-in-out infinite alternate',
         'float': 'float 6s ease-in-out infinite',
         'matrix-fall': 'matrix-fall 20s linear infinite',
-        'pulse-cyber': 'pulse-cyber 2s ease-in-out infinite alternate'
+        'pulse-cyber': 'pulse-cyber 2s ease-in-out infinite alternate',
+        'glow': 'glow 2s ease-in-out infinite alternate',
+        'matrix': 'matrix 20s linear infinite',
+        'scan': 'scan 2s linear infinite'
       },
       keyframes: {
         glitch: {
@@ -42,6 +45,18 @@ module.exports = {
         'pulse-cyber': {
           '0%': { boxShadow: '0 0 5px #ff5758, 0 0 10px #ff5758, 0 0 15px #ff5758' },
           '100%': { boxShadow: '0 0 10px #ff5758, 0 0 20px #ff5758, 0 0 30px #ff5758' }
+        },
+        glow: {
+          '0%': { boxShadow: '0 0 5px #ff5758, 0 0 10px #ff5758, 0 0 15px #ff5758' },
+          '100%': { boxShadow: '0 0 10px #ff5758, 0 0 20px #ff5758, 0 0 30px #ff5758' }
+        },
+        matrix: {
+          '0%': { transform: 'translateY(-100%)' },
+          '100%': { transform: 'translateY(100vh)' }
+        },
+        scan: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(100vw)' }
         }
       },
       backdropBlur: {
