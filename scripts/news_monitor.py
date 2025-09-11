@@ -94,6 +94,7 @@ class NewsMonitor:
             "Evil Robot Army"
         ]
         self.search_sources = self._initialize_sources()
+        self.failed_sources = set()  # Track sources that consistently fail
         self.load_articles()
         
     def _initialize_sources(self) -> List[Dict]:
@@ -202,6 +203,228 @@ class NewsMonitor:
                 "search_url": "https://music.youtube.com/search?q={query}",
                 "type": "streaming",
                 "selector": ".ytmusic-shelf-renderer"
+            },
+            # Playlist Curators & Aggregators
+            {
+                "name": "SubmitHub",
+                "search_url": "https://www.submithub.com/search?q={query}",
+                "type": "submission_platform",
+                "selector": ".search-result"
+            },
+            {
+                "name": "Obscure Sound",
+                "search_url": "https://www.obscuresound.com/?s={query}",
+                "type": "blog",
+                "selector": ".post-item"
+            },
+
+            {
+                "name": "Consequence of Sound",
+                "search_url": "https://consequence.net/?s={query}",
+                "type": "publication",
+                "selector": ".article"
+            },
+            {
+                "name": "Line of Best Fit",
+                "search_url": "https://www.thelineofbestfit.com/search?q={query}",
+                "type": "publication",
+                "selector": ".post"
+            },
+            # Music Discovery Platforms
+            {
+                "name": "Last.fm Artist Search",
+                "search_url": "https://www.last.fm/search/artists?q={query}",
+                "type": "music_database",
+                "selector": ".search-result"
+            },
+            {
+                "name": "RateYourMusic",
+                "search_url": "https://rateyourmusic.com/search?searchterm={query}",
+                "type": "music_database",
+                "selector": ".search_result"
+            },
+            {
+                "name": "Discogs",
+                "search_url": "https://www.discogs.com/search/?q={query}&type=all",
+                "type": "music_database",
+                "selector": ".search_result_title"
+            },
+            # Playlist & Music Influencers
+            {
+                "name": "8Tracks",
+                "search_url": "https://8tracks.com/explore/{query}",
+                "type": "playlist_platform",
+                "selector": ".mix"
+            },
+            {
+                "name": "Mixcloud",
+                "search_url": "https://www.mixcloud.com/search/?q={query}",
+                "type": "mix_platform",
+                "selector": ".card-cloudcast"
+            },
+            {
+                "name": "Indie Shuffle",
+                "search_url": "https://www.indieshuffle.com/search?q={query}",
+                "type": "music_blog",
+                "selector": ".post"
+            },
+
+            {
+                "name": "Dancing Astronaut",
+                "search_url": "https://dancingastronaut.com/?s={query}",
+                "type": "electronic_blog",
+                "selector": ".post"
+            },
+            {
+                "name": "EDM.com",
+                "search_url": "https://edm.com/?s={query}",
+                "type": "electronic_blog",
+                "selector": ".post"
+            },
+            # YouTube Music Channels & Influencers
+            {
+                "name": "YouTube General Search",
+                "search_url": "https://www.youtube.com/results?search_query={query}+playlist",
+                "type": "video_platform",
+                "selector": ".ytd-video-renderer"
+            },
+            {
+                "name": "Majestic Casual Search",
+                "search_url": "https://www.youtube.com/c/majesticcasual/search?query={query}",
+                "type": "youtube_channel",
+                "selector": ".ytd-video-renderer"
+            },
+            {
+                "name": "ChillHop Music Search",
+                "search_url": "https://www.youtube.com/c/Chillhopmusic/search?query={query}",
+                "type": "youtube_channel",
+                "selector": ".ytd-video-renderer"
+            },
+            {
+                "name": "Lofi Hip Hop Radio Search",
+                "search_url": "https://www.youtube.com/results?search_query={query}+lofi+hip+hop",
+                "type": "youtube_genre",
+                "selector": ".ytd-video-renderer"
+            },
+            # Specialized Music Platforms
+            {
+                "name": "ReverbNation",
+                "search_url": "https://www.reverbnation.com/main/search?q={query}",
+                "type": "artist_platform",
+                "selector": ".search-result"
+            },
+            {
+                "name": "Audiomack",
+                "search_url": "https://audiomack.com/search?q={query}",
+                "type": "streaming_platform",
+                "selector": ".search-result"
+            },
+            {
+                "name": "Jamendo",
+                "search_url": "https://www.jamendo.com/search?qs=q&q={query}",
+                "type": "free_music_platform",
+                "selector": ".search-result"
+            },
+            # Social Media & Community Platforms
+            {
+                "name": "TikTok Search (Web)",
+                "search_url": "https://www.tiktok.com/search?q={query}",
+                "type": "social_media",
+                "selector": "[data-e2e='search-card-item']"
+            },
+            {
+                "name": "Twitter Music Search",
+                "search_url": "https://twitter.com/search?q={query}+music&src=typed_query",
+                "type": "social_media",
+                "selector": "[data-testid='tweet']"
+            },
+            {
+                "name": "Instagram Hashtag Search",
+                "search_url": "https://www.instagram.com/explore/tags/{query}/",
+                "type": "social_media",
+                "selector": "article"
+            },
+            # Music News Aggregators
+            {
+                "name": "AllMusic News",
+                "search_url": "https://www.allmusic.com/search/news/{query}",
+                "type": "news_aggregator",
+                "selector": ".search-result"
+            },
+            {
+                "name": "Music News Net",
+                "search_url": "https://www.musicnewsnet.com/search?q={query}",
+                "type": "news_aggregator",
+                "selector": ".post"
+            },
+            {
+                "name": "Prefix Magazine",
+                "search_url": "https://www.prefixmag.com/search?q={query}",
+                "type": "music_magazine",
+                "selector": ".post"
+            },
+            # Regional & Genre-Specific Sources
+            {
+                "name": "XLR8R",
+                "search_url": "https://xlr8r.com/?s={query}",
+                "type": "electronic_magazine",
+                "selector": ".post"
+            },
+            {
+                "name": "Resident Advisor",
+                "search_url": "https://www.residentadvisor.net/search?q={query}",
+                "type": "electronic_platform",
+                "selector": ".search-result"
+            },
+            {
+                "name": "Attack Magazine",
+                "search_url": "https://www.attackmagazine.com/?s={query}",
+                "type": "electronic_magazine",
+                "selector": ".post"
+            },
+            # Playlist Discovery Tools
+            {
+                "name": "Spotify Playlist Search via Google",
+                "search_url": "https://www.google.com/search?q=\"{query}\"+site:open.spotify.com+playlist",
+                "type": "playlist_search",
+                "selector": ".g"
+            },
+            {
+                "name": "Apple Music Playlist Search via Google",
+                "search_url": "https://www.google.com/search?q=\"{query}\"+site:music.apple.com+playlist",
+                "type": "playlist_search",
+                "selector": ".g"
+            },
+            {
+                "name": "YouTube Playlist Search via Google",
+                "search_url": "https://www.google.com/search?q=\"{query}\"+site:youtube.com+playlist",
+                "type": "playlist_search",
+                "selector": ".g"
+            },
+            # Influencer & Curator Platforms
+            {
+                "name": "Soundplate",
+                "search_url": "https://soundplate.com/search?q={query}",
+                "type": "music_discovery",
+                "selector": ".track-item"
+            },
+            {
+                "name": "This Song Is Sick",
+                "search_url": "https://www.thissongissick.com/?s={query}",
+                "type": "music_blog",
+                "selector": ".post"
+            },
+            {
+                "name": "Run The Trap",
+                "search_url": "https://runthetrap.com/?s={query}",
+                "type": "electronic_blog",
+                "selector": ".post"
+            },
+            {
+                "name": "Your EDM",
+                "search_url": "https://www.youredm.com/?s={query}",
+                "type": "electronic_blog",
+                "selector": ".post"
             }
         ]
     
@@ -237,6 +460,11 @@ class NewsMonitor:
         found_articles = []
         
         for source in self.search_sources:  # Search all real sources
+            # Skip sources that have failed consistently
+            if source['name'] in self.failed_sources:
+                logging.debug(f"⏭️  Skipping {source['name']} (previously failed)")
+                continue
+                
             try:
                 logging.info(f"🔍 Searching {source['name']} for '{artist}'...")
                 
@@ -248,10 +476,11 @@ class NewsMonitor:
                 headers = {
                     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
                     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                    'Accept-Encoding': 'identity',  # Don't request gzip to avoid decompression issues
                 }
                 
                 # Make request with timeout
-                response = requests.get(search_url, headers=headers, timeout=10)
+                response = requests.get(search_url, headers=headers, timeout=15)
                 
                 if response.status_code == 200:
                     # Parse with BeautifulSoup
@@ -321,6 +550,8 @@ class NewsMonitor:
                 
             except Exception as e:
                 logging.error(f"❌ Error searching {source['name']}: {e}")
+                # Mark source as failed after first error (can be refined later)
+                self.failed_sources.add(source['name'])
                 continue
         
         return found_articles
@@ -361,7 +592,22 @@ class NewsMonitor:
         playlist_keywords = [
             'playlist', 'featured in', 'added to', 'curated', 'included in',
             'now playing', 'discover', 'spotify playlist', 'lofi playlist',
-            'chill playlist', 'study playlist', 'ambient playlist'
+            'chill playlist', 'study playlist', 'ambient playlist', 'mix',
+            'compilation', 'collection', 'selection'
+        ]
+        
+        # Influencer and curator keywords
+        influencer_keywords = [
+            'curator', 'influencer', 'tastemaker', 'featured by', 'highlighted by',
+            'recommended by', 'discovered by', 'championed by', 'selected by',
+            'handpicked', 'endorsed', 'showcased', 'spotlighted'
+        ]
+        
+        # Platform-specific indicators
+        platform_indicators = [
+            'spotify:', 'apple music:', 'youtube:', 'soundcloud:', 'bandcamp:',
+            'tiktok:', 'instagram:', 'twitter:', 'mixcloud:', '8tracks:',
+            'hypem:', 'last.fm:', 'audiomack:', 'reverbnation:'
         ]
         
         specific_score = sum(1 for keyword in nullrecords_keywords if keyword in text) / len(nullrecords_keywords)
@@ -371,15 +617,54 @@ class NewsMonitor:
         playlist_score = sum(1 for keyword in playlist_keywords if keyword in text) / len(playlist_keywords)
         confidence += playlist_score * 0.3
         
+        # Bonus for influencer/curator mentions
+        influencer_score = sum(1 for keyword in influencer_keywords if keyword in text) / len(influencer_keywords)
+        confidence += influencer_score * 0.2
+        
+        # Bonus for legitimate platform indicators
+        platform_score = sum(1 for indicator in platform_indicators if indicator in text) / len(platform_indicators)
+        confidence += platform_score * 0.15
+        
+        # High-value content indicators (very specific to music discovery)
+        high_value_indicators = [
+            'new music friday', 'weekly playlist', 'monthly picks', 'best of',
+            'fresh finds', 'indie spotlight', 'underground gems', 'hidden gems',
+            'music discovery', 'curator pick', 'editor choice', 'staff pick'
+        ]
+        
+        high_value_score = sum(1 for indicator in high_value_indicators if indicator in text) / len(high_value_indicators)
+        confidence += high_value_score * 0.25
+        
         # Penalty for generic/spam content and user accounts
         spam_indicators = [
             'lorem ipsum', 'example.com', 'test article', 'placeholder',
             'buy now', 'click here', 'advertisement', 'user profile',
-            'personal account', 'my music', 'follow me', 'check out my'
+            'personal account', 'my music', 'follow me', 'check out my',
+            'subscribe to', 'like and share', 'smash that button',
+            'fake', 'spam', 'generated content', 'template'
+        ]
+        
+        # User account indicators (to distinguish from legitimate features)
+        user_account_indicators = [
+            'my playlist', 'my favorites', 'my collection', 'personal mix',
+            'user uploaded', 'amateur recording', 'home studio', 'bedroom producer',
+            'soundcloud rapper', 'bedroom musician'
         ]
         
         if any(indicator in text for indicator in spam_indicators):
             confidence *= 0.1  # Heavily penalize spam
+            
+        if any(indicator in text for indicator in user_account_indicators):
+            confidence *= 0.3  # Reduce confidence for user accounts vs. curator features
+        
+        # Quality indicators that boost confidence
+        quality_indicators = [
+            'review', 'interview', 'feature article', 'news article', 'press release',
+            'editorial', 'journalist', 'music writer', 'critic', 'publication'
+        ]
+        
+        quality_score = sum(1 for indicator in quality_indicators if indicator in text) / len(quality_indicators)
+        confidence += quality_score * 0.2
         
         # Cap at 1.0
         return min(confidence, 1.0)
