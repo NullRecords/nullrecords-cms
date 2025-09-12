@@ -50,6 +50,17 @@ try:
     EMAIL_AVAILABLE = True
 except ImportError:
     EMAIL_AVAILABLE = False
+    logging.warning("⚠️  Email libraries not available")
+
+# Import opt-out management
+try:
+    from email_opt_out import check_opt_out, get_opt_out_link
+    OPT_OUT_AVAILABLE = True
+except ImportError:
+    OPT_OUT_AVAILABLE = False
+    logging.warning("⚠️  Email opt-out system not available")
+except ImportError:
+    EMAIL_AVAILABLE = False
 
 # Configure logging
 logging.basicConfig(
@@ -876,7 +887,12 @@ About NullRecords: Founded in 2020, NullRecords is an independent music collecti
         if not EMAIL_AVAILABLE:
             logging.error("Email libraries not installed - install email packages")
             return False
-            
+        
+        # Check opt-out status first
+        if OPT_OUT_AVAILABLE and check_opt_out(to_email, "music_outreach"):
+            logging.info(f"⚠️  {to_email} has opted out of music outreach - skipping email")
+            return True  # Return True since this is expected behavior, not a failure
+        
         # Get SMTP credentials from environment variables
         smtp_user = os.getenv('SMTP_USER')
         smtp_password = os.getenv('SMTP_PASSWORD')
@@ -891,6 +907,11 @@ About NullRecords: Founded in 2020, NullRecords is an independent music collecti
             return False
             
         try:
+            # Add opt-out link to body if available
+            if OPT_OUT_AVAILABLE:
+                opt_out_link = get_opt_out_link(to_email)
+                body += f"\n\n---\nTo unsubscribe from NullRecords outreach emails: {opt_out_link}"
+            
             msg = MIMEMultipart()
             msg['From'] = sender_email
             msg['To'] = to_email

@@ -1,0 +1,21 @@
+{
+  "opt_outs": [
+    {
+      "email": "test@example.com",
+      "email_types": [
+        "daily_reports",
+        "news_notifications"
+      ],
+      "opt_out_date": "2025-09-12T12:26:54.703903",
+      "source": "cli",
+      "ip_address": null,
+      "user_agent": null
+    }
+  ],
+  "metadata": {
+    "created": "2025-09-12T00:00:00Z",
+    "last_updated": "2025-09-12T12:26:54.703958",
+    "total_opt_outs": 1,
+    "version": "1.0"
+  }
+}

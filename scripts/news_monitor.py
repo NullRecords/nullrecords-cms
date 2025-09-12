@@ -45,6 +45,14 @@ except ImportError:
     SCRAPING_AVAILABLE = False
     logging.warning("⚠️  Scraping libraries not available - install requests and beautifulsoup4")
 
+# Import opt-out management
+try:
+    from email_opt_out import check_opt_out, get_opt_out_link
+    OPT_OUT_AVAILABLE = True
+except ImportError:
+    OPT_OUT_AVAILABLE = False
+    logging.warning("⚠️  Email opt-out system not available")
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
@@ -734,6 +742,11 @@ class NewsMonitor:
                 logging.warning("Required: SMTP_SERVER, SMTP_USER, SMTP_PASSWORD, SENDER_EMAIL, BCC_EMAIL")
                 return
             
+            # Check opt-out status
+            if OPT_OUT_AVAILABLE and check_opt_out(notification_email, "news_notifications"):
+                logging.info(f"⚠️  Recipient {notification_email} has opted out of news notifications - skipping email")
+                return
+            
             # Create email content
             subject = f"🔥 {len(new_articles)} New Articles Found - NullRecords News Monitor"
             
@@ -763,7 +776,22 @@ class NewsMonitor:
                     </div>
                 """
             
-            html_body += """
+            # Add opt-out link if available
+            opt_out_footer = ""
+            if OPT_OUT_AVAILABLE:
+                opt_out_link = get_opt_out_link(notification_email)
+                opt_out_footer = f"""
+                    <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center;">
+                        <p style="color: #999; font-size: 12px; margin: 5px 0;">
+                            You're receiving news notifications from NullRecords News Monitor.
+                        </p>
+                        <p style="color: #999; font-size: 12px; margin: 5px 0;">
+                            <a href="{opt_out_link}" style="color: #999;">Unsubscribe from these notifications</a>
+                        </p>
+                    </div>
+                """
+            
+            html_body += f"""
                     <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2);">
                         <p style="color: #cccccc; text-align: center; margin: 0;">
                             <a href="https://nullrecords.com/news/" style="color: #00ffff; text-decoration: none;">
@@ -771,6 +799,7 @@ class NewsMonitor:
                             </a>
                         </p>
                     </div>
+                    {opt_out_footer}
                 </div>
             </body>
             </html>

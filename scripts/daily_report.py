@@ -27,6 +27,14 @@ from dataclasses import dataclass, asdict
 from pathlib import Path
 import argparse
 
+# Import opt-out management
+try:
+    from email_opt_out import check_opt_out, get_opt_out_link
+    OPT_OUT_AVAILABLE = True
+except ImportError:
+    OPT_OUT_AVAILABLE = False
+    logging.warning("⚠️  Email opt-out system not available")
+
 # Load environment variables
 try:
     from dotenv import load_dotenv
@@ -942,6 +950,11 @@ class DailyReportSystem:
                 logging.error("Required: SMTP_SERVER, SMTP_USER, SMTP_PASSWORD, SENDER_EMAIL, DAILY_REPORT_EMAIL (or BCC_EMAIL)")
                 return False
             
+            # Check opt-out status
+            if OPT_OUT_AVAILABLE and check_opt_out(recipient_email, "daily_reports"):
+                logging.info(f"⚠️  Recipient {recipient_email} has opted out of daily reports - skipping email")
+                return True  # Return True since this is expected behavior
+            
             # Create email
             subject = f"🎵 NullRecords Daily Report - {self.report_date}"
             
@@ -949,6 +962,19 @@ class DailyReportSystem:
             msg['Subject'] = subject
             msg['From'] = sender_email
             msg['To'] = recipient_email
+            
+            # Add opt-out link to HTML report if available
+            if OPT_OUT_AVAILABLE:
+                opt_out_link = get_opt_out_link(recipient_email)
+                html_report = html_report.replace(
+                    '</body>',
+                    f'''
+                    <div style="text-align: center; margin-top: 40px; padding: 20px; background-color: #f8f9fa; font-size: 12px; color: #666;">
+                        <p>You're receiving this because you requested daily reports from NullRecords.</p>
+                        <p><a href="{opt_out_link}" style="color: #999;">Unsubscribe from these emails</a></p>
+                    </div>
+                    </body>'''
+                )
             
             # Add HTML content
             html_part = MIMEText(html_report, 'html')
