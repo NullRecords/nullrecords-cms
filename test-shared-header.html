@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NullRecords Shared Header Test</title>
+    
+    <!-- Test the shared header system -->
+    <script src="/shared-header.js"></script>
+    
+    <style>
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: #1a1a1a;
+            color: #ffffff;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .test-results {
+            background: rgba(0,255,255,0.1);
+            border: 1px solid #00ffff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .success {
+            color: #00ff00;
+        }
+        .error {
+            color: #ff0000;
+        }
+        .info {
+            color: #00ffff;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 NullRecords Shared Header System Test</h1>
+    
+    <div class="test-results">
+        <h2>Test Results:</h2>
+        <div id="test-output">
+            <p class="info">🔄 Testing shared header initialization...</p>
+        </div>
+    </div>
+    
+    <div class="test-results">
+        <h2>Expected Elements Added by Shared Header:</h2>
+        <ul>
+            <li>✅ Google Analytics (gtag.js) script</li>
+            <li>✅ Performance preconnect links</li>
+            <li>✅ Meta tags (author, robots, theme-color, etc.)</li>
+            <li>✅ Favicon links</li>
+            <li>✅ Structured data for music organization</li>
+        </ul>
+    </div>
+    
+    <script>
+        // Test the shared header system
+        let testResults = [];
+        
+        function addTestResult(message, type = 'info') {
+            testResults.push(`<p class="${type}">${message}</p>`);
+            updateTestOutput();
+        }
+        
+        function updateTestOutput() {
+            document.getElementById('test-output').innerHTML = testResults.join('');
+        }
+        
+        // Wait for the shared header to load
+        document.addEventListener('nullrecords:header:loaded', function(event) {
+            addTestResult('✅ Shared header loaded successfully!', 'success');
+            addTestResult(`📊 Header version: ${event.detail.version}`, 'info');
+            
+            // Test for Google Analytics
+            setTimeout(() => {
+                if (window.gtag) {
+                    addTestResult('✅ Google Analytics (gtag) loaded successfully!', 'success');
+                } else {
+                    addTestResult('❌ Google Analytics (gtag) not found', 'error');
+                }
+                
+                // Test for expected meta tags
+                const expectedMetas = ['author', 'robots', 'theme-color'];
+                expectedMetas.forEach(name => {
+                    const meta = document.querySelector(`meta[name="${name}"]`);
+                    if (meta) {
+                        addTestResult(`✅ Meta tag "${name}" found: ${meta.content}`, 'success');
+                    } else {
+                        addTestResult(`❌ Meta tag "${name}" not found`, 'error');
+                    }
+                });
+                
+                // Test for preconnect links
+                const expectedPreconnects = [
+                    'https://fonts.googleapis.com',
+                    'https://www.googletagmanager.com'
+                ];
+                expectedPreconnects.forEach(href => {
+                    const link = document.querySelector(`link[rel="preconnect"][href="${href}"]`);
+                    if (link) {
+                        addTestResult(`✅ Preconnect link found: ${href}`, 'success');
+                    } else {
+                        addTestResult(`❌ Preconnect link not found: ${href}`, 'error');
+                    }
+                });
+                
+                // Test for structured data
+                const structuredData = document.querySelector('script[type="application/ld+json"]');
+                if (structuredData) {
+                    try {
+                        const data = JSON.parse(structuredData.textContent);
+                        if (data['@type'] === 'MusicGroup' && data.name === 'NullRecords') {
+                            addTestResult('✅ Structured data for NullRecords found', 'success');
+                        } else {
+                            addTestResult('⚠️  Structured data found but format unexpected', 'error');
+                        }
+                    } catch (e) {
+                        addTestResult('❌ Invalid structured data JSON', 'error');
+                    }
+                } else {
+                    addTestResult('❌ Structured data not found', 'error');
+                }
+                
+                // Test for NullRecordsHeader utility
+                if (window.NullRecordsHeader) {
+                    addTestResult('✅ NullRecordsHeader utility available', 'success');
+                    addTestResult(`📋 Config: ${JSON.stringify(window.NullRecordsHeader.getConfig())}`, 'info');
+                } else {
+                    addTestResult('❌ NullRecordsHeader utility not found', 'error');
+                }
+            }, 1000);
+        });
+        
+        // Timeout fallback
+        setTimeout(() => {
+            if (testResults.length === 1) {
+                addTestResult('❌ Shared header did not load within timeout', 'error');
+                addTestResult('🔧 Check that shared-header.js is accessible', 'info');
+            }
+        }, 5000);
+        
+        // Enable debug mode for testing
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.NullRecordsHeader) {
+                window.NullRecordsHeader.enableDebug();
+            }
+        });
+    </script>
+</body>
+</html>

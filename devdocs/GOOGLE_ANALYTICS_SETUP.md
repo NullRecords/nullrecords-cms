@@ -96,22 +96,27 @@ except Exception as e:
 **Add to your environment variables**:
 
 ```bash
-# Production Environment
-export GA_VIEW_ID="123456789"  # Your actual GA View ID
+# Production Environment - NullRecords Specific Configuration
+export GA_PROPERTY_ID="3376868194"  # Your actual GA Property ID
+export GA_MEASUREMENT_ID="G-2WVCJM4NKR"  # Your Measurement ID (already in shared-header.js)
 export GOOGLE_APPLICATION_CREDENTIALS="/opt/nullrecords/credentials/ga-service-account.json"
 
 # Development Environment  
-export GA_VIEW_ID="123456789"
+export GA_PROPERTY_ID="3376868194"
+export GA_MEASUREMENT_ID="G-2WVCJM4NKR"
 export GOOGLE_APPLICATION_CREDENTIALS="/Users/greglind/Projects/NullRecords/ob-cms/ga-credentials.json"
 ```
 
 **For persistent configuration, add to `.bashrc` or `.zshrc`**:
 
 ```bash
-echo 'export GA_VIEW_ID="123456789"' >> ~/.zshrc
+echo 'export GA_PROPERTY_ID="3376868194"' >> ~/.zshrc
+echo 'export GA_MEASUREMENT_ID="G-2WVCJM4NKR"' >> ~/.zshrc
 echo 'export GOOGLE_APPLICATION_CREDENTIALS="/path/to/ga-service-account.json"' >> ~/.zshrc
 source ~/.zshrc
 ```
+
+**Note**: The frontend tracking (gtag.js) is already correctly configured with `G-2WVCJM4NKR` in the shared header system.
 
 ### Step 5: Install Required Dependencies
 

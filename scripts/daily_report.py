@@ -139,18 +139,23 @@ class DailyReportSystem:
         
     def initialize_apis(self):
         """Initialize API connections"""
-        # Google Analytics
+        # Google Analytics (GA4 Data API)
         self.ga_service = None
         if GOOGLE_APIS_AVAILABLE:
             try:
-                credentials_path = os.getenv('GOOGLE_SERVICE_ACCOUNT_PATH')
-                if credentials_path and os.path.exists(credentials_path):
+                credentials_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
+                property_id = os.getenv('GA_PROPERTY_ID')
+                if credentials_path and os.path.exists(credentials_path) and property_id:
+                    from google.analytics.data_v1beta import BetaAnalyticsDataClient
                     credentials = service_account.Credentials.from_service_account_file(
                         credentials_path,
                         scopes=['https://www.googleapis.com/auth/analytics.readonly']
                     )
-                    self.ga_service = build('analyticsreporting', 'v4', credentials=credentials)
-                    logging.info("✅ Google Analytics API initialized")
+                    self.ga_service = BetaAnalyticsDataClient(credentials=credentials)
+                    self.ga_property_id = f"properties/{property_id}"
+                    logging.info("✅ Google Analytics GA4 API initialized")
+                else:
+                    logging.warning("⚠️  GA4 credentials or property ID not configured")
             except Exception as e:
                 logging.error(f"❌ Failed to initialize Google Analytics: {e}")
         
@@ -175,10 +180,16 @@ class DailyReportSystem:
             return
         
         try:
-            # Get view ID from environment
+            # Check for GA4 configuration first
+            property_id = os.getenv('GA_PROPERTY_ID')
+            if property_id and self.ga_service and hasattr(self, 'ga_property_id'):
+                self._collect_ga4_data()
+                return
+            
+            # Fallback to legacy GA configuration
             view_id = os.getenv('GA_VIEW_ID')
             if not view_id:
-                logging.error("❌ GA_VIEW_ID not set in environment variables")
+                logging.error("❌ Neither GA_PROPERTY_ID nor GA_VIEW_ID set in environment variables")
                 self._generate_mock_ga_data()
                 return
             
@@ -279,6 +290,98 @@ class DailyReportSystem:
             'reddit.com': random.randint(15, 40),
             'bandcamp.com': random.randint(10, 30)
         }
+    
+    def _collect_ga4_data(self):
+        """Collect Google Analytics GA4 data using the Data API v1 Beta"""
+        logging.info("📊 Collecting GA4 data...")
+        
+        try:
+            from google.analytics.data_v1beta.types import (
+                DateRange, Dimension, Metric, RunReportRequest
+            )
+            
+            # Define date range (yesterday)
+            yesterday = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
+            
+            # Basic metrics request
+            request = RunReportRequest(
+                property=self.ga_property_id,
+                dimensions=[
+                    Dimension(name="pagePath"),
+                    Dimension(name="sessionDefaultChannelGrouping")
+                ],
+                metrics=[
+                    Metric(name="activeUsers"),
+                    Metric(name="screenPageViews"),
+                    Metric(name="sessions"),
+                    Metric(name="bounceRate"),
+                    Metric(name="averageSessionDuration")
+                ],
+                date_ranges=[DateRange(start_date=yesterday, end_date=yesterday)]
+            )
+            
+            # Execute the request
+            response = self.ga_service.run_report(request)
+            
+            # Process the response
+            total_users = 0
+            total_pageviews = 0
+            total_sessions = 0
+            page_views = {}
+            traffic_sources = {}
+            
+            # Process each row
+            for row in response.rows:
+                page_path = row.dimension_values[0].value
+                channel = row.dimension_values[1].value
+                
+                users = int(row.metric_values[0].value or 0)
+                pageviews = int(row.metric_values[1].value or 0)
+                sessions = int(row.metric_values[2].value or 0)
+                
+                total_users += users
+                total_pageviews += pageviews
+                total_sessions += sessions
+                
+                # Track page views
+                page_views[page_path] = page_views.get(page_path, 0) + pageviews
+                
+                # Track traffic sources
+                traffic_sources[channel] = traffic_sources.get(channel, 0) + sessions
+            
+            # Get bounce rate and session duration (these are property-level metrics)
+            bounce_rate = 0
+            avg_session_duration = 0
+            
+            if response.rows:
+                # These metrics should be consistent across rows for the same time period
+                bounce_rate = float(response.rows[0].metric_values[3].value or 0)
+                avg_session_duration = float(response.rows[0].metric_values[4].value or 0)
+            
+            # Store the metrics
+            self.metrics.website_visitors = total_users
+            self.metrics.website_pageviews = total_pageviews  
+            self.metrics.website_sessions = total_sessions
+            self.metrics.bounce_rate = bounce_rate * 100  # Convert to percentage
+            self.metrics.avg_session_duration = avg_session_duration
+            
+            # Sort and store top pages
+            self.metrics.top_pages = [
+                {'page': page, 'views': views}
+                for page, views in sorted(page_views.items(), key=lambda x: x[1], reverse=True)[:5]
+            ]
+            
+            # Sort and store traffic sources
+            self.metrics.traffic_sources = dict(
+                sorted(traffic_sources.items(), key=lambda x: x[1], reverse=True)[:5]
+            )
+            
+            logging.info(f"✅ GA4 data collected: {total_users} users, {total_pageviews} pageviews, {total_sessions} sessions")
+            
+        except Exception as e:
+            logging.error(f"❌ Error collecting GA4 data: {e}")
+            logging.warning("⚠️  Falling back to mock data")
+            self._generate_mock_ga_data()
     
     def collect_youtube_data(self):
         """Collect YouTube analytics data"""
@@ -881,7 +984,7 @@ class DailyReportSystem:
                     </p>
                 </div>
                 
-                <div style="text-align: center; margin-top: 30px; color: #666; font-size: 0.9em;">
+                <div style="text-align: center; margin-top: 30px; color: #cccccc; font-size: 0.9em;">
                     Report generated at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} • 
                     <a href="https://nullrecords.com" style="color: #00ffff;">nullrecords.com</a>
                 </div>
@@ -969,9 +1072,9 @@ class DailyReportSystem:
                 html_report = html_report.replace(
                     '</body>',
                     f'''
-                    <div style="text-align: center; margin-top: 40px; padding: 20px; background-color: #f8f9fa; font-size: 12px; color: #666;">
-                        <p>You're receiving this because you requested daily reports from NullRecords.</p>
-                        <p><a href="{opt_out_link}" style="color: #999;">Unsubscribe from these emails</a></p>
+                    <div style="text-align: center; margin-top: 40px; padding: 20px; background-color: rgba(0,255,255,0.1); border: 1px solid #00ffff; border-radius: 10px; font-size: 12px; color: #cccccc;">
+                        <p style="margin: 5px 0; color: #ffffff;">You're receiving this because you requested daily reports from NullRecords.</p>
+                        <p style="margin: 5px 0;"><a href="{opt_out_link}" style="color: #00ffff; text-decoration: underline;">Unsubscribe from these emails</a></p>
                     </div>
                     </body>'''
                 )

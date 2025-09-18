@@ -19,6 +19,13 @@ daily_outreach_*.log
 .env.production
 .env.staging
 
+# Google Service Account Keys (SECURITY: Never commit)
+*service-account*.json
+*credentials*.json
+*ga4*.json
+livestream-*.json
+*-key.json
+
 # Node.js dependencies
 node_modules/
 npm-debug.log*
