@@ -47,6 +47,16 @@ try:
             logging.info(f"✅ Environment variables loaded from {env_path}")
             env_loaded = True
             break
+    
+    # If not found in relative paths, try absolute path to workspace root
+    if not env_loaded:
+        workspace_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        env_path = os.path.join(workspace_root, '.env')
+        if os.path.exists(env_path):
+            load_dotenv(env_path)
+            logging.info(f"✅ Environment variables loaded from {env_path}")
+            env_loaded = True
+    
     if not env_loaded:
         logging.warning("⚠️  .env file not found in expected locations")
 except ImportError:
