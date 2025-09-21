@@ -38,9 +38,17 @@ except ImportError:
 # Load environment variables
 try:
     from dotenv import load_dotenv
-    if os.path.exists('.env'):
-        load_dotenv('.env')
-        logging.info("✅ Environment variables loaded from .env file")
+    # Try to find .env file in current directory or parent directory
+    env_paths = ['.env', '../.env', os.path.join(os.path.dirname(__file__), '..', '.env')]
+    env_loaded = False
+    for env_path in env_paths:
+        if os.path.exists(env_path):
+            load_dotenv(env_path)
+            logging.info(f"✅ Environment variables loaded from {env_path}")
+            env_loaded = True
+            break
+    if not env_loaded:
+        logging.warning("⚠️  .env file not found in expected locations")
 except ImportError:
     logging.warning("⚠️  python-dotenv not installed - using system environment variables only")
 
@@ -133,6 +141,11 @@ class DailyReportSystem:
     """Main daily reporting system"""
     
     def __init__(self):
+        # Add debug logging for environment variables
+        logging.info("🔍 Checking environment variables...")
+        logging.info(f"🔍 GA_PROPERTY_ID: {os.getenv('GA_PROPERTY_ID')}")
+        logging.info(f"🔍 GOOGLE_APPLICATION_CREDENTIALS: {os.getenv('GOOGLE_APPLICATION_CREDENTIALS')}")
+        
         self.report_date = datetime.now().strftime('%Y-%m-%d')
         self.metrics = DailyMetrics(date=self.report_date)
         self.initialize_apis()
@@ -153,9 +166,10 @@ class DailyReportSystem:
                     )
                     self.ga_service = BetaAnalyticsDataClient(credentials=credentials)
                     self.ga_property_id = f"properties/{property_id}"
-                    logging.info("✅ Google Analytics GA4 API initialized")
+                    logging.info(f"✅ Google Analytics GA4 API initialized with property: {self.ga_property_id}")
+                    logging.info(f"✅ Using credentials: {credentials_path}")
                 else:
-                    logging.warning("⚠️  GA4 credentials or property ID not configured")
+                    logging.warning(f"⚠️  GA4 credentials or property ID not configured - path: {credentials_path}, property: {property_id}")
             except Exception as e:
                 logging.error(f"❌ Failed to initialize Google Analytics: {e}")
         
@@ -294,6 +308,8 @@ class DailyReportSystem:
     def _collect_ga4_data(self):
         """Collect Google Analytics GA4 data using the Data API v1 Beta"""
         logging.info("📊 Collecting GA4 data...")
+        logging.info(f"🔍 Using property ID: {self.ga_property_id}")
+        logging.info(f"🔍 Service account: {os.getenv('GOOGLE_APPLICATION_CREDENTIALS')}")
         
         try:
             from google.analytics.data_v1beta.types import (
