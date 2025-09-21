@@ -85,7 +85,7 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('daily_report.log'),
+        logging.FileHandler(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'logs', 'daily_report.log')),
         logging.StreamHandler()
     ]
 )
@@ -499,7 +499,7 @@ class DailyReportSystem:
         
         try:
             # Check outreach system logs
-            outreach_log_file = 'music_outreach.log'
+            outreach_log_file = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'logs', 'music_outreach.log')
             if os.path.exists(outreach_log_file):
                 with open(outreach_log_file, 'r') as f:
                     log_content = f.read()
@@ -521,7 +521,7 @@ class DailyReportSystem:
                 ])
             
             # Check news system logs
-            news_log_file = 'news_monitor.log'
+            news_log_file = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'logs', 'news_monitor.log')
             if os.path.exists(news_log_file):
                 with open(news_log_file, 'r') as f:
                     log_content = f.read()
@@ -1406,9 +1406,35 @@ def main():
     
     # Save to custom output path if specified
     if args.output:
+        # Ensure directory exists
+        output_dir = os.path.dirname(args.output)
+        if output_dir:
+            os.makedirs(output_dir, exist_ok=True)
+            
         with open(args.output, 'w', encoding='utf-8') as f:
             f.write(html_report)
         print(f"✅ Report saved to {args.output}")
+    else:
+        # Save to default reports directory with timestamp
+        reports_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'reports', 'daily')
+        os.makedirs(reports_dir, exist_ok=True)
+        
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        filename = f'daily_report_{timestamp}.html'
+        output_path = os.path.join(reports_dir, filename)
+        
+        with open(output_path, 'w', encoding='utf-8') as f:
+            f.write(html_report)
+        
+        # Also create a "latest" copy for easy access
+        latest_path = os.path.join(reports_dir, 'daily_report_latest.html')
+        try:
+            import shutil
+            shutil.copy2(output_path, latest_path)
+        except Exception:
+            pass
+            
+        print(f"✅ Report saved to {output_path}")
     
     # Send email if requested
     if args.send_email:

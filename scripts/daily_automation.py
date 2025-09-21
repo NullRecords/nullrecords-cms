@@ -54,7 +54,7 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
         logging.StreamHandler(),
-        logging.FileHandler('logs/daily_automation.log', mode='a') if os.path.exists('logs') else logging.NullHandler()
+        logging.FileHandler(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'logs', 'daily_automation.log'), mode='a')
     ]
 )
 

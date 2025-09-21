@@ -58,7 +58,7 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('news_monitor.log'),
+        logging.FileHandler(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'logs', 'news_monitor.log')),
         logging.StreamHandler()
     ]
 )

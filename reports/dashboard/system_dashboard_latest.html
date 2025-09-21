@@ -1,0 +1,551 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>NullRecords System Dashboard</title>
+            <style>
+                body {
+                    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+                    background: linear-gradient(135deg, #0f0f23, #1a1a2e, #16213e);
+                    color: #e0e0e0;
+                    margin: 0;
+                    padding: 20px;
+                    line-height: 1.6;
+                }
+                .container {
+                    max-width: 1400px;
+                    margin: 0 auto;
+                }
+                .header {
+                    text-align: center;
+                    margin-bottom: 40px;
+                    padding: 30px;
+                    background: rgba(0,255,255,0.1);
+                    border-radius: 15px;
+                    border: 2px solid #00ffff;
+                }
+                .header h1 {
+                    color: #00ffff;
+                    font-size: 2.5em;
+                    margin: 0 0 10px 0;
+                    text-shadow: 0 0 20px #00ffff;
+                }
+                .header .subtitle {
+                    color: #ffffff;
+                    font-size: 1.2em;
+                    margin: 0;
+                }
+                .grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+                    gap: 25px;
+                    margin-bottom: 30px;
+                }
+                .card {
+                    background: rgba(0,0,0,0.4);
+                    border-radius: 12px;
+                    padding: 25px;
+                    border: 1px solid #333;
+                    transition: transform 0.2s, border-color 0.2s;
+                }
+                .card:hover {
+                    transform: translateY(-2px);
+                    border-color: #00ffff;
+                }
+                .card h3 {
+                    color: #00ffff;
+                    margin: 0 0 20px 0;
+                    font-size: 1.4em;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
+                .metric {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin: 12px 0;
+                    padding: 8px 0;
+                    border-bottom: 1px solid rgba(255,255,255,0.1);
+                }
+                .metric:last-child {
+                    border-bottom: none;
+                }
+                .metric-label {
+                    color: #cccccc;
+                }
+                .metric-value {
+                    color: #ffffff;
+                    font-weight: bold;
+                }
+                .status-success { color: #00ff88; }
+                .status-warning { color: #ffaa00; }
+                .status-error { color: #ff4444; }
+                .big-number {
+                    font-size: 3em;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 20px 0;
+                    color: #00ffff;
+                    text-shadow: 0 0 10px #00ffff;
+                }
+                .history-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-top: 15px;
+                }
+                .history-table th,
+                .history-table td {
+                    padding: 12px;
+                    text-align: left;
+                    border-bottom: 1px solid rgba(255,255,255,0.1);
+                }
+                .history-table th {
+                    color: #00ffff;
+                    font-weight: bold;
+                }
+                .config-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-top: 15px;
+                }
+                .config-table th,
+                .config-table td {
+                    padding: 10px;
+                    text-align: left;
+                    border-bottom: 1px solid rgba(255,255,255,0.1);
+                    font-size: 0.9em;
+                }
+                .config-table th {
+                    color: #00ffff;
+                }
+                .config-yes { color: #00ff88; }
+                .config-no { color: #ff4444; }
+                .log-entry {
+                    background: rgba(255,255,255,0.05);
+                    border-left: 4px solid #ff4444;
+                    padding: 15px;
+                    margin: 10px 0;
+                    border-radius: 0 8px 8px 0;
+                }
+                .log-entry.warning {
+                    border-left-color: #ffaa00;
+                }
+                .log-entry.info {
+                    border-left-color: #00ffff;
+                }
+                .log-timestamp {
+                    color: #888;
+                    font-size: 0.9em;
+                }
+                .log-message {
+                    color: #ffffff;
+                    margin: 5px 0;
+                }
+                .log-context {
+                    color: #ccc;
+                    font-size: 0.8em;
+                    margin-top: 10px;
+                    padding: 10px;
+                    background: rgba(0,0,0,0.3);
+                    border-radius: 4px;
+                    white-space: pre-wrap;
+                }
+                .recommendation {
+                    padding: 15px;
+                    margin: 10px 0;
+                    border-radius: 8px;
+                    border-left: 4px solid;
+                }
+                .recommendation.error {
+                    background: rgba(255,68,68,0.1);
+                    border-left-color: #ff4444;
+                }
+                .recommendation.warning {
+                    background: rgba(255,170,0,0.1);
+                    border-left-color: #ffaa00;
+                }
+                .recommendation.info {
+                    background: rgba(0,255,255,0.1);
+                    border-left-color: #00ffff;
+                }
+                .tabs {
+                    display: flex;
+                    background: rgba(0,0,0,0.3);
+                    border-radius: 8px 8px 0 0;
+                    overflow: hidden;
+                }
+                .tab {
+                    flex: 1;
+                    padding: 15px;
+                    text-align: center;
+                    cursor: pointer;
+                    background: rgba(0,0,0,0.2);
+                    border: none;
+                    color: #cccccc;
+                    transition: all 0.2s;
+                }
+                .tab.active {
+                    background: rgba(0,255,255,0.2);
+                    color: #00ffff;
+                }
+                .tab-content {
+                    background: rgba(0,0,0,0.2);
+                    padding: 20px;
+                    border-radius: 0 0 8px 8px;
+                }
+                .progress-bar {
+                    width: 100%;
+                    height: 20px;
+                    background: rgba(255,255,255,0.1);
+                    border-radius: 10px;
+                    overflow: hidden;
+                    margin: 10px 0;
+                }
+                .progress-fill {
+                    height: 100%;
+                    background: linear-gradient(90deg, #00ffff, #00ff88);
+                    transition: width 0.3s;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="header">
+                    <h1>🎵 NullRecords System Dashboard</h1>
+                    <p class="subtitle">Generated: 2025-09-21 10:23:04</p>
+                </div>
+                
+                <div class="grid">
+                    <!-- Automation Summary -->
+                    <div class="card">
+                        <h3>🚀 Automation Summary</h3>
+                        <div class="big-number">57.1%</div>
+                        <div style="text-align: center; color: #e0e0e0; margin-bottom: 20px;">Success Rate</div>
+                        
+                        <div class="metric">
+                            <span class="metric-label">Total Runs:</span>
+                            <span class="metric-value">7</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Successful:</span>
+                            <span class="metric-value status-success">4</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Last 24h:</span>
+                            <span class="metric-value">2 runs</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Last 7 days:</span>
+                            <span class="metric-value">7 runs</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Current Metrics -->
+                    <div class="card">
+                        <h3>📊 Current Metrics</h3>
+                        <div class="metric">
+                            <span class="metric-label">Outreach Status:</span>
+                            <span class="metric-value status-operational">Operational</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Total Contacts:</span>
+                            <span class="metric-value">35</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Pending Outreach:</span>
+                            <span class="metric-value">19</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Analytics:</span>
+                            <span class="metric-value status-operational">Operational</span>
+                        </div>
+                    </div>
+                    
+                    <!-- System Health -->
+                    <div class="card">
+                        <h3>💚 System Health</h3>
+                        <div class="metric">
+                            <span class="metric-label">Python Version:</span>
+                            <span class="metric-value">3.10.4</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Workspace Size:</span>
+                            <span class="metric-value">373.6 MB</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Last Modified:</span>
+                            <span class="metric-value">2025-09-21 10:19:43</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Disk Free:</span>
+                            <span class="metric-value">30.1 GB</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Configuration Status -->
+                    <div class="card">
+                        <h3>⚙️ Configuration Status</h3>
+                        <div class="metric">
+                            <span class="metric-label">.env File:</span>
+                            <span class="metric-value status-success">Found</span>
+                        </div>
+                        
+                        
+            <div class="metric">
+                <span class="metric-label">Required Config:</span>
+                <span class="metric-value status-success">5/5</span>
+            </div>
+            
+            <div class="metric">
+                <span class="metric-label">Optional Config:</span>
+                <span class="metric-value">5/5</span>
+            </div>
+            
+                    </div>
+                </div>
+                
+                <!-- Detailed Sections -->
+                <div class="card">
+                    <div class="tabs">
+                        <button class="tab active" onclick="showTab('history')">📅 Automation History</button>
+                        <button class="tab" onclick="showTab('config')">⚙️ Configuration</button>
+                        <button class="tab" onclick="showTab('logs')">🚨 Error Logs</button>
+                        <button class="tab" onclick="showTab('recommendations')">💡 Recommendations</button>
+                    </div>
+                    
+                    <div id="history" class="tab-content">
+                        <h4>Recent Automation Runs</h4>
+                        
+        <table class="history-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Duration</th>
+                    <th>Success Rate</th>
+                    <th>Discovery</th>
+                    <th>Outreach</th>
+                </tr>
+            </thead>
+            <tbody>
+        
+                <tr>
+                    <td>2025-09-21</td>
+                    <td><span class="status-warning">Partial</span></td>
+                    <td>19.2s</td>
+                    <td>2/3</td>
+                    <td>0</td>
+                    <td>5</td>
+                </tr>
+            
+                <tr>
+                    <td>2025-09-20</td>
+                    <td><span class="status-warning">Partial</span></td>
+                    <td>16.2s</td>
+                    <td>2/3</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+            
+                <tr>
+                    <td>2025-09-19</td>
+                    <td><span class="status-success">Success</span></td>
+                    <td>33.9s</td>
+                    <td>3/3</td>
+                    <td>3</td>
+                    <td>6</td>
+                </tr>
+            
+                <tr>
+                    <td>2025-09-18</td>
+                    <td><span class="status-success">Success</span></td>
+                    <td>36.0s</td>
+                    <td>3/3</td>
+                    <td>3</td>
+                    <td>7</td>
+                </tr>
+            
+                <tr>
+                    <td>2025-09-17</td>
+                    <td><span class="status-success">Success</span></td>
+                    <td>30.6s</td>
+                    <td>3/3</td>
+                    <td>0</td>
+                    <td>1</td>
+                </tr>
+            
+                <tr>
+                    <td>2025-09-16</td>
+                    <td><span class="status-success">Success</span></td>
+                    <td>23.1s</td>
+                    <td>3/3</td>
+                    <td>1</td>
+                    <td>3</td>
+                </tr>
+            
+                <tr>
+                    <td>2025-09-15</td>
+                    <td><span class="status-warning">Partial</span></td>
+                    <td>35.2s</td>
+                    <td>2/3</td>
+                    <td>0</td>
+                    <td>3</td>
+                </tr>
+            
+            </tbody>
+        </table>
+        
+                    </div>
+                    
+                    <div id="config" class="tab-content" style="display: none;">
+                        <h4>Environment Configuration</h4>
+                        
+        <h5>Required Configuration</h5>
+        <table class="config-table">
+            <thead>
+                <tr>
+                    <th>Variable</th>
+                    <th>Status</th>
+                    <th>Value</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+        
+                <tr>
+                    <td><code>SMTP_SERVER</code></td>
+                    <td><span class="config-yes">✅ Set</span></td>
+                    <td><code>smtp-relay.brevo.com</code></td>
+                    <td>Email server for sending reports</td>
+                </tr>
+            
+                <tr>
+                    <td><code>SMTP_USER</code></td>
+                    <td><span class="config-yes">✅ Set</span></td>
+                    <td><code>96afc8001@smtp-brevo...</code></td>
+                    <td>Email username for authentication</td>
+                </tr>
+            
+                <tr>
+                    <td><code>SMTP_PASSWORD</code></td>
+                    <td><span class="config-yes">✅ Set</span></td>
+                    <td><code>hW0ABk75sbJqwD9K</code></td>
+                    <td>Email password for authentication</td>
+                </tr>
+            
+                <tr>
+                    <td><code>SENDER_EMAIL</code></td>
+                    <td><span class="config-yes">✅ Set</span></td>
+                    <td><code>team@nullrecords.com</code></td>
+                    <td>From email address</td>
+                </tr>
+            
+                <tr>
+                    <td><code>DAILY_REPORT_EMAIL</code></td>
+                    <td><span class="config-yes">✅ Set</span></td>
+                    <td><code>team@nullrecords.com</code></td>
+                    <td>Recipient for daily reports</td>
+                </tr>
+            
+            </tbody>
+        </table>
+        
+        <h5>Optional Configuration</h5>
+        <table class="config-table">
+            <thead>
+                <tr>
+                    <th>Variable</th>
+                    <th>Status</th>
+                    <th>Value</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+        
+                <tr>
+                    <td><code>CC_EMAIL</code></td>
+                    <td><span class="config-yes">✅ Set</span></td>
+                    <td><code>greg@buildly.io</code></td>
+                    <td>Additional email recipient</td>
+                </tr>
+            
+                <tr>
+                    <td><code>GA_PROPERTY_ID</code></td>
+                    <td><span class="config-yes">✅ Set</span></td>
+                    <td><code>308964282</code></td>
+                    <td>Google Analytics property ID</td>
+                </tr>
+            
+                <tr>
+                    <td><code>YOUTUBE_CHANNEL_ID</code></td>
+                    <td><span class="config-yes">✅ Set</span></td>
+                    <td><code>UC_ZC9UiWcjyOLGp4iQwyv2w</code></td>
+                    <td>YouTube channel for metrics</td>
+                </tr>
+            
+                <tr>
+                    <td><code>GOOGLE_APPLICATION_CREDENTIALS</code></td>
+                    <td><span class="config-yes">✅ Set</span></td>
+                    <td><code>/Users/greglind/Projects/NullRecords/ob-cms/nullre...</code></td>
+                    <td>Path to Google service account JSON</td>
+                </tr>
+            
+                <tr>
+                    <td><code>MAX_DAILY_OUTREACH</code></td>
+                    <td><span class="config-yes">✅ Set</span></td>
+                    <td><code>10</code></td>
+                    <td>Daily outreach email limit</td>
+                </tr>
+            
+            </tbody>
+        </table>
+        
+                    </div>
+                    
+                    <div id="logs" class="tab-content" style="display: none;">
+                        <h4>Recent Error Logs</h4>
+                        <div class="log-entry info"><div class="log-message">No recent errors found. System appears to be running smoothly! ✅</div></div>
+                    </div>
+                    
+                    <div id="recommendations" class="tab-content" style="display: none;">
+                        <h4>System Recommendations</h4>
+                        
+            <div class="recommendation info">
+                <strong>System appears to be well configured</strong>
+                <p>Continue regular automation runs to maintain optimal performance</p>
+            </div>
+            
+                    </div>
+                </div>
+            </div>
+            
+            <script>
+                function showTab(tabName) {
+                    // Hide all tab contents
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.style.display = 'none';
+                    });
+                    
+                    // Remove active class from all tabs
+                    document.querySelectorAll('.tab').forEach(tab => {
+                        tab.classList.remove('active');
+                    });
+                    
+                    // Show selected tab content
+                    document.getElementById(tabName).style.display = 'block';
+                    
+                    // Add active class to clicked tab
+                    event.target.classList.add('active');
+                }
+                
+                // Auto-refresh every 5 minutes
+                setTimeout(() => {
+                    location.reload();
+                }, 300000);
+            </script>
+        </body>
+        </html>
+        
