@@ -72,7 +72,8 @@ class GoogleSheetsVoting:
             return
         
         try:
-            credentials_path = os.getenv('GOOGLE_SERVICE_ACCOUNT_PATH')
+            # Use the same service account credentials as other Google APIs
+            credentials_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
             if not credentials_path or not os.path.exists(credentials_path):
                 logging.warning("⚠️  Google service account file not found")
                 return

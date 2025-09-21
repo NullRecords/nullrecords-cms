@@ -183,17 +183,17 @@ class MusicOutreach:
         self.press_kit = {
             "site_url": "https://nullrecords.com",
             "contact_email": "team@nullrecords.com",
-            "genres": ["LoFi", "Jazz Fusion", "Electronic Jazz", "Instrumental", "Ambient", "Chillhop", "Experimental"],
+            "genres": ["LoFi", "Nu Jazz", "Jazz Fusion", "Indie", "Instrumental", "Chillhop", "Independent"],
             "artists": [
                 {
                     "name": "My Evil Robot Army",
-                    "description": "Experimental electronic soundscapes blending jazz fusion with lo-fi aesthetics",
+                    "description": "Nu jazz and electronic fusion exploring artificial intelligence themes through instrumental compositions",
                     "albums": ["Evil Robot", "Space Jazz"],
                     "spotify": "https://open.spotify.com/artist/myevilrobotarmy"
                 },
                 {
                     "name": "MERA", 
-                    "description": "Ambient lo-fi compositions exploring the relationship between nature and technology",
+                    "description": "Independent artist creating ambient lo-fi and chillhop compositions with organic textures",
                     "albums": ["Travel Beyond", "Explorations", "Explorations in Blue"],
                     "spotify": "https://open.spotify.com/artist/mera"
                 }
@@ -286,6 +286,30 @@ class MusicOutreach:
                    email="editor@ambient.org",
                    description="Ambient music publication",
                    genre_focus=["ambient", "electronic", "experimental"]),
+            
+            # Jazz Fusion & Nu-Jazz Focused
+            Contact("Jazz Fusion Guitar", "publication",
+                   contact_form_url="https://jazzfusionguitar.com/contact",
+                   description="Jazz fusion music blog and reviews",
+                   genre_focus=["jazz fusion", "nu jazz", "instrumental"]),
+            Contact("Nu Jazz Guide", "publication",
+                   email="submissions@nujazzguide.com",
+                   description="Nu jazz and modern jazz publication",
+                   genre_focus=["nu jazz", "modern jazz", "electronic jazz"]),
+            Contact("The Jazz Resource", "publication",
+                   contact_form_url="https://thejazzresource.com/contact",
+                   description="Independent jazz publication",
+                   genre_focus=["jazz", "indie jazz", "fusion"]),
+            
+            # Independent Artist Focused
+            Contact("Indie Music Center", "publication",
+                   email="info@indiemusiccenter.com",
+                   description="Independent artist promotion and reviews",
+                   genre_focus=["indie", "independent", "alternative"]),
+            Contact("Music Crowns", "publication",
+                   contact_form_url="https://musiccrowns.org/contact",
+                   description="Independent music blog",
+                   genre_focus=["indie", "alternative", "instrumental"]),
             
             # YouTube Influencers & Channels
             Contact("Majestic Casual", "influencer",
@@ -397,13 +421,16 @@ class MusicOutreach:
         
         new_contacts = []
         
-        # Search for music blogs and publications
+        # Search for music blogs and publications - focused on target genres
         search_queries = [
-            "electronic music blogs 2024",
-            "independent music publications",
-            "lofi chillhop blogs",
-            "experimental music websites",
-            "music submission blogs",
+            "lofi music blogs 2024",
+            "nu jazz music publications",
+            "jazz fusion blogs submissions",
+            "independent artist music blogs",
+            "indie music influencers 2024",
+            "chillhop music reviewers",
+            "instrumental jazz blogs",
+            "independent music labels submissions",
         ]
         
         for query in search_queries[:2]:  # Limit to 2 searches per run
@@ -597,12 +624,12 @@ class MusicOutreach:
         genres = []
         
         genre_keywords = {
-            'electronic': ['electronic', 'edm', 'techno', 'house', 'ambient'],
-            'jazz': ['jazz', 'fusion', 'bebop', 'smooth jazz'],
-            'lofi': ['lofi', 'lo-fi', 'chill', 'chillhop', 'study'],
-            'experimental': ['experimental', 'avant-garde', 'noise', 'abstract'],
-            'indie': ['indie', 'independent', 'alternative'],
-            'hip-hop': ['hip-hop', 'rap', 'beats', 'instrumental hip-hop']
+            'lofi': ['lofi', 'lo-fi', 'chill', 'chillhop', 'study', 'downtempo'],
+            'jazz': ['jazz', 'nu jazz', 'nu-jazz', 'jazz fusion', 'fusion', 'smooth jazz', 'modern jazz'],
+            'indie': ['indie', 'independent', 'independent artist', 'indie rock', 'indie pop'],
+            'electronic': ['electronic', 'ambient', 'instrumental electronic'],
+            'experimental': ['experimental', 'avant-garde', 'abstract'],
+            'instrumental': ['instrumental', 'instrumental music', 'cinematic']
         }
         
         for genre, keywords in genre_keywords.items():
@@ -616,18 +643,22 @@ class MusicOutreach:
         score = 0.5  # Base score
         text = soup.get_text().lower()
         
-        # Positive indicators
+        # Positive indicators - focus on target genres
         if any(keyword in text for keyword in ['music submission', 'demo', 'press kit']):
             score += 0.3
-        if any(keyword in text for keyword in ['electronic', 'jazz', 'lofi', 'experimental']):
+        if any(keyword in text for keyword in ['lofi', 'lo-fi', 'chillhop', 'nu jazz', 'nu-jazz', 'jazz fusion']):
+            score += 0.3  # Higher weight for priority genres
+        if any(keyword in text for keyword in ['instrumental', 'ambient', 'downtempo', 'chill']):
             score += 0.2
         if any(keyword in text for keyword in ['independent', 'indie', 'underground']):
-            score += 0.1
+            score += 0.2
         if 'contact' in text:
             score += 0.1
         
-        # Negative indicators
-        if any(keyword in text for keyword in ['country', 'pop', 'rock', 'metal']):
+        # Negative indicators - genres that don't match our focus
+        if any(keyword in text for keyword in ['country', 'heavy metal', 'death metal', 'punk rock']):
+            score -= 0.2
+        if any(keyword in text for keyword in ['pop', 'commercial', 'mainstream']):
             score -= 0.1
         if len(text) < 500:  # Very short pages might not be substantial
             score -= 0.1
@@ -725,7 +756,7 @@ NullRecords: Independent Music Collective Launches Innovative Platform Blending 
 {datetime.now().strftime('%B %d, %Y')} - NullRecords announces the launch of their comprehensive digital platform showcasing a new generation of independent artists creating music at the intersection of technology, art, and human creativity.
 
 ABOUT NULLRECORDS
-NullRecords represents a collective of innovative musicians specializing in LoFi jazz fusion, electronic instrumentals, and multimedia art collaborations. The platform features artists who push creative boundaries by blending organic musical elements with digital innovation.
+NullRecords represents a collective of innovative musicians specializing in lo-fi music, nu jazz, jazz fusion, and independent artistry. The platform features artists who push creative boundaries by blending organic musical elements with modern production techniques, creating instrumental compositions perfect for study, relaxation, and contemplative listening.
 
 FEATURED ARTISTS
 
@@ -756,7 +787,7 @@ Website: https://nullrecords.com
 
 ###
 
-About NullRecords: Founded in 2020, NullRecords is an independent music collective dedicated to supporting innovative artists who create music at the intersection of technology, art, and human creativity. Specializing in LoFi jazz fusion, electronic instrumentals, and multimedia collaborations.
+About NullRecords: Founded in 2020, NullRecords is an independent music collective dedicated to supporting innovative artists who create music at the intersection of technology, art, and human creativity. Specializing in lo-fi music, nu jazz, jazz fusion, and independent artistry with a focus on instrumental compositions and chillhop aesthetics.
 """
     
     def submit_to_search_engines(self, dry_run=False):
