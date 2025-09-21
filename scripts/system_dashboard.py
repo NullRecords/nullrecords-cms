@@ -274,6 +274,8 @@ class SystemDashboard:
         
         optional_vars = {
             'CC_EMAIL': 'Additional email recipient',
+            'WEBSITE_BASE_URL': 'Base URL for the website',
+            'CONTACT_EMAIL': 'Contact email address',
             'GA_PROPERTY_ID': 'Google Analytics property ID',
             'YOUTUBE_CHANNEL_ID': 'YouTube channel for metrics',
             'GOOGLE_APPLICATION_CREDENTIALS': 'Path to Google service account JSON',

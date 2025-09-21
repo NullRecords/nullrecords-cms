@@ -808,8 +808,9 @@ class DailyReportSystem:
         
         try:
             # Check API response times
+            website_url = os.getenv('WEBSITE_BASE_URL', 'https://nullrecords.com')
             api_tests = {
-                'nullrecords.com': 'https://nullrecords.com',
+                website_url.replace('https://', '').replace('http://', ''): website_url,
                 'google.com': 'https://google.com'
             }
             
@@ -1263,7 +1264,7 @@ class DailyReportSystem:
                 
                 <div style="text-align: center; margin-top: 30px; color: #cccccc; font-size: 0.9em;">
                     Report generated at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} • 
-                    <a href="https://nullrecords.com" style="color: #00ffff;">nullrecords.com</a>
+                    <a href="{os.getenv('WEBSITE_BASE_URL', 'https://nullrecords.com')}" style="color: #00ffff;">{os.getenv('WEBSITE_BASE_URL', 'https://nullrecords.com').replace('https://', '').replace('http://', '')}</a>
                 </div>
             </div>
         </body>

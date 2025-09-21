@@ -223,8 +223,10 @@ class EmailOptOutManager:
             logging.error(f"❌ Error getting opt-out stats: {e}")
             return {"total_opt_outs": 0, "by_type": {}, "by_source": {}, "recent_opt_outs": 0}
     
-    def generate_opt_out_link(self, email: str, base_url: str = "https://nullrecords.com") -> str:
+    def generate_opt_out_link(self, email: str, base_url: str = None) -> str:
         """Generate a personalized opt-out link"""
+        if base_url is None:
+            base_url = os.getenv('WEBSITE_BASE_URL', 'https://nullrecords.com')
         from urllib.parse import urlencode
         params = {"email": email}
         return f"{base_url.rstrip('/')}/unsubscribe.html?{urlencode(params)}"

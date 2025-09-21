@@ -794,8 +794,8 @@ class NewsMonitor:
             html_body += f"""
                     <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2);">
                         <p style="color: #cccccc; text-align: center; margin: 0;">
-                            <a href="https://nullrecords.com/news/" style="color: #00ffff; text-decoration: none;">
-                                View All Articles on NullRecords.com →
+                            <a href="{os.getenv('WEBSITE_BASE_URL', 'https://nullrecords.com')}/news/" style="color: #00ffff; text-decoration: none;">
+                                View All Articles on {os.getenv('WEBSITE_BASE_URL', 'https://nullrecords.com').replace('https://', '').replace('http://', '').title()} →
                             </a>
                         </p>
                     </div>
@@ -1003,10 +1003,10 @@ class NewsMonitor:
                     </div>
                 """
             
-            html_body += """
+            html_body += f"""
                     <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2);">
                         <p style="color: #cccccc; text-align: center; margin: 0;">
-                            <a href="https://nullrecords.com/news/" style="color: #ff0080; text-decoration: none;">
+                            <a href="{os.getenv('WEBSITE_BASE_URL', 'https://nullrecords.com')}/news/" style="color: #ff0080; text-decoration: none;">
                                 Promote These Releases →
                             </a>
                         </p>

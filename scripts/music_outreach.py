@@ -181,8 +181,8 @@ class MusicOutreach:
         
         # Press kit content
         self.press_kit = {
-            "site_url": "https://nullrecords.com",
-            "contact_email": "team@nullrecords.com",
+            "site_url": os.getenv('WEBSITE_BASE_URL', 'https://nullrecords.com'),
+            "contact_email": os.getenv('CONTACT_EMAIL', 'team@nullrecords.com'),
             "genres": ["LoFi", "Nu Jazz", "Jazz Fusion", "Indie", "Instrumental", "Chillhop", "Independent"],
             "artists": [
                 {
@@ -748,7 +748,7 @@ This is a one-time introduction. If you'd prefer not to receive future communica
     
     def create_press_release(self) -> str:
         """Generate a comprehensive press release"""
-        return f"""
+        template = f"""
 FOR IMMEDIATE RELEASE
 
 NullRecords: Independent Music Collective Launches Innovative Platform Blending Jazz Fusion, Electronic Music, and Visual Art
@@ -774,7 +774,7 @@ NullRecords aims to create a space where music, visual art, and technology conve
 • Building a community around innovative, high-quality independent music
 
 AVAILABILITY
-All NullRecords content is available at https://nullrecords.com, featuring:
+All NullRecords content is available at {{site_url}}, featuring:
 • Full artist profiles and discographies
 • High-quality streaming and download options
 • Visual art collaborations and multimedia content
@@ -782,13 +782,18 @@ All NullRecords content is available at https://nullrecords.com, featuring:
 
 CONTACT INFORMATION
 For press inquiries, interview requests, or collaboration opportunities:
-Email: team@nullrecords.com
-Website: https://nullrecords.com
+Email: {{contact_email}}
+Website: {{site_url}}
 
 ###
 
 About NullRecords: Founded in 2020, NullRecords is an independent music collective dedicated to supporting innovative artists who create music at the intersection of technology, art, and human creativity. Specializing in lo-fi music, nu jazz, jazz fusion, and independent artistry with a focus on instrumental compositions and chillhop aesthetics.
 """
+        
+        return template.format(
+            site_url=self.press_kit["site_url"],
+            contact_email=self.press_kit["contact_email"]
+        )
     
     def submit_to_search_engines(self, dry_run=False):
         """Submit site to search engines"""
@@ -802,8 +807,9 @@ About NullRecords: Founded in 2020, NullRecords is an independent music collecti
             if engine.name == "Google Search Console":
                 logging.info("Google Search Console requires manual sitemap submission")
                 logging.info("Visit: https://search.google.com/search-console/")
-                logging.info("Add property: nullrecords.com")
-                logging.info("Submit sitemap: https://nullrecords.com/sitemap.xml")
+                site_domain = self.press_kit["site_url"].replace("https://", "").replace("http://", "")
+                logging.info(f"Add property: {site_domain}")
+                logging.info(f"Submit sitemap: {self.press_kit['site_url']}/sitemap.xml")
                 
             elif engine.name == "Bing Webmaster Tools":
                 logging.info("Bing Webmaster Tools requires manual submission")
@@ -914,7 +920,7 @@ About NullRecords: Founded in 2020, NullRecords is an independent music collecti
         return successful_outreach
     
     def send_email(self, to_email: str, subject: str, body: str) -> bool:
-        """Send email via Brevo SMTP with BCC to team@nullrecords.com"""
+        """Send email via Brevo SMTP with BCC to contact email"""
         if not EMAIL_AVAILABLE:
             logging.error("Email libraries not installed - install email packages")
             return False
@@ -1220,7 +1226,7 @@ Date: {datetime.now().strftime('%Y-%m-%d %H:%M')}
 
 ---
 NullRecords Outreach Automation
-https://nullrecords.com
+{self.press_kit["site_url"]}
 """
         
         return self.send_notification_email(recipient, subject, body)

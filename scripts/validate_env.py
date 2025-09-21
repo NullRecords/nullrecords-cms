@@ -42,6 +42,8 @@ class EnvironmentValidator:
             'SMTP_PORT': 'SMTP port (default: 587)',
             'DAILY_REPORT_EMAIL': 'Email for daily reports',
             'NOTIFICATION_EMAIL': 'Email for notifications',
+            'WEBSITE_BASE_URL': 'Base URL for the website (default: https://nullrecords.com)',
+            'CONTACT_EMAIL': 'Contact email address (default: team@nullrecords.com)',
             'GOOGLE_SERVICE_ACCOUNT_PATH': 'Path to Google service account JSON',
             'GA_VIEW_ID': 'Google Analytics view ID',
             'YOUTUBE_API_KEY': 'YouTube Data API key',
