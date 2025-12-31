@@ -56,8 +56,9 @@ function donateAndDownload(itemId, amount) {
       ? 'https://www.paypal.com/ncp/payment/K2HDM5GXG8JHW'
       : 'https://www.paypal.com/ncp/payment/AW65SSP6N7L2G';
     alert('Your download will start now. Please also pay the suggested donation at the payment provider you are being redirected to.');
-    // Start download
-    window.location.href = `/store/${bundle}`;
+    // Use remote link directly if bundle is a full URL
+    let downloadUrl = (bundle.startsWith('http://') || bundle.startsWith('https://')) ? bundle : `/store/${bundle}`;
+    window.location.href = downloadUrl;
     // After navigation, open PayPal in the same window
     setTimeout(function() {
       window.location.href = paypalLink;
