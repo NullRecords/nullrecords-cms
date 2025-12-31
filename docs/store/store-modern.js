@@ -55,11 +55,18 @@ function donateAndDownload(itemId, amount) {
     let paypalLink = type === 'book'
       ? 'https://www.paypal.com/ncp/payment/K2HDM5GXG8JHW'
       : 'https://www.paypal.com/ncp/payment/AW65SSP6N7L2G';
+    // Check for Proton Drive link
+    if (bundle.startsWith('https://drive.proton.me/')) {
+      alert('You will be taken to Proton Drive to download your album. Please click the Download button on the Proton Drive page. Also, please pay the suggested donation at the payment provider you are being redirected to.');
+      window.open(bundle, '_blank');
+      setTimeout(function() {
+        window.location.href = paypalLink;
+      }, 500);
+      return;
+    }
     alert('Your download will start now. Please also pay the suggested donation at the payment provider you are being redirected to.');
-    // Use remote link directly if bundle is a full URL
     let downloadUrl = (bundle.startsWith('http://') || bundle.startsWith('https://')) ? bundle : `/store/${bundle}`;
     window.location.href = downloadUrl;
-    // After navigation, open PayPal in the same window
     setTimeout(function() {
       window.location.href = paypalLink;
     }, 500);
