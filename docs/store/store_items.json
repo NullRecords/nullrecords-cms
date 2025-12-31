@@ -1,0 +1,78 @@
+[
+  {
+    "id": "book001",
+    "type": "book",
+    "title": "The Star",
+    "author": "H.G. Wells",
+    "cover_art": "assets/the-star.png",
+    "ebook_file": "books/the-star.epub",
+    "description": "A new celestial body appears over the earth in the early 19th century, the reactions and stories and misinformation make for an intersting read with some running pop-up commentary by Bob the somewhat Humanist.",
+    "suggested_donation": 3.00,
+    "download_bundle": "books/the_star_nullpress.epub",
+    "active": true
+  },
+  {
+    "id": "book002",
+    "type": "book",
+    "title": "Metamorphosis",
+    "author": "Franz Kafka",
+    "cover_art": "assets/metamorphosis.png",
+    "ebook_file": "books/metamorphosis.epub",
+    "description": "Coming Soon!",
+    "suggested_donation": 3.00,
+    "download_bundle": "books/metamorphosis.epub",
+    "active": false
+  },
+  {
+    "id": "space_jazz",
+    "type": "music",
+    "title": "Space Jazz Album",
+    "artist": "My Evil Robot Army",
+    "cover_art": "assets/MERA-SpaceJazz.jpg",
+    "audio_files": ["SPACE_JAZZ.MP3"],
+    "description": "A cosmic journey of jazz and synths from My Evil Robot Army.",
+    "suggested_donation": 5.00,
+    "download_bundle": "https://drive.proton.me/urls/5H3Q6HAANR#vq0NrD3ht9Q0",
+    "play_now": true,
+    "active": true
+  },
+  {
+    "id": "travel_beyond",
+    "type": "music",
+    "title": "Travel Beyond Album",
+    "artist": "My Evil Robot Army",
+    "cover_art": "assets/MERA-TravelBeyond.png",
+    "audio_files": ["TRAVEL_BEYOND.MP3"],
+    "description": "MERA's latest: lush soundscapes for the adventurous spirit.",
+    "suggested_donation": 5.00,
+    "download_bundle": "https://drive.proton.me/urls/DB91BNXKNC#I2pOI21pbbke",
+    "play_now": true,
+    "active": true
+  },
+  {
+    "id": "explorations",
+    "type": "music",
+    "title": "Explorations Album",
+    "artist": "My Evil Robot Army",
+    "cover_art": "assets/MERA-Explorations.png",
+    "audio_files": ["EXPLORATIONS.MP3"],
+    "description": "Ambient and experimental journeys by MERA.",
+    "suggested_donation": 5.00,
+    "download_bundle": "albums/EXPLORATIONS.MP3",
+    "play_now": true,
+    "active": false
+  },
+  {
+    "id": "exp_blue",
+    "type": "music",
+    "title": "Explorations in Blue Album",
+    "artist": "My Evil Robot Army",
+    "cover_art": "assets/MERA-ExplorationsinBlue.png",
+    "audio_files": ["EXP_BLUE.MP3"],
+    "description": "MERA explores the color blue in sound.",
+    "suggested_donation": 5.00,
+    "download_bundle": "albums/EXP_BLUE.MP3",
+    "play_now": true,
+    "active": false
+  }
+]

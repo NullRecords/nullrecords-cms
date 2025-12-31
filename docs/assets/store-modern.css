@@ -1,0 +1,121 @@
+/* Modern Art Book & Music Store CSS */
+body {
+  font-family: 'Inter', Arial, sans-serif;
+  background: linear-gradient(120deg, #f8fafc 0%, #e0e7ef 100%);
+  color: #222;
+  margin: 0;
+  padding: 0;
+}
+header {
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  padding: 2.5em 0 1.5em 0;
+  text-align: center;
+}
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8em;
+  font-weight: 700;
+  margin: 0 0 0.3em 0;
+  letter-spacing: -1px;
+  color: #1a1a1a;
+}
+header p {
+  color: #5a5a5a;
+  font-size: 1.2em;
+  margin: 0 0 1.2em 0;
+}
+nav a {
+  color: #0fa;
+  font-weight: 600;
+  text-decoration: none;
+  margin: 0 1.2em;
+  transition: color 0.2s;
+}
+nav a:hover {
+  color: #ff5758;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2em 1em 3em 1em;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2em;
+  color: #222;
+  margin-bottom: 1.5em;
+  text-align: center;
+  letter-spacing: -0.5px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 2.5em 2em;
+}
+.card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  padding: 2em 1.2em 1.5em 1.2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.2s, transform 0.2s;
+  border: 1px solid #f0f0f0;
+}
+.card:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+  transform: translateY(-6px) scale(1.025);
+}
+.card img {
+  width: 100%;
+  max-width: 180px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 1.2em;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  background: #e0e7ef;
+}
+.card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25em;
+  margin: 0 0 0.3em 0;
+  color: #1a1a1a;
+}
+.card .meta {
+  color: #666;
+  font-size: 1em;
+  margin-bottom: 0.5em;
+  font-style: italic;
+}
+.card .desc {
+  color: #444;
+  font-size: 0.98em;
+  margin-bottom: 1em;
+  min-height: 2.5em;
+}
+.card .donate {
+  background: linear-gradient(90deg, #0fa 0%, #0ff 100%);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 0.7em 2em;
+  font-size: 1em;
+  font-weight: 600;
+  margin-top: auto;
+  box-shadow: 0 2px 8px rgba(0,255,255,0.08);
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.card .donate:hover {
+  background: linear-gradient(90deg, #ff5758 0%, #0fa 100%);
+  box-shadow: 0 4px 16px rgba(255,87,88,0.13);
+}
+footer {
+  text-align: center;
+  color: #aaa;
+  font-size: 0.95em;
+  padding: 2em 0 1em 0;
+}
