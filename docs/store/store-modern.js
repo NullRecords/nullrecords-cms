@@ -59,9 +59,7 @@ function donateAndDownload(itemId, amount) {
     if (bundle.startsWith('https://drive.proton.me/')) {
       alert('You will be taken to Proton Drive to download your album. Please click the Download button on the Proton Drive page. Also, please pay the suggested donation at the payment provider you are being redirected to.');
       window.open(bundle, '_blank');
-      setTimeout(function() {
-        window.location.href = paypalLink;
-      }, 500);
+      window.location.href = paypalLink;
       return;
     }
     alert('Your download will start now. Please also pay the suggested donation at the payment provider you are being redirected to.');
