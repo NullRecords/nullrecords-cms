@@ -74,5 +74,31 @@
     "download_bundle": "albums/EXP_BLUE.MP3",
     "play_now": true,
     "active": false
+  },
+  {
+    "id": "oscillator_overthruster",
+    "type": "music",
+    "title": "Oscillator Overthruster",
+    "artist": "My Evil Robot Army",
+    "cover_art": "albums/Oscillator Overthruster/oscillator-overthruster.webp",
+    "audio_files": ["albums/Oscillator Overthruster/hidden insite.wav"],
+    "description": "🎵 FREE PREVIEW TRACK 🎵<br><br>Full lossless album coming to the store in 2026!<br>Now streaming on Spotify, Apple Music, and other platforms.",
+    "suggested_donation": 0.00,
+    "download_bundle": null,
+    "play_now": true,
+    "active": true
+  },
+  {
+    "id": "spiraling",
+    "type": "music",
+    "title": "Spiraling",
+    "artist": "My Evil Robot Army",
+    "cover_art": "albums/Spiraling/Spiraling.png",
+    "audio_files": ["albums/Spiraling/feeling it.wav"],
+    "description": "🎵 FREE PREVIEW TRACK 🎵<br><br>Full lossless album coming to the store in 2026!<br>Now streaming on Spotify, Apple Music, and other platforms.",
+    "suggested_donation": 0.00,
+    "download_bundle": null,
+    "play_now": true,
+    "active": true
   }
 ]
