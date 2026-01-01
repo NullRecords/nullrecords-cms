@@ -102,7 +102,10 @@ function loadStoreItems() {
     });
 }
 
-window.onload = loadStoreItems;
+window.onload = function() {
+  loadStoreItems();
+  updateTicker();
+};
 
 function downloadFreeTrack(audioFile) {
   // Direct download for free preview tracks
@@ -113,9 +116,14 @@ function downloadFreeTrack(audioFile) {
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
+  
+  // Log the download
+  const fileName = audioFile.split('/').pop();
+  logDownload(`Free Preview: ${fileName}`);
 }
 
 function donateAndDownload(itemId, amount) {
+  logDownload(itemId);
   alert(`Thank you for your donation! Your download will start now.`);
   window.location.href = `/store/download/${itemId}`;
 }
@@ -123,6 +131,11 @@ function donateAndDownload(itemId, amount) {
     let paypalLink = type === 'book'
       ? 'https://www.paypal.com/ncp/payment/K2HDM5GXG8JHW'
       : 'https://www.paypal.com/ncp/payment/AW65SSP6N7L2G';
+    
+    // Log the download
+    const itemName = bundle.split('/').pop();
+    logDownload(`${type === 'book' ? 'Book' : 'Album'}: ${itemName}`);
+    
     // Check for Proton Drive link
     if (bundle.startsWith('https://drive.proton.me/')) {
       alert('You will be taken to Proton Drive to download your album. Please click the Download button on the Proton Drive page. Also, please pay the suggested donation at the payment provider you are being redirected to.');
