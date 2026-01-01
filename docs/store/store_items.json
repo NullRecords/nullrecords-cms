@@ -6,9 +6,9 @@
     "author": "H.G. Wells",
     "cover_art": "assets/the-star.png",
     "ebook_file": "books/the-star.epub",
-    "description": "A new celestial body appears over the earth in the early 19th century, the reactions and stories and misinformation make for an intersting read with some running pop-up commentary by Bob the somewhat Humanist.",
+    "description": "A new celestial body appears over the earth in the early 20th century, the reactions, stories and misinformation make for an intersting read with some running pop-up commentary by Bob the somewhat Humanist.",
     "suggested_donation": 3.00,
-    "download_bundle": "books/the_star_nullpress.epub",
+    "download_bundle": "books/the_star_nullpress_edition_1.0.3.epub",
     "active": true
   },
   {
