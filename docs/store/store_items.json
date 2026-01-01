@@ -1,5 +1,39 @@
 [
   {
+    "id": "oscillator_overthruster",
+    "type": "music",
+    "title": "Oscillator Overthruster",
+    "artist": "My Evil Robot Army",
+    "cover_art": "albums/Oscillator Overthruster/oscillator-overthruster.webp",
+    "audio_files": ["albums/Oscillator Overthruster/hidden insite.wav"],
+    "description": "🎵 FREE PREVIEW TRACK 🎵<br><br>Full lossless album coming to the store in 2026!",
+    "suggested_donation": 0.00,
+    "download_bundle": null,
+    "play_now": true,
+    "active": true,
+    "streaming_links": {
+      "spotify": "https://open.spotify.com/artist/4PBJ1WON6gmxC1L35HHh69",
+      "apple_music": "https://music.apple.com/us/artist/my-evil-robot-army/1799642150"
+    }
+  },
+  {
+    "id": "spiraling",
+    "type": "music",
+    "title": "Spiraling",
+    "artist": "My Evil Robot Army",
+    "cover_art": "albums/Spiraling/Spiraling.png",
+    "audio_files": ["albums/Spiraling/feeling it.wav"],
+    "description": "🎵 FREE PREVIEW TRACK 🎵<br><br>Full lossless album coming to the store in 2026!",
+    "suggested_donation": 0.00,
+    "download_bundle": null,
+    "play_now": true,
+    "active": true,
+    "streaming_links": {
+      "spotify": "https://open.spotify.com/album/1799642152",
+      "apple_music": "https://music.apple.com/us/album/spiraling/1799642152"
+    }
+  },
+  {
     "id": "book001",
     "type": "book",
     "title": "The Star",
@@ -30,11 +64,15 @@
     "artist": "My Evil Robot Army",
     "cover_art": "assets/MERA-SpaceJazz.jpg",
     "audio_files": ["SPACE_JAZZ.MP3"],
-    "description": "A cosmic journey of jazz and synths from My Evil Robot Army.",
+    "description": "A cosmic journey of jazz and synths from My Evil Robot Army. Listen on compressed streaming services or download the lossless version here!",
     "suggested_donation": 5.00,
     "download_bundle": "https://drive.proton.me/urls/5H3Q6HAANR#vq0NrD3ht9Q0",
     "play_now": true,
-    "active": true
+    "active": true,
+    "streaming_links": {
+      "spotify": "https://open.spotify.com/artist/4PBJ1WON6gmxC1L35HHh69",
+      "apple_music": "https://music.apple.com/us/artist/my-evil-robot-army/1799642150"
+    }
   },
   {
     "id": "travel_beyond",
@@ -43,11 +81,15 @@
     "artist": "My Evil Robot Army",
     "cover_art": "assets/MERA-TravelBeyond.png",
     "audio_files": ["TRAVEL_BEYOND.MP3"],
-    "description": "MERA's latest: lush soundscapes for the adventurous spirit.",
+    "description": "MERA's latest: lush soundscapes for the adventurous spirit. Listen on compressed streaming services or download the lossless version here!",
     "suggested_donation": 5.00,
     "download_bundle": "https://drive.proton.me/urls/DB91BNXKNC#I2pOI21pbbke",
     "play_now": true,
-    "active": true
+    "active": true,
+    "streaming_links": {
+      "spotify": "https://open.spotify.com/artist/4PBJ1WON6gmxC1L35HHh69",
+      "apple_music": "https://music.apple.com/us/artist/my-evil-robot-army/1799642150"
+    }
   },
   {
     "id": "explorations",
@@ -56,11 +98,15 @@
     "artist": "My Evil Robot Army",
     "cover_art": "assets/MERA-Explorations.png",
     "audio_files": ["EXPLORATIONS.MP3"],
-    "description": "Ambient and experimental journeys by MERA.",
+    "description": "Ambient and experimental journeys by MERA. Listen on compressed streaming services or download the lossless version here!",
     "suggested_donation": 5.00,
     "download_bundle": "albums/EXPLORATIONS.MP3",
     "play_now": true,
-    "active": false
+    "active": false,
+    "streaming_links": {
+      "spotify": "https://open.spotify.com/artist/4PBJ1WON6gmxC1L35HHh69",
+      "apple_music": "https://music.apple.com/us/artist/my-evil-robot-army/1799642150"
+    }
   },
   {
     "id": "exp_blue",
@@ -69,36 +115,14 @@
     "artist": "My Evil Robot Army",
     "cover_art": "assets/MERA-ExplorationsinBlue.png",
     "audio_files": ["EXP_BLUE.MP3"],
-    "description": "MERA explores the color blue in sound.",
+    "description": "MERA explores the color blue in sound. Listen on compressed streaming services or download the lossless version here!",
     "suggested_donation": 5.00,
     "download_bundle": "albums/EXP_BLUE.MP3",
     "play_now": true,
-    "active": false
-  },
-  {
-    "id": "oscillator_overthruster",
-    "type": "music",
-    "title": "Oscillator Overthruster",
-    "artist": "My Evil Robot Army",
-    "cover_art": "albums/Oscillator Overthruster/oscillator-overthruster.webp",
-    "audio_files": ["albums/Oscillator Overthruster/hidden insite.wav"],
-    "description": "🎵 FREE PREVIEW TRACK 🎵<br><br>Full lossless album coming to the store in 2026!<br>Now streaming on Spotify, Apple Music, and other platforms.",
-    "suggested_donation": 0.00,
-    "download_bundle": null,
-    "play_now": true,
-    "active": true
-  },
-  {
-    "id": "spiraling",
-    "type": "music",
-    "title": "Spiraling",
-    "artist": "My Evil Robot Army",
-    "cover_art": "albums/Spiraling/Spiraling.png",
-    "audio_files": ["albums/Spiraling/feeling it.wav"],
-    "description": "🎵 FREE PREVIEW TRACK 🎵<br><br>Full lossless album coming to the store in 2026!<br>Now streaming on Spotify, Apple Music, and other platforms.",
-    "suggested_donation": 0.00,
-    "download_bundle": null,
-    "play_now": true,
-    "active": true
+    "active": false,
+    "streaming_links": {
+      "spotify": "https://open.spotify.com/artist/4PBJ1WON6gmxC1L35HHh69",
+      "apple_music": "https://music.apple.com/us/artist/my-evil-robot-army/1799642150"
+    }
   }
 ]

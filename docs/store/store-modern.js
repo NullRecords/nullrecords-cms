@@ -9,14 +9,34 @@ function renderStoreItem(item) {
   div.className = 'card';
   let actionButton = '';
     if (item.active === false) {
-      actionButton = `<button class=\"donate\" disabled style=\"background:#aaa;cursor:not-allowed;opacity:0.7;\">Coming Soon</button>`;
-    } else if (item.type === 'book') {
+      actionButton = `<button class=\"donate\" disabled style=\"background:#aaa;cursor:not-allowed;opacity:0.7;\">Coming Soon</button>`;    } else if (item.suggested_donation === 0) {
+      // Free preview tracks - direct download
+      if (item.audio_files && item.audio_files.length > 0) {
+        actionButton = `<button class="donate" onclick="downloadFreeTrack('${item.audio_files[0]}')">FREE PREVIEW</button>`;
+      } else {
+        actionButton = `<button class="donate" disabled style="background:#aaa;cursor:not-allowed;opacity:0.7;">Preview</button>`;
+      }    } else if (item.type === 'book') {
       actionButton = `<button class=\"donate\" onclick=\"buyAndDownload('book', '${item.download_bundle}', ${item.suggested_donation})\">Buy Now</button>`;
     } else if (item.type === 'music') {
       actionButton = `<button class=\"donate\" onclick=\"buyAndDownload('album', '${item.download_bundle}', ${item.suggested_donation})\">Buy Now</button>`;
     } else {
       actionButton = `<button class=\"donate\" onclick=\"donateAndDownload('${item.id}', ${item.suggested_donation})\">Donate & Download</button>`;
     }
+  
+  // Add streaming links if available
+  let streamingButtons = '';
+  if (item.streaming_links && item.type === 'music') {
+    streamingButtons = '<div class="streaming-links">';
+    streamingButtons += '<div class="streaming-text">Or stream on:</div>';
+    if (item.streaming_links.spotify) {
+      streamingButtons += `<a href="${item.streaming_links.spotify}" target="_blank" rel="noopener" class="streaming-btn spotify-btn" title="Listen on Spotify"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg> Spotify</a>`;
+    }
+    if (item.streaming_links.apple_music) {
+      streamingButtons += `<a href="${item.streaming_links.apple_music}" target="_blank" rel="noopener" class="streaming-btn apple-btn" title="Listen on Apple Music"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M23.997 6.124c0-.738-.065-1.47-.24-2.19-.317-1.31-1.062-2.31-2.18-3.043C21.003.517 20.373.285 19.7.164c-.517-.093-1.038-.135-1.564-.15-.04-.003-.083-.01-.124-.013H5.988c-.152.01-.303.017-.455.026C4.786.07 4.043.15 3.34.428 2.004.958 1.04 1.88.475 3.208c-.192.448-.292.925-.363 1.408-.056.392-.088.785-.1 1.18 0 .032-.007.065-.01.097v12.223c.01.14.017.283.027.424.05.815.154 1.624.497 2.373.65 1.42 1.738 2.353 3.234 2.801.42.127.856.187 1.293.228.555.053 1.11.06 1.667.06h11.03c.525 0 1.048-.034 1.57-.1.823-.106 1.597-.35 2.296-.81a5.39 5.39 0 0 0 1.88-2.207c.186-.42.293-.87.37-1.324.113-.675.138-1.358.137-2.04-.002-3.8 0-7.595-.003-11.393zm-6.423 3.99v5.712c0 .417-.058.827-.244 1.206-.29.59-.76.962-1.388 1.14-.35.1-.706.157-1.07.173-.95.045-1.773-.6-1.943-1.536-.142-.773.227-1.624 1.038-2.022.323-.16.67-.245 1.025-.33.508-.12 1.003-.06 1.458-.2v-3.9c0-.005-.002-.012-.005-.025-.01 0-.02-.003-.03-.003-.407.09-.816.178-1.224.267-.68.15-1.357.297-2.035.446-.51.11-.764-.027-.87-.52-.012-.055-.017-.112-.02-.168V6.37c0-.41.213-.61.625-.72l3.977-.888c.63-.14 1.26-.28 1.887-.426.498-.117.77.097.77.595v4.19z"/></svg> Apple Music</a>`;
+    }
+    streamingButtons += '</div>';
+  }
+  
   div.innerHTML = `
     <img src="./${item.cover_art}" alt="${item.title} cover" />
     <h3>${item.title}</h3>
@@ -24,6 +44,7 @@ function renderStoreItem(item) {
     <div class="desc">${item.description}</div>
     <div class="meta" style="font-weight:600; color:#0fa;">$${item.suggested_donation.toFixed(2)}</div>
     ${actionButton}
+    ${streamingButtons}
   `;
   if (item.type === 'music') {
     MUSIC_CONTAINER.appendChild(div);
@@ -46,6 +67,17 @@ function loadStoreItems() {
 }
 
 window.onload = loadStoreItems;
+
+function downloadFreeTrack(audioFile) {
+  // Direct download for free preview tracks
+  const downloadUrl = `/store/${audioFile}`;
+  const link = document.createElement('a');
+  link.href = downloadUrl;
+  link.download = audioFile.split('/').pop();
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
 
 function donateAndDownload(itemId, amount) {
   alert(`Thank you for your donation! Your download will start now.`);

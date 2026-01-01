@@ -155,3 +155,73 @@ footer {
     margin-bottom: 1rem;
     box-shadow: 0 2px 12px rgba(80,80,180,0.10);
     background: #e0e7ff;
+}
+
+/* Streaming service buttons */
+.streaming-links {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 255, 247, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.streaming-text {
+  font-size: 0.85rem;
+  color: #888;
+  margin-bottom: 0.25rem;
+}
+
+.streaming-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 1.5rem;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  color: #fff;
+  margin: 0 0.25rem;
+}
+
+.streaming-btn svg {
+  flex-shrink: 0;
+}
+
+.spotify-btn {
+  background: #1DB954;
+  box-shadow: 0 2px 8px rgba(29, 185, 84, 0.3);
+}
+
+.spotify-btn:hover {
+  background: #1ed760;
+  box-shadow: 0 4px 16px rgba(29, 185, 84, 0.5);
+  transform: translateY(-2px);
+}
+
+.apple-btn {
+  background: linear-gradient(135deg, #FA2D48 0%, #FA233B 100%);
+  box-shadow: 0 2px 8px rgba(250, 45, 72, 0.3);
+}
+
+.apple-btn:hover {
+  background: linear-gradient(135deg, #FB3A51 0%, #FB3149 100%);
+  box-shadow: 0 4px 16px rgba(250, 45, 72, 0.5);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 700px) {
+  .streaming-links {
+    flex-direction: column;
+  }
+  
+  .streaming-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
