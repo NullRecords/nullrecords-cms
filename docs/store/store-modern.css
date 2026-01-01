@@ -148,13 +148,6 @@ footer {
     grid-template-columns: 1fr;
     gap: 1.2rem;
   }
-    width: 180px;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 0.7rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 2px 12px rgba(80,80,180,0.10);
-    background: #e0e7ff;
 }
 
 /* Streaming service buttons */
