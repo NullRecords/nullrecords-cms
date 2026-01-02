@@ -222,12 +222,12 @@ window.setupCarousel = function(book) {
   // Define screenshots for each book
   const bookScreenshots = {
     'book001': [
-      { src: '../assets/book-screenshots/the-star-screenshot1.png', alt: 'Bob\'s Commentary Example' },
-      { src: '../assets/book-screenshots/the-star-screenshot2.png', alt: 'Humanist Note Example' },
-      { src: '../assets/book-screenshots/the-star-screenshot3.png', alt: 'Interactive Features' }
+      { src: './assets/book-screenshots/screenshot-1.png', alt: 'Bob\'s Commentary Example' },
+      { src: './assets/book-screenshots/screenshot-2.png', alt: 'Humanist Note Example' },
     ],
     'book002': [
-      { src: '../assets/book-screenshots/metamorphosis-screenshot1.png', alt: 'Interactive Preview' }
+      { src: './assets/book-screenshots/screenshot-1.png', alt: 'Bob\'s Commentary Example' },
+      { src: './assets/book-screenshots/screenshot-2.png', alt: 'Humanist Note Example' },
     ]
   };
   
