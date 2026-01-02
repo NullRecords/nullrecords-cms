@@ -10,11 +10,7 @@
     "suggested_donation": 0.00,
     "download_bundle": null,
     "play_now": true,
-    "active": true,
-    "streaming_links": {
-      "spotify": "https://open.spotify.com/artist/4PBJ1WON6gmxC1L35HHh69",
-      "apple_music": "https://music.apple.com/us/artist/my-evil-robot-army/1576251082"
-    }
+    "active": true
   },
   {
     "id": "spiraling",
