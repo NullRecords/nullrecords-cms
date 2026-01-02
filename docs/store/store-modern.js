@@ -42,19 +42,25 @@ function updateTicker() {
 
 function renderStoreItem(item) {
   const div = document.createElement('div');
-  div.className = 'card';
+  div.className = item.type === 'book' ? 'card book-card' : 'card';
+  
+  // Add click handler for books
+  if (item.type === 'book') {
+    div.onclick = () => openBookModal(item);
+  }
+  
   let actionButton = '';
     if (item.active === false) {
       actionButton = `<button class=\"donate\" disabled style=\"background:#aaa;cursor:not-allowed;opacity:0.7;\">Coming Soon</button>`;    } else if (item.suggested_donation === 0) {
       // Free preview tracks - direct download
       if (item.audio_files && item.audio_files.length > 0) {
-        actionButton = `<button class="donate" onclick="downloadFreeTrack('${item.audio_files[0]}')">FREE PREVIEW</button>`;
+        actionButton = `<button class="donate" onclick="event.stopPropagation(); downloadFreeTrack('${item.audio_files[0]}')">FREE PREVIEW</button>`;
       } else {
         actionButton = `<button class="donate" disabled style="background:#aaa;cursor:not-allowed;opacity:0.7;">Preview</button>`;
       }    } else if (item.type === 'book') {
-      actionButton = `<button class=\"donate\" onclick=\"buyAndDownload('book', '${item.download_bundle}', ${item.suggested_donation})\">Buy Now</button>`;
+      actionButton = `<button class=\"donate\" onclick=\"event.stopPropagation(); buyAndDownload('book', '${item.download_bundle}', ${item.suggested_donation}, '${item.title}')\">Buy Now - $${item.suggested_donation.toFixed(2)}</button>`;
     } else if (item.type === 'music') {
-      actionButton = `<button class=\"donate\" onclick=\"buyAndDownload('album', '${item.download_bundle}', ${item.suggested_donation})\">Buy Now</button>`;
+      actionButton = `<button class=\"donate\" onclick=\"buyAndDownload('album', '${item.download_bundle}', ${item.suggested_donation}, '${item.title}')\">Buy Now</button>`;
     } else {
       actionButton = `<button class=\"donate\" onclick=\"donateAndDownload('${item.id}', ${item.suggested_donation})\">Donate & Download</button>`;
     }
@@ -73,15 +79,27 @@ function renderStoreItem(item) {
     streamingButtons += '</div>';
   }
   
-  div.innerHTML = `
-    <img src="./${item.cover_art}" alt="${item.title} cover" />
-    <h3>${item.title}</h3>
-    <div class="meta">${item.type === 'music' ? 'Artist: ' + item.artist : 'Author: ' + item.author}</div>
-    <div class="desc">${item.description}</div>
-    <div class="meta" style="font-weight:600; color:#0fa;">$${item.suggested_donation.toFixed(2)}</div>
-    ${actionButton}
-    ${streamingButtons}
-  `;
+  // Simplified display for book cards (details shown in modal)
+  if (item.type === 'book') {
+    div.innerHTML = `
+      <img src="./${item.cover_art}" alt="${item.title} cover" />
+      <h3>${item.title}</h3>
+      <div class="meta">Author: ${item.author}</div>
+      <div class="meta" style="font-weight:600; color:#0fa; margin-top: 1rem;">$${item.suggested_donation.toFixed(2)}</div>
+      ${actionButton}
+    `;
+  } else {
+    div.innerHTML = `
+      <img src="./${item.cover_art}" alt="${item.title} cover" />
+      <h3>${item.title}</h3>
+      <div class="meta">${item.type === 'music' ? 'Artist: ' + item.artist : 'Author: ' + item.author}</div>
+      <div class="desc">${item.description}</div>
+      <div class="meta" style="font-weight:600; color:#0fa;">$${item.suggested_donation.toFixed(2)}</div>
+      ${actionButton}
+      ${streamingButtons}
+    `;
+  }
+  
   if (item.type === 'music') {
     MUSIC_CONTAINER.appendChild(div);
   } else if (item.bob_humanist) {
@@ -127,13 +145,13 @@ function donateAndDownload(itemId, amount) {
   alert(`Thank you for your donation! Your download will start now.`);
   window.location.href = `/store/download/${itemId}`;
 }
-  function buyAndDownload(type, bundle, amount) {
+  function buyAndDownload(type, bundle, amount, title) {
     let paypalLink = type === 'book'
       ? 'https://www.paypal.com/ncp/payment/K2HDM5GXG8JHW'
       : 'https://www.paypal.com/ncp/payment/AW65SSP6N7L2G';
     
     // Log the download
-    const itemName = bundle.split('/').pop();
+    const itemName = title || bundle.split('/').pop();
     logDownload(`${type === 'book' ? 'Book' : 'Album'}: ${itemName}`);
     
     // Check for Proton Drive link
@@ -150,3 +168,138 @@ function donateAndDownload(itemId, amount) {
       window.location.href = paypalLink;
     }, 500);
   }
+
+// Modal and Carousel Functions
+let currentSlide = 0;
+let currentBookData = null;
+
+function openBookModal(book) {
+  currentBookData = book;
+  const modal = document.getElementById('bookModal');
+  
+  // Set book info
+  document.getElementById('modalCoverImg').src = './' + book.cover_art;
+  document.getElementById('modalCoverImg').alt = book.title;
+  document.getElementById('modalTitle').textContent = book.title;
+  document.getElementById('modalAuthor').textContent = 'Author: ' + book.author;
+  document.getElementById('modalDescription').innerHTML = book.description;
+  document.getElementById('modalPrice').textContent = '$' + book.suggested_donation.toFixed(2);
+  
+  // Set action button
+  let actionButtonHTML = '';
+  if (book.active === false) {
+    actionButtonHTML = `<button class="donate" disabled style="background:#aaa;cursor:not-allowed;opacity:0.7;">Coming Soon</button>`;
+  } else {
+    actionButtonHTML = `<button class="donate" onclick="buyAndDownload('book', '${book.download_bundle}', ${book.suggested_donation}, '${book.title}')">Buy Now - $${book.suggested_donation.toFixed(2)}</button>`;
+  }
+  document.getElementById('modalActionButton').innerHTML = actionButtonHTML;
+  
+  // Setup carousel with screenshots
+  setupCarousel(book);
+  
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeBookModal(event) {
+  if (event && event.target !== event.currentTarget && !event.target.classList.contains('modal-close')) {
+    return;
+  }
+  const modal = document.getElementById('bookModal');
+  modal.classList.remove('active');
+  document.body.style.overflow = 'auto';
+  currentSlide = 0;
+}
+
+function setupCarousel(book) {
+  // Define screenshots for each book
+  const bookScreenshots = {
+    'book001': [
+      { src: '../assets/book-screenshots/the-star-screenshot1.png', alt: 'Bob\'s Commentary Example' },
+      { src: '../assets/book-screenshots/the-star-screenshot2.png', alt: 'Humanist Note Example' },
+      { src: '../assets/book-screenshots/the-star-screenshot3.png', alt: 'Interactive Features' }
+    ],
+    'book002': [
+      { src: '../assets/book-screenshots/metamorphosis-screenshot1.png', alt: 'Interactive Preview' }
+    ]
+  };
+  
+  const screenshots = bookScreenshots[book.id] || [];
+  
+  if (screenshots.length === 0) {
+    document.querySelector('.modal-carousel').style.display = 'none';
+    return;
+  }
+  
+  document.querySelector('.modal-carousel').style.display = 'block';
+  
+  const slidesContainer = document.getElementById('carouselSlides');
+  const dotsContainer = document.getElementById('carouselDots');
+  
+  slidesContainer.innerHTML = '';
+  dotsContainer.innerHTML = '';
+  
+  screenshots.forEach((screenshot, index) => {
+    // Create slide
+    const slide = document.createElement('div');
+    slide.className = 'carousel-slide' + (index === 0 ? ' active' : '');
+    slide.innerHTML = `<img src="${screenshot.src}" alt="${screenshot.alt}" />`;
+    slidesContainer.appendChild(slide);
+    
+    // Create dot
+    const dot = document.createElement('span');
+    dot.className = 'carousel-dot' + (index === 0 ? ' active' : '');
+    dot.onclick = () => goToSlide(index);
+    dotsContainer.appendChild(dot);
+  });
+  
+  currentSlide = 0;
+}
+
+function changeSlide(direction) {
+  const slides = document.querySelectorAll('.carousel-slide');
+  const dots = document.querySelectorAll('.carousel-dot');
+  
+  if (slides.length === 0) return;
+  
+  slides[currentSlide].classList.remove('active');
+  dots[currentSlide].classList.remove('active');
+  
+  currentSlide += direction;
+  
+  if (currentSlide >= slides.length) {
+    currentSlide = 0;
+  } else if (currentSlide < 0) {
+    currentSlide = slides.length - 1;
+  }
+  
+  slides[currentSlide].classList.add('active');
+  dots[currentSlide].classList.add('active');
+}
+
+function goToSlide(index) {
+  const slides = document.querySelectorAll('.carousel-slide');
+  const dots = document.querySelectorAll('.carousel-dot');
+  
+  slides[currentSlide].classList.remove('active');
+  dots[currentSlide].classList.remove('active');
+  
+  currentSlide = index;
+  
+  slides[currentSlide].classList.add('active');
+  dots[currentSlide].classList.add('active');
+}
+
+// Keyboard navigation for modal
+document.addEventListener('keydown', function(e) {
+  const modal = document.getElementById('bookModal');
+  if (!modal.classList.contains('active')) return;
+  
+  if (e.key === 'Escape') {
+    closeBookModal();
+  } else if (e.key === 'ArrowLeft') {
+    changeSlide(-1);
+  } else if (e.key === 'ArrowRight') {
+    changeSlide(1);
+  }
+});

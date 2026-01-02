@@ -9,13 +9,18 @@
 </head>
 <body>
   <header>
-    <h1>NullRecords Art Book & Music Store</h1>
-    <p>Discover a curated collection of sci-fi and fantasy public domain books, music, and creative works. Every item is a piece of the NullRecords story—crafted for collectors, artists, and music lovers who want to own something rather then rent it.</p>
+    <div class="header-logo">
+      <img src="../assets/nullrecords-logo.png" alt="NullRecords" />
+    </div>
     <nav>
       <a href="../index.html">NullRecords Home</a>
       <a href="https://nullrecords.printify.me/" target="_blank" rel="noopener" class="merch-link">🛍️ Merch Store</a>
     </nav>
   </header>
+  <div class="intro-section">
+    <h2>Art Book & Music Store</h2>
+    <p>Discover a curated collection of sci-fi and fantasy public domain books, music, and creative works. Every item is a piece of the NullRecords story—crafted for collectors, artists, and music lovers who want to own something rather than rent it.</p>
+  </div>
   <main>
     <div class="container">
       <section class="mb-16">
@@ -46,6 +51,35 @@
       </section>
     </div>
   </main>
+  
+  <!-- Book Preview Modal -->
+  <div id="bookModal" class="modal" onclick="closeBookModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeBookModal()">&times;</button>
+      <div class="modal-body">
+        <div class="modal-cover">
+          <img id="modalCoverImg" src="" alt="" />
+        </div>
+        <div class="modal-info">
+          <h2 id="modalTitle"></h2>
+          <div class="modal-meta" id="modalAuthor"></div>
+          <div class="modal-description" id="modalDescription"></div>
+          <div class="modal-price" id="modalPrice"></div>
+          <div id="modalActionButton"></div>
+        </div>
+      </div>
+      <div class="modal-carousel">
+        <h3>Interactive Features Preview</h3>
+        <div class="carousel-container">
+          <button class="carousel-btn prev" onclick="changeSlide(-1)">&#10094;</button>
+          <div class="carousel-slides" id="carouselSlides"></div>
+          <button class="carousel-btn next" onclick="changeSlide(1)">&#10095;</button>
+        </div>
+        <div class="carousel-dots" id="carouselDots"></div>
+      </div>
+    </div>
+  </div>
+  
   <footer>
     <p>&copy; 2025 NullRecords. All rights reserved.</p>
   </footer>
