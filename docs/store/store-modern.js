@@ -46,7 +46,14 @@ function renderStoreItem(item) {
   
   // Add click handler for books
   if (item.type === 'book') {
-    div.onclick = () => openBookModal(item);
+    div.style.cursor = 'pointer';
+    div.addEventListener('click', function(e) {
+      // Don't open modal if clicking on a button
+      if (e.target.tagName === 'BUTTON' || e.target.closest('button')) {
+        return;
+      }
+      openBookModal(item);
+    });
   }
   
   let actionButton = '';
@@ -173,7 +180,7 @@ function donateAndDownload(itemId, amount) {
 let currentSlide = 0;
 let currentBookData = null;
 
-function openBookModal(book) {
+window.openBookModal = function(book) {
   currentBookData = book;
   const modal = document.getElementById('bookModal');
   
@@ -201,7 +208,7 @@ function openBookModal(book) {
   document.body.style.overflow = 'hidden';
 }
 
-function closeBookModal(event) {
+window.closeBookModal = function(event) {
   if (event && event.target !== event.currentTarget && !event.target.classList.contains('modal-close')) {
     return;
   }
@@ -211,7 +218,7 @@ function closeBookModal(event) {
   currentSlide = 0;
 }
 
-function setupCarousel(book) {
+window.setupCarousel = function(book) {
   // Define screenshots for each book
   const bookScreenshots = {
     'book001': [
@@ -256,7 +263,7 @@ function setupCarousel(book) {
   currentSlide = 0;
 }
 
-function changeSlide(direction) {
+window.changeSlide = function(direction) {
   const slides = document.querySelectorAll('.carousel-slide');
   const dots = document.querySelectorAll('.carousel-dot');
   
@@ -277,7 +284,7 @@ function changeSlide(direction) {
   dots[currentSlide].classList.add('active');
 }
 
-function goToSlide(index) {
+window.goToSlide = function(index) {
   const slides = document.querySelectorAll('.carousel-slide');
   const dots = document.querySelectorAll('.carousel-dot');
   

@@ -21,29 +21,55 @@ body::before {
 header {
   background: #fff;
   border-bottom: 1px solid #eee;
-  padding: 1rem 0;
-  text-align: center;
+  padding: 0.5rem 0;
+}
+
+.header-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
 }
 
 .header-logo {
-  padding: 1rem 0;
+  flex-shrink: 0;
 }
 
 .header-logo img {
-  height: 80px;
+  height: 75px;
   width: auto;
-  max-width: 90%;
 }
 
 header nav {
-  margin-top: 1rem;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+@media (max-width: 700px) {
+  .header-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .header-logo img {
+    height: 120px;
+  }
+  
+  header nav {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 }
 
 .intro-section {
   background: linear-gradient(135deg, #232946 0%, #181c2b 100%);
   color: #e0e7ff;
   text-align: center;
-  padding: 3rem 2rem;
+  padding: 2rem 1rem;
   margin-bottom: 2rem;
   border-bottom: 2px solid #00fff7;
 }
@@ -57,9 +83,10 @@ header nav {
 }
 
 .intro-section p {
-  color: #cbd5e1;
-  max-width: 800px;
+  color: #e0e7ff;
+  max-width: 1100px;
   margin: 0 auto;
+  padding: 0 1rem;
   font-size: 1.1rem;
   line-height: 1.7;
 }
@@ -118,6 +145,12 @@ nav a {
 
 .card.book-card {
   padding: 1rem;
+  cursor: pointer;
+  min-height: 500px;
+}
+
+.card.book-card:hover {
+  transform: translateY(-8px) scale(1.03);
 }
 
 .card.book-card img {
@@ -128,6 +161,7 @@ nav a {
   border-radius: 0.5rem;
   margin-bottom: 1rem;
   box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  aspect-ratio: auto;
 }
 .card:hover {
   box-shadow: 0 8px 48px 2px #00fff7, 0 0px 0px 2px #00fff7;
