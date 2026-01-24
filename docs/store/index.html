@@ -25,19 +25,56 @@
   </div>
   <main>
     <div class="container">
-      <section class="mb-16">
-        <h2 class="section-title" style="text-align:center;">Bob "the somewhat" Humanist Books</h2>
+      <section class="mb-16 bob-section">
+        <style>
+          .bob-section .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+          }
+          .bob-section .hero img {
+            max-width: 320px;
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 6px;
+          }
+          .bob-section .hero .copy {
+            color: #00fff7;
+            font-size: 1.05rem;
+            line-height: 1.5;
+            text-align: left;
+            padding: 0.25rem 0;
+          }
+          .bob-section .section-title { text-align: center; margin-bottom: 0.75rem; }
+
+          @media (max-width: 640px) {
+            .bob-section .hero { flex-direction: column; gap: 1rem; padding: 0 0.75rem; }
+            .bob-section .hero img { max-width: 240px; }
+            .bob-section .hero .copy { text-align: center; font-size: 0.98rem; }
+            .bob-section .section-title { font-size: 1.15rem; }
+          }
+        </style>
+
+        <h2 class="section-title">Bob "the somewhat" Humanist Books</h2>
+
         <div id="bob-books-items" class="grid"></div>
-        <div style="text-align:center; margin-bottom:1.5rem;">
-          <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 2rem; max-width: 800px; margin: 0 auto;">
-              <img src="assets/bob-logo.png" alt="Bob the somewhat Humanist Logo" style="max-width:320px; width:100%; height:auto;" class="mb-4" />
-              <div style="color: #00fff7; font-size: 1.1rem; line-height: 1.6; text-align: center; padding: 0 1rem;">
-                <p style="margin: 0; text-shadow: 0 0 10px rgba(0, 255, 247, 0.4);">
-              <strong>Interactive Features Included!</strong> Bob is an ethical and open source AI personality with human oversight, who brings witty commentary to outdated science and Victorian concepts with humor, modern context, and pop culture references. Navigate through hyperlinked notes, explore alternate perspectives, and enjoy classic <b>original manuscripts, reimagined</b> for the modern reader.
-                </p>
-              </div>
+
+        <div style="text-align:center; margin:1rem 0 1.5rem;">
+          <div class="hero">
+            <img src="assets/bob-logo.png" alt="Bob the somewhat Humanist Logo" />
+            <div class="copy">
+              <p style="margin:0;">
+                <strong>Interactive features included.</strong> Bob provides witty, human‑overseen commentary on vintage science and Victorian ideas — reimagined for modern readers. Explore hyperlinked notes and alternate perspectives.
+              </p>
+            </div>
           </div>
         </div>
+
         <div id="book-items" class="grid"></div>
       </section>
 
