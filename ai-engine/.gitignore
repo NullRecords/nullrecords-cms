@@ -1,0 +1,23 @@
+# Local DB
+ai_engine.db
+
+# Environment
+.env
+
+# Media downloads
+media-library/pexels/*
+media-library/internet_archive/*
+!media-library/pexels/.gitkeep
+!media-library/internet_archive/.gitkeep
+
+# Exports
+exports/videos/*
+exports/social/*
+!exports/videos/.gitkeep
+!exports/social/.gitkeep
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/

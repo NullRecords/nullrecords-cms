@@ -119,29 +119,9 @@ class SystemDashboard:
         return history
         
     def _generate_recent_automation_data(self):
-        """Generate recent automation data based on current system state"""
-        history = []
-        
-        # Generate data for last 7 days
-        for i in range(7):
-            date = datetime.now() - timedelta(days=i)
-            
-            # Simulate realistic automation data
-            import random
-            success_rate = random.choice(['3/3', '2/3', '3/3', '3/3'])  # Mostly successful
-            status = 'success' if success_rate == '3/3' else 'partial'
-            
-            history.append({
-                'date': date.strftime('%Y-%m-%d'),
-                'duration': round(random.uniform(15.0, 45.0), 1),
-                'success_rate': success_rate,
-                'discovery': random.randint(0, 3),
-                'outreach': random.randint(0, 8),
-                'status': status,
-                'source': 'estimated'
-            })
-            
-        return history
+        """Return an empty list when no log-based automation data is available."""
+        logging.info("No automation log data found — history section will be empty")
+        return []
         
     def collect_current_metrics(self):
         """Collect current system metrics"""

@@ -175,6 +175,17 @@
     }
     
     /**
+     * Load site-config.js which carries dynamic navigation and social data
+     */
+    function injectSiteConfig() {
+        // Determine the path prefix relative to the current page
+        const depth = (window.location.pathname.match(/\//g) || []).length - 1;
+        const prefix = depth > 1 ? '../'.repeat(depth - 1) : '';
+        injectScript(prefix + 'assets/js/site-config.js', false, true);
+        debug('Site config script injected');
+    }
+
+    /**
      * Main initialization function
      */
     function initializeSharedHeader() {
@@ -192,6 +203,9 @@
             
             // Inject favicons
             injectFavicons();
+            
+            // Load site-config.js (navigation + social)
+            injectSiteConfig();
             
             debug('Shared header initialization complete');
             

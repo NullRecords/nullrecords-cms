@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NullRecords – Dev Dashboard</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      background: #0a0a0a; color: #e0e0e0;
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh;
+    }
+    .container { max-width: 640px; width: 100%; padding: 2rem; }
+    h1 {
+      font-family: 'Press Start 2P', monospace;
+      color: #00ffff; font-size: 1rem; text-align: center;
+      margin-bottom: 0.5rem; letter-spacing: 2px;
+    }
+    .subtitle {
+      text-align: center; color: #666; font-size: 0.75rem;
+      margin-bottom: 2rem;
+    }
+    .card {
+      background: #1a1a1a; border: 1px solid #333;
+      border-radius: 8px; padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem; transition: border-color 0.2s;
+    }
+    .card:hover { border-color: #00ffff; }
+    .card h2 {
+      font-size: 0.85rem; margin-bottom: 0.5rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .card p { color: #888; font-size: 0.75rem; margin-bottom: 0.75rem; }
+    .badge {
+      display: inline-block; font-size: 0.6rem; padding: 2px 8px;
+      border-radius: 4px; font-weight: bold; text-transform: uppercase;
+    }
+    .badge.running { background: #00ff4133; color: #00ff41; }
+    .badge.stopped { background: #ff575833; color: #ff5758; }
+    a.link {
+      display: inline-block; color: #00ffff; font-size: 0.75rem;
+      text-decoration: none; border: 1px solid #00ffff44;
+      padding: 4px 12px; border-radius: 4px; margin-right: 0.5rem;
+      transition: background 0.2s;
+    }
+    a.link:hover { background: #00ffff22; }
+    .footer {
+      text-align: center; color: #444; font-size: 0.65rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>NULLRECORDS_DEV</h1>
+  <p class="subtitle">local service dashboard</p>
+
+  <div class="card">
+    <h2>ForgeWeb <span class="badge running">RUNNING</span></h2>
+    <p>Website builder &amp; admin &bull; Python HTTP Server</p>
+    <a class="link" href="http://localhost:8100/admin/" target="_blank">ADMIN</a>
+    <a class="link" href="http://localhost:8100/" target="_blank">SITE PREVIEW</a>
+    <p style="color:#555;font-size:0.65rem;margin-top:0.5rem;">http://localhost:8100</p>
+  </div>
+
+  <div class="card">
+    <h2>AI Engine <span class="badge running">RUNNING</span></h2>
+    <p>FastAPI media &amp; outreach platform</p>
+    <a class="link" href="http://localhost:8200/admin" target="_blank">ADMIN</a>
+    <a class="link" href="http://localhost:8200/docs" target="_blank">API DOCS</a>
+    <a class="link" href="http://localhost:8200/system/health" target="_blank">HEALTH</a>
+    <p style="color:#555;font-size:0.65rem;margin-top:0.5rem;">http://localhost:8200</p>
+  </div>
+
+  <div class="card">
+    <h2>Dashboard <span class="badge running">RUNNING</span></h2>
+    <p>Daily reports, analytics &amp; monitoring</p>
+    <a class="link" href="http://localhost:8300/daily_report_latest.html" target="_blank">LATEST REPORT</a>
+    <a class="link" href="http://localhost:8300/daily_reports/" target="_blank">ALL REPORTS</a>
+    <p style="color:#555;font-size:0.65rem;margin-top:0.5rem;">http://localhost:8300</p>
+  </div>
+
+  <div class="footer">NullRecords Dev Dashboard &bull; Generated 2026-03-22 12:26:29</div>
+</div>
+</body>
+</html>

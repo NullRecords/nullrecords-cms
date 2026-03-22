@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NullRecords AI Engine — Admin</title>
+<style>
+  :root {
+    --bg: #0a0a0a; --card: #141414; --card-border: #222;
+    --text: #d4d4d4; --muted: #666; --accent: #00ffff;
+    --green: #00ff41; --red: #ff5758; --pink: #ff00ff;
+    --yellow: #facc15; --font: 'JetBrains Mono', 'Fira Code', monospace;
+    --font-title: 'Press Start 2P', monospace;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:var(--font); font-size:13px; }
+
+  /* ── Layout ── */
+  .shell { display:flex; min-height:100vh; }
+  nav { width:220px; background:#111; border-right:1px solid var(--card-border); padding:1.5rem 0; flex-shrink:0; position:sticky; top:0; height:100vh; overflow-y:auto; }
+  nav .logo { font-family:var(--font-title); font-size:0.55rem; color:var(--accent); padding:0 1.25rem 1.5rem; letter-spacing:2px; line-height:1.6; }
+  nav a { display:block; padding:0.6rem 1.25rem; color:var(--muted); text-decoration:none; font-size:0.8rem; border-left:3px solid transparent; transition:all .15s; }
+  nav a:hover, nav a.active { color:var(--accent); background:#1a1a1a; border-left-color:var(--accent); }
+  nav .sep { height:1px; background:var(--card-border); margin:0.75rem 1.25rem; }
+  main { flex:1; padding:2rem 2.5rem; max-width:1100px; }
+
+  h1 { font-family:var(--font-title); font-size:0.7rem; color:var(--accent); margin-bottom:0.25rem; letter-spacing:1px; }
+  .page-sub { color:var(--muted); font-size:0.75rem; margin-bottom:1.75rem; }
+
+  /* ── Cards / Widgets ── */
+  .grid { display:grid; gap:1rem; }
+  .grid-4 { grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); }
+  .grid-2 { grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); }
+  .card { background:var(--card); border:1px solid var(--card-border); border-radius:8px; padding:1.15rem 1.35rem; }
+  .card:hover { border-color:#333; }
+  .card h3 { font-size:0.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:0.5rem; }
+  .stat { font-size:1.6rem; font-weight:700; color:var(--text); }
+  .stat.accent { color:var(--accent); }
+  .stat-label { font-size:0.65rem; color:var(--muted); margin-top:2px; }
+
+  /* ── Status dots ── */
+  .dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:6px; }
+  .dot.on { background:var(--green); box-shadow:0 0 6px var(--green); }
+  .dot.off { background:var(--red); }
+
+  /* ── Tables ── */
+  table { width:100%; border-collapse:collapse; font-size:0.8rem; }
+  th { text-align:left; color:var(--muted); font-size:0.65rem; text-transform:uppercase; letter-spacing:1px; padding:0.5rem 0.75rem; border-bottom:1px solid var(--card-border); }
+  td { padding:0.55rem 0.75rem; border-bottom:1px solid #1a1a1a; }
+  tr:hover td { background:#1a1a1a; }
+  .badge { font-size:0.6rem; padding:2px 8px; border-radius:3px; font-weight:600; text-transform:uppercase; }
+  .badge-green { background:#00ff4122; color:var(--green); }
+  .badge-yellow { background:#facc1522; color:var(--yellow); }
+  .badge-red { background:#ff575822; color:var(--red); }
+  .badge-blue { background:#00ffff22; color:var(--accent); }
+
+  /* ── Buttons ── */
+  .btn { display:inline-block; padding:6px 16px; border:1px solid var(--accent); color:var(--accent); background:transparent; border-radius:4px; font-family:var(--font); font-size:0.75rem; cursor:pointer; transition:background .15s; text-decoration:none; }
+  .btn:hover { background:var(--accent); color:var(--bg); }
+  .btn-sm { padding:3px 10px; font-size:0.65rem; }
+
+  /* ── Report panel ── */
+  .report { background:var(--card); border:1px solid var(--card-border); border-radius:8px; padding:1.5rem; white-space:pre-wrap; font-size:0.8rem; line-height:1.7; max-height:600px; overflow-y:auto; }
+  .report h2 { font-family:var(--font-title); font-size:0.55rem; color:var(--accent); margin:1rem 0 0.5rem; letter-spacing:1px; }
+  .report .kv { display:flex; gap:1rem; }
+  .report .kv .k { color:var(--muted); min-width:140px; }
+  .report .kv .v { color:var(--text); }
+
+  /* ── Tabs ── */
+  .tabs { display:flex; gap:0; margin-bottom:1.5rem; border-bottom:1px solid var(--card-border); }
+  .tab { padding:0.6rem 1.25rem; font-size:0.75rem; color:var(--muted); cursor:pointer; border-bottom:2px solid transparent; transition:all .15s; }
+  .tab:hover { color:var(--text); }
+  .tab.active { color:var(--accent); border-bottom-color:var(--accent); }
+  .tab-pane { display:none; }
+  .tab-pane.active { display:block; }
+
+  .empty { text-align:center; color:var(--muted); padding:3rem; font-size:0.8rem; }
+  a { color:var(--accent); }
+  .mt { margin-top:1.5rem; }
+  .mb { margin-bottom:1rem; }
+
+  @media (max-width: 768px) {
+    .shell { flex-direction:column; }
+    nav { width:100%; height:auto; position:static; display:flex; flex-wrap:wrap; padding:0.75rem; }
+    nav .logo { padding:0 0.5rem 0.5rem; }
+    nav a { padding:0.4rem 0.75rem; border-left:none; border-bottom:2px solid transparent; }
+    nav a.active { border-bottom-color:var(--accent); }
+    nav .sep { display:none; }
+    main { padding:1.25rem; }
+    .grid-4 { grid-template-columns:1fr 1fr; }
+  }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="shell">
+
+<!-- ── Sidebar ── -->
+<nav>
+  <div class="logo">NULLRECORDS<br>AI_ENGINE</div>
+  <a href="#" class="active" data-page="overview">Overview</a>
+  <a href="#" data-page="media">Media Assets</a>
+  <a href="#" data-page="playlists">Playlists</a>
+  <a href="#" data-page="influencers">Influencers</a>
+  <a href="#" data-page="outreach">Outreach Log</a>
+  <div class="sep"></div>
+  <a href="#" data-page="reports">Reports</a>
+  <a href="#" data-page="config">Configuration</a>
+  <div class="sep"></div>
+  <a href="/docs" target="_blank">API Docs &rarr;</a>
+</nav>
+
+<!-- ── Main Content ── -->
+<main>
+
+  <!-- OVERVIEW PAGE -->
+  <section id="page-overview" class="page">
+    <h1>DASHBOARD</h1>
+    <p class="page-sub">AI Engine overview &mdash; real-time data from the database</p>
+
+    <div class="grid grid-4 mb" id="overview-stats"></div>
+
+    <div class="grid grid-2 mt">
+      <div class="card">
+        <h3>API Integrations</h3>
+        <div id="api-status"></div>
+      </div>
+      <div class="card">
+        <h3>Quick Actions</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.5rem;">
+          <button class="btn btn-sm" onclick="runDiscover()">Discover Playlists</button>
+          <button class="btn btn-sm" onclick="searchMedia()">Search Media</button>
+          <a class="btn btn-sm" href="#" data-page="reports">View Reports</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEDIA PAGE -->
+  <section id="page-media" class="page" style="display:none">
+    <h1>MEDIA_ASSETS</h1>
+    <p class="page-sub">All sourced media files</p>
+    <div id="media-table"></div>
+  </section>
+
+  <!-- PLAYLISTS PAGE -->
+  <section id="page-playlists" class="page" style="display:none">
+    <h1>PLAYLISTS</h1>
+    <p class="page-sub">Discovered playlists ranked by relevance</p>
+    <div id="playlists-table"></div>
+  </section>
+
+  <!-- INFLUENCERS PAGE -->
+  <section id="page-influencers" class="page" style="display:none">
+    <h1>INFLUENCERS</h1>
+    <p class="page-sub">Discovered influencers &amp; channels</p>
+    <div id="influencers-table"></div>
+  </section>
+
+  <!-- OUTREACH PAGE -->
+  <section id="page-outreach" class="page" style="display:none">
+    <h1>OUTREACH_LOG</h1>
+    <p class="page-sub">Message history and follow-up schedule</p>
+    <div id="outreach-table"></div>
+  </section>
+
+  <!-- REPORTS PAGE -->
+  <section id="page-reports" class="page" style="display:none">
+    <h1>REPORTS</h1>
+    <p class="page-sub">Generated summary reports</p>
+    <button class="btn mb" onclick="generateReport()">Generate Report</button>
+    <div id="report-output"></div>
+  </section>
+
+  <!-- CONFIG PAGE -->
+  <section id="page-config" class="page" style="display:none">
+    <h1>CONFIGURATION</h1>
+    <p class="page-sub">Current engine settings &amp; API status</p>
+    <div id="config-panel"></div>
+  </section>
+
+</main>
+</div>
+
+<script>
+const API = '';  // Same origin
+
+// ── Navigation ──
+document.querySelectorAll('nav a[data-page]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const pg = a.dataset.page;
+    document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+    document.getElementById('page-' + pg).style.display = 'block';
+    document.querySelectorAll('nav a').forEach(n => n.classList.remove('active'));
+    a.classList.add('active');
+    loadPage(pg);
+  });
+});
+
+// ── Page loaders ──
+function loadPage(pg) {
+  switch(pg) {
+    case 'overview': loadOverview(); break;
+    case 'media': loadMedia(); break;
+    case 'playlists': loadPlaylists(); break;
+    case 'influencers': loadInfluencers(); break;
+    case 'outreach': loadOutreach(); break;
+    case 'config': loadConfig(); break;
+  }
+}
+
+async function api(path) {
+  const r = await fetch(API + path);
+  return r.json();
+}
+
+// ── Overview ──
+async function loadOverview() {
+  const d = await api('/admin/api/overview');
+  const s = document.getElementById('overview-stats');
+  s.innerHTML = `
+    <div class="card"><h3>Media Assets</h3><div class="stat accent">${d.media.total}</div>
+      <div class="stat-label">${d.media.downloaded} downloaded &bull; ${d.media.tagged} tagged</div></div>
+    <div class="card"><h3>Playlists</h3><div class="stat">${d.outreach.playlists}</div>
+      <div class="stat-label">discovered</div></div>
+    <div class="card"><h3>Influencers</h3><div class="stat">${d.outreach.influencers}</div>
+      <div class="stat-label">discovered</div></div>
+    <div class="card"><h3>Outreach</h3><div class="stat">${d.outreach.messages_sent}</div>
+      <div class="stat-label">${d.outreach.followups_due} follow-ups due</div></div>
+  `;
+
+  const as = document.getElementById('api-status');
+  const apis = d.api_status;
+  as.innerHTML = Object.entries(apis).map(([k,v]) =>
+    `<div style="padding:4px 0"><span class="dot ${v?'on':'off'}"></span>${k.toUpperCase()}</div>`
+  ).join('');
+}
+
+// ── Media ──
+async function loadMedia() {
+  const d = await api('/admin/api/media?limit=100');
+  const el = document.getElementById('media-table');
+  if (!d.items.length) { el.innerHTML = '<div class="empty">No media assets yet. Use the API to search and add media.</div>'; return; }
+  el.innerHTML = `<table>
+    <tr><th>ID</th><th>Source</th><th>Title</th><th>Mood</th><th>Tags</th><th>Downloaded</th><th>Date</th></tr>
+    ${d.items.map(m => `<tr>
+      <td>${m.id}</td>
+      <td><span class="badge badge-blue">${esc(m.source)}</span></td>
+      <td><a href="${esc(m.url)}" target="_blank">${esc(trunc(m.title,50))}</a></td>
+      <td>${esc(m.mood||'—')}</td>
+      <td>${esc(trunc(m.tags||'[]',40))}</td>
+      <td>${m.downloaded?'<span class="badge badge-green">YES</span>':'<span class="badge badge-yellow">NO</span>'}</td>
+      <td>${fmtDate(m.created_at)}</td>
+    </tr>`).join('')}
+  </table>`;
+}
+
+// ── Playlists ──
+async function loadPlaylists() {
+  const d = await api('/admin/api/playlists?limit=100');
+  const el = document.getElementById('playlists-table');
+  if (!d.items.length) { el.innerHTML = '<div class="empty">No playlists discovered yet. Configure Spotify API credentials and run discover.</div>'; return; }
+  el.innerHTML = `<table>
+    <tr><th>ID</th><th>Name</th><th>Platform</th><th>Curator</th><th>Followers</th><th>Score</th><th>Contacted</th></tr>
+    ${d.items.map(p => `<tr>
+      <td>${p.id}</td>
+      <td><a href="${esc(p.url||'#')}" target="_blank">${esc(trunc(p.name,40))}</a></td>
+      <td><span class="badge badge-blue">${esc(p.platform)}</span></td>
+      <td>${esc(p.curator_name||'—')}</td>
+      <td>${fmt(p.followers)}</td>
+      <td>${scoreBar(p.relevance_score)}</td>
+      <td>${p.last_contacted?fmtDate(p.last_contacted):'—'}</td>
+    </tr>`).join('')}
+  </table>`;
+}
+
+// ── Influencers ──
+async function loadInfluencers() {
+  const d = await api('/admin/api/influencers?limit=100');
+  const el = document.getElementById('influencers-table');
+  if (!d.items.length) { el.innerHTML = '<div class="empty">No influencers discovered yet. Configure YouTube API key and run discover.</div>'; return; }
+  el.innerHTML = `<table>
+    <tr><th>ID</th><th>Handle</th><th>Platform</th><th>Niche</th><th>Followers</th><th>Score</th><th>Contacted</th></tr>
+    ${d.items.map(i => `<tr>
+      <td>${i.id}</td>
+      <td>${esc(i.handle)}</td>
+      <td><span class="badge badge-blue">${esc(i.platform)}</span></td>
+      <td>${esc(trunc(i.niche||'—',30))}</td>
+      <td>${fmt(i.followers)}</td>
+      <td>${scoreBar(i.relevance_score)}</td>
+      <td>${i.last_contacted?fmtDate(i.last_contacted):'—'}</td>
+    </tr>`).join('')}
+  </table>`;
+}
+
+// ── Outreach ──
+async function loadOutreach() {
+  const d = await api('/admin/api/outreach-log?limit=100');
+  const el = document.getElementById('outreach-table');
+  if (!d.items.length) { el.innerHTML = '<div class="empty">No outreach messages sent yet.</div>'; return; }
+  el.innerHTML = `<table>
+    <tr><th>ID</th><th>Type</th><th>Target</th><th>Status</th><th>Follow-up</th><th>Message</th><th>Date</th></tr>
+    ${d.items.map(o => `<tr>
+      <td>${o.id}</td>
+      <td><span class="badge badge-blue">${esc(o.target_type)}</span></td>
+      <td>#${o.target_id}</td>
+      <td>${statusBadge(o.status)}</td>
+      <td>${o.follow_up_date?fmtDate(o.follow_up_date):'—'}</td>
+      <td title="${esc(o.message)}">${esc(trunc(o.message,60))}</td>
+      <td>${fmtDate(o.created_at)}</td>
+    </tr>`).join('')}
+  </table>`;
+}
+
+// ── Reports ──
+async function generateReport() {
+  const el = document.getElementById('report-output');
+  el.innerHTML = '<div class="empty">Generating report…</div>';
+  const d = await api('/admin/api/reports/summary');
+  el.innerHTML = `<div class="report">
+<h2>NULLRECORDS AI ENGINE — SUMMARY REPORT</h2>
+Generated: ${d.generated_at}
+Label: ${d.label.name} — ${d.label.genre}
+
+<h2>MEDIA ASSETS</h2>
+<div class="kv"><span class="k">Total assets:</span><span class="v">${d.media.total}</span></div>
+<div class="kv"><span class="k">Added (7d):</span><span class="v">${d.media.added_last_7d}</span></div>
+<div class="kv"><span class="k">By source:</span><span class="v">${Object.entries(d.media.by_source).map(([k,v])=>k+': '+v).join(', ')||'none'}</span></div>
+
+<h2>OUTREACH</h2>
+<div class="kv"><span class="k">By status:</span><span class="v">${Object.entries(d.outreach.by_status).map(([k,v])=>k+': '+v).join(', ')||'none'}</span></div>
+<div class="kv"><span class="k">Sent (7d):</span><span class="v">${d.outreach.sent_last_7d}</span></div>
+<div class="kv"><span class="k">Playlists by platform:</span><span class="v">${Object.entries(d.outreach.playlists_by_platform).map(([k,v])=>k+': '+v).join(', ')||'none'}</span></div>
+
+<h2>TOP PLAYLISTS</h2>
+${d.outreach.top_playlists.length ? d.outreach.top_playlists.map((p,i)=>
+  `<div class="kv"><span class="k">${i+1}. ${p.name}</span><span class="v">${p.platform} — score ${(p.score||0).toFixed(2)}</span></div>`
+).join('\n') : 'No playlists discovered yet.'}
+
+<h2>TOP INFLUENCERS</h2>
+${d.outreach.top_influencers.length ? d.outreach.top_influencers.map((i,n)=>
+  `<div class="kv"><span class="k">${n+1}. ${i.handle}</span><span class="v">${i.platform} — score ${(i.score||0).toFixed(2)}</span></div>`
+).join('\n') : 'No influencers discovered yet.'}
+</div>`;
+}
+
+// ── Config ──
+async function loadConfig() {
+  const d = await api('/admin/api/overview');
+  const el = document.getElementById('config-panel');
+  el.innerHTML = `
+    <div class="card mb">
+      <h3>Label</h3>
+      <div style="margin-top:0.5rem">
+        <div class="kv" style="display:flex;gap:1rem;padding:3px 0"><span style="color:var(--muted);min-width:100px">Name:</span><span>${esc(d.label.name)}</span></div>
+        <div class="kv" style="display:flex;gap:1rem;padding:3px 0"><span style="color:var(--muted);min-width:100px">Genre:</span><span>${esc(d.label.genre)}</span></div>
+      </div>
+    </div>
+    <div class="card mb">
+      <h3>API Keys</h3>
+      <div style="margin-top:0.5rem">
+        ${Object.entries(d.api_status).map(([k,v]) =>
+          `<div style="padding:4px 0"><span class="dot ${v?'on':'off'}"></span><strong>${k.toUpperCase()}</strong> — ${v?'Configured':'Not configured'}</div>`
+        ).join('')}
+      </div>
+      <p style="color:var(--muted);font-size:0.7rem;margin-top:0.75rem">Edit <code>.env</code> file to add or change API keys, then restart the server.</p>
+    </div>
+    <div class="card">
+      <h3>Database Credentials</h3>
+      <div style="margin-top:0.5rem">
+        ${d.configured_services.length
+          ? d.configured_services.map(s => `<div style="padding:3px 0"><span class="dot on"></span>${esc(s)}</div>`).join('')
+          : '<div style="color:var(--muted)">No credentials stored in database.</div>'}
+      </div>
+    </div>
+  `;
+}
+
+// ── Quick Actions ──
+async function runDiscover() {
+  const query = prompt('Search query for playlist/channel discovery:', 'nu jazz lo-fi');
+  if (!query) return;
+  try {
+    const r = await fetch(API + '/outreach/discover', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({query})
+    });
+    const d = await r.json();
+    alert(`Discovery complete!\nPlaylists added: ${d.playlists_added}\nInfluencers added: ${d.influencers_added}`);
+    loadOverview();
+  } catch(e) { alert('Discovery failed: ' + e.message); }
+}
+
+async function searchMedia() {
+  const query = prompt('Search query for media assets:', 'abstract visuals');
+  if (!query) return;
+  const source = prompt('Source (pexels or internet_archive):', 'pexels');
+  if (!source) return;
+  try {
+    const r = await fetch(API + '/media/search', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({query, source, per_page: 10})
+    });
+    const d = await r.json();
+    alert(`Found ${d.added} new assets (${d.total_results} results from ${source})`);
+    loadOverview();
+  } catch(e) { alert('Search failed: ' + e.message); }
+}
+
+// ── Helpers ──
+function esc(s) { if (!s) return ''; const d = document.createElement('div'); d.textContent = String(s); return d.innerHTML; }
+function trunc(s, n) { return s && s.length > n ? s.slice(0, n) + '…' : (s || ''); }
+function fmt(n) { return (n||0).toLocaleString(); }
+function fmtDate(s) { if (!s) return '—'; const d = new Date(s); return d.toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'}); }
+function scoreBar(v) {
+  const pct = Math.round((v||0)*100);
+  const color = pct >= 70 ? 'var(--green)' : pct >= 40 ? 'var(--yellow)' : 'var(--red)';
+  return `<div style="display:flex;align-items:center;gap:6px"><div style="width:50px;height:6px;background:#222;border-radius:3px;overflow:hidden"><div style="width:${pct}%;height:100%;background:${color}"></div></div><span style="font-size:0.7rem;color:var(--muted)">${pct}%</span></div>`;
+}
+function statusBadge(s) {
+  const cls = s === 'sent' ? 'badge-green' : s === 'followed_up' ? 'badge-blue' : 'badge-yellow';
+  return `<span class="badge ${cls}">${esc(s)}</span>`;
+}
+
+// ── Init ──
+loadOverview();
+</script>
+</body>
+</html>

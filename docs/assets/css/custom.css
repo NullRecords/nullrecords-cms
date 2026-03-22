@@ -1,0 +1,72 @@
+/* ForgeWeb Custom Styles - Auto-generated */
+:root {
+    /* Brand colors */
+    --brand-primary: #000000;
+    --brand-secondary: #c51b4e;
+    --brand-accent: #30977d;
+    
+    /* Additional brand variables */
+    --brand-text: #1f2937;
+    --brand-bg: #f9fafb;
+    --brand-border: #e5e7eb;
+}
+
+/* Typography */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+body { font-family: 'Roboto', system-ui, sans-serif; }
+
+/* Custom button styles */
+.btn-brand {
+    background-color: var(--brand-primary);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.btn-brand:hover {
+    background-color: var(--brand-secondary);
+}
+
+.btn-brand-outline {
+    border: 2px solid var(--brand-primary);
+    color: var(--brand-primary);
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    background: transparent;
+    transition: all 0.2s;
+}
+
+.btn-brand-outline:hover {
+    background-color: var(--brand-primary);
+    color: white;
+}
+
+/* Navigation enhancements */
+.nav-link {
+    color: #374151;
+    transition: color 0.2s;
+}
+
+.nav-link:hover {
+    color: var(--brand-primary);
+}
+
+.nav-link.active {
+    color: var(--brand-primary);
+}
+
+/* Card hover effects */
+.card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+/* Custom CSS from user */
+

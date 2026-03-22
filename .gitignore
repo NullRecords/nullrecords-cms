@@ -162,4 +162,11 @@ dmypy.json
 db.sqlite3
 
 evn/
+
+# Preview temp files
+docs/_preview/
+
+# Runtime PID/port files
+ops/.pids/
+ops/logs/
 forgeweb/

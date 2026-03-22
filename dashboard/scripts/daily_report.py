@@ -308,30 +308,15 @@ class DailyReportSystem:
             self._generate_mock_ga_data()
     
     def _generate_mock_ga_data(self):
-        """Generate mock Google Analytics data for testing"""
-        import random
-        
-        self.metrics.website_visitors = random.randint(150, 350)
-        self.metrics.website_pageviews = random.randint(400, 800)
-        self.metrics.website_sessions = random.randint(180, 400)
-        self.metrics.bounce_rate = random.uniform(35.0, 65.0)
-        self.metrics.avg_session_duration = random.uniform(120.0, 300.0)
-        
-        self.metrics.top_pages = [
-            {'page': '/', 'views': random.randint(80, 150)},
-            {'page': '/news/', 'views': random.randint(40, 80)},
-            {'page': '/artists/', 'views': random.randint(20, 50)},
-            {'page': '/releases/', 'views': random.randint(15, 40)},
-            {'page': '/contact/', 'views': random.randint(10, 25)}
-        ]
-        
-        self.metrics.traffic_sources = {
-            'google': random.randint(100, 200),
-            'direct': random.randint(50, 120),
-            'twitter.com': random.randint(20, 60),
-            'reddit.com': random.randint(15, 40),
-            'bandcamp.com': random.randint(10, 30)
-        }
+        """Set Google Analytics fields to zero / empty when the API is unavailable."""
+        logging.info("ℹ️  GA data unavailable — report will show zeroes for analytics")
+        self.metrics.website_visitors = 0
+        self.metrics.website_pageviews = 0
+        self.metrics.website_sessions = 0
+        self.metrics.bounce_rate = 0.0
+        self.metrics.avg_session_duration = 0.0
+        self.metrics.top_pages = []
+        self.metrics.traffic_sources = {}
     
     def _collect_ga4_data(self):
         """Collect Google Analytics GA4 data using the Data API v1 Beta"""
@@ -479,19 +464,13 @@ class DailyReportSystem:
             self._generate_mock_youtube_data()
     
     def _generate_mock_youtube_data(self):
-        """Generate mock YouTube data for testing"""
-        import random
-        
-        self.metrics.youtube_subscribers = random.randint(1200, 1500)
-        self.metrics.youtube_views = random.randint(15000, 25000)
-        self.metrics.youtube_watch_time = random.uniform(800.0, 1500.0)
-        self.metrics.youtube_new_videos = random.randint(0, 2)
-        
-        self.metrics.top_videos = [
-            {'title': 'My Evil Robot Army - Space Jazz (Official)', 'views': random.randint(500, 1200)},
-            {'title': 'MERA - Explorations in Blue', 'views': random.randint(300, 800)},
-            {'title': 'NullRecords Artist Spotlight', 'views': random.randint(200, 600)}
-        ]
+        """Set YouTube fields to zero / empty when the API is unavailable."""
+        logging.info("ℹ️  YouTube data unavailable — report will show zeroes for YouTube")
+        self.metrics.youtube_subscribers = 0
+        self.metrics.youtube_views = 0
+        self.metrics.youtube_watch_time = 0.0
+        self.metrics.youtube_new_videos = 0
+        self.metrics.top_videos = []
     
     def collect_email_campaign_data(self):
         """Collect email campaign statistics"""
@@ -537,11 +516,8 @@ class DailyReportSystem:
                 
                 self.metrics.emails_sent += news_emails
             
-            # Mock email performance metrics (would integrate with Brevo API)
-            if self.metrics.emails_sent > 0:
-                import random
-                self.metrics.email_open_rate = random.uniform(20.0, 45.0)
-                self.metrics.email_click_rate = random.uniform(2.0, 8.0)
+            # Email open/click rates require Brevo API integration
+            # Leave at defaults (0) until configured
             
             logging.info(f"✅ Email Data: {self.metrics.emails_sent} emails sent, {self.metrics.outreach_campaigns} campaigns")
             
@@ -608,106 +584,63 @@ class DailyReportSystem:
             self._generate_mock_outreach_data()
     
     def _get_recent_new_sources(self):
-        """Get list of recently discovered sources"""
-        # This would ideally read from outreach system logs or database
+        """Get list of recently discovered sources from outreach logs."""
         new_sources = []
-        
         try:
-            # Simulate new sources discovered today
-            import random
-            if random.random() > 0.6:  # 40% chance of new sources
-                sample_sources = [
-                    {
-                        "name": "Indie Jazz Weekly",
-                        "type": "publication",
-                        "genres": ["jazz", "indie", "fusion"],
-                        "discovered_date": self.report_date,
-                        "contact_method": "Contact form"
-                    },
-                    {
-                        "name": "LoFi Vibes Collective",
-                        "type": "curator", 
-                        "genres": ["lofi", "chillhop"],
-                        "discovered_date": self.report_date,
-                        "contact_method": "Email"
-                    },
-                    {
-                        "name": "Nu Jazz Spotlight",
-                        "type": "influencer",
-                        "genres": ["nu jazz", "modern jazz"],
-                        "discovered_date": self.report_date,
-                        "contact_method": "Social media"
-                    }
-                ]
-                return sample_sources[:random.randint(1, 3)]
-            
+            outreach_log = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'logs', 'music_outreach.log')
+            if os.path.exists(outreach_log):
+                today = datetime.now().strftime('%Y-%m-%d')
+                with open(outreach_log, 'r') as f:
+                    for line in f:
+                        if today in line and 'New source discovered' in line:
+                            new_sources.append({
+                                'name': line.strip().split('discovered:')[-1].strip() if 'discovered:' in line else 'Unknown',
+                                'type': 'discovered',
+                                'discovered_date': today,
+                            })
         except Exception:
             pass
-            
         return new_sources
     
     def _get_recent_responses(self, responses_count):
-        """Get list of recent responses from outreach"""
+        """Get list of recent responses from outreach logs."""
         responses = []
-        
-        if responses_count > 0:
-            # Sample response data structure
-            sample_responses = [
-                {
-                    "contact_name": "Nu Jazz Guide",
-                    "type": "publication",
-                    "response_type": "interested",
-                    "response_date": self.report_date,
-                    "summary": "Interested in featuring our artists"
-                },
-                {
-                    "contact_name": "Chillhop Music",
-                    "type": "label", 
-                    "response_type": "requesting_more_info",
-                    "response_date": self.report_date,
-                    "summary": "Requested full EPKs for review"
-                }
-            ]
-            
-            return sample_responses[:min(responses_count, len(sample_responses))]
-            
+        try:
+            outreach_log = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'logs', 'music_outreach.log')
+            if os.path.exists(outreach_log) and responses_count > 0:
+                with open(outreach_log, 'r') as f:
+                    for line in f:
+                        if 'Response received' in line or 'replied' in line.lower():
+                            responses.append({
+                                'contact_name': 'See outreach log',
+                                'type': 'response',
+                                'response_date': self.report_date,
+                                'summary': line.strip()[-120:],
+                            })
+                            if len(responses) >= responses_count:
+                                break
+        except Exception:
+            pass
         return responses
     
     def _generate_mock_outreach_data(self):
-        """Generate mock outreach data with new sources and responses"""
-        import random
-        self.metrics.outreach_total_contacts = random.randint(30, 50)
-        self.metrics.outreach_emails_sent_today = random.randint(3, 8)
-        self.metrics.outreach_status = {
-            'pending': random.randint(15, 25),
-            'contacted': random.randint(10, 20),
-            'manual_submission_required': random.randint(2, 5)
-        }
-        
-        # Mock new sources and responses
-        self.metrics.outreach_new_sources = self._get_recent_new_sources()
-        self.metrics.outreach_responses = self._get_recent_responses(random.randint(0, 2))
+        """Set outreach fields to zero / empty when the outreach system is unavailable."""
+        logging.info("ℹ️  Outreach data unavailable — report will show zeroes for outreach")
+        self.metrics.outreach_total_contacts = 0
+        self.metrics.outreach_emails_sent_today = 0
+        self.metrics.outreach_status = {}
+        self.metrics.outreach_new_sources = []
+        self.metrics.outreach_responses = []
     
     def collect_voting_data(self):
         """Collect voting data from Google Sheets"""
         logging.info("🗳️  Collecting voting data...")
         
         # Google Sheets voting is not currently configured for NullRecords
-        # Using mock data for now
-        import random
-        
-        self.metrics.new_votes = random.randint(5, 25)
-        self.metrics.total_votes = random.randint(150, 300)
-        
-        self.metrics.voting_trends = {
-            'My Evil Robot Army': random.randint(30, 60),
-            'Digital Synthetics': random.randint(20, 45),
-            'Cyber Rebellion': random.randint(15, 35),
-            'Neo Tokyo Sound': random.randint(10, 25),
-            'Null Frequency': random.randint(5, 20)
-        }
-        
-        logging.info(f"📊 Mock Voting Data: {self.metrics.new_votes} new votes, {self.metrics.total_votes} total")
+        logging.info("ℹ️  Voting system not configured — skipping")
+        self.metrics.new_votes = 0
+        self.metrics.total_votes = 0
+        self.metrics.voting_trends = {}
     
     def collect_voting_data_old(self):
         """Legacy Google Sheets voting data collection (disabled)"""
@@ -728,20 +661,14 @@ class DailyReportSystem:
         except Exception as e:
             logging.error(f"❌ Error collecting Google Sheets voting data: {e}")
             
-            # Fallback to mock data
-            import random
+            # Fallback to empty data
             
-            self.metrics.new_votes = random.randint(5, 25)
-            self.metrics.total_votes = random.randint(150, 300)
+            self.metrics.new_votes = 0
+            self.metrics.total_votes = 0
             
-            self.metrics.voting_trends = {
-                'My Evil Robot Army': random.randint(30, 60),
-                'MERA': random.randint(25, 50),
-                'New Releases': random.randint(20, 40),
-                'Live Shows': random.randint(10, 30)
-            }
+            self.metrics.voting_trends = {}
             
-            logging.info(f"✅ Voting Data (mock): {self.metrics.new_votes} new votes, {self.metrics.total_votes} total")
+            logging.info("ℹ️  Voting system not configured — skipping")
     
     def collect_news_monitoring_data(self):
         """Collect news and content monitoring statistics"""
