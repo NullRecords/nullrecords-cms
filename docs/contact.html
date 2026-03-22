@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NullRecords</title>
+    <meta name="description" content="NullRecords Art, Music, Publishing and more.">
+    <meta name="author" content="NullRecords">
+    <meta name="theme-color" content="#ff5758">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.nullrecords.com">
+    <meta property="og:title" content="NullRecords">
+    <meta property="og:description" content="NullRecords Art, Music, Publishing and more.">
+    <meta property="og:image" content="https://www.nullrecords.com/assets/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.nullrecords.com">
+    <meta property="twitter:title" content="NullRecords">
+    <meta property="twitter:description" content="NullRecords Art, Music, Publishing and more.">
+    <meta property="twitter:image" content="https://www.nullrecords.com/assets/og-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#00ffff',
+                        'secondary': '#ff5758',
+                        'accent': '#ED7512',
+                        'cyber-red': '#ff5758',
+                        'cyber-blue': '#00ffff',
+                        'cyber-green': '#00ff41',
+                        'dark-bg': '#0a0a0a',
+                        'dark-card': '#1a1a1a',
+                        'dark-border': '#333333'
+                    },
+                    fontFamily: {
+                        'pixel': ['"Press Start 2P"', 'cursive'],
+                        'mono': ['JetBrains Mono', 'Consolas', 'Monaco', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom CSS - Updates automatically when you change branding -->
+    <link rel="stylesheet" href="assets/css/custom.css">
+    
+    <!-- Custom Styles -->
+    <style>
+        body { background: #0a0a0a; color: #e0e7ff; font-family: 'JetBrains Mono', monospace; }
+        .hero-gradient {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #00ffff, #ff5758);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: #1a1a1a;
+            border: 1px solid #333;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            border-color: #00ffff;
+        }
+        .glow-text { text-shadow: 0 0 10px currentColor; }
+        .nav-link { color: #e0e7ff; transition: color 0.2s, text-shadow 0.2s; }
+        .nav-link:hover { color: #00ffff; text-shadow: 0 0 8px #00ffff; }
+        .nav-link.active { color: #ff5758; border-bottom: 2px solid #ff5758; }
+    </style>
+
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "MusicGroup",
+        "name": "NullRecords",
+        "genre": ["LoFi Jazz", "Electronic", "Fusion", "Instrumental"],
+        "url": "https://www.nullrecords.com"
+    }
+    </script>
+</head>
+<body class="bg-dark-bg">
+    <!-- Matrix Rain Canvas -->
+    <canvas id="matrix-rain" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.15;"></canvas>
+
+    <!-- Navigation -->
+    <nav class="bg-dark-bg/90 backdrop-blur-sm border-b border-dark-border sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0 flex items-center space-x-3">
+                        
+                        <h1 class="text-xl font-pixel text-cyber-blue glow-text">NullRecords</h1>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="index.html" class="nav-link active px-3 py-2 text-sm font-mono">Home</a>
+                        <a href="store/" class="nav-link px-3 py-2 text-sm font-mono">Store</a>
+                        <a href="news/" class="nav-link px-3 py-2 text-sm font-mono">News</a>
+                        <a href="about.html" class="nav-link px-3 py-2 text-sm font-mono">About</a>
+                        <a href="contact.html" class="nav-link px-3 py-2 text-sm font-mono">Contact</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button type="button" class="text-gray-400 hover:text-cyber-blue" onclick="toggleMobileMenu()">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-dark-bg border-t border-dark-border">
+                <a href="index.html" class="nav-link active block px-3 py-2 text-base font-mono">Home</a>
+                <a href="store/" class="nav-link block px-3 py-2 text-base font-mono">Store</a>
+                <a href="news/" class="nav-link block px-3 py-2 text-base font-mono">News</a>
+                <a href="about.html" class="nav-link block px-3 py-2 text-base font-mono">About</a>
+                <a href="contact.html" class="nav-link block px-3 py-2 text-base font-mono">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient py-20 relative z-10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-6xl font-pixel text-white mb-6 glitch" data-text="NullRecords">
+                    Welcome to <span class="text-gradient">NullRecords</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto font-mono">
+                    NullRecords Art, Music, Publishing and more.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="store/" class="inline-block bg-cyber-red hover:bg-opacity-80 text-white font-mono py-3 px-8 rounded-lg transition-all">Browse Store</a>
+                    <a href="news/" class="inline-block border-2 border-cyber-blue text-cyber-blue font-mono py-3 px-8 rounded-lg hover:bg-cyber-blue hover:text-dark-bg transition-all">Latest News</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="py-16 relative z-10">
+        <!-- Contact Page Content - NullRecords -->
+<section class="py-16 relative z-10">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-pixel text-cyber-blue mb-6 glow-text">Contact</h1>
+            <p class="text-xl text-gray-400 max-w-3xl mx-auto font-mono">
+                Questions, submissions, or just want to say hello — drop us a line.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <!-- Contact Form -->
+            <div>
+                <h2 class="text-2xl font-pixel text-cyber-red mb-6">Send a Message</h2>
+                <form class="space-y-6" onsubmit="handleContactForm(event)">
+                    <div>
+                        <label for="name" class="block text-sm font-mono text-gray-400 mb-2">Name</label>
+                        <input type="text" id="name" name="name" required
+                               class="w-full px-4 py-2 bg-dark-card border border-dark-border rounded-md text-gray-200 font-mono focus:ring-2 focus:ring-cyber-blue focus:border-transparent">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-mono text-gray-400 mb-2">Email</label>
+                        <input type="email" id="email" name="email" required
+                               class="w-full px-4 py-2 bg-dark-card border border-dark-border rounded-md text-gray-200 font-mono focus:ring-2 focus:ring-cyber-blue focus:border-transparent">
+                    </div>
+                    <div>
+                        <label for="subject" class="block text-sm font-mono text-gray-400 mb-2">Subject</label>
+                        <input type="text" id="subject" name="subject" required
+                               class="w-full px-4 py-2 bg-dark-card border border-dark-border rounded-md text-gray-200 font-mono focus:ring-2 focus:ring-cyber-blue focus:border-transparent">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-mono text-gray-400 mb-2">Message</label>
+                        <textarea id="message" name="message" rows="6" required
+                                  class="w-full px-4 py-2 bg-dark-card border border-dark-border rounded-md text-gray-200 font-mono focus:ring-2 focus:ring-cyber-blue focus:border-transparent"></textarea>
+                    </div>
+                    <div>
+                        <button type="submit" 
+                                class="w-full bg-cyber-blue hover:bg-opacity-80 text-dark-bg font-mono font-bold py-3 px-6 rounded-md transition-all">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Contact Information -->
+            <div>
+                <h2 class="text-2xl font-pixel text-cyber-red mb-6">Find Us</h2>
+                <div class="space-y-6">
+                    <div class="card-hover rounded-lg p-4">
+                        <h3 class="text-lg font-mono text-cyber-blue mb-1">Music</h3>
+                        <p class="text-gray-400 font-mono text-sm">
+                            <a href="https://open.spotify.com/artist/4PBJ1WON6gmxC1L35HHh69" target="_blank" rel="noopener" class="hover:text-cyber-green">Spotify</a> &middot;
+                            <a href="https://music.apple.com/us/artist/my-evil-robot-army/1576251082" target="_blank" rel="noopener" class="hover:text-cyber-green">Apple Music</a>
+                        </p>
+                    </div>
+                    <div class="card-hover rounded-lg p-4">
+                        <h3 class="text-lg font-mono text-cyber-blue mb-1">Store</h3>
+                        <p class="text-gray-400 font-mono text-sm">
+                            <a href="store/" class="hover:text-cyber-green">Books & Music</a> &middot;
+                            <a href="https://nullrecords.printify.me/" target="_blank" rel="noopener" class="hover:text-cyber-green">Merch</a>
+                        </p>
+                    </div>
+                    <div class="card-hover rounded-lg p-4">
+                        <h3 class="text-lg font-mono text-cyber-blue mb-1">Web</h3>
+                        <p class="text-gray-400 font-mono text-sm">
+                            <a href="https://www.nullrecords.com" class="hover:text-cyber-green">nullrecords.com</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Message -->
+        <div id="contact-success" class="hidden mt-8 p-4 bg-cyber-green/10 border border-cyber-green/30 rounded-md">
+            <p class="text-sm font-mono text-cyber-green">
+                Message sent. We'll be in touch.
+            </p>
+        </div>
+    </div>
+</section>
+
+<script>
+function handleContactForm(event) {
+    event.preventDefault();
+    const form = event.target;
+    setTimeout(() => {
+        document.getElementById('contact-success').classList.remove('hidden');
+        form.reset();
+        setTimeout(() => {
+            document.getElementById('contact-success').classList.add('hidden');
+        }, 5000);
+    }, 500);
+}
+</script>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark-bg border-t border-dark-border text-white py-12 relative z-10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <h3 class="text-xl font-pixel text-cyber-blue mb-4">NullRecords</h3>
+                    <p class="text-gray-400 mb-4 font-mono">NullRecords Art, Music, Publishing and more.</p>
+                    <p class="text-gray-500 text-sm font-mono">
+                        Powered by <a href="https://buildly.io/forgeweb" class="text-accent hover:underline">ForgeWeb</a>
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold text-cyber-blue mb-4 font-mono">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-400 font-mono">
+                        <li><a href="index.html" class="hover:text-cyber-blue">Home</a></li>
+                        <li><a href="store/" class="hover:text-cyber-blue">Store</a></li>
+                        <li><a href="news/" class="hover:text-cyber-blue">News</a></li>
+                        <li><a href="about.html" class="hover:text-cyber-blue">About</a></li>
+                        <li><a href="contact.html" class="hover:text-cyber-blue">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold text-cyber-blue mb-4 font-mono">Connect</h4>
+                    <div class="text-gray-400 space-y-2 font-mono">
+                        <p><a href="store/" class="hover:text-cyber-blue">Store</a></p>
+                        <p><a href="news/" class="hover:text-cyber-blue">News</a></p>
+                        <p><a href="https://nullrecords.printify.me/" target="_blank" rel="noopener" class="hover:text-cyber-blue">Merch</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-dark-border mt-8 pt-8 text-center text-gray-500 font-mono">
+                <p>&copy; 2026 NullRecords. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shared Header System -->
+    <script src="shared-header.js"></script>
+
+    <!-- Site Configuration and Navigation -->
+    <script src="assets/js/site-config.js"></script>
+    
+    <!-- Matrix Rain Script -->
+    <script>
+    (function() {
+        const canvas = document.getElementById('matrix-rain');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        resize();
+        window.addEventListener('resize', resize);
+        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*".split("");
+        const fontSize = 10, cols = Math.floor(canvas.width / fontSize);
+        const drops = Array.from({length: cols}, () => 1);
+        function draw() {
+            ctx.fillStyle = 'rgba(0,0,0,0.04)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#ff5758';
+            ctx.font = fontSize + 'px monospace';
+            for (let i = 0; i < drops.length; i++) {
+                ctx.fillText(chars[Math.floor(Math.random() * chars.length)], i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(draw, 35);
+    })();
+
+    function toggleMobileMenu() {
+        document.getElementById('mobile-menu').classList.toggle('hidden');
+    }
+    </script>
+    
+    <!-- Site Utilities -->
+    <script src="assets/js/site.js"></script>
+</body>
+</html>
