@@ -1,41 +1,23 @@
 # GA4 Troubleshooting Notes
 
-## Configuration Status ✅
+## Configuration Status ✅ RESOLVED (2026-03-26)
 - **Service Account**: `nullrecords-ga4-reader@livestream-386723.iam.gserviceaccount.com`
-- **Property ID**: `3376868194`
+- **Property ID**: `308964282`
 - **Measurement ID**: `G-2WVCJM4NKR`
 - **Website**: `https://www.nullrecords.com`
-- **Role**: Administrator (Account level)
-- **Status**: Receiving traffic in past 48 hours
+- **Credentials**: `dashboard/nullrecords-ga4-credentials.json`
+- **Status**: Fully operational - real GA4 data flowing to daily reports
 
-## Current Issue
-Getting 403 "User does not have sufficient permissions" error when accessing GA4 Data API, despite having Administrator permissions at the account level.
+## Previous Issue (Fixed)
+Was getting 403 "User does not have sufficient permissions" error. Root cause was:
+1. `.env` had wrong credentials path (pointed to old `ob-cms/` directory)
+2. Property ID documented as `3376868194` but correct value is `308964282`
 
-## Next Steps to Try
-1. Check if service account needs to be added at **Property level** in addition to Account level
-2. Verify Google Analytics Data API is enabled in Google Cloud Console project `livestream-386723`
-3. Check if there are any data sharing settings that might be blocking API access
-4. Try using a different scope (e.g., `https://www.googleapis.com/auth/analytics`)
-
-## Account Access Management Screenshot
-```
-NullRecords
-Account access management
-2 rows
-
-Name: nullrecords-ga4-reader@livestream-386723.iam.gserviceaccount.com
-Email: nullrecords-ga4-reader@livestream-386723.iam.gserviceaccount.com
-Role: Administrator
-
-FOR THIS PROPERTY:
-Data streams: Web
-Null Records: https://www.nullrecords.com
-Property ID: 3376868194
-Status: Receiving traffic in past 48 hours
-```
+Once the credentials path was corrected in `dashboard/.env`, the API connected successfully.
 
 ## Script Status
 - Environment variables loading correctly ✅
 - GA4 client initialization working ✅
 - Credentials file exists and readable ✅
-- API call failing with 403 error ❌
+- API call returning real data ✅
+- Daily reports using real analytics ✅

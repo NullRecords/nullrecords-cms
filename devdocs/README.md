@@ -23,22 +23,35 @@ NullRecords helps independent artists connect with fans and sponsors like never 
 ## 📁 Project Structure
 
 ```
-ob-cms/
-├── devdocs/                 # Development documentation
-├── scripts/                 # Automation and utility scripts  
-├── .github/prompts/        # Development guides and AI prompts
-├── assets/                 # Source assets (CSS, JS, images)
-├── news/                   # Generated news content
-├── static/                 # Compiled static files
-├── home/                   # Django home app
-├── mysite/                 # Django project settings
-└── src/                    # Additional source code
+nullrecords-website/
+├── docs/                    # Live website (deployed to GitHub Pages)
+│   ├── index.html           # Main homepage
+│   ├── about.html, contact.html, unsubscribe.html
+│   ├── assets/              # CSS, images, logos
+│   ├── articles/            # Blog/content pages
+│   ├── news/                # Generated news content
+│   ├── store/               # Merchandise pages
+│   └── shared-header.js     # Centralized meta/GA4/SEO
+├── dashboard/               # Automation scripts and configuration
+│   ├── scripts/             # Python automation (outreach, reports, news)
+│   ├── .env                 # Environment credentials (not committed)
+│   ├── outreach_contacts.json
+│   └── outreach_schedule.json
+├── ai-engine/               # FastAPI backend (media sourcing, AI tagging)
+├── forgeweb/                # Buildly site admin tool (local only, not deployed)
+├── ops/                     # Service manager (startup.sh)
+├── devdocs/                 # This documentation directory
+├── data/                    # Runtime data (opt-outs, etc.)
+└── logs/                    # Application logs
 ```
 
-### Key Directories
+### Key Components
+- **`docs/`** - The live GitHub Pages website at nullrecords.com
+- **`dashboard/scripts/`** - Python automation: outreach, daily reports, news monitoring
+- **`ai-engine/`** - FastAPI backend for media sourcing and playlist discovery
+- **`forgeweb/`** - Buildly's ForgeWeb admin tool for managing and deploying the site to GitHub Pages (runs locally, never deployed)
+- **`ops/`** - Unified service manager for local development
 - **`devdocs/`** - Comprehensive documentation for all systems
-- **`scripts/`** - Python and shell scripts for automation
-- **`.github/prompts/`** - Development guides and setup instructions
 
 ## 🎨 Design Elements
 
@@ -53,14 +66,20 @@ ob-cms/
 ## 📁 File Structure
 
 ```
-/
+docs/
 ├── index.html          # Main homepage
-├── artists.html        # Artists showcase page
-├── script.js          # Interactive JavaScript
-├── README.md          # This file
-└── static/            # Static assets (images, etc.)
-    ├── img/           # Album covers and images
-    └── assets/        # Logos and icons
+├── about.html          # About page
+├── contact.html        # Contact page
+├── unsubscribe.html    # Email opt-out page
+├── shared-header.js    # Centralized meta tags, GA4, SEO
+├── script.js           # Interactive JavaScript
+├── assets/             # CSS, images, logos, album covers
+├── articles/           # Blog/content pages
+├── news/               # Generated news articles
+│   ├── index.html      # News listing
+│   └── {id}.html       # Individual articles
+├── store/              # Merchandise pages
+└── ops/                # Operations dashboards
 ```
 
 ## 🛠 Development

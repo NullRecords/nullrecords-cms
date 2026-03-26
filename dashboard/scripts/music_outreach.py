@@ -864,8 +864,8 @@ About NullRecords: Founded in 2020, NullRecords is an independent music collecti
         # Get eligible contacts
         targets = self.get_eligible_contacts(target_types)
         
-        # Sort by priority (new contacts first, then by confidence score)
-        targets.sort(key=lambda c: (c.outreach_count, -c.confidence_score))
+        # Sort by priority: prefer contacts with email, then new contacts first, then by confidence
+        targets.sort(key=lambda c: (0 if c.email else 1, c.outreach_count, -c.confidence_score))
         
         if limit:
             targets = targets[:limit]
@@ -1270,8 +1270,8 @@ NullRecords Outreach Automation
             type_limit = int(max_daily * percentage)
             if type_limit > 0:
                 eligible_contacts = self.get_eligible_contacts([contact_type])
-                # Sort by priority and limit
-                eligible_contacts.sort(key=lambda c: (c.outreach_count, -c.confidence_score))
+                # Sort by priority: prefer contacts with email, then by outreach count and confidence
+                eligible_contacts.sort(key=lambda c: (0 if c.email else 1, c.outreach_count, -c.confidence_score))
                 type_contacts = eligible_contacts[:type_limit]
                 
                 for contact in type_contacts:

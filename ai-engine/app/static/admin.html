@@ -74,6 +74,9 @@
   .tab-pane { display:none; }
   .tab-pane.active { display:block; }
 
+  /* ── Chart containers ── */
+  .chart-wrap { position:relative; width:100%; height:200px; }
+
   .empty { text-align:center; color:var(--muted); padding:3rem; font-size:0.8rem; }
   a { color:var(--accent); }
   .mt { margin-top:1.5rem; }
@@ -91,6 +94,7 @@
   }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 </head>
 <body>
 <div class="shell">
@@ -99,14 +103,18 @@
 <nav>
   <div class="logo">NULLRECORDS<br>AI_ENGINE</div>
   <a href="#" class="active" data-page="overview">Overview</a>
+  <a href="#" data-page="marketing">Marketing</a>
   <a href="#" data-page="media">Media Assets</a>
   <a href="#" data-page="playlists">Playlists</a>
   <a href="#" data-page="influencers">Influencers</a>
   <a href="#" data-page="outreach">Outreach Log</a>
+  <a href="#" data-page="video">Video Production</a>
   <div class="sep"></div>
   <a href="#" data-page="reports">Reports</a>
   <a href="#" data-page="config">Configuration</a>
   <div class="sep"></div>
+  <a href="http://localhost:8300/daily_report_latest.html" target="_blank">Daily Report &rarr;</a>
+  <a href="http://localhost:8100/admin/" target="_blank">ForgeWeb &rarr;</a>
   <a href="/docs" target="_blank">API Docs &rarr;</a>
 </nav>
 
@@ -130,10 +138,65 @@
         <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.5rem;">
           <button class="btn btn-sm" onclick="runDiscover()">Discover Playlists</button>
           <button class="btn btn-sm" onclick="searchMedia()">Search Media</button>
+          <a class="btn btn-sm" href="#" data-page="marketing">Marketing Dashboard</a>
           <a class="btn btn-sm" href="#" data-page="reports">View Reports</a>
         </div>
       </div>
     </div>
+
+    <div class="grid grid-2 mt">
+      <div class="card">
+        <h3>AI Engine Activity</h3>
+        <div class="chart-wrap"><canvas id="chart-overview-activity"></canvas></div>
+      </div>
+      <div class="card">
+        <h3>System Status</h3>
+        <div class="chart-wrap"><canvas id="chart-overview-status"></canvas></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKETING DASHBOARD PAGE -->
+  <section id="page-marketing" class="page" style="display:none">
+    <h1>MARKETING_DASHBOARD</h1>
+    <p class="page-sub">Unified marketing intelligence &mdash; outreach, news, contacts, reports</p>
+
+    <!-- Marketing KPI cards -->
+    <div class="grid grid-4 mb" id="marketing-stats"></div>
+
+    <!-- Charts row 1 -->
+    <div class="grid grid-2 mt">
+      <div class="card">
+        <h3>Contact Type Distribution</h3>
+        <div class="chart-wrap"><canvas id="chart-contact-types"></canvas></div>
+      </div>
+      <div class="card">
+        <h3>News Sources</h3>
+        <div class="chart-wrap"><canvas id="chart-news-sources"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Charts row 2 -->
+    <div class="grid grid-2 mt">
+      <div class="card">
+        <h3>Outreach Status Funnel</h3>
+        <div class="chart-wrap"><canvas id="chart-status-funnel"></canvas></div>
+      </div>
+      <div class="card">
+        <h3>Article Discovery Timeline</h3>
+        <div class="chart-wrap"><canvas id="chart-article-timeline"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Tables -->
+    <div class="tabs mt">
+      <div class="tab active" data-mtab="contacts">Contacts</div>
+      <div class="tab" data-mtab="news">News Articles</div>
+      <div class="tab" data-mtab="history">Report History</div>
+    </div>
+    <div id="mtab-contacts" class="tab-pane active"></div>
+    <div id="mtab-news" class="tab-pane"></div>
+    <div id="mtab-history" class="tab-pane"></div>
   </section>
 
   <!-- MEDIA PAGE -->
@@ -164,12 +227,190 @@
     <div id="outreach-table"></div>
   </section>
 
+  <!-- VIDEO PRODUCTION PAGE -->
+  <section id="page-video" class="page" style="display:none">
+    <h1>VIDEO_PRODUCTION</h1>
+    <p class="page-sub">Generate vertical shorts &amp; widescreen videos from media assets &amp; audio</p>
+
+    <div class="grid grid-2 mt">
+      <!-- LEFT: Generation form -->
+      <div class="card">
+        <h3>Audio Source</h3>
+        <div style="display:flex;flex-direction:column;gap:0.75rem;margin-top:0.75rem">
+
+          <!-- Drag-and-drop upload zone -->
+          <input type="file" id="audio-file-input" accept=".mp3,.wav,.flac,.ogg,.m4a,.aac,.wma" style="position:absolute;width:0;height:0;opacity:0;overflow:hidden" onchange="handleAudioUpload(this.files[0])" />
+          <div id="audio-dropzone" style="border:2px dashed #333;border-radius:8px;padding:1.5rem;text-align:center;cursor:pointer;transition:border-color 0.2s,background 0.2s" onclick="document.getElementById('audio-file-input').click()">
+            <div style="color:var(--muted);font-size:0.8rem" id="dropzone-label">
+              <span style="font-size:1.2rem">&#x1F3B5;</span><br>
+              <strong style="color:var(--accent)">Drop audio file here</strong> or click to browse<br>
+              <span style="font-size:0.65rem">MP3, WAV, FLAC, OGG, M4A, AAC</span>
+            </div>
+          </div>
+          <div id="audio-info-bar" style="display:none;background:#111;border:1px solid #333;border-radius:4px;padding:8px 10px;font-size:0.75rem">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span id="audio-info-name" style="color:var(--accent)"></span>
+              <span id="audio-info-meta" style="color:var(--muted)"></span>
+            </div>
+          </div>
+
+          <!-- OR manual path -->
+          <div>
+            <label style="color:var(--muted);font-size:0.7rem">— or enter path manually —</label>
+            <div style="display:flex;gap:4px">
+              <input id="vid-audio" type="text" placeholder="/path/to/track.mp3" style="flex:1;padding:6px 8px;background:#111;border:1px solid #333;color:#eee;border-radius:4px;font-family:'JetBrains Mono';font-size:0.75rem" />
+              <button class="btn btn-sm" onclick="probeAudioPath()" title="Detect duration">Detect</button>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem">
+            <div>
+              <label style="color:var(--muted);font-size:0.7rem">Start (ms)</label>
+              <input id="vid-start" type="number" value="0" min="0" style="width:100%;padding:6px 8px;background:#111;border:1px solid #333;color:#eee;border-radius:4px;font-family:'JetBrains Mono';font-size:0.75rem" />
+            </div>
+            <div>
+              <label style="color:var(--muted);font-size:0.7rem">Duration (ms) <span id="vid-dur-hint" style="color:var(--accent)"></span></label>
+              <input id="vid-duration" type="number" value="15000" min="1000" max="600000" style="width:100%;padding:6px 8px;background:#111;border:1px solid #333;color:#eee;border-radius:4px;font-family:'JetBrains Mono';font-size:0.75rem" />
+            </div>
+          </div>
+
+          <h3 style="margin-top:0.5rem">Options</h3>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem">
+            <div>
+              <label style="color:var(--muted);font-size:0.7rem">Mood</label>
+              <input id="vid-mood" type="text" placeholder="dark, ambient" style="width:100%;padding:6px 8px;background:#111;border:1px solid #333;color:#eee;border-radius:4px;font-family:'JetBrains Mono';font-size:0.75rem" />
+            </div>
+            <div>
+              <label style="color:var(--muted);font-size:0.7rem">Tags (comma separated)</label>
+              <input id="vid-tags" type="text" placeholder="glitch, urban" style="width:100%;padding:6px 8px;background:#111;border:1px solid #333;color:#eee;border-radius:4px;font-family:'JetBrains Mono';font-size:0.75rem" />
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:0.5rem">
+            <div>
+              <label style="color:var(--muted);font-size:0.7rem">Output Name</label>
+              <input id="vid-name" type="text" placeholder="promo_v1" style="width:100%;padding:6px 8px;background:#111;border:1px solid #333;color:#eee;border-radius:4px;font-family:'JetBrains Mono';font-size:0.75rem" />
+            </div>
+            <div>
+              <label style="color:var(--muted);font-size:0.7rem">Clips</label>
+              <input id="vid-clips" type="number" value="4" min="2" max="20" style="width:100%;padding:6px 8px;background:#111;border:1px solid #333;color:#eee;border-radius:4px;font-family:'JetBrains Mono';font-size:0.75rem" />
+            </div>
+            <div>
+              <label style="color:var(--muted);font-size:0.7rem">FPS</label>
+              <input id="vid-fps" type="number" value="24" min="12" max="60" style="width:100%;padding:6px 8px;background:#111;border:1px solid #333;color:#eee;border-radius:4px;font-family:'JetBrains Mono';font-size:0.75rem" />
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+            <label style="display:flex;align-items:center;gap:4px;color:var(--muted);font-size:0.7rem">
+              <input id="vid-glitch" type="checkbox" checked /> Glitch transitions
+            </label>
+          </div>
+
+          <h3 style="margin-top:0.5rem">Output Mode</h3>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+            <label style="display:flex;align-items:center;gap:4px;cursor:pointer;background:#111;border:1px solid #333;border-radius:4px;padding:6px 12px;font-size:0.75rem;color:#eee">
+              <input type="radio" name="vid-mode" value="single" checked onchange="toggleVideoMode()"/> Single Video
+            </label>
+            <label style="display:flex;align-items:center;gap:4px;cursor:pointer;background:#111;border:1px solid #333;border-radius:4px;padding:6px 12px;font-size:0.75rem;color:#eee">
+              <input type="radio" name="vid-mode" value="batch" onchange="toggleVideoMode()"/> Auto-Split Shorts
+            </label>
+          </div>
+
+          <!-- Batch-only options -->
+          <div id="batch-options" style="display:none;background:#0a0a0a;border:1px solid #222;border-radius:4px;padding:10px;margin-top:2px">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem">
+              <div>
+                <label style="color:var(--muted);font-size:0.7rem">Segment Duration (ms)</label>
+                <input id="vid-seg-dur" type="number" value="15000" min="5000" max="60000" style="width:100%;padding:6px 8px;background:#111;border:1px solid #333;color:#eee;border-radius:4px;font-family:'JetBrains Mono';font-size:0.75rem" />
+              </div>
+              <div style="display:flex;align-items:flex-end">
+                <label style="display:flex;align-items:center;gap:4px;color:var(--muted);font-size:0.7rem;padding-bottom:6px">
+                  <input id="vid-full-length" type="checkbox" /> + Full-length widescreen (16:9)
+                </label>
+              </div>
+            </div>
+            <div style="color:var(--muted);font-size:0.65rem;margin-top:6px" id="batch-preview"></div>
+          </div>
+
+          <!-- Single-only aspect option -->
+          <div id="single-options">
+            <label style="color:var(--muted);font-size:0.7rem">Aspect Ratio</label>
+            <div style="display:flex;gap:0.5rem;margin-top:2px">
+              <label style="display:flex;align-items:center;gap:4px;cursor:pointer;background:#111;border:1px solid #333;border-radius:4px;padding:6px 12px;font-size:0.75rem;color:#eee">
+                <input type="radio" name="vid-aspect" value="vertical" checked /> 9:16 Vertical
+              </label>
+              <label style="display:flex;align-items:center;gap:4px;cursor:pointer;background:#111;border:1px solid #333;border-radius:4px;padding:6px 12px;font-size:0.75rem;color:#eee">
+                <input type="radio" name="vid-aspect" value="widescreen" /> 16:9 Widescreen
+              </label>
+            </div>
+          </div>
+
+          <button class="btn" id="btn-generate-video" onclick="submitVideoGenerate()" style="margin-top:0.5rem">Generate Video</button>
+        </div>
+        <div id="video-status" style="margin-top:0.75rem"></div>
+      </div>
+
+      <!-- RIGHT: Exports + Publish -->
+      <div style="display:flex;flex-direction:column;gap:1rem">
+        <div class="card">
+          <h3>Exports</h3>
+          <div id="video-exports" style="margin-top:0.5rem"><div class="empty">Loading&hellip;</div></div>
+        </div>
+        <div class="card">
+          <h3>Publish to Social</h3>
+          <div style="display:flex;flex-direction:column;gap:0.75rem;margin-top:0.5rem">
+            <div>
+              <label style="color:var(--muted);font-size:0.7rem">Video to Publish</label>
+              <select id="pub-video" style="width:100%;padding:6px 8px;background:#111;border:1px solid #333;color:#eee;border-radius:4px;font-family:'JetBrains Mono';font-size:0.75rem">
+                <option value="">— select an export —</option>
+              </select>
+            </div>
+            <div>
+              <label style="color:var(--muted);font-size:0.7rem">Title / Caption</label>
+              <input id="pub-title" type="text" placeholder="New track out now!" style="width:100%;padding:6px 8px;background:#111;border:1px solid #333;color:#eee;border-radius:4px;font-family:'JetBrains Mono';font-size:0.75rem" />
+            </div>
+            <div>
+              <label style="color:var(--muted);font-size:0.7rem">Description</label>
+              <textarea id="pub-desc" rows="2" placeholder="Check out the latest from NullRecords..." style="width:100%;padding:6px 8px;background:#111;border:1px solid #333;color:#eee;border-radius:4px;font-family:'JetBrains Mono';font-size:0.75rem;resize:vertical"></textarea>
+            </div>
+            <div>
+              <label style="color:var(--muted);font-size:0.7rem">Hashtags (comma separated)</label>
+              <input id="pub-tags" type="text" placeholder="#nullrecords, #newmusic" style="width:100%;padding:6px 8px;background:#111;border:1px solid #333;color:#eee;border-radius:4px;font-family:'JetBrains Mono';font-size:0.75rem" />
+            </div>
+            <div>
+              <label style="color:var(--muted);font-size:0.7rem">Platforms</label>
+              <div style="display:flex;gap:0.75rem;margin-top:4px">
+                <label style="display:flex;align-items:center;gap:4px;color:var(--muted);font-size:0.75rem"><input type="checkbox" id="pub-tiktok" /> TikTok</label>
+                <label style="display:flex;align-items:center;gap:4px;color:var(--muted);font-size:0.75rem"><input type="checkbox" id="pub-instagram" /> Instagram</label>
+                <label style="display:flex;align-items:center;gap:4px;color:var(--muted);font-size:0.75rem"><input type="checkbox" id="pub-youtube" /> YouTube</label>
+              </div>
+            </div>
+            <button class="btn" onclick="submitPublish()">Publish</button>
+            <div id="publish-status"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- REPORTS PAGE -->
   <section id="page-reports" class="page" style="display:none">
     <h1>REPORTS</h1>
-    <p class="page-sub">Generated summary reports</p>
+    <p class="page-sub">Visual summary reports with charts</p>
     <button class="btn mb" onclick="generateReport()">Generate Report</button>
-    <div id="report-output"></div>
+
+    <div class="grid grid-2 mt" id="report-charts">
+      <div class="card">
+        <h3>Media by Source</h3>
+        <div class="chart-wrap"><canvas id="chart-report-media"></canvas></div>
+      </div>
+      <div class="card">
+        <h3>Outreach by Status</h3>
+        <div class="chart-wrap"><canvas id="chart-report-outreach"></canvas></div>
+      </div>
+    </div>
+
+    <div class="mt" id="report-output"></div>
   </section>
 
   <!-- CONFIG PAGE -->
@@ -184,6 +425,11 @@
 
 <script>
 const API = '';  // Same origin
+const CHART_COLORS = ['#00ffff','#ff5758','#facc15','#00ff41','#ff00ff','#ff8800','#7c3aed','#06b6d4','#f43f5e','#84cc16'];
+const chartInstances = {};
+
+function destroyChart(id) { if (chartInstances[id]) { chartInstances[id].destroy(); delete chartInstances[id]; } }
+function chartDefaults() { return { responsive:true, maintainAspectRatio:false, plugins:{legend:{labels:{color:'#999',font:{size:10,family:'JetBrains Mono'}}}} }; }
 
 // ── Navigation ──
 document.querySelectorAll('nav a[data-page]').forEach(a => {
@@ -198,14 +444,26 @@ document.querySelectorAll('nav a[data-page]').forEach(a => {
   });
 });
 
+// Marketing sub-tabs
+document.querySelectorAll('.tab[data-mtab]').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.tab[data-mtab]').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.tab-pane').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById('mtab-' + t.dataset.mtab).classList.add('active');
+  });
+});
+
 // ── Page loaders ──
 function loadPage(pg) {
   switch(pg) {
     case 'overview': loadOverview(); break;
+    case 'marketing': loadMarketing(); break;
     case 'media': loadMedia(); break;
     case 'playlists': loadPlaylists(); break;
     case 'influencers': loadInfluencers(); break;
     case 'outreach': loadOutreach(); break;
+    case 'video': loadVideo(); break;
     case 'config': loadConfig(); break;
   }
 }
@@ -215,7 +473,9 @@ async function api(path) {
   return r.json();
 }
 
-// ── Overview ──
+// ══════════════════════════════════════════
+// OVERVIEW
+// ══════════════════════════════════════════
 async function loadOverview() {
   const d = await api('/admin/api/overview');
   const s = document.getElementById('overview-stats');
@@ -231,13 +491,181 @@ async function loadOverview() {
   `;
 
   const as = document.getElementById('api-status');
-  const apis = d.api_status;
-  as.innerHTML = Object.entries(apis).map(([k,v]) =>
+  as.innerHTML = Object.entries(d.api_status).map(([k,v]) =>
     `<div style="padding:4px 0"><span class="dot ${v?'on':'off'}"></span>${k.toUpperCase()}</div>`
   ).join('');
+
+  // Overview activity chart
+  destroyChart('chart-overview-activity');
+  const actCtx = document.getElementById('chart-overview-activity');
+  chartInstances['chart-overview-activity'] = new Chart(actCtx, {
+    type: 'bar',
+    data: {
+      labels: ['Media', 'Playlists', 'Influencers', 'Messages', 'Follow-ups'],
+      datasets: [{
+        label: 'Count',
+        data: [d.media.total, d.outreach.playlists, d.outreach.influencers, d.outreach.messages_sent, d.outreach.followups_due],
+        backgroundColor: CHART_COLORS.slice(0,5),
+        borderWidth: 0,
+        borderRadius: 4,
+      }]
+    },
+    options: { ...chartDefaults(), plugins:{...chartDefaults().plugins, legend:{display:false}}, scales:{y:{ticks:{color:'#666'},grid:{color:'#222'}},x:{ticks:{color:'#666'},grid:{display:false}}} }
+  });
+
+  // Status donut
+  destroyChart('chart-overview-status');
+  const apis = d.api_status;
+  const configured = Object.values(apis).filter(v=>v).length;
+  const missing = Object.values(apis).length - configured;
+  chartInstances['chart-overview-status'] = new Chart(document.getElementById('chart-overview-status'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Configured', 'Not Configured'],
+      datasets: [{ data: [configured, missing], backgroundColor: ['#00ff41','#ff5758'], borderWidth: 0 }]
+    },
+    options: { ...chartDefaults(), cutout: '65%' }
+  });
+
+  // Also load marketing overview for cross-link
+  try {
+    const mk = await api('/admin/api/marketing/overview');
+    s.innerHTML += `
+      <div class="card"><h3>Contacts</h3><div class="stat accent">${mk.contacts.total}</div>
+        <div class="stat-label">${mk.contacts.contacted} contacted &bull; ${mk.contacts.responded} responded</div></div>
+      <div class="card"><h3>News Articles</h3><div class="stat">${mk.news.total_articles}</div>
+        <div class="stat-label">${mk.news.verified} verified</div></div>
+      <div class="card"><h3>Daily Reports</h3><div class="stat">${mk.reports.total_daily_reports}</div>
+        <div class="stat-label">generated</div></div>
+      <div class="card"><h3>Response Rate</h3><div class="stat">${mk.contacts.response_rate}%</div>
+        <div class="stat-label">from outreach</div></div>
+    `;
+  } catch(e) {}
 }
 
-// ── Media ──
+// ══════════════════════════════════════════
+// MARKETING DASHBOARD
+// ══════════════════════════════════════════
+async function loadMarketing() {
+  const [overview, trends, contacts, news, history] = await Promise.all([
+    api('/admin/api/marketing/overview'),
+    api('/admin/api/marketing/trends'),
+    api('/admin/api/marketing/contacts'),
+    api('/admin/api/marketing/news'),
+    api('/admin/api/marketing/report-history'),
+  ]);
+
+  // KPI cards
+  const st = document.getElementById('marketing-stats');
+  st.innerHTML = `
+    <div class="card"><h3>Total Contacts</h3><div class="stat accent">${overview.contacts.total}</div>
+      <div class="stat-label">${overview.contacts.contacted} contacted</div></div>
+    <div class="card"><h3>Response Rate</h3><div class="stat">${overview.contacts.response_rate}%</div>
+      <div class="stat-label">${overview.contacts.responded} responses</div></div>
+    <div class="card"><h3>News Articles</h3><div class="stat">${overview.news.total_articles}</div>
+      <div class="stat-label">${overview.news.verified} verified &bull; ${overview.news.needs_verification} pending</div></div>
+    <div class="card"><h3>Daily Reports</h3><div class="stat">${overview.reports.total_daily_reports}</div>
+      <div class="stat-label">${overview.outreach_log.total_runs} outreach runs</div></div>
+  `;
+
+  // Contact Type Distribution (doughnut)
+  destroyChart('chart-contact-types');
+  const ctLabels = Object.keys(trends.contact_type_distribution);
+  const ctData = Object.values(trends.contact_type_distribution);
+  chartInstances['chart-contact-types'] = new Chart(document.getElementById('chart-contact-types'), {
+    type: 'doughnut',
+    data: { labels: ctLabels, datasets: [{ data: ctData, backgroundColor: CHART_COLORS.slice(0, ctLabels.length), borderWidth: 0 }] },
+    options: { ...chartDefaults(), cutout: '55%' }
+  });
+
+  // News Sources (horizontal bar)
+  destroyChart('chart-news-sources');
+  const nsLabels = Object.keys(trends.news_source_distribution);
+  const nsData = Object.values(trends.news_source_distribution);
+  chartInstances['chart-news-sources'] = new Chart(document.getElementById('chart-news-sources'), {
+    type: 'bar',
+    data: { labels: nsLabels, datasets: [{ label: 'Articles', data: nsData, backgroundColor: CHART_COLORS.slice(0, nsLabels.length), borderWidth: 0, borderRadius: 4 }] },
+    options: { ...chartDefaults(), indexAxis: 'y', plugins:{...chartDefaults().plugins, legend:{display:false}}, scales:{x:{ticks:{color:'#666'},grid:{color:'#222'}},y:{ticks:{color:'#999',font:{size:10}},grid:{display:false}}} }
+  });
+
+  // Status Funnel (bar)
+  destroyChart('chart-status-funnel');
+  const sfLabels = Object.keys(trends.status_funnel);
+  const sfData = Object.values(trends.status_funnel);
+  chartInstances['chart-status-funnel'] = new Chart(document.getElementById('chart-status-funnel'), {
+    type: 'bar',
+    data: { labels: sfLabels.map(l => l.replace(/_/g,' ')), datasets: [{ label: 'Contacts', data: sfData, backgroundColor: CHART_COLORS.slice(0, sfLabels.length), borderWidth: 0, borderRadius: 4 }] },
+    options: { ...chartDefaults(), plugins:{...chartDefaults().plugins, legend:{display:false}}, scales:{y:{ticks:{color:'#666'},grid:{color:'#222'}},x:{ticks:{color:'#999',font:{size:9},maxRotation:45},grid:{display:false}}} }
+  });
+
+  // Article Discovery Timeline (line)
+  destroyChart('chart-article-timeline');
+  const atData = trends.article_discovery;
+  chartInstances['chart-article-timeline'] = new Chart(document.getElementById('chart-article-timeline'), {
+    type: 'line',
+    data: {
+      labels: atData.map(d => d.date),
+      datasets: [{ label: 'Articles', data: atData.map(d => d.count), borderColor: '#00ffff', backgroundColor: 'rgba(0,255,255,0.1)', fill: true, tension: 0.3, pointRadius: 2 }]
+    },
+    options: { ...chartDefaults(), scales:{y:{ticks:{color:'#666'},grid:{color:'#222'}},x:{ticks:{color:'#666',maxTicksLimit:10},grid:{display:false}}} }
+  });
+
+  // Contacts table
+  const cEl = document.getElementById('mtab-contacts');
+  if (!contacts.items.length) { cEl.innerHTML = '<div class="empty">No contacts loaded.</div>'; }
+  else {
+    cEl.innerHTML = `<table>
+      <tr><th>Name</th><th>Type</th><th>Status</th><th>Email</th><th>Contacted</th><th>Responses</th><th>Score</th></tr>
+      ${contacts.items.map(c => `<tr>
+        <td>${esc(trunc(c.name,35))}</td>
+        <td><span class="badge badge-blue">${esc(c.type)}</span></td>
+        <td>${statusBadge(c.status)}</td>
+        <td>${c.email ? esc(trunc(c.email,25)) : '<span style="color:#555">—</span>'}</td>
+        <td>${c.contacted_date ? fmtDate(c.contacted_date) : '—'}</td>
+        <td>${c.response_received ? '<span class="badge badge-green">YES</span>' : '<span style="color:#555">No</span>'}</td>
+        <td>${scoreBar(c.confidence_score)}</td>
+      </tr>`).join('')}
+    </table>`;
+  }
+
+  // News table
+  const nEl = document.getElementById('mtab-news');
+  if (!news.items.length) { nEl.innerHTML = '<div class="empty">No news articles.</div>'; }
+  else {
+    nEl.innerHTML = `<table>
+      <tr><th>Title</th><th>Source</th><th>Type</th><th>Status</th><th>Sentiment</th><th>Artists</th><th>Date</th></tr>
+      ${news.items.map(a => `<tr>
+        <td><a href="${esc(a.url)}" target="_blank">${esc(trunc(a.title || a.excerpt,40))}</a></td>
+        <td><span class="badge badge-blue">${esc(a.source)}</span></td>
+        <td>${esc(a.article_type)}</td>
+        <td>${a.status === 'verified' ? '<span class="badge badge-green">verified</span>' : '<span class="badge badge-yellow">' + esc(a.status) + '</span>'}</td>
+        <td>${a.sentiment === 'positive' ? '<span style="color:var(--green)">positive</span>' : esc(a.sentiment)}</td>
+        <td style="font-size:0.7rem">${(a.artist_mentioned||[]).join(', ')}</td>
+        <td>${fmtDate(a.discovered_date)}</td>
+      </tr>`).join('')}
+    </table>`;
+  }
+
+  // Report history table
+  const hEl = document.getElementById('mtab-history');
+  if (!history.reports.length) { hEl.innerHTML = '<div class="empty">No reports generated yet.</div>'; }
+  else {
+    hEl.innerHTML = `<table>
+      <tr><th>Report</th><th>Date</th><th>Size</th><th>Action</th></tr>
+      ${history.reports.slice(0,30).map(r => `<tr>
+        <td>${esc(r.filename)}</td>
+        <td>${esc(r.date)}</td>
+        <td>${r.size_kb} KB</td>
+        <td><a href="http://localhost:8300/daily_reports/${encodeURIComponent(r.filename)}" target="_blank" class="btn btn-sm">View</a></td>
+      </tr>`).join('')}
+    </table>
+    ${history.total > 30 ? `<p style="color:var(--muted);font-size:0.7rem;margin-top:0.75rem">Showing 30 of ${history.total} reports</p>` : ''}`;
+  }
+}
+
+// ══════════════════════════════════════════
+// MEDIA
+// ══════════════════════════════════════════
 async function loadMedia() {
   const d = await api('/admin/api/media?limit=100');
   const el = document.getElementById('media-table');
@@ -256,7 +684,9 @@ async function loadMedia() {
   </table>`;
 }
 
-// ── Playlists ──
+// ══════════════════════════════════════════
+// PLAYLISTS
+// ══════════════════════════════════════════
 async function loadPlaylists() {
   const d = await api('/admin/api/playlists?limit=100');
   const el = document.getElementById('playlists-table');
@@ -275,7 +705,9 @@ async function loadPlaylists() {
   </table>`;
 }
 
-// ── Influencers ──
+// ══════════════════════════════════════════
+// INFLUENCERS
+// ══════════════════════════════════════════
 async function loadInfluencers() {
   const d = await api('/admin/api/influencers?limit=100');
   const el = document.getElementById('influencers-table');
@@ -294,7 +726,9 @@ async function loadInfluencers() {
   </table>`;
 }
 
-// ── Outreach ──
+// ══════════════════════════════════════════
+// OUTREACH LOG
+// ══════════════════════════════════════════
 async function loadOutreach() {
   const d = await api('/admin/api/outreach-log?limit=100');
   const el = document.getElementById('outreach-table');
@@ -313,11 +747,38 @@ async function loadOutreach() {
   </table>`;
 }
 
-// ── Reports ──
+// ══════════════════════════════════════════
+// REPORTS (with Charts)
+// ══════════════════════════════════════════
 async function generateReport() {
   const el = document.getElementById('report-output');
   el.innerHTML = '<div class="empty">Generating report…</div>';
   const d = await api('/admin/api/reports/summary');
+
+  // Media by source chart
+  destroyChart('chart-report-media');
+  const mbsLabels = Object.keys(d.media.by_source);
+  const mbsData = Object.values(d.media.by_source);
+  if (mbsLabels.length) {
+    chartInstances['chart-report-media'] = new Chart(document.getElementById('chart-report-media'), {
+      type: 'doughnut',
+      data: { labels: mbsLabels, datasets: [{ data: mbsData, backgroundColor: CHART_COLORS.slice(0, mbsLabels.length), borderWidth: 0 }] },
+      options: { ...chartDefaults(), cutout: '55%' }
+    });
+  }
+
+  // Outreach by status chart
+  destroyChart('chart-report-outreach');
+  const obsLabels = Object.keys(d.outreach.by_status);
+  const obsData = Object.values(d.outreach.by_status);
+  if (obsLabels.length) {
+    chartInstances['chart-report-outreach'] = new Chart(document.getElementById('chart-report-outreach'), {
+      type: 'bar',
+      data: { labels: obsLabels, datasets: [{ label: 'Messages', data: obsData, backgroundColor: CHART_COLORS.slice(0, obsLabels.length), borderWidth: 0, borderRadius: 4 }] },
+      options: { ...chartDefaults(), plugins:{...chartDefaults().plugins, legend:{display:false}}, scales:{y:{ticks:{color:'#666'},grid:{color:'#222'}},x:{ticks:{color:'#999'},grid:{display:false}}} }
+    });
+  }
+
   el.innerHTML = `<div class="report">
 <h2>NULLRECORDS AI ENGINE — SUMMARY REPORT</h2>
 Generated: ${d.generated_at}
@@ -345,7 +806,9 @@ ${d.outreach.top_influencers.length ? d.outreach.top_influencers.map((i,n)=>
 </div>`;
 }
 
-// ── Config ──
+// ══════════════════════════════════════════
+// CONFIG
+// ══════════════════════════════════════════
 async function loadConfig() {
   const d = await api('/admin/api/overview');
   const el = document.getElementById('config-panel');
@@ -366,6 +829,10 @@ async function loadConfig() {
       </div>
       <p style="color:var(--muted);font-size:0.7rem;margin-top:0.75rem">Edit <code>.env</code> file to add or change API keys, then restart the server.</p>
     </div>
+    <div class="card mb">
+      <h3>Service Connections</h3>
+      <div style="margin-top:0.5rem" id="service-status"></div>
+    </div>
     <div class="card">
       <h3>Database Credentials</h3>
       <div style="margin-top:0.5rem">
@@ -375,6 +842,28 @@ async function loadConfig() {
       </div>
     </div>
   `;
+  // Check service health
+  checkServices();
+}
+
+async function checkServices() {
+  const el = document.getElementById('service-status');
+  if (!el) return;
+  const services = [
+    { name: 'ForgeWeb Admin', url: 'http://localhost:8100/admin/', port: 8100 },
+    { name: 'AI Engine', url: 'http://localhost:8200/', port: 8200 },
+    { name: 'Dashboard', url: 'http://localhost:8300/', port: 8300 },
+  ];
+  let html = '';
+  for (const svc of services) {
+    try {
+      const r = await fetch(svc.url, { mode: 'no-cors', signal: AbortSignal.timeout(2000) });
+      html += `<div style="padding:4px 0"><span class="dot on"></span><strong>${svc.name}</strong> — Port ${svc.port}</div>`;
+    } catch(e) {
+      html += `<div style="padding:4px 0"><span class="dot off"></span><strong>${svc.name}</strong> — Port ${svc.port} (unreachable)</div>`;
+    }
+  }
+  el.innerHTML = html;
 }
 
 // ── Quick Actions ──
@@ -421,8 +910,254 @@ function scoreBar(v) {
   return `<div style="display:flex;align-items:center;gap:6px"><div style="width:50px;height:6px;background:#222;border-radius:3px;overflow:hidden"><div style="width:${pct}%;height:100%;background:${color}"></div></div><span style="font-size:0.7rem;color:var(--muted)">${pct}%</span></div>`;
 }
 function statusBadge(s) {
-  const cls = s === 'sent' ? 'badge-green' : s === 'followed_up' ? 'badge-blue' : 'badge-yellow';
-  return `<span class="badge ${cls}">${esc(s)}</span>`;
+  const cls = s === 'sent' || s === 'contacted' ? 'badge-green' : s === 'followed_up' ? 'badge-blue' : s === 'manual_submission_required' ? 'badge-yellow' : 'badge-yellow';
+  return `<span class="badge ${cls}">${esc((s||'').replace(/_/g,' '))}</span>`;
+}
+
+// ══════════════════════════════════════════
+// VIDEO PRODUCTION
+// ══════════════════════════════════════════
+let _audioDurationMs = 0;
+
+async function loadVideo() {
+  loadVideoExports();
+  updateBatchPreview();
+}
+
+// ── Drag-and-drop / file upload ──
+const dropzone = document.getElementById('audio-dropzone');
+if (dropzone) {
+  ['dragenter','dragover'].forEach(ev => dropzone.addEventListener(ev, e => { e.preventDefault(); dropzone.style.borderColor='var(--accent)'; dropzone.style.background='rgba(0,255,255,0.03)'; }));
+  ['dragleave','drop'].forEach(ev => dropzone.addEventListener(ev, e => { e.preventDefault(); dropzone.style.borderColor='#333'; dropzone.style.background=''; }));
+  dropzone.addEventListener('drop', e => { if (e.dataTransfer.files.length) handleAudioUpload(e.dataTransfer.files[0]); });
+}
+
+const DEFAULT_DROPZONE_HTML = '<span style="font-size:1.2rem">\u{1F3B5}</span><br><strong style="color:var(--accent)">Drop audio file here</strong> or click to browse<br><span style="font-size:0.65rem">MP3, WAV, FLAC, OGG, M4A, AAC</span>';
+
+async function handleAudioUpload(file) {
+  if (!file) return;
+  const status = document.getElementById('video-status');
+  const label = document.getElementById('dropzone-label');
+  label.innerHTML = '<span style="color:var(--accent)">Uploading\u2026</span>';
+
+  const form = new FormData();
+  form.append('file', file);
+
+  try {
+    const r = await fetch(API + '/video/upload-audio', { method: 'POST', body: form });
+    const d = await r.json();
+    if (!r.ok) {
+      label.innerHTML = DEFAULT_DROPZONE_HTML;
+      status.innerHTML = `<div class="badge badge-yellow">${esc(d.detail || 'Upload failed')}</div>`;
+      return;
+    }
+
+    document.getElementById('vid-audio').value = d.path;
+    _audioDurationMs = d.duration_ms;
+    document.getElementById('vid-duration').value = d.duration_ms;
+    document.getElementById('vid-dur-hint').textContent = `(full: ${fmtMs(d.duration_ms)})`;
+
+    const bar = document.getElementById('audio-info-bar');
+    bar.style.display = 'block';
+    document.getElementById('audio-info-name').textContent = d.filename;
+    document.getElementById('audio-info-meta').textContent = `${fmtMs(d.duration_ms)} \u2022 ${d.size_kb} KB`;
+
+    label.innerHTML = `<span style="color:var(--green)">\u2713 ${esc(d.filename)}</span>`;
+    updateBatchPreview();
+  } catch(e) {
+    label.innerHTML = DEFAULT_DROPZONE_HTML;
+    status.innerHTML = `<div class="badge badge-yellow">Upload failed: ${esc(e.message)}</div>`;
+  } finally {
+    // Reset input so the same file can be re-selected
+    document.getElementById('audio-file-input').value = '';
+  }
+}
+
+async function probeAudioPath() {
+  const path = document.getElementById('vid-audio').value.trim();
+  if (!path) return;
+  const status = document.getElementById('video-status');
+  try {
+    const r = await fetch(API + '/video/audio-info?path=' + encodeURIComponent(path));
+    const d = await r.json();
+    if (!r.ok) { status.innerHTML = `<div class="badge badge-yellow">${esc(d.detail)}</div>`; return; }
+
+    _audioDurationMs = d.duration_ms;
+    document.getElementById('vid-duration').value = d.duration_ms;
+    document.getElementById('vid-dur-hint').textContent = `(full: ${fmtMs(d.duration_ms)})`;
+
+    const bar = document.getElementById('audio-info-bar');
+    bar.style.display = 'block';
+    document.getElementById('audio-info-name').textContent = d.filename;
+    document.getElementById('audio-info-meta').textContent = `${fmtMs(d.duration_ms)} \u2022 ${d.size_kb} KB`;
+    updateBatchPreview();
+  } catch(e) {
+    status.innerHTML = `<div class="badge badge-yellow">Detect failed: ${esc(e.message)}</div>`;
+  }
+}
+
+// ── Mode toggle ──
+function toggleVideoMode() {
+  const mode = document.querySelector('input[name="vid-mode"]:checked').value;
+  document.getElementById('batch-options').style.display = mode === 'batch' ? 'block' : 'none';
+  document.getElementById('single-options').style.display = mode === 'single' ? 'block' : 'none';
+  updateBatchPreview();
+}
+
+function updateBatchPreview() {
+  const segDur = parseInt(document.getElementById('vid-seg-dur')?.value) || 15000;
+  const total = _audioDurationMs || parseInt(document.getElementById('vid-duration').value) || 0;
+  const el = document.getElementById('batch-preview');
+  if (!el) return;
+  if (total > 0) {
+    const count = Math.ceil(total / segDur);
+    el.textContent = `\u2192 ${count} short${count > 1 ? 's' : ''} of ~${fmtMs(segDur)} each from ${fmtMs(total)} total`;
+  } else {
+    el.textContent = '';
+  }
+}
+document.getElementById('vid-seg-dur')?.addEventListener('input', updateBatchPreview);
+
+// ── Exports list ──
+async function loadVideoExports() {
+  const el = document.getElementById('video-exports');
+  const sel = document.getElementById('pub-video');
+  try {
+    const d = await api('/video/exports');
+    if (!d.length) {
+      el.innerHTML = '<div class="empty">No exported videos yet. Generate one!</div>';
+      sel.innerHTML = '<option value="">— no exports —</option>';
+      return;
+    }
+    el.innerHTML = `<table>
+      <tr><th>File</th><th>Size</th></tr>
+      ${d.map(v => `<tr>
+        <td style="font-size:0.75rem">${esc(v.filename)}</td>
+        <td>${v.size_kb} KB</td>
+      </tr>`).join('')}
+    </table>`;
+    sel.innerHTML = '<option value="">— select —</option>' + d.map(v =>
+      `<option value="${esc(v.path)}">${esc(v.filename)} (${v.size_kb} KB)</option>`
+    ).join('');
+  } catch(e) {
+    el.innerHTML = '<div class="empty">Could not load exports.</div>';
+  }
+}
+
+// ── Generate ──
+async function submitVideoGenerate() {
+  const mode = document.querySelector('input[name="vid-mode"]:checked').value;
+  if (mode === 'batch') return submitBatchGenerate();
+
+  const btn = document.getElementById('btn-generate-video');
+  const status = document.getElementById('video-status');
+  const audioPath = document.getElementById('vid-audio').value.trim();
+  if (!audioPath) { status.innerHTML = '<div class="badge badge-yellow">Audio file path is required.</div>'; return; }
+
+  const aspect = document.querySelector('input[name="vid-aspect"]:checked')?.value || 'vertical';
+
+  const payload = {
+    audio_path: audioPath,
+    start_ms: parseInt(document.getElementById('vid-start').value) || 0,
+    duration_ms: parseInt(document.getElementById('vid-duration').value) || 15000,
+    mood: document.getElementById('vid-mood').value.trim() || '',
+    tags: document.getElementById('vid-tags').value.trim()
+      ? document.getElementById('vid-tags').value.split(',').map(t => t.trim()).filter(Boolean) : [],
+    output_name: document.getElementById('vid-name').value.trim() || '',
+    clip_count: parseInt(document.getElementById('vid-clips').value) || 4,
+    fps: parseInt(document.getElementById('vid-fps').value) || 24,
+    use_glitch_transitions: document.getElementById('vid-glitch').checked,
+    aspect,
+  };
+
+  btn.disabled = true; btn.textContent = 'Generating\u2026';
+  status.innerHTML = '<div style="color:var(--accent);font-size:0.8rem">\u23f3 Rendering video \u2014 this can take a minute\u2026</div>';
+
+  try {
+    const r = await fetch(API + '/video/generate', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+    const d = await r.json();
+    if (!r.ok) { status.innerHTML = `<div class="badge badge-yellow">${esc(d.detail || JSON.stringify(d))}</div>`; return; }
+    status.innerHTML = `<div style="color:var(--green);font-size:0.8rem">\u2713 Video generated: <strong>${esc(d.filename)}</strong> (${d.size_kb} KB)</div>`;
+    loadVideoExports();
+  } catch(e) {
+    status.innerHTML = `<div class="badge badge-yellow">Error: ${esc(e.message)}</div>`;
+  } finally { btn.disabled = false; btn.textContent = 'Generate Video'; }
+}
+
+async function submitBatchGenerate() {
+  const btn = document.getElementById('btn-generate-video');
+  const status = document.getElementById('video-status');
+  const audioPath = document.getElementById('vid-audio').value.trim();
+  if (!audioPath) { status.innerHTML = '<div class="badge badge-yellow">Audio file is required.</div>'; return; }
+
+  const payload = {
+    audio_path: audioPath,
+    segment_duration_ms: parseInt(document.getElementById('vid-seg-dur').value) || 15000,
+    mood: document.getElementById('vid-mood').value.trim() || '',
+    tags: document.getElementById('vid-tags').value.trim()
+      ? document.getElementById('vid-tags').value.split(',').map(t => t.trim()).filter(Boolean) : [],
+    clip_count: parseInt(document.getElementById('vid-clips').value) || 4,
+    fps: parseInt(document.getElementById('vid-fps').value) || 24,
+    use_glitch_transitions: document.getElementById('vid-glitch').checked,
+    include_full_length: document.getElementById('vid-full-length').checked,
+  };
+
+  btn.disabled = true; btn.textContent = 'Generating batch\u2026';
+  status.innerHTML = '<div style="color:var(--accent);font-size:0.8rem">\u23f3 Auto-splitting and rendering\u2026 this takes a while.</div>';
+
+  try {
+    const r = await fetch(API + '/video/generate-batch', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+    const d = await r.json();
+    if (!r.ok) { status.innerHTML = `<div class="badge badge-yellow">${esc(d.detail || JSON.stringify(d))}</div>`; return; }
+    let msg = `\u2713 ${d.shorts.length} short${d.shorts.length > 1 ? 's' : ''} generated`;
+    if (d.full_length) msg += ` + full-length (${d.full_length.filename})`;
+    status.innerHTML = `<div style="color:var(--green);font-size:0.8rem">${msg}</div>`;
+    loadVideoExports();
+  } catch(e) {
+    status.innerHTML = `<div class="badge badge-yellow">Batch failed: ${esc(e.message)}</div>`;
+  } finally { btn.disabled = false; btn.textContent = 'Generate Video'; }
+}
+
+// ── Publish ──
+async function submitPublish() {
+  const status = document.getElementById('publish-status');
+  const videoPath = document.getElementById('pub-video').value;
+  if (!videoPath) { status.innerHTML = '<div class="badge badge-yellow">Select a video to publish.</div>'; return; }
+
+  const platforms = [];
+  if (document.getElementById('pub-tiktok').checked) platforms.push('tiktok');
+  if (document.getElementById('pub-instagram').checked) platforms.push('instagram');
+  if (document.getElementById('pub-youtube').checked) platforms.push('youtube');
+  if (!platforms.length) { status.innerHTML = '<div class="badge badge-yellow">Select at least one platform.</div>'; return; }
+
+  const payload = {
+    video_path: videoPath,
+    platforms,
+    title: document.getElementById('pub-title').value.trim(),
+    description: document.getElementById('pub-desc').value.trim(),
+    tags: document.getElementById('pub-tags').value.trim()
+      ? document.getElementById('pub-tags').value.split(',').map(t => t.trim()).filter(Boolean) : [],
+  };
+
+  status.innerHTML = '<div style="color:var(--accent);font-size:0.8rem">Publishing\u2026</div>';
+  try {
+    const r = await fetch(API + '/video/publish', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+    const d = await r.json();
+    if (!r.ok) { status.innerHTML = `<div class="badge badge-yellow">${esc(d.detail || 'Publish failed')}</div>`; return; }
+    status.innerHTML = d.results.map(p => {
+      const color = p.status === 'ready' ? 'var(--green)' : p.status === 'not_configured' ? 'var(--yellow)' : 'var(--red)';
+      return `<div style="padding:4px 0;font-size:0.75rem"><strong style="color:${color}">${esc(p.platform.toUpperCase())}</strong>: ${esc(p.message)}</div>`;
+    }).join('');
+  } catch(e) {
+    status.innerHTML = `<div class="badge badge-yellow">Publish error: ${esc(e.message)}</div>`;
+  }
+}
+
+function fmtMs(ms) {
+  const s = Math.round(ms / 1000);
+  const m = Math.floor(s / 60);
+  const sec = s % 60;
+  return m > 0 ? `${m}m ${sec}s` : `${sec}s`;
 }
 
 // ── Init ──

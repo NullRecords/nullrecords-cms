@@ -1,81 +1,72 @@
 # Environment Variables Documentation
 
+All automation scripts load configuration from `dashboard/.env`.
+
 ## Required Environment Variables
 
-### Email Configuration
-- **SMTP_SERVER**: SMTP server hostname (e.g., smtp-relay.brevo.com)
+### Email (Brevo SMTP)
+- **SMTP_SERVER**: SMTP server hostname (e.g., `smtp-relay.brevo.com`)
+- **SMTP_PORT**: SMTP port (default: `587`)
 - **SMTP_USER**: SMTP username/login for authentication
 - **SMTP_PASSWORD**: SMTP password for authentication
-- **SENDER_EMAIL**: Email address to send from
-- **BCC_EMAIL**: Email address for BCC notifications
+- **SENDER_EMAIL**: Email address to send from (e.g., `team@nullrecords.com`)
+
+### Google Analytics (GA4)
+- **GOOGLE_APPLICATION_CREDENTIALS**: Absolute path to the GA4 service account JSON file (e.g., `/path/to/dashboard/nullrecords-ga4-credentials.json`)
+- **GA_PROPERTY_ID**: GA4 property ID (e.g., `308964282`)
+- **GA_MEASUREMENT_ID**: GA4 measurement ID (e.g., `G-2WVCJM4NKR`)
 
 ## Optional Environment Variables
 
-### Basic Configuration
-- **SMTP_PORT**: SMTP port (default: 587)
-- **DAILY_REPORT_EMAIL**: Email for daily reports
-- **NOTIFICATION_EMAIL**: Email for notifications
+### Notification Emails
+- **BCC_EMAIL**: BCC recipient on outreach emails
+- **CC_EMAIL**: CC recipient on outreach emails
+- **DAILY_REPORT_EMAIL**: Recipient for daily report emails
+- **NOTIFICATION_EMAIL**: Recipient for system notifications
 
-### Website Configuration
-- **WEBSITE_BASE_URL**: Base URL for the website (default: https://nullrecords.com)
-- **CONTACT_EMAIL**: Contact email address (default: team@nullrecords.com)
+### Outreach Settings
+- **MAX_DAILY_OUTREACH**: Daily outreach email limit (default: `10`)
+- **RATE_LIMIT_DELAY**: Seconds between outreach emails (default: `2`)
 
-### Google Services
-- **GOOGLE_APPLICATION_CREDENTIALS**: Path to Google service account JSON file
-- **GA_PROPERTY_ID**: Google Analytics GA4 property ID
-- **GA_VIEW_ID**: Google Analytics view ID (legacy)
-- **YOUTUBE_API_KEY**: YouTube Data API key
-- **YOUTUBE_CHANNEL_ID**: YouTube channel ID
+### YouTube
+- **YOUTUBE_CHANNEL_ID**: YouTube channel ID for content tracking
 
-### Google Sheets
-- **GOOGLE_SHEETS_ID**: Google Sheets ID for voting data
-- **VOTING_SHEET_NAME**: Name of voting sheet tab (default: Votes)
+### Website (defaults used if unset)
+- **WEBSITE_BASE_URL**: Base URL (default: `https://nullrecords.com`)
+- **CONTACT_EMAIL**: Contact email (default: `team@nullrecords.com`)
 
-### Additional Services
-- **BREVO_API_KEY**: Brevo API key for detailed metrics
-- **MAX_DAILY_OUTREACH**: Daily outreach email limit (default: 10)
+## .env Template
 
-## Security Best Practices
-
-### ✅ What's Properly Configured
-- All scripts use `os.getenv()` for sensitive data
-- No hardcoded passwords, API keys, or secrets
-- Website URLs and contact emails use environment variables
-- SMTP credentials properly externalized
-- Google service credentials path configurable
-
-### 🔧 Environment Variable Usage
-Scripts automatically fall back to sensible defaults for optional configuration:
-- Website URL defaults to `https://nullrecords.com`
-- Contact email defaults to `team@nullrecords.com`
-- SMTP port defaults to `587`
-
-### 📝 .env File Format
 ```bash
-# Required
+# --- Required: Email (Brevo SMTP) ---
 SMTP_SERVER=smtp-relay.brevo.com
-SMTP_USER=your_username
-SMTP_PASSWORD=your_password
-SENDER_EMAIL=your_email@domain.com
-BCC_EMAIL=admin@domain.com
+SMTP_PORT=587
+SMTP_USER=your_smtp_username
+SMTP_PASSWORD=your_smtp_password
+SENDER_EMAIL=team@nullrecords.com
 
-# Optional
-WEBSITE_BASE_URL=https://your-website.com
-CONTACT_EMAIL=contact@your-domain.com
-DAILY_REPORT_EMAIL=reports@your-domain.com
+# --- Required: Google Analytics ---
+GOOGLE_APPLICATION_CREDENTIALS=/absolute/path/to/dashboard/nullrecords-ga4-credentials.json
 GA_PROPERTY_ID=308964282
+GA_MEASUREMENT_ID=G-2WVCJM4NKR
+
+# --- Optional: Notification Emails ---
+BCC_EMAIL=admin@example.com
+CC_EMAIL=admin@example.com
+DAILY_REPORT_EMAIL=reports@example.com
+NOTIFICATION_EMAIL=alerts@example.com
+
+# --- Optional: Outreach ---
+MAX_DAILY_OUTREACH=10
+RATE_LIMIT_DELAY=2
+
+# --- Optional: YouTube ---
 YOUTUBE_CHANNEL_ID=UC_your_channel_id
 ```
 
-## Validation
+## Security Notes
 
-Run the environment validator to check your configuration:
-```bash
-python3 scripts/validate_env.py
-```
-
-This will verify:
-- All required variables are set
-- Email addresses have valid formats
-- SMTP connection works
+- All scripts use `os.getenv()` — no hardcoded secrets
+- The `.env` file is gitignored
+- GOOGLE_APPLICATION_CREDENTIALS must be an absolute path to the service account JSON
 - File paths exist (for Google credentials)
