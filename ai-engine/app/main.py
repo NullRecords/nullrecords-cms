@@ -1,5 +1,6 @@
 """AI-Engine — FastAPI application entry point."""
 
+import logging
 from pathlib import Path
 
 from fastapi import FastAPI
@@ -14,6 +15,8 @@ from app.api.system_routes import router as system_router
 from app.api.admin_routes import router as admin_router
 from app.api.marketing_routes import router as marketing_router
 from app.api.video_routes import router as video_router
+
+logging.basicConfig(level=logging.INFO, format="%(name)s — %(message)s")
 
 STATIC_DIR = Path(__file__).resolve().parent / "static"
 
@@ -59,9 +62,5 @@ def admin_page():
 
 @app.get("/")
 def root():
-    return {
-        "name": "NullRecords AI Engine",
-        "version": "0.1.0",
-        "docs": "/docs",
-        "admin": "/admin",
-    }
+    """Serve the command-center landing page."""
+    return FileResponse(str(STATIC_DIR / "index.html"))

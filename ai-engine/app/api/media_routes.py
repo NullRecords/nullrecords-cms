@@ -63,7 +63,11 @@ def download_asset(asset_id: int, db: Session = Depends(get_db)):
     if not asset.url:
         raise HTTPException(status_code=400, detail="Asset has no download URL")
 
-    ext = asset.url.rsplit(".", 1)[-1].split("?")[0] if "." in asset.url else "mp4"
+    # Extract file extension from URL, defaulting to mp4
+    url_path = asset.url.rsplit("?", 1)[0]
+    ext = Path(url_path).suffix.lstrip(".") if Path(url_path).suffix else "mp4"
+    if len(ext) > 5 or "/" in ext:
+        ext = "mp4"
     filename = f"{asset.source_id}.{ext}"
 
     local_path = download_media(asset.url, asset.source, filename)

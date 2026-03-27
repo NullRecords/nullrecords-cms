@@ -144,20 +144,56 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero-gradient py-20 relative z-10">
+    <!-- Pre-Save Hero Section -->
+    <section class="hero-gradient py-12 md:py-20 relative z-10" id="presave-hero">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
-                <h1 class="text-4xl md:text-6xl font-pixel text-white mb-6 glitch" data-text="NullRecords">
-                    Welcome to <span class="text-gradient">NullRecords</span>
+                <p class="text-sm md:text-base text-cyber-blue font-mono mb-3 tracking-widest uppercase glow-text">My Evil Robot Army</p>
+                <h1 class="text-3xl md:text-5xl lg:text-6xl font-pixel text-white mb-4 glitch" data-text="Oscillating Overthruster">
+                    <span class="text-gradient">Oscillating Overthruster</span>
                 </h1>
-                <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto font-mono">
-                    NullRecords Art, Music, Publishing and more.
+                <p class="text-lg md:text-xl text-gray-300 mb-6 max-w-2xl mx-auto font-mono">
+                    New album — experimental electronic &amp; nu jazz fused into something entirely new.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="store/" class="inline-block bg-cyber-red hover:bg-opacity-80 text-white font-mono py-3 px-8 rounded-lg transition-all">Browse Store</a>
-                    <a href="news/" class="inline-block border-2 border-cyber-blue text-cyber-blue font-mono py-3 px-8 rounded-lg hover:bg-cyber-blue hover:text-dark-bg transition-all">Latest News</a>
+
+                <!-- Countdown -->
+                <div id="presave-countdown" class="flex justify-center gap-4 md:gap-6 mb-8">
+                    <div class="text-center">
+                        <span id="cd-days" class="text-3xl md:text-5xl font-pixel text-cyber-red glow-text">--</span>
+                        <p class="text-xs text-gray-500 font-mono mt-1">DAYS</p>
+                    </div>
+                    <span class="text-3xl md:text-5xl text-gray-600 font-pixel">:</span>
+                    <div class="text-center">
+                        <span id="cd-hours" class="text-3xl md:text-5xl font-pixel text-cyber-red glow-text">--</span>
+                        <p class="text-xs text-gray-500 font-mono mt-1">HRS</p>
+                    </div>
+                    <span class="text-3xl md:text-5xl text-gray-600 font-pixel">:</span>
+                    <div class="text-center">
+                        <span id="cd-mins" class="text-3xl md:text-5xl font-pixel text-cyber-red glow-text">--</span>
+                        <p class="text-xs text-gray-500 font-mono mt-1">MIN</p>
+                    </div>
+                    <span class="text-3xl md:text-5xl text-gray-600 font-pixel">:</span>
+                    <div class="text-center">
+                        <span id="cd-secs" class="text-3xl md:text-5xl font-pixel text-cyber-red glow-text">--</span>
+                        <p class="text-xs text-gray-500 font-mono mt-1">SEC</p>
+                    </div>
                 </div>
+                <!-- Released state (hidden until April 1) -->
+                <p id="presave-released" class="text-2xl font-pixel text-cyber-green glow-text mb-8 hidden">🎉 OUT NOW 🎉</p>
+
+                <!-- Pre-save CTA -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+                    <a href="https://streamondistro.lnk.to/OscillatingOverthruster" target="_blank" rel="noopener"
+                       id="presave-btn"
+                       class="inline-flex items-center justify-center gap-3 bg-cyber-red hover:bg-opacity-80 text-white font-mono font-bold py-4 px-10 rounded-lg transition-all text-lg shadow-lg shadow-cyber-red/20 hover:shadow-cyber-red/40 hover:scale-105">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+                        Pre-Save Now
+                    </a>
+                    <a href="store/" class="inline-block border-2 border-cyber-blue text-cyber-blue font-mono py-4 px-8 rounded-lg hover:bg-cyber-blue hover:text-dark-bg transition-all">
+                        Browse Store
+                    </a>
+                </div>
+                <p class="text-gray-500 font-mono text-sm">Drops <strong class="text-gray-300">April 1, 2026</strong> — Pre-save to get it the moment it lands.</p>
             </div>
         </div>
     </section>
@@ -168,34 +204,27 @@
 <section class="py-16 relative z-10">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <!-- New Album Release Announcement -->
-        <div class="mb-16">
-            <h2 class="text-3xl font-pixel text-cyber-blue mb-8 glow-text text-center">New Release</h2>
-            <div class="card-hover rounded-xl p-8 max-w-4xl mx-auto">
+        <!-- Oscillating Overthruster — Pre-Save Feature -->
+        <div class="mb-16" id="presave-details">
+            <h2 class="text-3xl font-pixel text-cyber-blue mb-8 glow-text text-center">Oscillating Overthruster</h2>
+            <div class="card-hover rounded-xl p-8 max-w-4xl mx-auto" style="border-color: #ff5758; box-shadow: 0 0 30px rgba(255,87,88,0.15);">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                     <div class="text-center">
-                        <img src="assets/img/oscillator-overthruster.png" alt="Oscillator Overthruster - My Evil Robot Army" class="rounded-lg shadow-lg mx-auto" style="max-width: 400px; width: 100%;">
+                        <img src="assets/img/oscillator-overthruster.png" alt="Oscillating Overthruster - My Evil Robot Army" class="rounded-lg shadow-lg mx-auto" style="max-width: 400px; width: 100%;">
                     </div>
                     <div>
-                        <h3 class="text-2xl font-pixel text-cyber-red mb-2">Oscillator Overthruster</h3>
-                        <p class="text-accent font-mono mb-4">My Evil Robot Army &middot; 2026</p>
-                        <p class="text-gray-400 font-mono mb-6">The newest album from MERA — experimental electronic and nu jazz fused into something entirely new. Available now for streaming and lossless download.</p>
-                        <div class="flex flex-wrap gap-3 mb-4">
-                            <a href="https://open.spotify.com/artist/4PBJ1WON6gmxC1L35HHh69" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-500 text-white font-mono py-2 px-5 rounded-full transition-all text-sm">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
-                                Spotify
-                            </a>
-                            <a href="https://music.apple.com/us/artist/my-evil-robot-army/1576251082" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-pink-600 hover:bg-pink-500 text-white font-mono py-2 px-5 rounded-full transition-all text-sm">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.994 6.124a9.23 9.23 0 0 0-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043A5.022 5.022 0 0 0 19.32.028C18.468-.042 17.613.016 16.76.06c-.918.048-1.838.092-2.758.092-.918 0-1.838-.044-2.756-.092-.854-.044-1.708-.102-2.562-.032a5.024 5.024 0 0 0-2.254.863C5.31 1.786 4.565 2.786 4.248 4.096a9.228 9.228 0 0 0-.24 2.19c-.06.876-.012 1.754.004 2.63.018.976.018 1.952.018 2.928 0 .976 0 1.952-.018 2.928-.016.876-.064 1.754-.004 2.63a9.23 9.23 0 0 0 .24 2.19c.317 1.31 1.062 2.31 2.18 3.043a5.022 5.022 0 0 0 2.254.863c.854.07 1.708.012 2.562-.032.918-.048 1.838-.092 2.756-.092.92 0 1.84.044 2.758.092.854.044 1.708.102 2.56.032a5.024 5.024 0 0 0 2.254-.863c1.118-.733 1.863-1.733 2.18-3.043a9.228 9.228 0 0 0 .24-2.19c.06-.876.012-1.754-.004-2.63-.018-.976-.018-1.952-.018-2.928 0-.976 0-1.952.018-2.928.016-.876.064-1.754.004-2.63zM16.949 17.5a.585.585 0 0 1-.808.196c-2.214-1.353-5.004-1.659-8.29-.909a.585.585 0 0 1-.262-1.14c3.598-.82 6.686-.467 9.164 1.044a.585.585 0 0 1 .196.809z"/></svg>
-                                Apple Music
-                            </a>
-                            <a href="https://www.youtube.com/channel/UC_ZC9UiWcjyOLGp4iQwyv2w" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-red-600 hover:bg-red-500 text-white font-mono py-2 px-5 rounded-full transition-all text-sm">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"/><polygon fill="#0a0a0a" points="9.545,15.568 15.818,12 9.545,8.432"/></svg>
-                                YouTube
-                            </a>
-                        </div>
-                        <a href="store/" class="inline-block bg-cyber-red hover:bg-opacity-80 text-white font-mono py-3 px-8 rounded-lg transition-all">
-                            Get Lossless Download
+                        <p class="text-accent font-mono mb-2 text-sm tracking-wider uppercase">My Evil Robot Army &middot; April 1, 2026</p>
+                        <h3 class="text-2xl font-pixel text-cyber-red mb-4">Pre-Save &amp; Be First</h3>
+                        <p class="text-gray-400 font-mono mb-4">Experimental electronic and nu jazz fused into something entirely new. Pre-save now and it drops straight into your library on release day — no searching, no waiting.</p>
+                        <ul class="text-gray-500 font-mono text-sm mb-6 space-y-2">
+                            <li class="flex items-start gap-2"><span class="text-cyber-green">✓</span> Auto-delivered to Spotify, Apple Music &amp; more on April 1</li>
+                            <li class="flex items-start gap-2"><span class="text-cyber-green">✓</span> Helps the algorithm boost the release on day one</li>
+                            <li class="flex items-start gap-2"><span class="text-cyber-green">✓</span> Free — takes 10 seconds</li>
+                        </ul>
+                        <a href="https://streamondistro.lnk.to/OscillatingOverthruster" target="_blank" rel="noopener"
+                           class="inline-flex items-center gap-2 bg-cyber-red hover:bg-opacity-80 text-white font-mono font-bold py-3 px-8 rounded-lg transition-all shadow-lg shadow-cyber-red/20 hover:shadow-cyber-red/40 hover:scale-105">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+                            Pre-Save Now
                         </a>
                     </div>
                 </div>
@@ -363,6 +392,48 @@
     <!-- Site Configuration and Navigation -->
     <script src="assets/js/site-config.js"></script>
     
+    <!-- Pre-Save Countdown -->
+    <script>
+    (function() {
+        const RELEASE = new Date('2026-04-01T00:00:00');
+        const $d = document.getElementById('cd-days');
+        const $h = document.getElementById('cd-hours');
+        const $m = document.getElementById('cd-mins');
+        const $s = document.getElementById('cd-secs');
+        const $countdown = document.getElementById('presave-countdown');
+        const $released = document.getElementById('presave-released');
+        const $btn = document.getElementById('presave-btn');
+
+        function pad(n) { return String(n).padStart(2, '0'); }
+
+        function tick() {
+            const now = new Date();
+            const diff = RELEASE - now;
+            if (diff <= 0) {
+                // Album is out!
+                if ($countdown) $countdown.classList.add('hidden');
+                if ($released) $released.classList.remove('hidden');
+                if ($btn) {
+                    $btn.textContent = '🎧 Listen Now';
+                    // Keep the same link — StreamOn redirects to platform after release
+                }
+                return;
+            }
+            const d = Math.floor(diff / 86400000);
+            const h = Math.floor((diff % 86400000) / 3600000);
+            const m = Math.floor((diff % 3600000) / 60000);
+            const s = Math.floor((diff % 60000) / 1000);
+            if ($d) $d.textContent = pad(d);
+            if ($h) $h.textContent = pad(h);
+            if ($m) $m.textContent = pad(m);
+            if ($s) $s.textContent = pad(s);
+        }
+
+        tick();
+        setInterval(tick, 1000);
+    })();
+    </script>
+
     <!-- Matrix Rain Script -->
     <script>
     (function() {

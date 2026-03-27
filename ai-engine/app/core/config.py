@@ -30,6 +30,8 @@ class Settings(BaseSettings):
 
     # --- YouTube ---
     youtube_api_key: str = ""
+    youtube_client_id: str = ""
+    youtube_client_secret: str = ""
 
     # --- Paths ---
     media_library_dir: str = str(BASE_DIR / "media-library")
