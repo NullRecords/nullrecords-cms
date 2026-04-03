@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NullRecords — News Management</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'JetBrains Mono', monospace; background: linear-gradient(135deg,#1a1a2e,#16213e); color: #fff; padding: 20px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #00ffff; text-align: center; margin-bottom: 8px; text-shadow: 0 0 10px #00ffff; }
+    .subtitle { text-align: center; color: #ff0080; margin-bottom: 24px; }
+    .nav { text-align: center; margin-bottom: 24px; }
+    .nav a { color: #00ffff; text-decoration: none; margin: 0 12px; padding: 6px 14px; border: 1px solid #333; border-radius: 5px; transition: all 0.2s; }
+    .nav a:hover { border-color: #00ffff; background: rgba(0,255,255,0.1); }
+    .stats { display: flex; gap: 16px; justify-content: center; margin-bottom: 24px; flex-wrap: wrap; }
+    .stat { background: rgba(255,255,255,0.05); border: 1px solid #333; border-radius: 8px; padding: 16px 24px; text-align: center; }
+    .stat .num { font-size: 2em; color: #00ffff; font-weight: bold; }
+    .stat .label { color: #999; font-size: 12px; margin-top: 4px; }
+    .toolbar { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
+    .toolbar input, .toolbar select { background: rgba(255,255,255,0.1); border: 1px solid #333; color: #fff; padding: 8px 12px; border-radius: 5px; font-family: inherit; }
+    .toolbar input { flex: 1; min-width: 200px; }
+    .btn { padding: 8px 16px; border: 1px solid #00ffff; background: rgba(0,255,255,0.15); color: #00ffff; border-radius: 5px; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+    .btn:hover { background: rgba(0,255,255,0.3); }
+    .btn-pink { border-color: #ff0080; background: rgba(255,0,128,0.15); color: #ff0080; }
+    .btn-pink:hover { background: rgba(255,0,128,0.3); }
+    .btn-green { border-color: #00ff88; background: rgba(0,255,136,0.15); color: #00ff88; }
+    .btn-red { border-color: #ff4444; background: rgba(255,68,68,0.15); color: #ff4444; }
+    table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.2); border-radius: 8px; overflow: hidden; }
+    th { background: rgba(0,255,255,0.1); color: #00ffff; text-align: left; padding: 10px 12px; font-size: 12px; text-transform: uppercase; }
+    td { padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 13px; }
+    tr:hover { background: rgba(0,255,255,0.05); }
+    .badge { padding: 2px 8px; border-radius: 10px; font-size: 11px; }
+    .badge-verified { background: rgba(0,255,136,0.2); color: #00ff88; }
+    .badge-needs { background: rgba(255,255,0,0.2); color: #ffff00; }
+    .badge-positive { background: rgba(0,255,136,0.2); color: #00ff88; }
+    .badge-neutral { background: rgba(150,150,150,0.2); color: #999; }
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 100; justify-content: center; align-items: center; }
+    .modal-overlay.active { display: flex; }
+    .modal { background: #1a1a2e; border: 1px solid #00ffff; border-radius: 10px; padding: 24px; width: 90%; max-width: 600px; max-height: 80vh; overflow-y: auto; }
+    .modal h2 { color: #00ffff; margin-bottom: 16px; }
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; color: #ff0080; font-size: 12px; margin-bottom: 4px; }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; background: rgba(255,255,255,0.1); border: 1px solid #333; color: #fff; padding: 8px 12px; border-radius: 5px; font-family: inherit; }
+    .form-group textarea { min-height: 80px; resize: vertical; }
+    .actions { display: flex; gap: 6px; }
+    .actions button { padding: 4px 10px; font-size: 11px; }
+    .toast { position: fixed; bottom: 20px; right: 20px; padding: 12px 20px; background: rgba(0,255,136,0.9); color: #000; border-radius: 6px; font-weight: bold; z-index: 200; display: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📰 News Management</h1>
+    <p class="subtitle">NullRecords News Articles & Monitoring</p>
+    
+    <div class="nav">
+      <a href="/admin">← Admin Dashboard</a>
+      <a href="http://localhost:4000/news/">Public News Page</a>
+      <a href="http://localhost:8300/">Daily Report</a>
+    </div>
+
+    <div class="stats" id="stats"></div>
+
+    <div class="toolbar">
+      <input type="text" id="search" placeholder="Search articles..." oninput="filterArticles()">
+      <select id="filterStatus" onchange="filterArticles()">
+        <option value="">All Status</option>
+        <option value="verified">Verified</option>
+        <option value="needs_verification">Needs Verification</option>
+      </select>
+      <select id="filterSource" onchange="filterArticles()">
+        <option value="">All Sources</option>
+      </select>
+      <button class="btn btn-pink" onclick="openAddModal()">+ Add Article</button>
+      <button class="btn btn-green" onclick="verifyAll()">✓ Verify All Shown</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Source</th>
+          <th>Type</th>
+          <th>Sentiment</th>
+          <th>Status</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="articleTable"></tbody>
+    </table>
+  </div>
+
+  <!-- Add/Edit Modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <h2 id="modalTitle">Add Article</h2>
+      <input type="hidden" id="editId">
+      <div class="form-group">
+        <label>Title</label>
+        <input id="fTitle" placeholder="Article title">
+      </div>
+      <div class="form-group">
+        <label>Content / Body</label>
+        <textarea id="fContent" placeholder="Article content..."></textarea>
+      </div>
+      <div class="form-group" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+        <div>
+          <label>Source</label>
+          <input id="fSource" placeholder="e.g. Bandcamp, Manual">
+        </div>
+        <div>
+          <label>Article Type</label>
+          <select id="fType">
+            <option value="news">News</option>
+            <option value="release">Release</option>
+            <option value="review">Review</option>
+            <option value="feature">Feature</option>
+            <option value="interview">Interview</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>URL</label>
+        <input id="fUrl" placeholder="https://...">
+      </div>
+      <div class="form-group" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+        <div>
+          <label>Sentiment</label>
+          <select id="fSentiment">
+            <option value="neutral">Neutral</option>
+            <option value="positive">Positive</option>
+            <option value="negative">Negative</option>
+          </select>
+        </div>
+        <div>
+          <label>Author</label>
+          <input id="fAuthor" placeholder="Author name">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Tags (comma-separated)</label>
+        <input id="fTags" placeholder="album release, mera, electronic">
+      </div>
+      <div class="form-group">
+        <label>Artists Mentioned (comma-separated)</label>
+        <input id="fArtists" placeholder="My Evil Robot Army, Dev/Null">
+      </div>
+      <div style="display:flex; gap:12px; margin-top:16px;">
+        <button class="btn btn-pink" onclick="saveArticle()">Save</button>
+        <button class="btn" onclick="closeModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const API = '/admin/api/marketing';
+    let allArticles = [];
+
+    async function load() {
+      const res = await fetch(`${API}/news?limit=500`);
+      const data = await res.json();
+      allArticles = data.items || [];
+      renderStats();
+      populateSourceFilter();
+      filterArticles();
+    }
+
+    function renderStats() {
+      const total = allArticles.length;
+      const verified = allArticles.filter(a => a.status === 'verified').length;
+      const needs = allArticles.filter(a => a.status === 'needs_verification').length;
+      const releases = allArticles.filter(a => a.article_type === 'release').length;
+      const positive = allArticles.filter(a => a.sentiment === 'positive').length;
+      const sources = new Set(allArticles.map(a => a.source)).size;
+      document.getElementById('stats').innerHTML = [
+        { num: total, label: 'Total Articles' },
+        { num: verified, label: 'Verified' },
+        { num: needs, label: 'Needs Verification' },
+        { num: releases, label: 'Releases' },
+        { num: positive, label: 'Positive' },
+        { num: sources, label: 'Sources' },
+      ].map(s => `<div class="stat"><div class="num">${s.num}</div><div class="label">${s.label}</div></div>`).join('');
+    }
+
+    function populateSourceFilter() {
+      const sources = [...new Set(allArticles.map(a => a.source))].sort();
+      const sel = document.getElementById('filterSource');
+      sel.innerHTML = '<option value="">All Sources</option>' +
+        sources.map(s => `<option value="${s}">${s}</option>`).join('');
+    }
+
+    function filterArticles() {
+      const q = document.getElementById('search').value.toLowerCase();
+      const status = document.getElementById('filterStatus').value;
+      const source = document.getElementById('filterSource').value;
+      const filtered = allArticles.filter(a => {
+        if (q && !a.title.toLowerCase().includes(q) && !(a.excerpt||'').toLowerCase().includes(q)) return false;
+        if (status && a.status !== status) return false;
+        if (source && a.source !== source) return false;
+        return true;
+      });
+      renderTable(filtered);
+    }
+
+    function renderTable(articles) {
+      const tbody = document.getElementById('articleTable');
+      if (!articles.length) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#999;padding:20px;">No articles match filters</td></tr>';
+        return;
+      }
+      tbody.innerHTML = articles.map(a => {
+        const statusCls = a.status === 'verified' ? 'badge-verified' : 'badge-needs';
+        const sentCls = a.sentiment === 'positive' ? 'badge-positive' : 'badge-neutral';
+        const date = (a.discovered_date || '').slice(0, 10);
+        const titleDisplay = a.title || '(untitled)';
+        const titleLink = a.url ? `<a href="${escHtml(a.url)}" target="_blank" style="color:#00ffff;text-decoration:none;">${escHtml(titleDisplay)}</a>` : escHtml(titleDisplay);
+        return `<tr data-id="${a.id}">
+          <td>${titleLink}</td>
+          <td>${escHtml(a.source)}</td>
+          <td>${escHtml(a.article_type)}</td>
+          <td><span class="badge ${sentCls}">${a.sentiment}</span></td>
+          <td><span class="badge ${statusCls}">${a.status === 'needs_verification' ? 'Unverified' : 'Verified'}</span></td>
+          <td>${date}</td>
+          <td class="actions">
+            ${a.status !== 'verified' ? `<button class="btn btn-green" onclick="verify('${a.id}')">✓</button>` : ''}
+            <button class="btn" onclick="editArticle('${a.id}')">✎</button>
+            <button class="btn btn-red" onclick="deleteArticle('${a.id}')">✕</button>
+          </td>
+        </tr>`;
+      }).join('');
+    }
+
+    function escHtml(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+
+    async function verify(id) {
+      await fetch(`${API}/news/${id}/verify`, { method: 'POST' });
+      toast('Article verified');
+      load();
+    }
+
+    async function verifyAll() {
+      const rows = document.querySelectorAll('#articleTable tr[data-id]');
+      let count = 0;
+      for (const row of rows) {
+        const id = row.dataset.id;
+        const article = allArticles.find(a => a.id === id);
+        if (article && article.status !== 'verified') {
+          await fetch(`${API}/news/${id}/verify`, { method: 'POST' });
+          count++;
+        }
+      }
+      toast(`Verified ${count} articles`);
+      load();
+    }
+
+    async function deleteArticle(id) {
+      if (!confirm('Delete this article?')) return;
+      await fetch(`${API}/news/${id}`, { method: 'DELETE' });
+      toast('Article deleted');
+      load();
+    }
+
+    function openAddModal() {
+      document.getElementById('modalTitle').textContent = 'Add Article';
+      document.getElementById('editId').value = '';
+      document.getElementById('fTitle').value = '';
+      document.getElementById('fContent').value = '';
+      document.getElementById('fSource').value = 'Manual';
+      document.getElementById('fType').value = 'news';
+      document.getElementById('fUrl').value = '';
+      document.getElementById('fSentiment').value = 'neutral';
+      document.getElementById('fAuthor').value = '';
+      document.getElementById('fTags').value = '';
+      document.getElementById('fArtists').value = '';
+      document.getElementById('modalOverlay').classList.add('active');
+    }
+
+    function editArticle(id) {
+      const a = allArticles.find(x => x.id === id);
+      if (!a) return;
+      document.getElementById('modalTitle').textContent = 'Edit Article';
+      document.getElementById('editId').value = id;
+      document.getElementById('fTitle').value = a.title || '';
+      document.getElementById('fContent').value = '';  // content not in list response
+      document.getElementById('fSource').value = a.source || '';
+      document.getElementById('fType').value = a.article_type || 'news';
+      document.getElementById('fUrl').value = a.url || '';
+      document.getElementById('fSentiment').value = a.sentiment || 'neutral';
+      document.getElementById('fAuthor').value = '';
+      document.getElementById('fTags').value = '';
+      document.getElementById('fArtists').value = (a.artist_mentioned || []).join(', ');
+      document.getElementById('modalOverlay').classList.add('active');
+    }
+
+    function closeModal() { document.getElementById('modalOverlay').classList.remove('active'); }
+
+    async function saveArticle() {
+      const id = document.getElementById('editId').value;
+      const body = {
+        title: document.getElementById('fTitle').value,
+        content: document.getElementById('fContent').value,
+        source: document.getElementById('fSource').value || 'Manual',
+        article_type: document.getElementById('fType').value,
+        url: document.getElementById('fUrl').value,
+        sentiment: document.getElementById('fSentiment').value,
+        author: document.getElementById('fAuthor').value || null,
+        tags: document.getElementById('fTags').value.split(',').map(t => t.trim()).filter(Boolean),
+        artist_mentioned: document.getElementById('fArtists').value.split(',').map(t => t.trim()).filter(Boolean),
+      };
+      if (id) {
+        await fetch(`${API}/news/${id}`, { method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body) });
+        toast('Article updated');
+      } else {
+        await fetch(`${API}/news`, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body) });
+        toast('Article created');
+      }
+      closeModal();
+      load();
+    }
+
+    function toast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.style.display = 'block';
+      setTimeout(() => el.style.display = 'none', 2500);
+    }
+
+    load();
+  </script>
+</body>
+</html>

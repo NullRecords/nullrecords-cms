@@ -33,7 +33,8 @@ def search_pexels_images(query: str, count: int = 5) -> list[dict]:
     """
     api_key = get_settings().pexels_api_key
     if not api_key:
-        raise ValueError("Pexels API key not configured. Set PEXELS_API_KEY in .env")
+        log.warning("Pexels API key not configured — skipping image search")
+        return []
 
     resp = requests.get(
         _PEXELS_API,

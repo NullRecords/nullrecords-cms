@@ -27,6 +27,7 @@ class Settings(BaseSettings):
     # --- Spotify ---
     spotify_client_id: str = ""
     spotify_client_secret: str = ""
+    spotify_redirect_uri: str = ""
 
     # --- YouTube ---
     youtube_api_key: str = ""
@@ -40,6 +41,27 @@ class Settings(BaseSettings):
     # --- Label metadata (used for outreach scoring) ---
     label_genre: str = "nu jazz, experimental electronic"
     label_name: str = "NullRecords"
+
+    # --- Email / SMTP ---
+    smtp_host: str = ""
+    smtp_port: int = 587
+    smtp_user: str = ""
+    smtp_password: str = ""
+    smtp_key: str = ""  # Brevo/Sendinblue API key (used as SMTP password)
+    smtp_from_email: str = ""
+    smtp_use_tls: bool = True
+
+    # --- Scheduler ---
+    scheduler_enabled: bool = True
+    scheduler_discovery_hours: int = 24
+    scheduler_followup_minutes: int = 60
+    scheduler_media_ingest_hours: int = 12
+    scheduler_discovery_query: str = "nu jazz experimental electronic indie"
+
+    # --- Auto-outreach ---
+    auto_outreach_interval_hours: int = 24
+    auto_outreach_min_score: float = 0.6
+    auto_outreach_max_per_run: int = 5
 
     model_config = {"env_file": str(BASE_DIR / ".env"), "env_file_encoding": "utf-8"}
 

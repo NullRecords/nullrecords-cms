@@ -15,10 +15,16 @@ from app.api.system_routes import router as system_router
 from app.api.admin_routes import router as admin_router
 from app.api.marketing_routes import router as marketing_router
 from app.api.video_routes import router as video_router
+from app.api.scheduler_routes import router as scheduler_router
+from app.api.campaign_routes import router as campaign_router
+from app.api.tracking_routes import router as tracking_router
+from app.jobs.scheduler import start_scheduler, stop_scheduler
 
 logging.basicConfig(level=logging.INFO, format="%(name)s — %(message)s")
 
 STATIC_DIR = Path(__file__).resolve().parent / "static"
+EXPORTS_DIR = Path(__file__).resolve().parent.parent / "exports"
+MEDIA_DIR = Path(__file__).resolve().parent.parent / "media-library"
 
 app = FastAPI(
     title="NullRecords AI Engine",
@@ -44,20 +50,43 @@ app.include_router(system_router)
 app.include_router(admin_router)
 app.include_router(marketing_router)
 app.include_router(video_router)
+app.include_router(scheduler_router)
+app.include_router(campaign_router)
+app.include_router(tracking_router)
 
 # --- Static files ---
+app.mount("/exports", StaticFiles(directory=str(EXPORTS_DIR)), name="exports")
+app.mount("/media-library", StaticFiles(directory=str(MEDIA_DIR)), name="media-library")
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
 
 @app.on_event("startup")
 def on_startup():
     init_db()
+    start_scheduler()
+
+
+@app.on_event("shutdown")
+def on_shutdown():
+    stop_scheduler()
 
 
 @app.get("/admin")
 def admin_page():
     """Serve the admin dashboard."""
     return FileResponse(str(STATIC_DIR / "admin.html"))
+
+
+@app.get("/admin/news")
+def admin_news_page():
+    """Serve the news management page."""
+    return FileResponse(str(STATIC_DIR / "news.html"))
+
+
+@app.get("/admin/contacts")
+def admin_contacts_page():
+    """Serve the contacts report page."""
+    return FileResponse(str(STATIC_DIR / "contacts.html"))
 
 
 @app.get("/")

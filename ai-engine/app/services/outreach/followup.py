@@ -26,7 +26,7 @@ def get_pending_followups(db: Session) -> list[OutreachLog]:
         .filter(
             OutreachLog.follow_up_date.isnot(None),
             OutreachLog.follow_up_date <= now,
-            OutreachLog.status.in_(["pending", "sent"]),
+            OutreachLog.status.in_(["pending", "sent", "logged"]),
         )
         .all()
     )

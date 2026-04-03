@@ -58,6 +58,8 @@
   .btn { display:inline-block; padding:6px 16px; border:1px solid var(--accent); color:var(--accent); background:transparent; border-radius:4px; font-family:var(--font); font-size:0.75rem; cursor:pointer; transition:background .15s; text-decoration:none; }
   .btn:hover { background:var(--accent); color:var(--bg); }
   .btn-sm { padding:3px 10px; font-size:0.65rem; }
+  .media-filter.active { background:var(--accent); color:var(--bg); }
+  .badge-orange { background:#ED751222; color:#ED7512; }
 
   /* ── Report panel ── */
   .report { background:var(--card); border:1px solid var(--card-border); border-radius:8px; padding:1.5rem; white-space:pre-wrap; font-size:0.8rem; line-height:1.7; max-height:600px; overflow-y:auto; }
@@ -112,10 +114,12 @@
   <a href="#" data-page="outreach">Outreach Log</a>
   <a href="#" data-page="video">Video Production</a>
   <div class="sep"></div>
+  <a href="/admin/contacts" style="color:var(--yellow);font-weight:bold">📋 Contacts Report</a>
   <a href="#" data-page="reports">Reports</a>
   <a href="#" data-page="config">Configuration</a>
   <div class="sep"></div>
   <a href="http://localhost:8300/daily_report_latest.html" target="_blank">Daily Report &rarr;</a>
+  <a href="/admin/news" target="_blank">News Manager &rarr;</a>
   <a href="http://localhost:8100/admin/" target="_blank">ForgeWeb &rarr;</a>
   <a href="/docs" target="_blank">API Docs &rarr;</a>
 </nav>
@@ -138,8 +142,13 @@
       <div class="card">
         <h3>Quick Actions</h3>
         <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.5rem;">
+          <button class="btn btn-sm" onclick="scanDisk()">Scan Disk Files</button>
           <button class="btn btn-sm" onclick="runDiscover()">Discover Playlists</button>
           <button class="btn btn-sm" onclick="searchMedia()">Search Media</button>
+          <button class="btn btn-sm" style="border-color:var(--yellow);color:var(--yellow)" onclick="enrichAllContacts()">Find All Contacts</button>
+          <button class="btn btn-sm" style="border-color:#4ecdc4;color:#4ecdc4" onclick="runNewsSearch()">Search News</button>
+          <button class="btn btn-sm" style="border-color:#ff6b6b;color:#ff6b6b" onclick="runDjRadioDiscovery()">Discover DJs &amp; Radio</button>
+          <a class="btn btn-sm" style="border-color:var(--yellow);color:var(--yellow)" href="/admin/contacts">📋 Contacts Report</a>
           <a class="btn btn-sm" href="#" data-page="marketing">Marketing Dashboard</a>
           <a class="btn btn-sm" href="#" data-page="reports">View Reports</a>
         </div>
@@ -204,30 +213,117 @@
   <!-- MEDIA PAGE -->
   <section id="page-media" class="page" style="display:none">
     <h1>MEDIA_ASSETS</h1>
-    <p class="page-sub">All sourced media files</p>
+    <p class="page-sub">All media — uploads, generated videos, and external sources</p>
+    <div style="margin-bottom:1rem;display:flex;gap:.5rem;flex-wrap:wrap">
+      <button class="btn btn-sm media-filter active" data-source="" onclick="filterMedia(this,'')">All</button>
+      <button class="btn btn-sm media-filter" data-source="upload" onclick="filterMedia(this,'upload')">Uploads</button>
+      <button class="btn btn-sm media-filter" data-source="generated" onclick="filterMedia(this,'generated')">Generated</button>
+      <button class="btn btn-sm media-filter" data-source="pexels" onclick="filterMedia(this,'pexels')">Pexels</button>
+      <button class="btn btn-sm media-filter" data-source="internet_archive" onclick="filterMedia(this,'internet_archive')">Internet Archive</button>
+    </div>
     <div id="media-table"></div>
   </section>
 
   <!-- PLAYLISTS PAGE -->
   <section id="page-playlists" class="page" style="display:none">
     <h1>PLAYLISTS</h1>
-    <p class="page-sub">Discovered playlists ranked by relevance</p>
+    <p class="page-sub">Discovered playlists ranked by relevance &mdash; select targets and send outreach</p>
+    <div style="display:flex;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap;align-items:center">
+      <button class="btn btn-sm" onclick="selectAllTargets('playlist')">Select All</button>
+      <button class="btn btn-sm" onclick="deselectAllTargets('playlist')">Deselect All</button>
+      <button class="btn btn-sm" onclick="selectHighScore('playlist',0.7)">Score &ge; 0.7</button>
+      <button class="btn btn-sm" onclick="selectUncontacted('playlist')">Uncontacted Only</button>
+      <span style="color:var(--muted);font-size:0.7rem;margin-left:0.5rem" id="playlist-sel-count">0 selected</span>
+      <button class="btn btn-sm" style="margin-left:auto;border-color:var(--green);color:var(--green)" onclick="openBatchSendModal('playlist')">Send Outreach to Selected</button>
+    </div>
     <div id="playlists-table"></div>
   </section>
 
   <!-- INFLUENCERS PAGE -->
   <section id="page-influencers" class="page" style="display:none">
     <h1>INFLUENCERS</h1>
-    <p class="page-sub">Discovered influencers &amp; channels</p>
+    <p class="page-sub">Discovered influencers &amp; curators &mdash; select targets and send outreach</p>
+    <div style="display:flex;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap;align-items:center">
+      <button class="btn btn-sm" onclick="selectAllTargets('influencer')">Select All</button>
+      <button class="btn btn-sm" onclick="deselectAllTargets('influencer')">Deselect All</button>
+      <button class="btn btn-sm" onclick="selectHighScore('influencer',0.7)">Score &ge; 0.7</button>
+      <button class="btn btn-sm" onclick="selectUncontacted('influencer')">Uncontacted Only</button>
+      <span style="color:var(--muted);font-size:0.7rem;margin-left:0.5rem" id="influencer-sel-count">0 selected</span>
+      <button class="btn btn-sm" style="margin-left:auto;border-color:var(--green);color:var(--green)" onclick="openBatchSendModal('influencer')">Send Outreach to Selected</button>
+    </div>
     <div id="influencers-table"></div>
   </section>
 
   <!-- OUTREACH PAGE -->
   <section id="page-outreach" class="page" style="display:none">
     <h1>OUTREACH_LOG</h1>
-    <p class="page-sub">Message history and follow-up schedule</p>
+    <p class="page-sub">Message history, follow-up schedule &amp; scheduler controls</p>
+
+    <div class="grid grid-4 mb" id="outreach-stats"></div>
+
+    <div class="grid grid-2 mt">
+      <!-- Quick send -->
+      <div class="card">
+        <h3>Quick Send</h3>
+        <div style="display:flex;flex-direction:column;gap:0.6rem;margin-top:0.75rem">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem">
+            <div>
+              <label style="color:var(--muted);font-size:0.7rem">Target Type</label>
+              <select id="qs-type" style="width:100%;padding:6px 8px;background:#111;border:1px solid #333;color:#eee;border-radius:4px;font-family:var(--font);font-size:0.75rem" onchange="loadQuickSendTargets()">
+                <option value="playlist">Playlist</option>
+                <option value="influencer">Influencer</option>
+              </select>
+            </div>
+            <div>
+              <label style="color:var(--muted);font-size:0.7rem">Target</label>
+              <select id="qs-target" style="width:100%;padding:6px 8px;background:#111;border:1px solid #333;color:#eee;border-radius:4px;font-family:var(--font);font-size:0.75rem">
+              </select>
+            </div>
+          </div>
+          <button class="btn btn-sm" onclick="previewMessage()">Preview Message</button>
+          <div id="qs-preview" style="display:none;background:#0a0a0a;border:1px solid #222;border-radius:4px;padding:10px;font-size:0.75rem;line-height:1.5;color:var(--text);max-height:200px;overflow-y:auto;white-space:pre-wrap"></div>
+          <div style="display:flex;gap:0.5rem">
+            <button class="btn btn-sm" style="border-color:var(--green);color:var(--green)" onclick="quickSend()">Send &amp; Schedule Follow-up</button>
+          </div>
+          <div id="qs-result" style="font-size:0.7rem;color:var(--muted)"></div>
+        </div>
+      </div>
+
+      <!-- Scheduler controls -->
+      <div class="card">
+        <h3>Scheduler</h3>
+        <div id="scheduler-panel" style="margin-top:0.75rem">
+          <div id="scheduler-status" style="font-size:0.8rem;margin-bottom:0.75rem"></div>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+            <button class="btn btn-sm" onclick="schedulerAction('start')">Start</button>
+            <button class="btn btn-sm" onclick="schedulerAction('stop')" style="border-color:var(--red);color:var(--red)">Stop</button>
+            <button class="btn btn-sm" onclick="triggerJob('followup_check')">Run Follow-ups Now</button>
+            <button class="btn btn-sm" onclick="triggerJob('source_discovery')">Run Discovery Now</button>
+            <button class="btn btn-sm" onclick="triggerJob('media_ingest')">Run Media Ingest</button>
+            <button class="btn btn-sm" onclick="triggerJob('campaign_reminder')">Run Campaign Check</button>
+          </div>
+          <div id="scheduler-jobs" style="margin-top:0.75rem"></div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="mt" style="color:var(--muted);font-size:0.7rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:0.5rem">Message History</h3>
     <div id="outreach-table"></div>
   </section>
+
+  <!-- Batch Send Modal -->
+  <div id="batch-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:1000;display:none;align-items:center;justify-content:center">
+    <div style="background:var(--card);border:1px solid var(--card-border);border-radius:8px;padding:1.5rem;width:500px;max-width:90vw;max-height:80vh;overflow-y:auto">
+      <h3 style="color:var(--accent);font-size:0.8rem;margin-bottom:1rem">Batch Outreach</h3>
+      <div id="batch-modal-targets" style="font-size:0.75rem;color:var(--muted);margin-bottom:1rem"></div>
+      <div id="batch-modal-preview" style="background:#0a0a0a;border:1px solid #222;border-radius:4px;padding:10px;font-size:0.75rem;line-height:1.5;max-height:200px;overflow-y:auto;margin-bottom:1rem;white-space:pre-wrap;color:var(--text)"></div>
+      <div style="display:flex;gap:0.5rem;justify-content:flex-end">
+        <button class="btn btn-sm" onclick="closeBatchModal()">Cancel</button>
+        <button class="btn btn-sm" style="border-color:var(--green);color:var(--green)" onclick="executeBatchSend()">Send All</button>
+      </div>
+      <div id="batch-result" style="font-size:0.7rem;color:var(--muted);margin-top:0.75rem"></div>
+    </div>
+  </div>
 
   <!-- VIDEO PRODUCTION PAGE -->
   <section id="page-video" class="page" style="display:none">
@@ -267,12 +363,51 @@
 
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem">
             <div>
-              <label style="color:var(--muted);font-size:0.7rem">Start (ms)</label>
-              <input id="vid-start" type="number" value="0" min="0" style="width:100%;padding:6px 8px;background:#111;border:1px solid #333;color:#eee;border-radius:4px;font-family:'JetBrains Mono';font-size:0.75rem" />
+              <label style="color:var(--muted);font-size:0.7rem">Start Time</label>
+              <div style="display:flex;align-items:center;gap:4px">
+                <input id="vid-start" type="number" value="0" min="0" style="width:65%;padding:6px 8px;background:#111;border:1px solid #333;color:#eee;border-radius:4px;font-family:'JetBrains Mono';font-size:0.75rem" oninput="updateTimelineDisplay()" />
+                <span style="color:var(--muted);font-size:0.6rem">ms</span>
+                <span id="vid-start-fmt" style="color:var(--accent);font-size:0.65rem;white-space:nowrap">0:00</span>
+              </div>
             </div>
             <div>
-              <label style="color:var(--muted);font-size:0.7rem">Duration (ms) <span id="vid-dur-hint" style="color:var(--accent)"></span></label>
-              <input id="vid-duration" type="number" value="15000" min="1000" max="600000" style="width:100%;padding:6px 8px;background:#111;border:1px solid #333;color:#eee;border-radius:4px;font-family:'JetBrains Mono';font-size:0.75rem" />
+              <label style="color:var(--muted);font-size:0.7rem">Duration <span id="vid-dur-hint" style="color:var(--accent)"></span></label>
+              <div style="display:flex;align-items:center;gap:4px">
+                <input id="vid-duration" type="number" value="15000" min="1000" max="600000" style="width:65%;padding:6px 8px;background:#111;border:1px solid #333;color:#eee;border-radius:4px;font-family:'JetBrains Mono';font-size:0.75rem" oninput="updateTimelineDisplay()" />
+                <span style="color:var(--muted);font-size:0.6rem">ms</span>
+                <span id="vid-dur-fmt" style="color:var(--accent);font-size:0.65rem;white-space:nowrap">0:15</span>
+              </div>
+            </div>
+          </div>
+          <!-- Hidden audio player -->
+          <audio id="audio-player" preload="auto" style="display:none"></audio>
+
+          <!-- Timeline slider -->
+          <div id="audio-timeline-panel" style="display:none;margin-top:0.5rem">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <label style="color:var(--muted);font-size:0.65rem">Audio Timeline — drag to set start point, adjust duration</label>
+              <div style="display:flex;gap:4px;align-items:center">
+                <button class="btn btn-sm" id="btn-play-start" onclick="playFromStart()" title="Play from start point" style="font-size:0.65rem;padding:2px 8px">&#9654; Play</button>
+                <button class="btn btn-sm" id="btn-stop-audio" onclick="stopAudio()" title="Stop" style="font-size:0.65rem;padding:2px 8px;display:none">&#9632; Stop</button>
+                <span id="playback-time" style="color:var(--accent);font-size:0.6rem;min-width:36px"></span>
+              </div>
+            </div>
+            <div style="position:relative;height:36px;background:#111;border:1px solid #333;border-radius:6px;margin-top:4px;overflow:hidden">
+              <div id="timeline-full" style="position:absolute;inset:0;background:#1a1a2e"></div>
+              <div id="timeline-range" style="position:absolute;top:0;bottom:0;background:rgba(0,255,255,0.15);border-left:2px solid var(--accent);border-right:2px solid var(--accent)"></div>
+              <div id="timeline-playhead" style="position:absolute;top:0;bottom:0;width:2px;background:var(--green);z-index:3;display:none"></div>
+              <input id="timeline-start-slider" type="range" min="0" max="100" value="0" style="position:absolute;inset:0;width:100%;opacity:0.01;cursor:pointer;z-index:4" oninput="onTimelineStartChange(this.value)" />
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-top:2px">
+              <span style="color:var(--muted);font-size:0.6rem">0:00</span>
+              <span id="timeline-end-label" style="color:var(--muted);font-size:0.6rem">--:--</span>
+            </div>
+            <div style="display:flex;gap:0.5rem;margin-top:0.25rem;flex-wrap:wrap">
+              <button class="btn btn-sm" onclick="setQuickDuration(5000)" style="font-size:0.6rem">5s</button>
+              <button class="btn btn-sm" onclick="setQuickDuration(15000)" style="font-size:0.6rem">15s</button>
+              <button class="btn btn-sm" onclick="setQuickDuration(30000)" style="font-size:0.6rem">30s</button>
+              <button class="btn btn-sm" onclick="setQuickDuration(60000)" style="font-size:0.6rem">60s</button>
+              <button class="btn btn-sm" onclick="setFullDuration()" style="font-size:0.6rem">Full</button>
             </div>
           </div>
 
@@ -376,13 +511,39 @@
             <button class="btn btn-sm" onclick="document.getElementById('img-file-input').click()" style="width:100%;border-style:dashed">📁 Upload Image File</button>
           </div>
 
-          <!-- Selected images display -->
+          <!-- Selected images display — multi-artwork with timing & animation -->
           <div id="selected-images-panel" style="margin-top:0.5rem;display:none">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
               <span style="color:var(--accent);font-size:0.7rem;font-weight:bold" id="selected-images-count">0 images selected</span>
-              <button class="btn btn-sm" onclick="clearSelectedImages()" style="font-size:0.6rem">Clear All</button>
+              <div style="display:flex;gap:4px">
+                <label style="display:flex;align-items:center;gap:3px;cursor:pointer;font-size:0.65rem;color:var(--muted)">
+                  <input type="checkbox" id="artwork-mode" onchange="onArtworkModeChange()" /> Artwork Mode
+                </label>
+                <label style="display:flex;align-items:center;gap:3px;cursor:pointer;font-size:0.65rem;color:var(--muted)" title="When unchecked, only your selected images/clips are used — no random library media">
+                  <input type="checkbox" id="auto-select-clips" checked onchange="renderSelectedImages()" /> Auto-fill from library
+                </label>
+                <button class="btn btn-sm" onclick="clearSelectedImages()" style="font-size:0.6rem">Clear All</button>
+              </div>
             </div>
-            <div style="display:flex;gap:6px;flex-wrap:wrap" id="selected-images-grid"></div>
+            <div id="selected-images-grid"></div>
+          </div>
+
+          <!-- Media Suggestions (auto-select approval flow) -->
+          <div id="img-suggestions-panel" style="display:none;margin-top:0.5rem;padding:10px;background:#0b0b0b;border:1px solid #333;border-radius:6px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+              <span style="color:var(--accent);font-size:0.7rem;font-weight:bold">💡 Suggested Media</span>
+              <div style="display:flex;gap:4px">
+                <button class="btn btn-sm" onclick="approveAllSuggestions()" style="font-size:0.6rem;color:var(--green)">✓ Add All</button>
+                <button class="btn btn-sm" onclick="dismissSuggestions()" style="font-size:0.6rem;color:var(--red)">✕ Dismiss</button>
+              </div>
+            </div>
+            <p style="color:var(--muted);font-size:0.6rem;margin-bottom:6px">These images/clips were found in the library matching your mood & tags. Click to add individually, or "Add All" to use them all.</p>
+            <div id="img-suggestions-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px"></div>
+          </div>
+
+          <!-- Suggest Media button -->
+          <div style="margin-top:0.5rem">
+            <button class="btn btn-sm" onclick="suggestMedia()" style="width:100%;border-style:dashed;color:var(--accent)">💡 Suggest Images from Library</button>
           </div>
 
           <!-- ── Text overlays ── -->
@@ -577,9 +738,58 @@
             </div>
           </div>
 
-          <button class="btn" id="btn-generate-video" onclick="submitVideoGenerate()" style="margin-top:0.75rem">Generate Video</button>
+          <div style="display:flex;gap:0.5rem;margin-top:0.75rem">
+            <button class="btn" id="btn-generate-video" onclick="submitVideoGenerate()">Generate Video</button>
+            <button class="btn" id="btn-preview-video" onclick="generatePreview()" style="background:transparent;border:1px solid var(--accent);color:var(--accent)">👁 Preview Frame</button>
+            <button class="btn" onclick="resetVideoForm()" style="background:transparent;border:1px solid #555;color:#999" title="Clear all settings and start fresh">🔄 New Video</button>
+          </div>
+
+          <!-- Presets Bar -->
+          <div style="margin-top:0.75rem;padding:10px 12px;background:#0e0e0e;border:1px solid #222;border-radius:6px">
+            <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap">
+              <label style="color:var(--muted);font-size:0.7rem;white-space:nowrap">Presets:</label>
+              <select id="preset-select" style="flex:1;min-width:140px;padding:5px 8px;background:#111;border:1px solid #333;color:#eee;border-radius:4px;font-family:'JetBrains Mono';font-size:0.7rem">
+                <option value="">— none —</option>
+              </select>
+              <button class="btn btn-sm" onclick="loadSelectedPreset()" title="Load selected preset">Load</button>
+              <button class="btn btn-sm" onclick="promptSavePreset()" title="Save current settings as preset" style="color:var(--green)">💾 Save</button>
+              <button class="btn btn-sm" onclick="deleteSelectedPreset()" title="Delete selected preset" style="color:var(--red)">✕</button>
+            </div>
+            <div id="preset-status" style="font-size:0.65rem;color:var(--muted);margin-top:4px"></div>
+          </div>
+
+          <!-- History Bar -->
+          <div style="margin-top:0.5rem;padding:10px 12px;background:#0e0e0e;border:1px solid #222;border-radius:6px">
+            <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap">
+              <label style="color:var(--muted);font-size:0.7rem;white-space:nowrap">History:</label>
+              <select id="history-select" style="flex:1;min-width:140px;padding:5px 8px;background:#111;border:1px solid #333;color:#eee;border-radius:4px;font-family:'JetBrains Mono';font-size:0.7rem">
+                <option value="">— select past render —</option>
+              </select>
+              <button class="btn btn-sm" onclick="loadSelectedHistory()" title="Load settings from past render">Load</button>
+              <button class="btn btn-sm" onclick="loadAndRerender()" title="Load settings and re-render" style="color:var(--accent)">🔄 Re-render</button>
+            </div>
+          </div>
         </div>
         <div id="video-status" style="margin-top:0.75rem"></div>
+
+        <!-- Preview panel -->
+        <div id="preview-panel" class="card" style="display:none;margin-top:0.75rem">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <h3>🔍 Preview</h3>
+            <button class="btn btn-sm" onclick="document.getElementById('preview-panel').style.display='none'" style="font-size:0.6rem">✕ Close</button>
+          </div>
+          <p style="color:var(--muted);font-size:0.65rem;margin-bottom:0.5rem">Single frame snapshot of layout, text, effects, and visualizer. No video encoding.</p>
+          <div style="position:relative;background:#0a0a0a;border:1px solid #333;border-radius:8px;overflow:hidden;max-height:600px">
+            <img id="preview-image" style="width:100%;display:block" />
+            <div id="preview-loading" style="position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);color:var(--accent);font-size:0.8rem">Rendering preview…</div>
+          </div>
+          <div style="display:flex;gap:0.5rem;margin-top:0.5rem;align-items:center">
+            <label style="color:var(--muted);font-size:0.65rem">Preview at:</label>
+            <input id="preview-time" type="range" min="0" max="100" value="20" style="flex:1" oninput="document.getElementById('preview-time-val').textContent=(this.value/10).toFixed(1)+'s'" />
+            <span id="preview-time-val" style="color:var(--accent);font-size:0.7rem;min-width:32px">2.0s</span>
+            <button class="btn btn-sm" onclick="generatePreview()">Refresh</button>
+          </div>
+        </div>
       </div>
 
       <!-- RIGHT: Exports + Publish -->
@@ -746,6 +956,17 @@ function loadPage(pg) {
 async function api(path) {
   const r = await fetch(API + path);
   return r.json();
+}
+
+/** Safely parse JSON from a fetch response, returning {ok, data, error} */
+async function safeJson(r) {
+  try {
+    const d = await r.json();
+    return { ok: r.ok, data: d, error: r.ok ? null : (d.detail || JSON.stringify(d)) };
+  } catch {
+    const text = await r.text().catch(() => 'Unknown error');
+    return { ok: false, data: null, error: text || `HTTP ${r.status}` };
+  }
 }
 
 // ══════════════════════════════════════════
@@ -941,19 +1162,43 @@ async function loadMarketing() {
 // ══════════════════════════════════════════
 // MEDIA
 // ══════════════════════════════════════════
+let _mediaSourceFilter = '';
+function filterMedia(btn, source) {
+  document.querySelectorAll('.media-filter').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  _mediaSourceFilter = source;
+  loadMedia();
+}
+function sourceBadge(src) {
+  const map = { upload:'badge-orange', generated:'badge-green', pexels:'badge-blue', internet_archive:'badge-yellow' };
+  return `<span class="badge ${map[src]||'badge-blue'}">${esc(src)}</span>`;
+}
+function fmtDuration(sec) {
+  if (!sec) return '—';
+  const m = Math.floor(sec/60), s = Math.round(sec%60);
+  return m ? `${m}m ${s}s` : `${s}s`;
+}
+function mediaAction(m) {
+  if (m.source === 'upload') return `<a href="${esc(m.url)}" target="_blank" style="color:var(--accent);font-size:0.7rem">&#9654; Play</a>`;
+  if (m.source === 'generated') return `<a href="${esc(m.url)}" target="_blank" style="color:var(--accent);font-size:0.7rem">&#11015; Download</a>`;
+  if (m.downloaded) return '<span class="badge badge-green">Local</span>';
+  return '<span class="badge badge-yellow">Remote</span>';
+}
 async function loadMedia() {
-  const d = await api('/admin/api/media?limit=100');
+  const src = _mediaSourceFilter ? `&source=${_mediaSourceFilter}` : '';
+  const d = await api(`/admin/api/media?limit=100${src}`);
   const el = document.getElementById('media-table');
-  if (!d.items.length) { el.innerHTML = '<div class="empty">No media assets yet. Use the API to search and add media.</div>'; return; }
+  if (!d.items.length) { el.innerHTML = `<div class="empty">${_mediaSourceFilter ? 'No '+_mediaSourceFilter+' assets yet.' : 'No media assets yet. Upload audio or generate videos to see them here.'}</div>`; return; }
   el.innerHTML = `<table>
-    <tr><th>ID</th><th>Source</th><th>Title</th><th>Mood</th><th>Tags</th><th>Downloaded</th><th>Date</th></tr>
+    <tr><th>ID</th><th>Source</th><th>Title</th><th>Duration</th><th>Mood</th><th>Tags</th><th>Action</th><th>Date</th></tr>
     ${d.items.map(m => `<tr>
       <td>${m.id}</td>
-      <td><span class="badge badge-blue">${esc(m.source)}</span></td>
-      <td><a href="${esc(m.url)}" target="_blank">${esc(trunc(m.title,50))}</a></td>
+      <td>${sourceBadge(m.source)}</td>
+      <td title="${esc(m.local_path||m.url)}">${esc(trunc(m.title,45))}</td>
+      <td>${fmtDuration(m.duration)}</td>
       <td>${esc(m.mood||'—')}</td>
-      <td>${esc(trunc(m.tags||'[]',40))}</td>
-      <td>${m.downloaded?'<span class="badge badge-green">YES</span>':'<span class="badge badge-yellow">NO</span>'}</td>
+      <td>${esc(trunc(m.tags||'[]',35))}</td>
+      <td>${mediaAction(m)}</td>
       <td>${fmtDate(m.created_at)}</td>
     </tr>`).join('')}
   </table>`;
@@ -962,22 +1207,32 @@ async function loadMedia() {
 // ══════════════════════════════════════════
 // PLAYLISTS
 // ══════════════════════════════════════════
+// ── Target selection state ──
+let targetCache = { playlist: [], influencer: [] };
+
 async function loadPlaylists() {
   const d = await api('/admin/api/playlists?limit=100');
+  targetCache.playlist = d.items || [];
   const el = document.getElementById('playlists-table');
-  if (!d.items.length) { el.innerHTML = '<div class="empty">No playlists discovered yet. Configure Spotify API credentials and run discover.</div>'; return; }
+  if (!d.items.length) { el.innerHTML = '<div class="empty">No playlists discovered yet. Go to Overview and run Discover.</div>'; return; }
   el.innerHTML = `<table>
-    <tr><th>ID</th><th>Name</th><th>Platform</th><th>Curator</th><th>Followers</th><th>Score</th><th>Contacted</th></tr>
+    <tr><th style="width:30px"><input type="checkbox" onchange="toggleAllCheckboxes(this,'playlist')" /></th><th>ID</th><th>Name</th><th>Platform</th><th>Curator</th><th>Contact</th><th>Followers</th><th>Score</th><th>Contacted</th><th>Actions</th></tr>
     ${d.items.map(p => `<tr>
+      <td><input type="checkbox" class="target-cb" data-type="playlist" data-id="${p.id}" data-score="${p.relevance_score}" data-contacted="${p.last_contacted||''}" onchange="updateSelCount('playlist')" /></td>
       <td>${p.id}</td>
-      <td><a href="${esc(p.url||'#')}" target="_blank">${esc(trunc(p.name,40))}</a></td>
+      <td><a href="${esc(p.url||'#')}" target="_blank">${esc(trunc(p.name,35))}</a></td>
       <td><span class="badge badge-blue">${esc(p.platform)}</span></td>
       <td>${esc(p.curator_name||'—')}</td>
+      <td>${p.contact ? '<span class="dot on"></span>' + esc(trunc(p.contact,20)) : '<span style="color:var(--muted)">none</span>'}</td>
       <td>${fmt(p.followers)}</td>
       <td>${scoreBar(p.relevance_score)}</td>
       <td>${p.last_contacted?fmtDate(p.last_contacted):'—'}</td>
+      <td>${p.contact && (p.contact.includes('@') || p.contact.includes(':'))
+        ? `<button class="btn btn-sm" onclick="quickSendSingle('playlist',${p.id})">Send</button>`
+        : `<button class="btn btn-sm" style="border-color:var(--yellow);color:var(--yellow)" onclick="enrichSingle('playlist',${p.id},this)">Find Contact</button>`}</td>
     </tr>`).join('')}
   </table>`;
+  updateSelCount('playlist');
 }
 
 // ══════════════════════════════════════════
@@ -985,41 +1240,231 @@ async function loadPlaylists() {
 // ══════════════════════════════════════════
 async function loadInfluencers() {
   const d = await api('/admin/api/influencers?limit=100');
+  targetCache.influencer = d.items || [];
   const el = document.getElementById('influencers-table');
-  if (!d.items.length) { el.innerHTML = '<div class="empty">No influencers discovered yet. Configure YouTube API key and run discover.</div>'; return; }
+  if (!d.items.length) { el.innerHTML = '<div class="empty">No influencers discovered yet. Go to Overview and run Discover.</div>'; return; }
   el.innerHTML = `<table>
-    <tr><th>ID</th><th>Handle</th><th>Platform</th><th>Niche</th><th>Followers</th><th>Score</th><th>Contacted</th></tr>
+    <tr><th style="width:30px"><input type="checkbox" onchange="toggleAllCheckboxes(this,'influencer')" /></th><th>ID</th><th>Handle</th><th>Platform</th><th>Niche</th><th>Contact</th><th>Followers</th><th>Score</th><th>Contacted</th><th>Actions</th></tr>
     ${d.items.map(i => `<tr>
+      <td><input type="checkbox" class="target-cb" data-type="influencer" data-id="${i.id}" data-score="${i.relevance_score}" data-contacted="${i.last_contacted||''}" onchange="updateSelCount('influencer')" /></td>
       <td>${i.id}</td>
       <td>${esc(i.handle)}</td>
       <td><span class="badge badge-blue">${esc(i.platform)}</span></td>
-      <td>${esc(trunc(i.niche||'—',30))}</td>
+      <td>${esc(trunc(i.niche||'—',25))}</td>
+      <td>${i.contact ? '<span class="dot on"></span>' + esc(trunc(i.contact,20)) : '<span style="color:var(--muted)">none</span>'}</td>
       <td>${fmt(i.followers)}</td>
       <td>${scoreBar(i.relevance_score)}</td>
       <td>${i.last_contacted?fmtDate(i.last_contacted):'—'}</td>
+      <td>${i.contact && (i.contact.includes('@') || i.contact.includes(':'))
+        ? `<button class="btn btn-sm" onclick="quickSendSingle('influencer',${i.id})">Send</button>`
+        : `<button class="btn btn-sm" style="border-color:var(--yellow);color:var(--yellow)" onclick="enrichSingle('influencer',${i.id},this)">Find Contact</button>`}</td>
     </tr>`).join('')}
   </table>`;
+  updateSelCount('influencer');
+}
+
+// ── Selection helpers ──
+function getCheckboxes(type) { return document.querySelectorAll(`.target-cb[data-type="${type}"]`); }
+function getSelected(type) { return [...getCheckboxes(type)].filter(c => c.checked).map(c => ({target_type: type, target_id: parseInt(c.dataset.id)})); }
+function updateSelCount(type) { const n = getSelected(type).length; document.getElementById(type+'-sel-count').textContent = n + ' selected'; }
+function toggleAllCheckboxes(master, type) { getCheckboxes(type).forEach(c => c.checked = master.checked); updateSelCount(type); }
+function selectAllTargets(type) { getCheckboxes(type).forEach(c => c.checked = true); updateSelCount(type); }
+function deselectAllTargets(type) { getCheckboxes(type).forEach(c => c.checked = false); updateSelCount(type); }
+function selectHighScore(type, min) { getCheckboxes(type).forEach(c => { c.checked = parseFloat(c.dataset.score) >= min; }); updateSelCount(type); }
+function selectUncontacted(type) { getCheckboxes(type).forEach(c => { c.checked = !c.dataset.contacted; }); updateSelCount(type); }
+
+// ── Single send from table row ──
+async function quickSendSingle(type, id) {
+  if (!confirm('Generate and send outreach message to this target?')) return;
+  const btn = event.target; btn.disabled = true; btn.textContent = '...';
+  try {
+    const gen = await (await fetch(API + `/outreach/generate/${type}/${id}`, {method:'POST'})).json();
+    const r = await (await fetch(API + '/outreach/send', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({target_type: type, target_id: id, message: gen.message})
+    })).json();
+    if (r.detail) throw new Error(r.detail);
+    btn.textContent = r.status === 'sent' ? 'Sent!' : (r.status === 'needs_dm' ? 'DM' : 'Logged');
+    btn.style.borderColor = 'var(--green)'; btn.style.color = 'var(--green)';
+  } catch(e) {
+    const msg = e.message || '';
+    if (msg.includes('No actionable contact')) {
+      btn.textContent = 'No Contact';
+      btn.style.borderColor = 'var(--yellow)'; btn.style.color = 'var(--yellow)';
+      if (confirm('No email or social handle found. Try to find contact info now?')) {
+        enrichSingle(type, id, btn);
+      }
+    } else {
+      btn.textContent = 'Error'; btn.style.borderColor = 'var(--red)'; btn.style.color = 'var(--red)';
+    }
+  }
+}
+
+// ── Contact enrichment ──
+async function enrichSingle(type, id, btn) {
+  btn.disabled = true; btn.textContent = 'Searching...';
+  try {
+    const r = await (await fetch(API + `/outreach/enrich-single/${type}/${id}`, {method:'POST'})).json();
+    if (r.new_contact) {
+      btn.textContent = 'Found!';
+      btn.style.borderColor = 'var(--green)'; btn.style.color = 'var(--green)';
+      // Reload the table to show new contact
+      setTimeout(() => type === 'playlist' ? loadPlaylists() : loadInfluencers(), 1000);
+    } else {
+      btn.textContent = 'Not Found';
+      btn.style.borderColor = 'var(--muted)'; btn.style.color = 'var(--muted)';
+    }
+  } catch(e) { btn.textContent = 'Error'; btn.style.borderColor = 'var(--red)'; btn.style.color = 'var(--red)'; }
+}
+async function enrichAllContacts() {
+  if (!confirm('Scrape all targets without contacts to find email addresses and social handles? This may take a few minutes.')) return;
+  const btn = event.target; btn.disabled = true; btn.textContent = 'Enriching...';
+  try {
+    const r = await (await fetch(API + '/outreach/enrich-contacts', {method:'POST'})).json();
+    btn.textContent = `Done: ${r.enriched} found`;
+    btn.style.borderColor = 'var(--green)'; btn.style.color = 'var(--green)';
+    btn.disabled = false;
+    setTimeout(() => { loadPlaylists(); loadInfluencers(); }, 500);
+  } catch(e) { btn.textContent = 'Error'; btn.style.borderColor = 'var(--red)'; btn.style.color = 'var(--red)'; btn.disabled = false; }
+}
+
+// ── Batch send modal ──
+let batchModalType = '';
+function openBatchSendModal(type) {
+  const selected = getSelected(type);
+  if (!selected.length) { alert('No targets selected. Use the checkboxes to select targets first.'); return; }
+  batchModalType = type;
+  const modal = document.getElementById('batch-modal');
+  modal.style.display = 'flex';
+  document.getElementById('batch-modal-targets').textContent = `${selected.length} ${type}(s) selected for outreach`;
+  document.getElementById('batch-modal-preview').textContent = 'Messages will be AI-generated for each target individually. Each message is personalized based on the target\'s profile. Follow-ups will be auto-scheduled 5 days after sending.';
+  document.getElementById('batch-result').textContent = '';
+}
+function closeBatchModal() { document.getElementById('batch-modal').style.display = 'none'; }
+async function executeBatchSend() {
+  const selected = getSelected(batchModalType);
+  const resultEl = document.getElementById('batch-result');
+  resultEl.textContent = `Sending to ${selected.length} targets...`;
+  try {
+    const r = await (await fetch(API + '/outreach/batch-send', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({targets: selected})
+    })).json();
+    resultEl.innerHTML = `<span style="color:var(--green)">Done!</span> ${r.sent||0} delivered, ${r.logged||0} logged, ${r.total||0} total. Follow-ups scheduled.`;
+    setTimeout(() => { closeBatchModal(); loadOutreach(); }, 2000);
+  } catch(e) { resultEl.innerHTML = `<span style="color:var(--red)">Error: ${e.message}</span>`; }
 }
 
 // ══════════════════════════════════════════
 // OUTREACH LOG
 // ══════════════════════════════════════════
 async function loadOutreach() {
+  // Load stats
+  const ov = await api('/admin/api/overview');
+  const statsEl = document.getElementById('outreach-stats');
+  statsEl.innerHTML = `
+    <div class="card"><h3>Messages Sent</h3><div class="stat accent">${ov.outreach.messages_sent}</div></div>
+    <div class="card"><h3>Emails Opened</h3><div class="stat" style="color:var(--green)">${ov.outreach.emails_opened||0}</div></div>
+    <div class="card"><h3>Links Clicked</h3><div class="stat" style="color:var(--yellow)">${ov.outreach.links_clicked||0}</div></div>
+    <div class="card"><h3>Follow-ups Due</h3><div class="stat" style="color:${ov.outreach.followups_due?'var(--yellow)':'var(--green)'}">${ov.outreach.followups_due}</div></div>
+  `;
+
+  // Load scheduler
+  loadSchedulerPanel();
+
+  // Load quick send targets
+  loadQuickSendTargets();
+
+  // Load log
   const d = await api('/admin/api/outreach-log?limit=100');
   const el = document.getElementById('outreach-table');
-  if (!d.items.length) { el.innerHTML = '<div class="empty">No outreach messages sent yet.</div>'; return; }
+  if (!d.items.length) { el.innerHTML = '<div class="empty">No outreach messages sent yet. Use the Quick Send panel above or go to Playlists/Influencers to select targets.</div>'; return; }
   el.innerHTML = `<table>
-    <tr><th>ID</th><th>Type</th><th>Target</th><th>Status</th><th>Follow-up</th><th>Message</th><th>Date</th></tr>
+    <tr><th>ID</th><th>Type</th><th>Target</th><th>Subject</th><th>Status</th><th>Tracking</th><th>Follow-up</th><th>Message</th><th>Date</th></tr>
     ${d.items.map(o => `<tr>
       <td>${o.id}</td>
       <td><span class="badge badge-blue">${esc(o.target_type)}</span></td>
       <td>#${o.target_id}</td>
+      <td title="${esc(o.subject||'')}">${esc(trunc(o.subject||'—',30))}</td>
       <td>${statusBadge(o.status)}</td>
+      <td>${trackingIcons(o)}</td>
       <td>${o.follow_up_date?fmtDate(o.follow_up_date):'—'}</td>
-      <td title="${esc(o.message)}">${esc(trunc(o.message,60))}</td>
+      <td title="${esc(o.message)}">${esc(trunc(o.message,40))}</td>
       <td>${fmtDate(o.created_at)}</td>
     </tr>`).join('')}
   </table>`;
+}
+
+// ── Quick Send panel ──
+async function loadQuickSendTargets() {
+  const type = document.getElementById('qs-type')?.value || 'playlist';
+  const sel = document.getElementById('qs-target');
+  if (!sel) return;
+  const endpoint = type === 'playlist' ? '/admin/api/playlists?limit=100' : '/admin/api/influencers?limit=100';
+  const d = await api(endpoint);
+  sel.innerHTML = (d.items||[]).map(t => {
+    const label = type === 'playlist' ? t.name : t.handle;
+    const score = t.relevance_score ? ` (${(t.relevance_score*100).toFixed(0)}%)` : '';
+    return `<option value="${t.id}">${esc(trunc(label,30))}${score}</option>`;
+  }).join('');
+}
+async function previewMessage() {
+  const type = document.getElementById('qs-type').value;
+  const id = document.getElementById('qs-target').value;
+  const pre = document.getElementById('qs-preview');
+  pre.style.display = 'block';
+  pre.textContent = 'Generating message...';
+  try {
+    const r = await (await fetch(API + `/outreach/generate/${type}/${id}`, {method:'POST'})).json();
+    pre.textContent = (r.subject ? `Subject: ${r.subject}\n\n` : '') + r.message;
+    pre.dataset.message = r.message;
+  } catch(e) { pre.textContent = 'Error: ' + e.message; }
+}
+async function quickSend() {
+  const type = document.getElementById('qs-type').value;
+  const id = document.getElementById('qs-target').value;
+  const pre = document.getElementById('qs-preview');
+  const result = document.getElementById('qs-result');
+  let message = pre.dataset?.message;
+  if (!message) {
+    result.textContent = 'Preview a message first.';
+    return;
+  }
+  result.textContent = 'Sending...';
+  try {
+    const r = await (await fetch(API + '/outreach/send', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({target_type: type, target_id: parseInt(id), message})
+    })).json();
+    result.innerHTML = `<span style="color:var(--green)">${r.status === 'sent' ? 'Email sent via Brevo!' : r.status === 'logged' ? 'Message logged (no email contact).' : r.status}</span>${r.message_id ? ` <span style="color:var(--muted)">(ID: ${r.message_id.slice(0,12)}…)</span>` : ''} Follow-up scheduled for ${r.follow_up_date ? fmtDate(r.follow_up_date) : '5 days'}.`;
+    pre.style.display = 'none'; pre.dataset.message = '';
+    loadOutreach();
+  } catch(e) { result.innerHTML = `<span style="color:var(--red)">Error: ${e.message}</span>`; }
+}
+
+// ── Scheduler panel ──
+async function loadSchedulerPanel() {
+  try {
+    const s = await api('/scheduler/status');
+    const statusEl = document.getElementById('scheduler-status');
+    statusEl.innerHTML = `<span class="dot ${s.running?'on':'off'}"></span> Scheduler is <strong>${s.running?'running':'stopped'}</strong>`;
+    const jobsEl = document.getElementById('scheduler-jobs');
+    if (s.jobs && s.jobs.length) {
+      jobsEl.innerHTML = `<table style="font-size:0.75rem">
+        <tr><th>Job</th><th>Next Run</th></tr>
+        ${s.jobs.map(j => `<tr><td>${esc(j.id)}</td><td>${j.next_run||'—'}</td></tr>`).join('')}
+      </table>`;
+    } else { jobsEl.innerHTML = '<span style="color:var(--muted);font-size:0.75rem">No jobs registered</span>'; }
+  } catch(e) { document.getElementById('scheduler-status').textContent = 'Could not load scheduler status'; }
+}
+async function schedulerAction(action) {
+  await fetch(API + '/scheduler/' + action, {method:'POST'});
+  loadSchedulerPanel();
+}
+async function triggerJob(jobId) {
+  const r = await (await fetch(API + '/scheduler/trigger/' + jobId, {method:'POST'})).json();
+  alert(r.triggered ? `Job "${jobId}" triggered!` : `Error: ${r.detail||'unknown'}`);
+  loadSchedulerPanel();
 }
 
 // ══════════════════════════════════════════
@@ -1142,6 +1587,16 @@ async function checkServices() {
 }
 
 // ── Quick Actions ──
+async function scanDisk() {
+  try {
+    const r = await fetch(API + '/admin/api/scan-disk', { method: 'POST' });
+    const d = await r.json();
+    alert(`Disk scan complete!\nNew files added: ${d.added}\nAlready tracked: ${d.skipped}`);
+    loadOverview();
+    loadMedia();
+  } catch(e) { alert('Scan failed: ' + e.message); }
+}
+
 async function runDiscover() {
   const query = prompt('Search query for playlist/channel discovery:', 'nu jazz lo-fi');
   if (!query) return;
@@ -1174,6 +1629,74 @@ async function searchMedia() {
   } catch(e) { alert('Search failed: ' + e.message); }
 }
 
+async function runNewsSearch() {
+  try {
+    const btn = event.target;
+    btn.disabled = true; btn.textContent = 'Searching…';
+    const r = await fetch(API + '/outreach/news-search', { method: 'POST' });
+    const d = await r.json();
+    if (d.task_id) {
+      btn.textContent = 'Searching (polling…)';
+      const result = await pollTask(d.task_id, btn, 'Search News');
+      if (result.status === 'completed') {
+        alert(`News search complete!\n\nResults found: ${result.searched}\nNew articles saved: ${result.new_articles}\nTotal articles: ${result.total_articles}\nSources: ${(result.sources||[]).join(', ')}`);
+      } else {
+        alert('News search failed: ' + (result.error || 'unknown error'));
+      }
+    }
+    loadOverview();
+  } catch(e) {
+    event.target.disabled = false; event.target.textContent = 'Search News';
+    alert('News search failed: ' + e.message);
+  }
+}
+
+async function runDjRadioDiscovery() {
+  try {
+    const btn = event.target;
+    btn.disabled = true; btn.textContent = 'Discovering…';
+    const r = await fetch(API + '/outreach/discover-dj-radio', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({})
+    });
+    const d = await r.json();
+    if (d.task_id) {
+      btn.textContent = 'Discovering (polling…)';
+      const result = await pollTask(d.task_id, btn, 'Discover DJs & Radio');
+      if (result.status === 'completed') {
+        const scopeInfo = Object.entries(result.by_scope || {}).map(([k,v]) => `  ${k}: ${v}`).join('\n');
+        const catInfo = Object.entries(result.by_category || {}).map(([k,v]) => `  ${k}: ${v}`).join('\n');
+        alert(`DJ & Radio discovery complete!\n\nTotal discovered: ${result.discovered}\nNew added: ${result.added}\nAlready tracked: ${result.skipped_existing}\n\nBy scope:\n${scopeInfo}\n\nBy category:\n${catInfo}`);
+      } else {
+        alert('DJ/Radio discovery failed: ' + (result.error || 'unknown error'));
+      }
+    }
+    loadOverview();
+  } catch(e) {
+    event.target.disabled = false; event.target.textContent = 'Discover DJs & Radio';
+    alert('DJ/Radio discovery failed: ' + e.message);
+  }
+}
+
+async function pollTask(taskId, btn, resetLabel) {
+  const maxAttempts = 120; // 10 minutes max (5s intervals)
+  for (let i = 0; i < maxAttempts; i++) {
+    await new Promise(r => setTimeout(r, 5000));
+    try {
+      const r = await fetch(API + `/outreach/task-status/${taskId}`);
+      const status = await r.json();
+      if (status.stage) btn.textContent = `Running: ${status.stage}…`;
+      if (status.status === 'completed' || status.status === 'failed') {
+        btn.disabled = false; btn.textContent = resetLabel;
+        return status;
+      }
+    } catch(e) { /* keep polling */ }
+  }
+  btn.disabled = false; btn.textContent = resetLabel;
+  return { status: 'timeout', error: 'Task timed out after 10 minutes' };
+}
+
 // ── Helpers ──
 function esc(s) { if (!s) return ''; const d = document.createElement('div'); d.textContent = String(s); return d.innerHTML; }
 function trunc(s, n) { return s && s.length > n ? s.slice(0, n) + '…' : (s || ''); }
@@ -1185,8 +1708,22 @@ function scoreBar(v) {
   return `<div style="display:flex;align-items:center;gap:6px"><div style="width:50px;height:6px;background:#222;border-radius:3px;overflow:hidden"><div style="width:${pct}%;height:100%;background:${color}"></div></div><span style="font-size:0.7rem;color:var(--muted)">${pct}%</span></div>`;
 }
 function statusBadge(s) {
-  const cls = s === 'sent' || s === 'contacted' ? 'badge-green' : s === 'followed_up' ? 'badge-blue' : s === 'manual_submission_required' ? 'badge-yellow' : 'badge-yellow';
+  const map = {
+    sent: 'badge-green', delivered: 'badge-green', contacted: 'badge-green',
+    opened: 'badge-green', clicked: 'badge-green', replied: 'badge-green',
+    pending: 'badge-yellow', logged: 'badge-yellow', followed_up: 'badge-blue',
+    failed: 'badge-red', manual_submission_required: 'badge-yellow',
+  };
+  const cls = map[s] || 'badge-yellow';
   return `<span class="badge ${cls}">${esc((s||'').replace(/_/g,' '))}</span>`;
+}
+function trackingIcons(o) {
+  const icons = [];
+  if (o.delivered_at) icons.push(`<span title="Delivered ${fmtDate(o.delivered_at)}" style="color:var(--green);font-size:0.8rem">&#x2709;</span>`);
+  if (o.opened_at)    icons.push(`<span title="Opened ${fmtDate(o.opened_at)}" style="color:var(--accent);font-size:0.8rem">&#x1F441;</span>`);
+  if (o.clicked_at)   icons.push(`<span title="Clicked ${fmtDate(o.clicked_at)}" style="color:var(--yellow);font-size:0.8rem">&#x1F517;</span>`);
+  if (!icons.length) return `<span style="color:var(--muted);font-size:0.7rem">${o.status === 'logged' ? 'no email' : 'pending'}</span>`;
+  return icons.join(' ');
 }
 
 // ══════════════════════════════════════════
@@ -1195,7 +1732,9 @@ function statusBadge(s) {
 let _audioDurationMs = 0;
 
 async function loadVideo() {
-  loadVideoExports();
+  // Load presets and history first so exports can reference history entries
+  await Promise.all([loadPresets(), loadHistory()]);
+  await loadVideoExports();
   updateBatchPreview();
   checkYouTubeStatus();
 }
@@ -1240,6 +1779,8 @@ async function handleAudioUpload(file) {
 
     label.innerHTML = `<span style="color:var(--green)">\u2713 ${esc(d.filename)}</span>`;
     updateBatchPreview();
+    showTimeline();
+    updateTimelineDisplay();
   } catch(e) {
     label.innerHTML = DEFAULT_DROPZONE_HTML;
     status.innerHTML = `<div class="badge badge-yellow">Upload failed: ${esc(e.message)}</div>`;
@@ -1267,6 +1808,8 @@ async function probeAudioPath() {
     document.getElementById('audio-info-name').textContent = d.filename;
     document.getElementById('audio-info-meta').textContent = `${fmtMs(d.duration_ms)} \u2022 ${d.size_kb} KB`;
     updateBatchPreview();
+    showTimeline();
+    updateTimelineDisplay();
   } catch(e) {
     status.innerHTML = `<div class="badge badge-yellow">Detect failed: ${esc(e.message)}</div>`;
   }
@@ -1317,6 +1860,10 @@ async function loadVideoExports() {
     el.innerHTML = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0.75rem">' +
       d.map(v => {
         const url = dlBase + encodeURIComponent(v.filename);
+        const histEntry = _history.find(h => h.filename === v.filename);
+        const histBtn = histEntry
+          ? `<button class="btn btn-sm" onclick="loadHistoryById('${esc(histEntry.id)}')" title="Load settings from this render" style="padding:2px 6px;font-size:0.6rem;color:var(--accent)">⚙</button>`
+          : '';
         return `<div style="background:#0e0e0e;border:1px solid #222;border-radius:8px;overflow:hidden;transition:border-color .15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='#222'">
           <div style="position:relative;cursor:pointer;background:#000;aspect-ratio:9/16;max-height:260px;display:flex;align-items:center;justify-content:center" onclick="openVideoPreview('${url}','${esc(v.filename)}')">
             <video src="${url}" muted preload="metadata" style="width:100%;height:100%;object-fit:contain"
@@ -1331,6 +1878,7 @@ async function loadVideoExports() {
             <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px">
               <span style="font-size:0.6rem;color:var(--muted)">${fmtSize(v.size_mb)} · ${fmtDate(v.modified_at)}</span>
               <div style="display:flex;gap:3px">
+                ${histBtn}
                 <a href="${url}" class="btn btn-sm" download title="Download" style="padding:2px 6px;font-size:0.6rem">↓</a>
                 <button class="btn btn-sm" onclick="archiveVideo('${esc(v.filename)}')" title="Archive" style="padding:2px 6px;font-size:0.6rem;color:var(--yellow)">📦</button>
                 <button class="btn btn-sm" onclick="deleteVideo('${esc(v.filename)}')" title="Delete" style="padding:2px 6px;font-size:0.6rem;color:var(--red)">✕</button>
@@ -1361,6 +1909,58 @@ function closeVideoPreview() {
   player.pause();
   player.src = '';
   modal.style.display = 'none';
+}
+
+/**
+ * Reset the entire video form to defaults — clears all settings, images, effects.
+ * Called by the "New Video" button.
+ */
+function resetVideoForm() {
+  // Clear selected images
+  _selectedImages = [];
+  renderSelectedImages();
+
+  // Reset all form fields to defaults
+  const defaults = {
+    audio_path: '', start_ms: 0, duration_ms: 15000, mood: '', tags: [],
+    output_name: '', clip_count: 4, fps: 24, use_glitch_transitions: true,
+    aspect: 'vertical', image_query: '',
+    image_urls: [], image_paths: [],
+    overlay_text: '', overlay_subtitle: '', overlay_position: 'center',
+    effect_opacity: 1.0, glitch_opacity: 0.7,
+    color_shift_enabled: false, scanline_enabled: false, vhs_enabled: false, beat_flash_enabled: false,
+    visualizer_enabled: false, visualizer_type: 'bars',
+    visualizer_color: '#00ffff', visualizer_color2: '#ff5758',
+    visualizer_opacity: 0.8, visualizer_intensity: 1.0,
+    visualizer_position: 'bottom', visualizer_bar_count: 32,
+    visualizer_glow: true, show_song_info: true,
+    title_color: '', subtitle_color: '',
+    font_size_title: 0, font_size_subtitle: 0, text_spacing: 0,
+    artwork_mode: false, auto_select_clips: true, selected_images: [],
+    provider_icons_enabled: false, provider_icons_position: 'bottom',
+    provider_icons_size: 36, provider_icons_opacity: 0.75,
+    qr_enabled: false, qr_url: 'https://www.nullrecords.com',
+    qr_position: 'bottom-right', qr_size: 80, qr_opacity: 0.85,
+  };
+  applySettings(defaults);
+
+  // Clear status and preview
+  const status = document.getElementById('video-status');
+  if (status) status.innerHTML = '';
+  const preview = document.getElementById('preview-panel');
+  if (preview) preview.style.display = 'none';
+
+  // Clear search results
+  const results = document.getElementById('img-search-results');
+  if (results) results.style.display = 'none';
+  const suggestions = document.getElementById('img-suggestions-panel');
+  if (suggestions) suggestions.style.display = 'none';
+
+  // Reset dropdowns (don't select any preset/history)
+  const presetSel = document.getElementById('preset-select');
+  if (presetSel) presetSel.value = '';
+  const histSel = document.getElementById('history-select');
+  if (histSel) histSel.value = '';
 }
 
 // ── Image management ──
@@ -1439,22 +2039,171 @@ function clearSelectedImages() {
   renderSelectedImages();
 }
 
+function onArtworkModeChange() {
+  const artworkMode = document.getElementById('artwork-mode')?.checked;
+  const autoSelect = document.getElementById('auto-select-clips');
+  if (artworkMode && autoSelect) {
+    // Artwork mode — disable auto-fill so only user-chosen images are used
+    autoSelect.checked = false;
+    autoSelect.parentElement.style.opacity = '0.5';
+    autoSelect.parentElement.title = 'Auto-fill is disabled in artwork mode — only your selected images will be used';
+  } else if (autoSelect) {
+    autoSelect.parentElement.style.opacity = '1';
+    autoSelect.parentElement.title = 'When unchecked, only your selected images/clips are used — no random library media';
+  }
+  renderSelectedImages();
+}
+
+// ── Media Suggestion / Approval Flow ──
+let _suggestions = [];
+
+async function suggestMedia() {
+  const panel = document.getElementById('img-suggestions-panel');
+  const grid = document.getElementById('img-suggestions-grid');
+  const mood = document.getElementById('vid-mood').value;
+  const tags = document.getElementById('vid-tags').value;
+  grid.innerHTML = '<p style="color:var(--muted);font-size:0.7rem">Searching library...</p>';
+  panel.style.display = 'block';
+  try {
+    const r = await fetch(API + '/video/suggest-media', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ mood, tags: tags ? tags.split(',').map(t=>t.trim()) : [], count: 12 })
+    });
+    const data = await r.json();
+    _suggestions = data.suggestions || [];
+    if (_suggestions.length === 0) {
+      grid.innerHTML = '<p style="color:var(--muted);font-size:0.7rem">No matching media found. Try different mood/tags or upload your own.</p>';
+      return;
+    }
+    grid.innerHTML = _suggestions.map((s, i) => {
+      const isImg = s.type === 'image';
+      const thumb = isImg
+        ? `<img src="${esc(s.url)}" style="width:100%;height:60px;object-fit:cover;border-radius:4px" onerror="this.style.display='none'" />`
+        : `<div style="width:100%;height:60px;background:#222;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:1.2rem">🎬</div>`;
+      return `<div style="cursor:pointer;border:1px solid #333;border-radius:6px;overflow:hidden;background:#111;transition:border 0.2s" 
+                   onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='#333'"
+                   onclick="approveSuggestion(${i})" id="suggestion-${i}">
+        ${thumb}
+        <div style="padding:3px 5px">
+          <div style="font-size:0.55rem;color:#eee;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(s.filename)}</div>
+          <div style="font-size:0.5rem;color:var(--muted)">${esc(s.source)} · ${s.type}</div>
+        </div>
+      </div>`;
+    }).join('');
+  } catch(e) {
+    grid.innerHTML = `<p style="color:var(--red);font-size:0.7rem">Error: ${esc(e.message)}</p>`;
+  }
+}
+
+function approveSuggestion(index) {
+  const s = _suggestions[index];
+  if (!s) return;
+  // Don't add duplicates
+  if (_selectedImages.some(img => img.path === s.path || img.url === s.url)) {
+    const el = document.getElementById('suggestion-' + index);
+    if (el) { el.style.borderColor = 'var(--accent)'; el.style.opacity = '0.4'; }
+    return;
+  }
+  _selectedImages.push({
+    path: s.path,
+    url: s.url,
+    filename: s.filename,
+    type: s.type,
+    source: s.source,
+    start_sec: 0,
+    duration_sec: 0, // 0 = auto-calculate
+    animation: 'ken_burns',
+    animation_speed: 1.0,
+    crossfade_sec: 0.5,
+  });
+  const el = document.getElementById('suggestion-' + index);
+  if (el) { el.style.borderColor = 'var(--green)'; el.style.opacity = '0.5'; }
+  renderSelectedImages();
+}
+
+function approveAllSuggestions() {
+  _suggestions.forEach((s, i) => approveSuggestion(i));
+}
+
+function dismissSuggestions() {
+  _suggestions = [];
+  const panel = document.getElementById('img-suggestions-panel');
+  panel.style.display = 'none';
+}
+
 function renderSelectedImages() {
   const panel = document.getElementById('selected-images-panel');
   const grid = document.getElementById('selected-images-grid');
   const count = document.getElementById('selected-images-count');
+  const artworkMode = document.getElementById('artwork-mode')?.checked;
+
   if (!_selectedImages.length) {
     panel.style.display = 'none';
     return;
   }
   panel.style.display = 'block';
   count.textContent = _selectedImages.length + ' image' + (_selectedImages.length !== 1 ? 's' : '') + ' selected';
-  grid.innerHTML = _selectedImages.map((img, idx) => {
-    return `<div style="position:relative;width:64px;height:64px;border-radius:6px;overflow:hidden;border:1px solid #333;flex-shrink:0">
-      <img src="${esc(img.preview_url)}" style="width:100%;height:100%;object-fit:cover" />
-      <button onclick="removeSelectedImage(${idx})" style="position:absolute;top:1px;right:1px;background:rgba(0,0,0,0.8);border:none;color:#ff5758;font-size:0.7rem;cursor:pointer;border-radius:50%;width:16px;height:16px;line-height:14px;padding:0;text-align:center">✕</button>
-    </div>`;
-  }).join('');
+
+  if (artworkMode) {
+    // Enhanced artwork mode — per-image timing, animation, speed
+    grid.innerHTML = _selectedImages.map((img, idx) => {
+      const anim = img.animation || 'ken_burns';
+      const speed = img.animation_speed || 1.0;
+      const startSec = img.start_sec || 0;
+      const durSec = img.duration_sec || 0;
+      const xfade = img.crossfade_sec ?? 0.5;
+      return `<div style="display:flex;gap:8px;align-items:center;background:#111;border:1px solid #333;border-radius:6px;padding:6px;margin-bottom:4px">
+        <div style="position:relative;width:56px;height:56px;border-radius:4px;overflow:hidden;flex-shrink:0">
+          <img src="${esc(img.preview_url)}" style="width:100%;height:100%;object-fit:cover" />
+          <div style="position:absolute;top:1px;left:3px;background:rgba(0,0,0,0.7);border-radius:3px;padding:0 3px;font-size:0.55rem;color:var(--accent)">#${idx+1}</div>
+        </div>
+        <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:3px;font-size:0.6rem">
+          <div>
+            <label style="color:#888">Animation</label>
+            <select onchange="_selectedImages[${idx}].animation=this.value" style="width:100%;padding:2px 4px;background:#0a0a0a;border:1px solid #333;color:#eee;border-radius:3px;font-size:0.6rem">
+              <option value="ken_burns" ${anim==='ken_burns'?'selected':''}>Ken Burns</option>
+              <option value="zoom_pulse" ${anim==='zoom_pulse'?'selected':''}>Zoom Pulse</option>
+              <option value="rotate" ${anim==='rotate'?'selected':''}>Rotate</option>
+              <option value="parallax" ${anim==='parallax'?'selected':''}>Parallax</option>
+              <option value="drift" ${anim==='drift'?'selected':''}>Drift</option>
+              <option value="static" ${anim==='static'?'selected':''}>Static</option>
+            </select>
+          </div>
+          <div>
+            <label style="color:#888">Speed</label>
+            <input type="number" value="${speed}" min="0.1" max="3" step="0.1" onchange="_selectedImages[${idx}].animation_speed=parseFloat(this.value)" style="width:100%;padding:2px 4px;background:#0a0a0a;border:1px solid #333;color:#eee;border-radius:3px;font-size:0.6rem" />
+          </div>
+          <div>
+            <label style="color:#888">Start (s)</label>
+            <input type="number" value="${startSec}" min="0" step="0.5" onchange="_selectedImages[${idx}].start_sec=parseFloat(this.value)" style="width:100%;padding:2px 4px;background:#0a0a0a;border:1px solid #333;color:#eee;border-radius:3px;font-size:0.6rem" />
+          </div>
+          <div>
+            <label style="color:#888">Duration (s, 0=auto)</label>
+            <input type="number" value="${durSec}" min="0" step="0.5" onchange="_selectedImages[${idx}].duration_sec=parseFloat(this.value)" style="width:100%;padding:2px 4px;background:#0a0a0a;border:1px solid #333;color:#eee;border-radius:3px;font-size:0.6rem" />
+          </div>
+          <div>
+            <label style="color:#888">Crossfade (s)</label>
+            <input type="number" value="${xfade}" min="0" max="3" step="0.1" onchange="_selectedImages[${idx}].crossfade_sec=parseFloat(this.value)" style="width:100%;padding:2px 4px;background:#0a0a0a;border:1px solid #333;color:#eee;border-radius:3px;font-size:0.6rem" />
+          </div>
+          <div style="display:flex;align-items:end">
+            <button onclick="removeSelectedImage(${idx})" style="background:none;border:1px solid #ff5758;color:#ff5758;font-size:0.6rem;cursor:pointer;border-radius:3px;padding:2px 6px">Remove</button>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+  } else {
+    // Simple mode — thumbnails only
+    grid.style.display = 'flex';
+    grid.style.gap = '6px';
+    grid.style.flexWrap = 'wrap';
+    grid.innerHTML = _selectedImages.map((img, idx) => {
+      return `<div style="position:relative;width:64px;height:64px;border-radius:6px;overflow:hidden;border:1px solid #333;flex-shrink:0">
+        <img src="${esc(img.preview_url)}" style="width:100%;height:100%;object-fit:cover" />
+        <button onclick="removeSelectedImage(${idx})" style="position:absolute;top:1px;right:1px;background:rgba(0,0,0,0.8);border:none;color:#ff5758;font-size:0.7rem;cursor:pointer;border-radius:50%;width:16px;height:16px;line-height:14px;padding:0;text-align:center">✕</button>
+      </div>`;
+    }).join('');
+  }
 }
 
 // ── Generate ──
@@ -1517,17 +2266,49 @@ async function submitVideoGenerate() {
     font_size_title: parseInt(document.getElementById('style-title-size').value) || 0,
     font_size_subtitle: parseInt(document.getElementById('style-sub-size').value) || 0,
     text_spacing: parseInt(document.getElementById('style-spacing').value) || 0,
+    // Clip selection control
+    auto_select_clips: document.getElementById('auto-select-clips')?.checked ?? true,
+    // Provider icon overlay
+    provider_icons_enabled: document.getElementById('prov-icons-enabled')?.checked || false,
+    provider_icons_position: document.getElementById('prov-icons-position')?.value || 'bottom',
+    provider_icons_size: parseInt(document.getElementById('prov-icons-size')?.value) || 36,
+    provider_icons_opacity: parseInt(document.getElementById('prov-icons-opacity')?.value || '75') / 100,
+    // QR code overlay
+    qr_enabled: document.getElementById('qr-enabled')?.checked || false,
+    qr_url: document.getElementById('qr-url')?.value || 'https://www.nullrecords.com',
+    qr_position: document.getElementById('qr-position')?.value || 'bottom-right',
+    qr_size: parseInt(document.getElementById('qr-size')?.value) || 80,
+    qr_opacity: parseInt(document.getElementById('qr-opacity')?.value || '85') / 100,
   };
+
+  // Multi-artwork mode: build artwork_entries from selected images with per-image settings
+  const artworkMode = document.getElementById('artwork-mode')?.checked;
+  if (artworkMode && _selectedImages.length > 0) {
+    payload.artwork_entries = _selectedImages.map(img => ({
+      path: img.path,
+      start_sec: img.start_sec || 0,
+      duration_sec: img.duration_sec || 0,
+      animation: img.animation || 'ken_burns',
+      animation_speed: img.animation_speed || 1.0,
+      crossfade_sec: img.crossfade_sec ?? 0.5,
+    }));
+    // In artwork mode, clear legacy image fields
+    payload.image_urls = [];
+    payload.image_paths = [];
+    payload.image_query = '';
+  }
 
   btn.disabled = true; btn.textContent = 'Generating\u2026';
   status.innerHTML = '<div style="color:var(--accent);font-size:0.8rem">\u23f3 Rendering video \u2014 this can take a minute\u2026</div>';
 
   try {
     const r = await fetch(API + '/video/generate', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
-    const d = await r.json();
-    if (!r.ok) { status.innerHTML = `<div class="badge badge-yellow">${esc(d.detail || JSON.stringify(d))}</div>`; return; }
+    const result = await safeJson(r);
+    if (!result.ok) { status.innerHTML = `<div class="badge badge-yellow">${esc(result.error)}</div>`; return; }
+    const d = result.data;
     status.innerHTML = `<div style="color:var(--green);font-size:0.8rem">\u2713 Video generated: <strong>${esc(d.filename)}</strong> (${d.size_kb} KB)</div>`;
     loadVideoExports();
+    loadHistory();
   } catch(e) {
     status.innerHTML = `<div class="badge badge-yellow">Error: ${esc(e.message)}</div>`;
   } finally { btn.disabled = false; btn.textContent = 'Generate Video'; }
@@ -1661,13 +2442,17 @@ function renderPublishResult(p) {
   } else if (p.status === 'manual') {
     html += `<span class="badge badge-blue">Manual Post</span>`;
   } else if (p.status === 'not_authenticated') {
-    html += `<span class="badge badge-yellow">Needs Auth</span>`;
+    html += `<span class="badge badge-yellow" style="cursor:pointer" onclick="connectYouTube()">Needs Auth — Click to Connect</span>`;
   } else {
     html += `<span class="badge badge-red">Error</span>`;
   }
   html += `</div>`;
 
-  html += `<div style="font-size:0.75rem;color:var(--text);margin-bottom:6px">${esc(p.message)}</div>`;
+  if (p.status === 'not_authenticated') {
+    html += `<div style="font-size:0.75rem;color:var(--text);margin-bottom:6px">${esc(p.message)} <a href="#" onclick="event.preventDefault();connectYouTube()" style="color:var(--accent)">Connect YouTube &rarr;</a></div>`;
+  } else {
+    html += `<div style="font-size:0.75rem;color:var(--text);margin-bottom:6px">${esc(p.message)}</div>`;
+  }
 
   if (p.url) {
     html += `<div style="margin-bottom:6px"><a href="${esc(p.url)}" target="_blank" rel="noopener" style="font-size:0.75rem">\u2192 ${esc(p.url)}</a></div>`;
@@ -1981,6 +2766,489 @@ document.getElementById('viz-color2')?.addEventListener('input', function() {
 
 // ── Init ──
 loadOverview();
+
+// ── Audio timeline helpers ──
+function fmtMsToTime(ms) {
+  const totalSec = Math.floor(ms / 1000);
+  const min = Math.floor(totalSec / 60);
+  const sec = totalSec % 60;
+  return `${min}:${sec.toString().padStart(2, '0')}`;
+}
+
+function updateTimelineDisplay() {
+  const startMs = parseInt(document.getElementById('vid-start').value) || 0;
+  const durMs = parseInt(document.getElementById('vid-duration').value) || 0;
+  document.getElementById('vid-start-fmt').textContent = fmtMsToTime(startMs);
+  document.getElementById('vid-dur-fmt').textContent = fmtMsToTime(durMs);
+  // Update timeline visual
+  if (_audioDurationMs > 0) {
+    const startPct = (startMs / _audioDurationMs) * 100;
+    const durPct = (durMs / _audioDurationMs) * 100;
+    const el = document.getElementById('timeline-range');
+    if (el) {
+      el.style.left = startPct + '%';
+      el.style.width = Math.min(durPct, 100 - startPct) + '%';
+    }
+    const slider = document.getElementById('timeline-start-slider');
+    if (slider) slider.value = startPct;
+  }
+}
+
+function onTimelineStartChange(pctValue) {
+  if (!_audioDurationMs) return;
+  const startMs = Math.round((pctValue / 100) * _audioDurationMs);
+  document.getElementById('vid-start').value = startMs;
+  updateTimelineDisplay();
+}
+
+function setQuickDuration(ms) {
+  document.getElementById('vid-duration').value = ms;
+  updateTimelineDisplay();
+}
+
+function setFullDuration() {
+  if (_audioDurationMs) {
+    document.getElementById('vid-start').value = 0;
+    document.getElementById('vid-duration').value = _audioDurationMs;
+  }
+  updateTimelineDisplay();
+}
+
+function showTimeline() {
+  const panel = document.getElementById('audio-timeline-panel');
+  if (panel && _audioDurationMs > 0) {
+    panel.style.display = 'block';
+    document.getElementById('timeline-end-label').textContent = fmtMsToTime(_audioDurationMs);
+    document.getElementById('timeline-start-slider').max = 100;
+    updateTimelineDisplay();
+    // Load audio into the player for playback
+    loadAudioPlayer();
+  }
+}
+
+// ── Audio Playback ──
+let _playbackRAF = null;
+
+function loadAudioPlayer() {
+  const audioPath = document.getElementById('vid-audio').value.trim();
+  if (!audioPath) return;
+  const player = document.getElementById('audio-player');
+  // Serve audio through the download endpoint or directly
+  const filename = audioPath.split('/').pop();
+  player.src = API + '/video/audio-stream?path=' + encodeURIComponent(audioPath);
+  player.load();
+}
+
+function playFromStart() {
+  const player = document.getElementById('audio-player');
+  if (!player.src || player.src === location.href) {
+    loadAudioPlayer();
+  }
+  const startMs = parseInt(document.getElementById('vid-start').value) || 0;
+  const durMs = parseInt(document.getElementById('vid-duration').value) || 15000;
+  const startSec = startMs / 1000;
+  const endSec = (startMs + durMs) / 1000;
+
+  player.currentTime = startSec;
+  player.play().catch(() => {});
+
+  document.getElementById('btn-play-start').style.display = 'none';
+  document.getElementById('btn-stop-audio').style.display = 'inline-block';
+
+  // Animate playhead
+  function tick() {
+    if (player.paused || player.ended) { stopAudio(); return; }
+    const cur = player.currentTime;
+    // Stop at end of selected range
+    if (cur >= endSec) { stopAudio(); return; }
+    // Update playhead position
+    if (_audioDurationMs > 0) {
+      const pct = (cur * 1000 / _audioDurationMs) * 100;
+      const ph = document.getElementById('timeline-playhead');
+      ph.style.left = pct + '%';
+      ph.style.display = 'block';
+    }
+    document.getElementById('playback-time').textContent = fmtMsToTime(cur * 1000);
+    _playbackRAF = requestAnimationFrame(tick);
+  }
+  _playbackRAF = requestAnimationFrame(tick);
+}
+
+function stopAudio() {
+  const player = document.getElementById('audio-player');
+  player.pause();
+  if (_playbackRAF) { cancelAnimationFrame(_playbackRAF); _playbackRAF = null; }
+  document.getElementById('btn-play-start').style.display = 'inline-block';
+  document.getElementById('btn-stop-audio').style.display = 'none';
+  document.getElementById('timeline-playhead').style.display = 'none';
+  document.getElementById('playback-time').textContent = '';
+}
+
+// ── Preview ──
+async function generatePreview() {
+  const panel = document.getElementById('preview-panel');
+  const loading = document.getElementById('preview-loading');
+  const img = document.getElementById('preview-image');
+  panel.style.display = 'block';
+  loading.style.display = 'flex';
+
+  const aspect = document.querySelector('input[name="vid-aspect"]:checked')?.value || 'vertical';
+  const textPos = document.querySelector('input[name="vid-text-pos"]:checked')?.value || 'center';
+  const timeSec = parseFloat(document.getElementById('preview-time').value) / 10;
+
+  // Get first selected image/clip path
+  let imagePath = '';
+  let clipPath = '';
+  if (_selectedImages && _selectedImages.length > 0) {
+    const first = _selectedImages[0];
+    if (first.path) imagePath = first.path;
+  }
+
+  const payload = {
+    image_path: imagePath,
+    clip_path: clipPath,
+    aspect,
+    time_sec: timeSec,
+    overlay_text: document.getElementById('vid-overlay-text').value.trim(),
+    overlay_subtitle: document.getElementById('vid-overlay-sub').value.trim(),
+    overlay_position: textPos,
+    title_color: document.getElementById('style-title-color-hex').value.trim() || '',
+    subtitle_color: document.getElementById('style-sub-color-hex').value.trim() || '',
+    font_size_title: parseInt(document.getElementById('style-title-size').value) || 0,
+    font_size_subtitle: parseInt(document.getElementById('style-sub-size').value) || 0,
+    font_family: '',
+    text_spacing: parseInt(document.getElementById('style-spacing').value) || 0,
+    mood: document.getElementById('vid-mood').value.trim() || '',
+    effect_opacity: parseInt(document.getElementById('fx-opacity').value) / 100,
+    glitch_opacity: parseInt(document.getElementById('fx-glitch-opacity').value) / 100,
+    color_shift_enabled: document.getElementById('fx-color-shift').checked,
+    scanline_enabled: document.getElementById('fx-scanlines').checked,
+    vhs_enabled: document.getElementById('fx-vhs').checked,
+    visualizer_enabled: document.getElementById('viz-enabled').checked,
+    visualizer_type: document.getElementById('viz-type').value,
+    visualizer_color: document.getElementById('viz-color1').value,
+    visualizer_color2: document.getElementById('viz-color2').value,
+    visualizer_opacity: parseInt(document.getElementById('viz-opacity').value) / 100,
+    visualizer_intensity: parseInt(document.getElementById('viz-intensity').value) / 100,
+    visualizer_position: document.getElementById('viz-position').value,
+    visualizer_bar_count: parseInt(document.getElementById('viz-bars').value) || 32,
+    visualizer_glow: document.getElementById('viz-glow').checked,
+    show_song_info: document.getElementById('viz-song-info').checked,
+    audio_path: document.getElementById('vid-audio').value.trim() || '',
+    fps: parseInt(document.getElementById('vid-fps').value) || 24,
+  };
+
+  try {
+    const r = await fetch(API + '/video/preview', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload),
+    });
+    if (!r.ok) {
+      const d = await r.json();
+      loading.style.display = 'none';
+      img.alt = d.detail || 'Preview failed';
+      return;
+    }
+    const blob = await r.blob();
+    img.src = URL.createObjectURL(blob);
+    loading.style.display = 'none';
+  } catch(e) {
+    loading.style.display = 'none';
+    img.alt = 'Preview error: ' + e.message;
+  }
+}
+
+// ══════════════════════════════════════════
+// PRESETS & HISTORY
+// ══════════════════════════════════════════
+
+/**
+ * Gather all current UI settings into a plain object.
+ * This is the canonical "snapshot" of the form state.
+ */
+function gatherSettings() {
+  const aspect = document.querySelector('input[name="vid-aspect"]:checked')?.value || 'vertical';
+  const textPos = document.querySelector('input[name="vid-text-pos"]:checked')?.value || 'center';
+  const imageUrls = _selectedImages.filter(i => i.url && i.source !== 'upload').map(i => i.url);
+  const imagePaths = _selectedImages.filter(i => i.path).map(i => i.path);
+  const artworkMode = document.getElementById('artwork-mode')?.checked || false;
+  return {
+    audio_path: document.getElementById('vid-audio').value.trim(),
+    start_ms: parseInt(document.getElementById('vid-start').value) || 0,
+    duration_ms: parseInt(document.getElementById('vid-duration').value) || 15000,
+    mood: document.getElementById('vid-mood').value.trim(),
+    tags: document.getElementById('vid-tags').value.trim()
+      ? document.getElementById('vid-tags').value.split(',').map(t => t.trim()).filter(Boolean) : [],
+    output_name: document.getElementById('vid-name').value.trim(),
+    clip_count: parseInt(document.getElementById('vid-clips').value) || 4,
+    fps: parseInt(document.getElementById('vid-fps').value) || 24,
+    use_glitch_transitions: document.getElementById('vid-glitch').checked,
+    aspect,
+    image_query: document.getElementById('img-search-query').value.trim(),
+    image_urls: imageUrls,
+    image_paths: imagePaths,
+    overlay_text: document.getElementById('vid-overlay-text').value.trim(),
+    overlay_subtitle: document.getElementById('vid-overlay-sub').value.trim(),
+    overlay_position: textPos,
+    effect_opacity: parseInt(document.getElementById('fx-opacity').value) / 100,
+    glitch_opacity: parseInt(document.getElementById('fx-glitch-opacity').value) / 100,
+    color_shift_enabled: document.getElementById('fx-color-shift').checked,
+    scanline_enabled: document.getElementById('fx-scanlines').checked,
+    vhs_enabled: document.getElementById('fx-vhs').checked,
+    beat_flash_enabled: document.getElementById('fx-beat-flash').checked,
+    visualizer_enabled: document.getElementById('viz-enabled').checked,
+    visualizer_type: document.getElementById('viz-type').value,
+    visualizer_color: document.getElementById('viz-color1').value,
+    visualizer_color2: document.getElementById('viz-color2').value,
+    visualizer_opacity: parseInt(document.getElementById('viz-opacity').value) / 100,
+    visualizer_intensity: parseInt(document.getElementById('viz-intensity').value) / 100,
+    visualizer_position: document.getElementById('viz-position').value,
+    visualizer_bar_count: parseInt(document.getElementById('viz-bars').value) || 32,
+    visualizer_glow: document.getElementById('viz-glow').checked,
+    show_song_info: document.getElementById('viz-song-info').checked,
+    title_color: document.getElementById('style-title-color-hex').value.trim(),
+    subtitle_color: document.getElementById('style-sub-color-hex').value.trim(),
+    font_size_title: parseInt(document.getElementById('style-title-size').value) || 0,
+    font_size_subtitle: parseInt(document.getElementById('style-sub-size').value) || 0,
+    text_spacing: parseInt(document.getElementById('style-spacing').value) || 0,
+    // Artwork / clip selection state
+    artwork_mode: artworkMode,
+    auto_select_clips: document.getElementById('auto-select-clips')?.checked ?? true,
+    // Selected images with per-image settings (for restoring artwork entries)
+    selected_images: _selectedImages.map(img => ({ ...img })),
+    // Provider icons
+    provider_icons_enabled: document.getElementById('prov-icons-enabled')?.checked || false,
+    provider_icons_position: document.getElementById('prov-icons-position')?.value || 'bottom',
+    provider_icons_size: parseInt(document.getElementById('prov-icons-size')?.value) || 36,
+    provider_icons_opacity: parseInt(document.getElementById('prov-icons-opacity')?.value || '75') / 100,
+    // QR code
+    qr_enabled: document.getElementById('qr-enabled')?.checked || false,
+    qr_url: document.getElementById('qr-url')?.value || 'https://www.nullrecords.com',
+    qr_position: document.getElementById('qr-position')?.value || 'bottom-right',
+    qr_size: parseInt(document.getElementById('qr-size')?.value) || 80,
+    qr_opacity: parseInt(document.getElementById('qr-opacity')?.value || '85') / 100,
+  };
+}
+
+/**
+ * Apply a settings object back to the UI controls.
+ */
+function applySettings(s) {
+  if (!s) return;
+  const set = (id, val) => { const el = document.getElementById(id); if (el) el.value = val ?? ''; };
+  const chk = (id, val) => { const el = document.getElementById(id); if (el) el.checked = !!val; };
+  const radio = (name, val) => { const el = document.querySelector(`input[name="${name}"][value="${val}"]`); if (el) el.checked = true; };
+
+  set('vid-audio', s.audio_path);
+  set('vid-start', s.start_ms ?? 0);
+  set('vid-duration', s.duration_ms ?? 15000);
+  set('vid-mood', s.mood);
+  set('vid-tags', (s.tags || []).join(', '));
+  set('vid-name', s.output_name);
+  set('vid-clips', s.clip_count ?? 4);
+  set('vid-fps', s.fps ?? 24);
+  chk('vid-glitch', s.use_glitch_transitions ?? true);
+  radio('vid-aspect', s.aspect || 'vertical');
+  set('img-search-query', s.image_query);
+
+  set('vid-overlay-text', s.overlay_text);
+  set('vid-overlay-sub', s.overlay_subtitle);
+  radio('vid-text-pos', s.overlay_position || 'center');
+
+  // Effects
+  set('fx-opacity', Math.round((s.effect_opacity ?? 1) * 100));
+  set('fx-glitch-opacity', Math.round((s.glitch_opacity ?? 0.7) * 100));
+  chk('fx-color-shift', s.color_shift_enabled);
+  chk('fx-scanlines', s.scanline_enabled);
+  chk('fx-vhs', s.vhs_enabled);
+  chk('fx-beat-flash', s.beat_flash_enabled ?? true);
+
+  // Visualizer
+  chk('viz-enabled', s.visualizer_enabled);
+  set('viz-type', s.visualizer_type || 'bars');
+  set('viz-color1', s.visualizer_color || '#00ffff');
+  set('viz-color1-hex', s.visualizer_color || '#00ffff');
+  set('viz-color2', s.visualizer_color2 || '#ff5758');
+  set('viz-color2-hex', s.visualizer_color2 || '#ff5758');
+  set('viz-opacity', Math.round((s.visualizer_opacity ?? 0.8) * 100));
+  set('viz-intensity', Math.round((s.visualizer_intensity ?? 1.0) * 100));
+  set('viz-position', s.visualizer_position || 'bottom');
+  set('viz-bars', s.visualizer_bar_count ?? 32);
+  chk('viz-glow', s.visualizer_glow ?? true);
+  chk('viz-song-info', s.show_song_info ?? true);
+
+  // Font / style
+  set('style-title-color-hex', s.title_color);
+  if (s.title_color) set('style-title-color', s.title_color);
+  set('style-sub-color-hex', s.subtitle_color);
+  if (s.subtitle_color) set('style-sub-color', s.subtitle_color);
+  set('style-title-size', s.font_size_title ?? 0);
+  set('style-sub-size', s.font_size_subtitle ?? 0);
+  set('style-spacing', s.text_spacing ?? 0);
+
+  // Artwork mode & clip selection
+  chk('artwork-mode', s.artwork_mode ?? false);
+  chk('auto-select-clips', s.auto_select_clips ?? true);
+
+  // Restore selected images (clears previous session's images)
+  _selectedImages = (s.selected_images || []).map(img => ({ ...img }));
+  renderSelectedImages();
+
+  // Provider icons
+  chk('prov-icons-enabled', s.provider_icons_enabled ?? false);
+  set('prov-icons-position', s.provider_icons_position || 'bottom');
+  set('prov-icons-size', s.provider_icons_size ?? 36);
+  set('prov-icons-opacity', Math.round((s.provider_icons_opacity ?? 0.75) * 100));
+
+  // QR code
+  chk('qr-enabled', s.qr_enabled ?? false);
+  set('qr-url', s.qr_url || 'https://www.nullrecords.com');
+  set('qr-position', s.qr_position || 'bottom-right');
+  set('qr-size', s.qr_size ?? 80);
+  set('qr-opacity', Math.round((s.qr_opacity ?? 0.85) * 100));
+
+  // Update range slider display labels
+  const fxOpEl = document.getElementById('fx-opacity');
+  if (fxOpEl) fxOpEl.dispatchEvent(new Event('input'));
+  const fxGlEl = document.getElementById('fx-glitch-opacity');
+  if (fxGlEl) fxGlEl.dispatchEvent(new Event('input'));
+  const vizOpEl = document.getElementById('viz-opacity');
+  if (vizOpEl) vizOpEl.dispatchEvent(new Event('input'));
+  const vizInEl = document.getElementById('viz-intensity');
+  if (vizInEl) vizInEl.dispatchEvent(new Event('input'));
+
+  // Update timeline display if audio is loaded
+  if (typeof updateTimelineDisplay === 'function') updateTimelineDisplay();
+}
+
+// ── Presets ──
+
+let _presets = [];
+
+async function loadPresets() {
+  try {
+    _presets = await api('/video/presets');
+  } catch { _presets = []; }
+  const sel = document.getElementById('preset-select');
+  sel.innerHTML = '<option value="">— none —</option>' +
+    _presets.map(p => `<option value="${esc(p.id)}">${esc(p.name)}</option>`).join('');
+}
+
+function promptSavePreset() {
+  const existing = document.getElementById('preset-select');
+  const currentName = existing.selectedOptions[0]?.textContent || '';
+  const defaultName = (currentName && currentName !== '— none —') ? currentName : '';
+  const name = prompt('Preset name:', defaultName);
+  if (!name || !name.trim()) return;
+  savePreset(name.trim());
+}
+
+async function savePreset(name) {
+  const st = document.getElementById('preset-status');
+  try {
+    const settings = gatherSettings();
+    await fetch(API + '/video/presets', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ name, settings }),
+    });
+    st.textContent = `Saved preset "${name}"`;
+    st.style.color = 'var(--green)';
+    await loadPresets();
+    // Select the saved preset
+    const sel = document.getElementById('preset-select');
+    const opt = [...sel.options].find(o => o.textContent === name);
+    if (opt) sel.value = opt.value;
+  } catch(e) {
+    st.textContent = 'Save failed: ' + e.message;
+    st.style.color = 'var(--red)';
+  }
+  setTimeout(() => { st.textContent = ''; }, 3000);
+}
+
+function loadSelectedPreset() {
+  const sel = document.getElementById('preset-select');
+  const id = sel.value;
+  if (!id) return;
+  const preset = _presets.find(p => p.id === id);
+  if (!preset) return;
+  applySettings(preset.settings);
+  const st = document.getElementById('preset-status');
+  st.textContent = `Loaded "${preset.name}"`;
+  st.style.color = 'var(--accent)';
+  setTimeout(() => { st.textContent = ''; }, 3000);
+}
+
+async function deleteSelectedPreset() {
+  const sel = document.getElementById('preset-select');
+  const id = sel.value;
+  if (!id) return;
+  const preset = _presets.find(p => p.id === id);
+  if (!preset) return;
+  if (!confirm(`Delete preset "${preset.name}"?`)) return;
+  const st = document.getElementById('preset-status');
+  try {
+    await fetch(API + '/video/presets/' + id, { method: 'DELETE' });
+    st.textContent = `Deleted "${preset.name}"`;
+    st.style.color = 'var(--muted)';
+    await loadPresets();
+  } catch(e) {
+    st.textContent = 'Delete failed: ' + e.message;
+    st.style.color = 'var(--red)';
+  }
+  setTimeout(() => { st.textContent = ''; }, 3000);
+}
+
+// ── History ──
+
+let _history = [];
+
+async function loadHistory() {
+  try {
+    _history = await api('/video/history');
+  } catch { _history = []; }
+  const sel = document.getElementById('history-select');
+  sel.innerHTML = '<option value="">— select past render —</option>' +
+    _history.map(h => {
+      const date = new Date(h.created_at).toLocaleDateString([], {month:'short', day:'numeric'});
+      const time = new Date(h.created_at).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+      const label = h.filename + ' · ' + date + ' ' + time;
+      return `<option value="${esc(h.id)}">${esc(label)}</option>`;
+    }).join('');
+}
+
+function loadSelectedHistory() {
+  const sel = document.getElementById('history-select');
+  const id = sel.value;
+  if (!id) return;
+  const entry = _history.find(h => h.id === id);
+  if (!entry) return;
+  applySettings(entry.settings);
+}
+
+async function loadAndRerender() {
+  const sel = document.getElementById('history-select');
+  const id = sel.value;
+  if (!id) return;
+  const entry = _history.find(h => h.id === id);
+  if (!entry) return;
+  applySettings(entry.settings);
+  // Small delay to let UI update, then trigger generate
+  await new Promise(r => setTimeout(r, 100));
+  submitVideoGenerate();
+}
+
+function loadHistoryById(id) {
+  const entry = _history.find(h => h.id === id);
+  if (!entry) return;
+  applySettings(entry.settings);
+  // Select it in the history dropdown too
+  const sel = document.getElementById('history-select');
+  sel.value = id;
+  // Scroll to settings area
+  document.getElementById('btn-generate-video')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
 </script>
 </body>
 </html>

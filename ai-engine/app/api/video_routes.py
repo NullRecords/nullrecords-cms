@@ -12,6 +12,8 @@ GET  /video/youtube/callback — OAuth2 callback
 GET  /video/youtube/status — Check if YouTube is authenticated
 """
 
+import datetime
+import json
 import logging
 import shutil
 import uuid
@@ -24,7 +26,14 @@ from sqlalchemy.orm import Session
 
 from app.core.config import get_settings
 from app.core.database import get_db
+from app.models.media import MediaAsset
 from app.services.media.audio import get_duration_ms
+from app.services.media.overlays import (
+    DEFAULT_PROVIDERS,
+    ICON_UPLOAD_DIR,
+    ProviderIconConfig,
+    QRCodeConfig,
+)
 from app.services.media.video_engine import VideoConfig, VideoEngine
 
 log = logging.getLogger(__name__)
@@ -34,6 +43,27 @@ _engine: VideoEngine | None = None
 
 ALLOWED_AUDIO_EXT = {".mp3", ".wav", ".flac", ".ogg", ".m4a", ".aac", ".wma"}
 ALLOWED_IMAGE_EXT = {".jpg", ".jpeg", ".png", ".webp", ".bmp"}
+
+
+def _presets_path() -> Path:
+    """JSON file storing named presets."""
+    return Path(get_settings().exports_dir) / "presets.json"
+
+
+def _history_path() -> Path:
+    """JSON file storing per-video generation settings history."""
+    return Path(get_settings().exports_dir) / "video_history.json"
+
+
+def _load_json(path: Path) -> list[dict]:
+    if path.exists():
+        return json.loads(path.read_text())
+    return []
+
+
+def _save_json(path: Path, data: list[dict]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(data, indent=2))
 
 
 def _get_engine() -> VideoEngine:
@@ -116,6 +146,37 @@ class VideoGenerateRequest(BaseModel):
     font_size_subtitle: int = Field(0, ge=0, le=200, description="Subtitle font size (0 = auto)")
     text_spacing: int = Field(0, ge=0, le=100, description="Line spacing in pixels (0 = auto)")
 
+    # Multi-artwork with per-image timing and animation
+    artwork_entries: list[dict] = Field(
+        default_factory=list,
+        description="List of artwork dicts: {path, start_sec, duration_sec, animation, animation_speed, crossfade_sec}. "
+                    "Enables artwork mode — images form persistent background with effects overlaid.",
+    )
+
+    # Clip selection control
+    auto_select_clips: bool = Field(
+        True,
+        description="When False, skip auto-selecting clips/images from library — only use explicitly provided paths. "
+                    "Automatically set to False in artwork mode.",
+    )
+
+    # Provider icon strip overlay
+    provider_icons_enabled: bool = Field(False, description="Show provider/label icon strip on video")
+    provider_icons_list: list[str] = Field(
+        default_factory=list,
+        description="Provider names to show (empty = all defaults). Options: " + ", ".join(DEFAULT_PROVIDERS.keys()),
+    )
+    provider_icons_position: str = Field("bottom", description="Icon strip position: top, bottom, middle")
+    provider_icons_size: int = Field(36, ge=16, le=80, description="Icon size in pixels")
+    provider_icons_opacity: float = Field(0.75, ge=0.0, le=1.0, description="Icon strip opacity")
+
+    # QR code overlay
+    qr_enabled: bool = Field(False, description="Show QR code on video")
+    qr_url: str = Field("https://www.nullrecords.com", description="URL the QR code links to")
+    qr_position: str = Field("bottom-right", description="QR position: top-left, top-right, bottom-left, bottom-right")
+    qr_size: int = Field(80, ge=40, le=200, description="QR code size in pixels")
+    qr_opacity: float = Field(0.85, ge=0.0, le=1.0, description="QR code opacity")
+
 
 class VideoGenerateResponse(BaseModel):
     video_path: str
@@ -174,7 +235,7 @@ class PublishResponse(BaseModel):
 # ── Routes ──────────────────────────────────────────────────────────────────
 
 @router.post("/upload-audio", response_model=AudioInfoResponse)
-async def upload_audio(file: UploadFile = File(...)):
+async def upload_audio(file: UploadFile = File(...), db: Session = Depends(get_db)):
     """Upload an audio file and return its path + duration."""
     if not file.filename:
         raise HTTPException(status_code=400, detail="No filename provided")
@@ -195,6 +256,20 @@ async def upload_audio(file: UploadFile = File(...)):
     duration = get_duration_ms(dest)
     size_kb = round(dest.stat().st_size / 1024, 1)
 
+    # Auto-register in media_assets
+    asset = MediaAsset(
+        source="upload",
+        source_id=safe_name,
+        title=file.filename,
+        url=f"/video/audio-stream?path={dest}",
+        local_path=str(dest),
+        tags=json.dumps(["audio", ext.lstrip(".")]),
+        duration=duration / 1000.0,
+        downloaded=True,
+    )
+    db.add(asset)
+    db.commit()
+
     log.info("Audio uploaded: %s (%d ms, %.1f KB)", safe_name, duration, size_kb)
     return AudioInfoResponse(filename=safe_name, path=str(dest), duration_ms=duration, size_kb=size_kb)
 
@@ -214,6 +289,114 @@ def audio_info(path: str):
         duration_ms=get_duration_ms(p),
         size_kb=round(p.stat().st_size / 1024, 1),
     )
+
+
+@router.get("/audio-stream")
+def audio_stream(path: str):
+    """Stream an audio file for browser playback."""
+    p = Path(path)
+    if not p.is_absolute():
+        p = Path(get_settings().exports_dir).parent / p
+    # Security: only serve from within the project directory
+    exports_root = Path(get_settings().exports_dir).parent.resolve()
+    if not p.resolve().is_relative_to(exports_root):
+        raise HTTPException(status_code=403, detail="Access denied")
+    if not p.exists():
+        raise HTTPException(status_code=404, detail="File not found")
+    return FileResponse(str(p), media_type="audio/mpeg")
+
+
+class SuggestMediaRequest(BaseModel):
+    mood: str = ""
+    tags: list[str] = Field(default_factory=list)
+    image_query: str = ""
+    count: int = Field(8, ge=1, le=20)
+
+
+@router.post("/suggest-media")
+def suggest_media(req: SuggestMediaRequest, db: Session = Depends(get_db)):
+    """Suggest media (images/clips) based on mood/tags — user must approve before they're used."""
+    from app.models.media import MediaAsset
+    suggestions = []
+    settings = get_settings()
+    exports_root = Path(settings.exports_dir).parent.resolve()  # ai-engine/
+
+    def to_serve_url(raw_path: str) -> tuple[str, str]:
+        """Convert raw path (absolute or relative) to (servable_url, relative_path)."""
+        p = Path(raw_path)
+        if p.is_absolute():
+            try:
+                rel = p.resolve().relative_to(exports_root)
+                return f"/{rel}", str(rel)
+            except ValueError:
+                return raw_path, raw_path
+        elif raw_path.startswith(("http://", "https://")):
+            return raw_path, raw_path
+        elif raw_path.startswith("exports/"):
+            return f"/{raw_path}", raw_path
+        elif raw_path.startswith("media-library/"):
+            return f"/{raw_path}", raw_path
+        else:
+            return f"/exports/{raw_path}", f"exports/{raw_path}"
+
+    # 1. Search DB for matching assets
+    query = db.query(MediaAsset)
+    if req.mood:
+        query = query.filter(MediaAsset.tags.contains(req.mood))
+    assets = query.order_by(MediaAsset.created_at.desc()).limit(req.count * 2).all()
+
+    for a in assets:
+        path = a.local_path or a.url or ""
+        if path and len(suggestions) < req.count:
+            url, rel_path = to_serve_url(path)
+            suggestions.append({
+                "id": a.id,
+                "source": a.source,
+                "filename": Path(path).name,
+                "url": url,
+                "path": rel_path,
+                "tags": a.tags or "",
+                "type": "image" if any(path.lower().endswith(e) for e in (".png", ".jpg", ".jpeg", ".gif", ".webp")) else "video",
+            })
+
+    # 2. Search exports/image_uploads for untracked images
+    img_dir = Path(get_settings().exports_dir) / "image_uploads"
+    if img_dir.exists() and len(suggestions) < req.count:
+        for f in sorted(img_dir.iterdir(), key=lambda x: x.stat().st_mtime, reverse=True):
+            if f.suffix.lower() in (".png", ".jpg", ".jpeg", ".gif", ".webp") and len(suggestions) < req.count:
+                if not any(s["filename"] == f.name for s in suggestions):
+                    suggestions.append({
+                        "id": None,
+                        "source": "upload",
+                        "filename": f.name,
+                        "url": f"/exports/image_uploads/{f.name}",
+                        "path": f"exports/image_uploads/{f.name}",
+                        "tags": "",
+                        "type": "image",
+                    })
+
+    # 3. Search media-library for clips
+    ml_dir = Path(get_settings().exports_dir).parent / "media-library"
+    if ml_dir.exists() and len(suggestions) < req.count:
+        for sub in ["images", "pexels", "internet_archive"]:
+            sd = ml_dir / sub
+            if not sd.exists():
+                continue
+            for f in sorted(sd.rglob("*"), key=lambda x: x.stat().st_mtime, reverse=True):
+                if f.is_file() and f.suffix.lower() in (".mp4", ".mov", ".png", ".jpg", ".jpeg", ".gif", ".webp"):
+                    if len(suggestions) < req.count and not any(s["filename"] == f.name for s in suggestions):
+                        rel = f"media-library/{f.relative_to(ml_dir)}"
+                        suggestions.append({
+                            "id": None,
+                            "source": sub,
+                            "filename": f.name,
+                            "url": f"/{rel}",
+                            "path": rel,
+                            "tags": "",
+                            "type": "image" if f.suffix.lower() in (".png", ".jpg", ".jpeg", ".gif", ".webp") else "video",
+                        })
+
+    return {"suggestions": suggestions[:req.count], "total_available": len(suggestions)}
 
 
 @router.post("/generate", response_model=VideoGenerateResponse)
@@ -263,9 +446,31 @@ def generate_video(req: VideoGenerateRequest, db: Session = Depends(get_db)):
         font_size_title=req.font_size_title,
         font_size_subtitle=req.font_size_subtitle,
         text_spacing=req.text_spacing,
+        # Multi-artwork
+        artwork_entries=req.artwork_entries,
+        # Clip selection: disable auto in artwork mode
+        auto_select_clips=req.auto_select_clips if not req.artwork_entries else False,
+        # Provider icon overlay
+        provider_icon_config=ProviderIconConfig(
+            providers=req.provider_icons_list,
+            position=req.provider_icons_position,
+            icon_size=req.provider_icons_size,
+            opacity=req.provider_icons_opacity,
+            custom_icons={
+                f.stem: str(f) for f in _icon_dir().iterdir()
+                if f.suffix.lower() in (".png", ".jpg", ".jpeg", ".gif", ".webp")
+            },
+        ) if req.provider_icons_enabled else None,
+        # QR code overlay
+        qr_code_config=QRCodeConfig(
+            url=req.qr_url,
+            position=req.qr_position,
+            size=req.qr_size,
+            opacity=req.qr_opacity,
+        ) if req.qr_enabled else None,
     )
 
-    return _run_generate(db, config, req.duration_ms)
+    return _run_generate(db, config, req.duration_ms, settings=req.model_dump())
 
 
 @router.post("/generate-batch", response_model=BatchGenerateResponse)
@@ -420,6 +625,279 @@ def analyze_audio(
         raise HTTPException(status_code=422, detail=f"Audio analysis failed: {e}")
 
     return AudioAnalysisResponse(**result)
+
+
+# ── Preview ─────────────────────────────────────────────────────────────────
+
+class PreviewRequest(BaseModel):
+    """Generate a single preview frame showing layout, text, effects, and visualizer."""
+    image_path: str = Field("", description="Path to a background image")
+    clip_path: str = Field("", description="Path to a video clip (use frame at time_sec)")
+    aspect: str = Field("vertical", description="'vertical' or 'widescreen'")
+    time_sec: float = Field(2.0, ge=0.0, description="Timestamp to preview")
+    overlay_text: str = Field("")
+    overlay_subtitle: str = Field("")
+    overlay_position: str = Field("center")
+    title_color: str = Field("")
+    subtitle_color: str = Field("")
+    font_size_title: int = Field(0, ge=0, le=200)
+    font_size_subtitle: int = Field(0, ge=0, le=200)
+    font_family: str = Field("")
+    text_spacing: int = Field(0, ge=0, le=100)
+    mood: str = Field("")
+    effect_opacity: float = Field(1.0, ge=0.0, le=1.0)
+    glitch_opacity: float = Field(0.7, ge=0.0, le=1.0)
+    color_shift_enabled: bool = Field(False)
+    scanline_enabled: bool = Field(False)
+    vhs_enabled: bool = Field(False)
+    visualizer_enabled: bool = Field(False)
+    visualizer_type: str = Field("bars")
+    visualizer_color: str = Field("#00ffff")
+    visualizer_color2: str = Field("#ff5758")
+    visualizer_opacity: float = Field(0.8)
+    visualizer_intensity: float = Field(1.0)
+    visualizer_position: str = Field("bottom")
+    visualizer_bar_count: int = Field(32)
+    visualizer_glow: bool = Field(True)
+    show_song_info: bool = Field(True)
+    audio_path: str = Field("", description="Audio path for visualizer spectrum data")
+    fps: int = Field(24, ge=12, le=60)
+
+
+@router.post("/preview")
+def generate_preview(req: PreviewRequest):
+    """Render a single PNG frame showing what the video will look like.
+
+    Returns a PNG image response — no video encoding needed.
+    """
+    import io
+    from fastapi.responses import StreamingResponse
+    from PIL import Image as PILImage
+    from app.services.media.renderer import TextOverlay, render_preview_frame
+    from app.services.media.effects import EffectConfig
+
+    # Resolve paths
+    image_path = None
+    clip_path = None
+    if req.image_path:
+        p = Path(req.image_path)
+        if p.exists():
+            image_path = p
+    if req.clip_path:
+        p = Path(req.clip_path)
+        if p.exists():
+            clip_path = p
+
+    # Build text overlays
+    from app.services.media.video_engine import _mood_to_colors
+    mood_colors = _mood_to_colors(req.mood)
+    title_color = req.title_color or mood_colors["title"]
+    subtitle_color = req.subtitle_color or mood_colors["subtitle"]
+
+    text_overlays = []
+    if req.overlay_text:
+        text_overlays.append(TextOverlay(
+            text=req.overlay_text,
+            position=req.overlay_position,
+            color=title_color,
+            shadow=True,
+            font_size=req.font_size_title,
+            font_family=req.font_family,
+            text_spacing=req.text_spacing,
+        ))
+    if req.overlay_subtitle:
+        text_overlays.append(TextOverlay(
+            text=req.overlay_subtitle,
+            position="lower-third" if req.overlay_position == "center" else "bottom",
+            color=subtitle_color,
+            shadow=True,
+            font_size=req.font_size_subtitle,
+            font_family=req.font_family,
+            text_spacing=req.text_spacing,
+        ))
+
+    # Build effect config
+    effect_config = EffectConfig(
+        global_opacity=req.effect_opacity,
+        glitch_opacity=req.glitch_opacity,
+        color_shift_enabled=req.color_shift_enabled,
+        scanline_enabled=req.scanline_enabled,
+        vhs_enabled=req.vhs_enabled,
+    )
+
+    # Build visualizer config (with synthetic spectrum data if no audio)
+    visualizer_config = None
+    if req.visualizer_enabled:
+        import numpy as np
+        n_frames = int(req.time_sec * req.fps) + 10
+        frame_idx = int(req.time_sec * req.fps)
+
+        # Try to get real audio data
+        spectrum = None
+        levels = None
+        beats = []
+        if req.audio_path:
+            try:
+                audio = Path(req.audio_path)
+                if not audio.is_absolute():
+                    audio = Path(get_settings().exports_dir).parent / audio
+                if audio.exists():
+                    from app.services.media.audio_analyzer import analyze_audio as _analyze
+                    audio_data = _analyze(str(audio), fps=req.fps)
+                    spectrum = audio_data["spectrum"]
+                    levels = audio_data["levels"]
+                    beats = audio_data["beats"]
+                    n_frames = audio_data["n_frames"]
+            except Exception:
+                pass
+
+        if spectrum is None:
+            # Generate synthetic spectrum for preview
+            rng = np.random.default_rng(42)
+            spectrum = []
+            for i in range(n_frames):
+                bands = (rng.random(8) * 0.6 + 0.15).tolist()
+                spectrum.append(bands)
+            levels = (rng.random(n_frames) * 0.5 + 0.3).tolist()
+
+        visualizer_config = {
+            "type": req.visualizer_type,
+            "color": req.visualizer_color,
+            "color2": req.visualizer_color2,
+            "opacity": req.visualizer_opacity,
+            "intensity": req.visualizer_intensity,
+            "position": req.visualizer_position,
+            "bar_count": req.visualizer_bar_count,
+            "glow": req.visualizer_glow,
+            "show_song_info": req.show_song_info,
+            "song_title": req.overlay_text,
+            "artist": req.overlay_subtitle,
+            "spectrum": spectrum,
+            "levels": levels,
+            "beats": beats,
+            "fps": req.fps,
+            "n_frames": n_frames,
+        }
+
+    # Render the preview frame
+    frame = render_preview_frame(
+        image_path=image_path,
+        clip_path=clip_path,
+        text_overlays=text_overlays or None,
+        effect_config=effect_config,
+        visualizer_config=visualizer_config,
+        aspect=req.aspect,
+        time_sec=req.time_sec,
+        fps=req.fps,
+    )
+
+    # Convert to PNG
+    img = PILImage.fromarray(frame)
+    buf = io.BytesIO()
+    img.save(buf, format="PNG", optimize=True)
+    buf.seek(0)
+
+    return StreamingResponse(buf, media_type="image/png")
+
+
+# ── Presets & History ───────────────────────────────────────────────────────
+
+class PresetSaveRequest(BaseModel):
+    name: str = Field(..., min_length=1, max_length=100, description="Preset name")
+    settings: dict = Field(..., description="All video generation settings")
+
+
+class PresetResponse(BaseModel):
+    id: str
+    name: str
+    settings: dict
+    created_at: str
+    updated_at: str
+
+
+class VideoHistoryEntry(BaseModel):
+    id: str
+    filename: str
+    video_path: str
+    settings: dict
+    created_at: str
+
+
+@router.get("/presets", response_model=list[PresetResponse])
+def list_presets():
+    """List all saved presets (newest first)."""
+    data = _load_json(_presets_path())
+    data.sort(key=lambda x: x.get("updated_at", ""), reverse=True)
+    return data
+
+
+@router.post("/presets", response_model=PresetResponse)
+def save_preset(req: PresetSaveRequest):
+    """Save or update a named preset. If name exists, it updates in place."""
+    data = _load_json(_presets_path())
+    now = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
+
+    # Check for existing preset with same name
+    existing = next((p for p in data if p["name"] == req.name), None)
+    if existing:
+        existing["settings"] = req.settings
+        existing["updated_at"] = now
+        entry = existing
+    else:
+        entry = {
+            "id": uuid.uuid4().hex[:12],
+            "name": req.name,
+            "settings": req.settings,
+            "created_at": now,
+            "updated_at": now,
+        }
+        data.append(entry)
+
+    _save_json(_presets_path(), data)
+    log.info("Saved preset: %s", req.name)
+    return entry
+
+
+@router.delete("/presets/{preset_id}")
+def delete_preset(preset_id: str):
+    """Delete a preset by ID."""
+    data = _load_json(_presets_path())
+    before = len(data)
+    data = [p for p in data if p["id"] != preset_id]
+    if len(data) == before:
+        raise HTTPException(status_code=404, detail=f"Preset not found: {preset_id}")
+    _save_json(_presets_path(), data)
+    return {"status": "deleted", "id": preset_id}
+
+
+@router.get("/history", response_model=list[VideoHistoryEntry])
+def list_history():
+    """List video generation history with settings — newest first."""
+    data = _load_json(_history_path())
+    data.sort(key=lambda x: x.get("created_at", ""), reverse=True)
+    return data
+
+
+@router.get("/history/{history_id}", response_model=VideoHistoryEntry)
+def get_history_entry(history_id: str):
+    """Get a single history entry by ID."""
+    data = _load_json(_history_path())
+    entry = next((h for h in data if h["id"] == history_id), None)
+    if not entry:
+        raise HTTPException(status_code=404, detail=f"History entry not found: {history_id}")
+    return entry
+
+
+@router.delete("/history/{history_id}")
+def delete_history_entry(history_id: str):
+    """Delete a history entry."""
+    data = _load_json(_history_path())
+    before = len(data)
+    data = [h for h in data if h["id"] != history_id]
+    if len(data) == before:
+        raise HTTPException(status_code=404, detail=f"History entry not found: {history_id}")
+    _save_json(_history_path(), data)
+    return {"status": "deleted", "id": history_id}
 
 
 # ── Image management ────────────────────────────────────────────────────────
@@ -677,7 +1155,7 @@ def _resolve_audio(audio_path: str) -> Path:
     return audio
 
 
-def _run_generate(db: Session, config: VideoConfig, duration_ms: int) -> VideoGenerateResponse:
+def _run_generate(db: Session, config: VideoConfig, duration_ms: int, settings: dict | None = None) -> VideoGenerateResponse:
     """Run the video engine and return a response model."""
     engine = _get_engine()
     try:
@@ -688,9 +1166,95 @@ def _run_generate(db: Session, config: VideoConfig, duration_ms: int) -> VideoGe
         raise HTTPException(status_code=422, detail=str(exc))
 
     stat = result.stat()
+
+    # Auto-save to history
+    if settings is not None:
+        try:
+            history = _load_json(_history_path())
+            now = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
+            history.append({
+                "id": uuid.uuid4().hex[:12],
+                "filename": result.name,
+                "video_path": str(result),
+                "settings": settings,
+                "created_at": now,
+            })
+            # Keep last 100 entries
+            if len(history) > 100:
+                history = history[-100:]
+            _save_json(_history_path(), history)
+        except Exception:
+            log.warning("Failed to save history entry for %s", result.name, exc_info=True)
+
+    # Auto-register in media_assets
+    try:
+        asset = MediaAsset(
+            source="generated",
+            source_id=result.name,
+            title=result.name,
+            url=f"/video/download/{result.name}",
+            local_path=str(result),
+            tags=json.dumps(["video", "generated"]),
+            duration=duration_ms / 1000.0,
+            downloaded=True,
+        )
+        db.add(asset)
+        db.commit()
+    except Exception:
+        log.warning("Failed to register generated video %s in media_assets", result.name, exc_info=True)
+
     return VideoGenerateResponse(
         video_path=str(result),
         filename=result.name,
         size_kb=round(stat.st_size / 1024, 1),
         duration_ms=duration_ms,
     )
+
+
+# ── Provider Icon Management ────────────────────────────────────────
+
+
+def _icon_dir() -> Path:
+    d = Path(get_settings().exports_dir) / "provider_icons"
+    d.mkdir(parents=True, exist_ok=True)
+    return d
+
+
+@router.get("/provider-icons")
+async def list_provider_icons():
+    """List all uploaded provider icons."""
+    icons = []
+    for f in sorted(_icon_dir().iterdir()):
+        if f.suffix.lower() in (".png", ".jpg", ".jpeg", ".gif", ".svg", ".webp"):
+            icons.append({
+                "filename": f.name,
+                "url": f"/exports/provider_icons/{f.name}",
+                "size_kb": round(f.stat().st_size / 1024, 1),
+            })
+    return icons
+
+
+@router.post("/upload-provider-icon")
+async def upload_provider_icon(file: UploadFile = File(...)):
+    """Upload a provider/label icon image."""
+    if not file.content_type or not file.content_type.startswith("image/"):
+        raise HTTPException(400, "Only image files are allowed")
+    safe_name = file.filename.replace(" ", "_").replace("/", "_")
+    dest = _icon_dir() / safe_name
+    with open(dest, "wb") as out:
+        content = await file.read()
+        if len(content) > 2 * 1024 * 1024:  # 2MB limit
+            raise HTTPException(400, "Icon must be under 2MB")
+        out.write(content)
+    return {"filename": safe_name, "url": f"/exports/provider_icons/{safe_name}"}
+
+
+@router.delete("/provider-icon/{filename}")
+async def delete_provider_icon(filename: str):
+    """Delete a provider icon."""
+    safe = Path(filename).name  # prevent path traversal
+    target = _icon_dir() / safe
+    if not target.exists():
+        raise HTTPException(404, "Icon not found")
+    target.unlink()
+    return {"deleted": safe}

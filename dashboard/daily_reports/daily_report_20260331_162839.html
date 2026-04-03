@@ -1,0 +1,806 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>NullRecords Daily Report - 2026-03-31</title>
+            <style>
+                body {
+                    font-family: 'JetBrains Mono', monospace;
+                    background: linear-gradient(135deg, #1a1a2e, #16213e);
+                    color: #ffffff;
+                    margin: 0;
+                    padding: 20px;
+                    line-height: 1.6;
+                }
+                .container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    background: rgba(0,0,0,0.3);
+                    border-radius: 10px;
+                    padding: 30px;
+                    border: 1px solid #00ffff;
+                }
+                .header {
+                    text-align: center;
+                    margin-bottom: 40px;
+                    border-bottom: 2px solid #00ffff;
+                    padding-bottom: 20px;
+                }
+                .title {
+                    color: #00ffff;
+                    font-size: 2.5em;
+                    margin: 0;
+                    text-shadow: 0 0 10px #00ffff;
+                }
+                .subtitle {
+                    color: #ff0080;
+                    font-size: 1.2em;
+                    margin: 10px 0 0 0;
+                }
+                .metrics-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+                    gap: 30px;
+                    margin-bottom: 40px;
+                }
+                .metric-card {
+                    background: rgba(255,255,255,0.05);
+                    border: 1px solid #333;
+                    border-radius: 10px;
+                    padding: 25px;
+                    transition: all 0.3s ease;
+                }
+                .metric-card:hover {
+                    border-color: #00ffff;
+                    box-shadow: 0 0 20px rgba(0,255,255,0.3);
+                }
+                .card-title {
+                    color: #ff0080;
+                    font-size: 1.3em;
+                    margin-bottom: 20px;
+                    border-bottom: 1px solid #333;
+                    padding-bottom: 10px;
+                }
+                .big-number {
+                    font-size: 3em;
+                    color: #00ffff;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 20px 0;
+                    text-shadow: 0 0 10px #00ffff;
+                }
+                .metric-item {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 8px 0;
+                    border-bottom: 1px solid rgba(255,255,255,0.1);
+                }
+                .metric-item:last-child {
+                    border-bottom: none;
+                }
+                .status-good { color: #00ff00; }
+                .status-warning { color: #ffff00; }
+                .status-error { color: #ff0000; }
+                .summary-section {
+                    background: rgba(0,255,255,0.1);
+                    border: 1px solid #00ffff;
+                    border-radius: 10px;
+                    padding: 25px;
+                    margin-top: 30px;
+                }
+                .summary-title {
+                    color: #00ffff;
+                    font-size: 1.5em;
+                    margin-bottom: 15px;
+                }
+                .highlight {
+                    color: #ff0080;
+                    font-weight: bold;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="header">
+                    <h1 class="title">🎵 NULLRECORDS DAILY REPORT</h1>
+                    <p class="subtitle">System Status & Analytics - 2026-03-31</p>
+                </div>
+                
+                <div class="metrics-grid">
+                    <!-- Website Analytics -->
+                    <div class="metric-card">
+                        <h3 class="card-title">🌐 Website Analytics</h3>
+                        <div class="big-number">5</div>
+                        <div style="text-align: center; color: #e0e0e0; margin-bottom: 20px;">Unique Visitors</div>
+                        
+                        <div class="metric-item">
+                            <span>Page Views:</span>
+                            <span class="highlight">5</span>
+                        </div>
+                        <div class="metric-item">
+                            <span>Sessions:</span>
+                            <span>5</span>
+                        </div>
+                        <div class="metric-item">
+                            <span>Pages/Session:</span>
+                            <span>1.0</span>
+                        </div>
+                        <div class="metric-item">
+                            <span>Avg Session:</span>
+                            <span>1.4 min</span>
+                        </div>
+                        <div class="metric-item">
+                            <span>Bounce Rate:</span>
+                            <span>50.0%</span>
+                        </div>
+                        
+                        <h4 style="color: #00ffff; margin: 20px 0 10px 0;">Top Pages:</h4>
+                        
+                <div class="metric-item">
+                    <span class="page-name">/</span>
+                    <span class="page-views">4 views</span>
+                </div>
+            
+                <div class="metric-item">
+                    <span class="page-name">/contact.html</span>
+                    <span class="page-views">1 views</span>
+                </div>
+            
+                    </div>
+                    
+                    <!-- Traffic Sources -->
+                    <div class="metric-card">
+                        <h3 class="card-title">🚀 Traffic Sources</h3>
+                        
+                <div class="metric-item">
+                    <span class="source-name">Direct</span>
+                    <span class="source-value">5 visits (100.0%)</span>
+                </div>
+            
+                    </div>
+                    
+                    <!-- YouTube Metrics -->
+                    <div class="metric-card">
+                        <h3 class="card-title">📺 YouTube Channel</h3>
+                        <div class="big-number">417</div>
+                        <div style="text-align: center; color: #e0e0e0; margin-bottom: 20px;">Subscribers</div>
+                        
+                        <div class="metric-item">
+                            <span>Total Views:</span>
+                            <span class="highlight">31,871</span>
+                        </div>
+                        <div class="metric-item">
+                            <span>New Videos (24h):</span>
+                            <span>0</span>
+                        </div>
+                        <div class="metric-item">
+                            <span>Watch Time:</span>
+                            <span>0 hours</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Email Campaigns -->
+                    <div class="metric-card">
+                        <h3 class="card-title">📧 Email Campaigns</h3>
+                        <div class="big-number">0</div>
+                        <div style="text-align: center; color: #e0e0e0; margin-bottom: 20px;">Emails Sent Today</div>
+                        
+                        <div class="metric-item">
+                            <span>Outreach Campaigns:</span>
+                            <span class="highlight">0</span>
+                        </div>
+                        <div class="metric-item">
+                            <span>Open Rate:</span>
+                            <span>0.0%</span>
+                        </div>
+                        <div class="metric-item">
+                            <span>Click Rate:</span>
+                            <span>0.0%</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Outreach & Discovery -->
+                    <div class="metric-card">
+                        <h3 class="card-title">🎯 Music Outreach</h3>
+                        <div class="big-number">0</div>
+                        <div style="text-align: center; color: #e0e0e0; margin-bottom: 10px;">Emails Sent Today</div>
+                        <div style="text-align: center; color: #00ffff; margin-bottom: 20px; font-size: 12px;">
+                            Targeting: LoFi • Nu Jazz • Jazz Fusion • Indie Artists
+                        </div>
+                        
+                        <div class="metric-item">
+                            <span>Total Contacts:</span>
+                            <span class="highlight">0</span>
+                        </div>
+                        <div class="metric-item">
+                            <span>Sent:</span>
+                            <span style="color: #00ff88">0</span>
+                        </div>
+                        <div class="metric-item">
+                            <span>Delivered:</span>
+                            <span style="color: #00ff88">0</span>
+                        </div>
+                        <div class="metric-item">
+                            <span>Opened:</span>
+                            <span style="color: #00ffff">0</span>
+                        </div>
+                        <div class="metric-item">
+                            <span>Logged (no email):</span>
+                            <span>0</span>
+                        </div>
+                        <div class="metric-item">
+                            <span>Needs DM:</span>
+                            <span>0</span>
+                        </div>
+                    </div>
+                    
+                    <!-- New Sources Discovered -->
+                    <div class="metric-card">
+                        <h3 class="card-title">🔍 New Sources Discovered</h3>
+                        <div class="big-number">76</div>
+                        <div style="text-align: center; color: #e0e0e0; margin-bottom: 20px;">Sources Added Today</div>
+                        
+                        
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">r/experitronica</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (reddit) • Score: <span style="color:#00ff88">0.9</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: reddit_modmail:https://www.reddit.com/message/comp...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">r/noisemusic</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (reddit) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: discord:https://discord.me/noisediscord</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">r/EXelectronicmusic</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (reddit) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: reddit_modmail:https://www.reddit.com/message/comp...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">r/makenoise</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (reddit) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: reddit_modmail:https://www.reddit.com/message/comp...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">r/tapeloops</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (reddit) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: reddit_modmail:https://www.reddit.com/message/comp...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">r/musicproduction</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (reddit) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: instagram:@redditmusicproduction</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">r/electronicmusic</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (reddit) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: discord:https://discord.gg/PsXKxkq</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">r/lofimusic</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (reddit) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: reddit_modmail:https://www.reddit.com/message/comp...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">r/SpaceBass</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (reddit) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: reddit_modmail:https://www.reddit.com/message/comp...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">r/tunemakers</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (reddit) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: reddit_modmail:https://www.reddit.com/message/comp...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">r/futurepopmusic</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (reddit) • Score: <span style="color:#ffff00">0.6</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: reddit_modmail:https://www.reddit.com/message/comp...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">r/witch_house</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (reddit) • Score: <span style="color:#ffff00">0.6</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: discord:https://discord.gg/h5Ccz8P</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">r/lewronggeneration</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (reddit) • Score: <span style="color:#ffff00">0.6</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: reddit_modmail:https://www.reddit.com/message/comp...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">r/Music</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (reddit) • Score: <span style="color:#ffff00">0.6</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: reddit_modmail:https://www.reddit.com/message/comp...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">r/EDM</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (reddit) • Score: <span style="color:#ffff00">0.6</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: discord:https://discord.gg/edm</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">r/edmproduction</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (reddit) • Score: <span style="color:#ffff00">0.6</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: discord:https://discord.com/invite/edmp</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">r/AppleMusicPlaylists</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (reddit) • Score: <span style="color:#ffff00">0.6</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: reddit_modmail:https://www.reddit.com/message/comp...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">r/spotify</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (reddit) • Score: <span style="color:#ffff00">0.6</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: reddit_modmail:https://www.reddit.com/message/comp...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">r/SpotifyPlaylists</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (reddit) • Score: <span style="color:#ffff00">0.6</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: reddit_modmail:https://www.reddit.com/message/comp...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">r/OldElectronicMusic</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (reddit) • Score: <span style="color:#ffff00">0.6</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: reddit_modmail:https://www.reddit.com/message/comp...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">r/LofiHipHop</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (reddit) • Score: <span style="color:#ffff00">0.6</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: discord:https://discord.gg/X7sryU4</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">r/LofiSongs</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (reddit) • Score: <span style="color:#ffff00">0.6</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: reddit_modmail:https://www.reddit.com/message/comp...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">r/LofiFamilia</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (reddit) • Score: <span style="color:#ffff00">0.6</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: reddit_modmail:https://www.reddit.com/message/comp...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">r/All_Things_LoFi</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (reddit) • Score: <span style="color:#ffff00">0.6</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: reddit_modmail:https://www.reddit.com/message/comp...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">r/lofihouse</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (reddit) • Score: <span style="color:#ffff00">0.6</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: discord:https://discord.gg/M4uAk35</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">r/synthwave</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (reddit) • Score: <span style="color:#ffff00">0.4</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: reddit_modmail:https://www.reddit.com/message/comp...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">r/AntifascistNeofolk</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (reddit) • Score: <span style="color:#ffff00">0.4</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: reddit_modmail:https://www.reddit.com/message/comp...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">Workout Playlist 2025 Dance (FTNS0167)</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (bandcamp) • Score: <span style="color:#ffff00">0.4</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: </div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">Workout Playlist 2025 Running EDM (FTNS0169)</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (bandcamp) • Score: <span style="color:#ff8888">0.3</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: </div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">Workout Playlist 2025 Hip Hop Bass Power (FTNS0171)</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (bandcamp) • Score: <span style="color:#ff8888">0.3</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: </div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">Workout Playlist 2025 EDM (FTNS0170)</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (bandcamp) • Score: <span style="color:#ff8888">0.3</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: </div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">Workout Playlist 2025 Hip Hop Rap (FTNS0166)</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (bandcamp) • Score: <span style="color:#ff8888">0.3</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: </div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">r/crappymusic</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">playlist (reddit) • Score: <span style="color:#ff8888">0.3</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: reddit_modmail:https://www.reddit.com/message/comp...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">MainFrame</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#00ff88">0.9</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: https://www.youtube.com/channel/UC2CEb-21OOnWR5fp0...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">Neon Rhythms</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#00ff88">0.9</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: https://www.youtube.com/channel/UCyP_7g2xV8YUTR47a...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">TEKHNOPRANA Exploratory Electronic Music</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#00ff88">0.9</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: https://www.youtube.com/channel/UCm9zuSEPOM2IJFrHt...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">Top experimental electronic playlists - Groover</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (blog) • Score: <span style="color:#00ff88">0.9</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: instagram:@groover.en</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">Frequency State - Playlists, Reviews & Free Tools for Electronic Artists</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (blog) • Score: <span style="color:#00ff88">0.9</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: instagram:@freqstate</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">Top Spotify experimental electronic playlists - to submit music</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (blog) • Score: <span style="color:#00ff88">0.9</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: https://www.isitagoodplaylist.com/top-playlists/ex...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">ArrhythNia: Experimental, Noise & Ambient Label</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: niacinamideband@gmail.com</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">TERRAMUSIC</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: https://www.youtube.com/channel/UCZh2RhLhUG4gUpnfP...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">INSANE INDUSTRY</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: www.insaneindustry@yahoo.it</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">damage_multiplier</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: https://www.youtube.com/channel/UCYR1F_hZI_GvUotCH...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">Last Sorrow Beats</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: korbutvlad@gmail.com</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">WL//WH Weekly Electronic Music Tips - WhiteLight//WhiteHeat</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (blog) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: twitter:@fabrizio_lusso?lang=en</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">Electronic Music Playlists</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: https://www.youtube.com/channel/UCvbLSNUE8I-dDTjW_...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">Monthly Playlist</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: https://www.youtube.com/channel/UCICAt4SzigUQ03SM4...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">De Music Playlists</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: https://www.youtube.com/channel/UCwIt_VqOf38uiYAP_...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">creativemusicplaylist</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: https://www.youtube.com/channel/UCiD6E1CQIboVO18wx...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">MrSuicideSheep</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: https://www.youtube.com/channel/UC5nc_ZtjKW1htCVZV...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">Epidemic Electronic</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: https://www.youtube.com/channel/UCMg7TTDtUXq2yTu3u...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">10 Essential Music Playlist Curators for Indie Artists</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (blog) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: https://playlistpumppr.agency/music-playlist-curat...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">Submit Music to Playlists and Blogs | SubmitHub</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (blog) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: https://www.submithub.com/</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">30 Spotify Playlists to Send Your Music To Right Now - LANDR Blog</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (blog) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: instagram:@landrmusic</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">The #1 Music Promotion Service | Playlist Push</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (blog) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: support@playlistpush.com</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">7 Best Playlist Curators for Music Discovery - The Brief Magazine</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (blog) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: twitter:@7-best-playlist-curators-for-music-discov...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">Lofi Everyday </div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: lofi@entstella.com</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">Lofi Girl</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: https://www.youtube.com/channel/UCSJ4gkVC6NrvII8um...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">lofi geek</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: communication@trendingmusicsystem.com</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">Lofi ondo</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: lofi.ondo@gmail.com</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">Dreamy</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: dre21amy@gmail.com</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">Otterspace Lofi</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: https://www.youtube.com/channel/UC_JpMIjkHEwJNT7af...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">Top playlist curators for beats / lo-fi - groover.co</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (blog) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: instagram:@groover.en</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">Playlist Curator: Find Music Playlists</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (blog) • Score: <span style="color:#00ff88">0.8</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: https://playlistcurator.org/</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;"> Industrial Ambient Grind</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#00ff88">0.7</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: https://www.youtube.com/channel/UCLfybal2VvEmK91M3...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">Submit music to these 50 Lofi Beats / ChillHop Playlists for Free!</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (blog) • Score: <span style="color:#00ff88">0.7</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: instagram:@soundplate</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">Lofi Beats Music</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#ffff00">0.6</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: https://www.youtube.com/channel/UCWjd7wNIpwpbeGqUm...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">Lofi Vibes </div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#ffff00">0.6</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: lofi@entstella.com</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">LoFi Music</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#ffff00">0.6</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: https://www.youtube.com/channel/UCe0LxYcsQzC7473YV...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">Settle</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#ffff00">0.6</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: https://www.youtube.com/channel/UCkKT4qf-TcPFOmpqh...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">LoFi Playlists | Submit Music To Playlists</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (blog) • Score: <span style="color:#ffff00">0.6</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: https://www.lofimusiconline.com/lofi-playlist-subm...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">Obsidian One</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#ffff00">0.4</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: https://www.youtube.com/channel/UC_KG0Q6LEcKnqBqjI...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">EDM For You</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#ffff00">0.4</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: https://www.youtube.com/channel/UCFar8ctgAwzJ4OqJI...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">EDM For You Music</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#ff8888">0.3</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: https://www.youtube.com/channel/UCuOjFdUTw4wyWqMkU...</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">WaveMusic</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#ff8888">0.3</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: label@paradisemusic.io</div>
+                    </div>
+                
+                    <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
+                        <div style="font-weight: bold; color: #00ffff;">Christian Techno Music</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">influencer (youtube) • Score: <span style="color:#ff8888">0.3</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: https://www.youtube.com/channel/UCPXd0k6Th3jPlVlSD...</div>
+                    </div>
+                
+                    </div>
+                    
+                    <!-- Outreach Responses -->
+                    <div class="metric-card">
+                        <h3 class="card-title">📬 Responses Received</h3>
+                        <div class="big-number">0</div>
+                        <div style="text-align: center; color: #e0e0e0; margin-bottom: 20px;">Responses Today</div>
+                        
+                        <div style="text-align: center; color: #999; font-style: italic;">No responses received today</div>
+                    </div>
+                    
+                    <!-- Voting & Engagement -->
+                    <div class="metric-card">
+                        <h3 class="card-title">🗳️ Voting & Engagement</h3>
+                        <div class="big-number">0</div>
+                        <div style="text-align: center; color: #e0e0e0; margin-bottom: 20px;">New Votes Today</div>
+                        
+                        <div class="metric-item">
+                            <span>Total Votes:</span>
+                            <span class="highlight">0</span>
+                        </div>
+                        
+                        <h4 style="color: #00ffff; margin: 20px 0 10px 0;">Voting Trends:</h4>
+                        
+                    </div>
+                    
+                    <!-- News & Content -->
+                    <div class="metric-card">
+                        <h3 class="card-title">📰 News Monitoring</h3>
+                        <div class="big-number">0</div>
+                        <div style="text-align: center; color: #e0e0e0; margin-bottom: 20px;">New Articles Found</div>
+                        
+                        <div class="metric-item">
+                            <span>New Releases:</span>
+                            <span class="highlight">0</span>
+                        </div>
+                        <div class="metric-item">
+                            <span>Monitoring Sources:</span>
+                            <span>51</span>
+                        </div>
+                        <div class="metric-item">
+                            <span>Positive Sentiment:</span>
+                            <span class="status-good">0</span>
+                        </div>
+                        <div class="metric-item">
+                            <span>Verified Articles:</span>
+                            <span class="status-good">0</span>
+                        </div>
+                        <div class="metric-item">
+                            <span>Needs Verification:</span>
+                            <span class="status-good">0</span>
+                        </div>
+                    </div>
+                    
+                    <!-- System Health -->
+                    <div class="metric-card">
+                        <h3 class="card-title">🔧 System Health</h3>
+                        <div class="big-number status-good">100.0%</div>
+                        <div style="text-align: center; color: #e0e0e0; margin-bottom: 20px;">Uptime</div>
+                        
+                        <div class="metric-item">
+                            <span>Errors Today:</span>
+                            <span class="status-good">0</span>
+                        </div>
+                        
+                        <h4 style="color: #00ffff; margin: 20px 0 10px 0;">Response Times:</h4>
+                        <div class="metric-item"><span>nullrecords.com:</span><span>165.54ms</span></div><div class="metric-item"><span>ai-engine:</span><span>8.33ms</span></div><div class="metric-item"><span>scheduler:</span><span>4.3ms</span></div><div class="metric-item"><span>scheduler_jobs:</span><span>6ms</span></div>
+                    </div>
+                </div>
+                
+                <!-- Verification Requests -->
+                
+                
+                <!-- Executive Summary -->
+                <div class="summary-section">
+                    <h3 class="summary-title">📊 Executive Summary</h3>
+                    <p>
+                        <span class="highlight">Website Traffic:</span> 5 unique visitors generated 5 page views 
+                        across 5 sessions, with an average session duration of 1.4 minutes.
+                    </p>
+                    <p>
+                        <span class="highlight">Content & Outreach:</span> 0 total outreach contacts. 
+                        0 emails sent, 
+                        0 opened.
+                        Discovered 0 new articles and 0 new releases. 
+                        Received 0 new votes bringing total to 0.
+                    </p>
+                    <p>
+                        <span class="highlight">System Performance:</span> Maintaining 100.0% uptime with 0 errors. 
+                        YouTube channel has 417 subscribers with 0 new videos published.
+                    </p>
+                    <p>
+                        <span class="highlight">Top Traffic Source:</span> Direct 
+                        (5 visits)
+                    </p>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px; color: #cccccc; font-size: 0.9em;">
+                    Report generated at 2026-03-31 16:28:39 • 
+                    <a href="https://nullrecords.com" style="color: #00ffff;">nullrecords.com</a>
+                </div>
+            </div>
+        </body>
+        </html>
+        

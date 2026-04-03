@@ -225,7 +225,14 @@
         twitter: 'X / Twitter'
     };
 
-    function copyText(text, btn) {
+    // Store captions by id for safe clipboard copy (avoids inline template literal issues)
+    const captionStore = {};
+    let captionIdCounter = 0;
+
+    function copyText(btn) {
+        const id = btn.getAttribute('data-caption-id');
+        const text = captionStore[id];
+        if (!text) return;
         navigator.clipboard.writeText(text).then(() => {
             const orig = btn.textContent;
             btn.textContent = '✓ Copied';
@@ -250,42 +257,192 @@
         const isPast = day.daysUntil > Math.ceil((release - now) / (1000*60*60*24));
 
         const section = document.createElement('div');
-        section.className = `bg-dark-card rounded-xl p-6 border ${isToday ? 'border-cyber-blue shadow-lg shadow-cyan-500/20' : isPast ? 'border-gray-800 opacity-60' : 'border-gray-800'}`;
+        section.className = 'bg-dark-card rounded-xl p-6 border ' + (isToday ? 'border-cyber-blue shadow-lg shadow-cyan-500/20' : isPast ? 'border-gray-800 opacity-60' : 'border-gray-800');
 
-        let postsHtml = '';
+        const postsContainer = document.createElement('div');
+        postsContainer.className = 'space-y-4';
+
         for (const [platform, data] of Object.entries(day.posts)) {
-            const captionEscaped = data.caption.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-            postsHtml += `
-                <div class="border-l-2 ${platformColors[platform]} pl-4 mb-4">
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="font-bold text-sm uppercase tracking-wider text-gray-300">${platformLabels[platform]}</span>
-                        <button onclick="copyText(\`${data.caption.replace(/`/g, '\\`').replace(/\\/g, '\\\\')}\`, this)"
-                                class="copy-btn bg-gray-700 text-xs px-3 py-1 rounded hover:bg-gray-600 transition cursor-pointer">
-                            Copy Caption
-                        </button>
-                    </div>
-                    ${data.title ? `<p class="text-accent text-sm mb-1"><strong>Title:</strong> ${data.title}</p>` : ''}
-                    <pre class="text-gray-300 text-sm whitespace-pre-wrap bg-dark-bg rounded p-3 mb-2">${captionEscaped}</pre>
-                    ${data.video ? `<p class="text-gray-500 text-xs"><strong>Video:</strong> ${data.video}</p>` : ''}
-                </div>
-            `;
+            const cid = 'cap-' + (captionIdCounter++);
+            captionStore[cid] = data.caption;
+
+            const post = document.createElement('div');
+            post.className = 'border-l-2 ' + platformColors[platform] + ' pl-4 mb-4';
+
+            const header = document.createElement('div');
+            header.className = 'flex items-center justify-between mb-2';
+
+            const label = document.createElement('span');
+            label.className = 'font-bold text-sm uppercase tracking-wider text-gray-300';
+            label.textContent = platformLabels[platform];
+
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-btn bg-gray-700 text-xs px-3 py-1 rounded hover:bg-gray-600 transition cursor-pointer';
+            copyBtn.textContent = 'Copy Caption';
+            copyBtn.setAttribute('data-caption-id', cid);
+            copyBtn.addEventListener('click', function() { copyText(this); });
+
+            header.appendChild(label);
+            header.appendChild(copyBtn);
+            post.appendChild(header);
+
+            if (data.title) {
+                const titleEl = document.createElement('p');
+                titleEl.className = 'text-accent text-sm mb-1';
+                titleEl.innerHTML = '<strong>Title:</strong> ' + data.title.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                post.appendChild(titleEl);
+            }
+
+            const pre = document.createElement('pre');
+            pre.className = 'text-gray-300 text-sm whitespace-pre-wrap bg-dark-bg rounded p-3 mb-2';
+            pre.textContent = data.caption;
+            post.appendChild(pre);
+
+            if (data.video) {
+                const videoEl = document.createElement('p');
+                videoEl.className = 'text-gray-500 text-xs';
+                videoEl.innerHTML = '<strong>Video:</strong> ' + data.video.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                post.appendChild(videoEl);
+            }
+
+            postsContainer.appendChild(post);
         }
 
-        section.innerHTML = `
-            <div class="flex items-center justify-between mb-4">
-                <div>
-                    <h2 class="text-cyber-blue text-xs mb-1">${day.day} ${isToday ? '← TODAY' : ''}</h2>
-                    <h3 class="text-white text-sm">${day.daysUntil === 0 ? '🎉 ' : ''}${day.theme}</h3>
-                </div>
-                <span class="bg-gray-800 text-gray-400 px-3 py-1 rounded text-sm">
-                    ${day.daysUntil === 0 ? 'RELEASE DAY' : day.daysUntil + ' day' + (day.daysUntil !== 1 ? 's' : '') + ' left'}
-                </span>
-            </div>
-            <div class="space-y-4">${postsHtml}</div>
-        `;
+        const headerDiv = document.createElement('div');
+        headerDiv.className = 'flex items-center justify-between mb-4';
 
+        const leftDiv = document.createElement('div');
+        const h2 = document.createElement('h2');
+        h2.className = 'text-cyber-blue text-xs mb-1';
+        h2.textContent = day.day + (isToday ? ' ← TODAY' : '');
+        const h3 = document.createElement('h3');
+        h3.className = 'text-white text-sm';
+        h3.textContent = (day.daysUntil === 0 ? '🎉 ' : '') + day.theme;
+        leftDiv.appendChild(h2);
+        leftDiv.appendChild(h3);
+
+        const badge = document.createElement('span');
+        badge.className = 'bg-gray-800 text-gray-400 px-3 py-1 rounded text-sm';
+        badge.textContent = day.daysUntil === 0 ? 'RELEASE DAY' : day.daysUntil + ' day' + (day.daysUntil !== 1 ? 's' : '') + ' left';
+
+        headerDiv.appendChild(leftDiv);
+        headerDiv.appendChild(badge);
+
+        section.appendChild(headerDiv);
+        section.appendChild(postsContainer);
         calendar.appendChild(section);
     });
+
+    // ── Outreach Panel ──
+    const AI_API = 'http://localhost:8008';
+
+    async function loadOutreachPanel() {
+        const panel = document.getElementById('outreach-panel');
+        try {
+            const ov = await (await fetch(AI_API + '/admin/api/overview')).json();
+            const sched = await (await fetch(AI_API + '/scheduler/status')).json();
+
+            document.getElementById('or-playlists').textContent = ov.outreach.playlists;
+            document.getElementById('or-influencers').textContent = ov.outreach.influencers;
+            document.getElementById('or-sent').textContent = ov.outreach.messages_sent;
+            document.getElementById('or-followups').textContent = ov.outreach.followups_due;
+            document.getElementById('or-scheduler').innerHTML = sched.running
+                ? '<span class="text-cyber-green">● Running</span> — ' + sched.jobs.length + ' jobs'
+                : '<span class="text-cyber-red">● Stopped</span>';
+
+            panel.style.display = 'block';
+        } catch(e) {
+            panel.style.display = 'block';
+            document.getElementById('or-status').innerHTML = '<span class="text-cyber-red">AI Engine not running on port 8008</span>';
+        }
+    }
+
+    async function triggerAutoOutreach() {
+        const btn = event.target;
+        btn.disabled = true; btn.textContent = 'Running...';
+        const result = document.getElementById('or-result');
+        try {
+            await fetch(AI_API + '/scheduler/trigger/auto_outreach', {method:'POST'});
+            result.innerHTML = '<span class="text-cyber-green">Auto-outreach triggered! Check the Outreach Log in the admin dashboard.</span>';
+            btn.textContent = 'Triggered ✓';
+            setTimeout(loadOutreachPanel, 3000);
+        } catch(e) { result.innerHTML = '<span class="text-cyber-red">Error: ' + e.message + '</span>'; btn.textContent = 'Trigger Auto-Outreach'; btn.disabled = false; }
+    }
+
+    async function triggerDiscovery() {
+        const btn = event.target;
+        btn.disabled = true; btn.textContent = 'Discovering...';
+        const result = document.getElementById('or-result');
+        try {
+            await fetch(AI_API + '/scheduler/trigger/source_discovery', {method:'POST'});
+            result.innerHTML = '<span class="text-cyber-green">Discovery triggered! New playlists & influencers being scraped.</span>';
+            btn.textContent = 'Triggered ✓';
+            setTimeout(loadOutreachPanel, 5000);
+        } catch(e) { result.innerHTML = '<span class="text-cyber-red">Error: ' + e.message + '</span>'; btn.textContent = 'Run Discovery'; btn.disabled = false; }
+    }
+
+    async function triggerFollowups() {
+        const btn = event.target;
+        btn.disabled = true; btn.textContent = 'Checking...';
+        const result = document.getElementById('or-result');
+        try {
+            await fetch(AI_API + '/scheduler/trigger/followup_check', {method:'POST'});
+            result.innerHTML = '<span class="text-cyber-green">Follow-up check triggered!</span>';
+            btn.textContent = 'Triggered ✓';
+            setTimeout(loadOutreachPanel, 3000);
+        } catch(e) { result.innerHTML = '<span class="text-cyber-red">Error: ' + e.message + '</span>'; btn.textContent = 'Run Follow-ups'; btn.disabled = false; }
+    }
+
+    loadOutreachPanel();
     </script>
+
+    <!-- Outreach Panel -->
+    <div id="outreach-panel" class="max-w-5xl mx-auto px-4 pb-12" style="display:none">
+        <div class="bg-dark-card rounded-xl p-6 border border-gray-800 mt-8">
+            <h2 class="text-cyber-blue text-xs mb-4">AUTOMATED OUTREACH</h2>
+            <p class="text-gray-400 text-sm mb-4">Send AI-generated outreach to playlists & influencers discovered by the AI engine. Messages are personalized via OpenAI and delivered via Brevo SMTP. <a href="http://localhost:8008/admin/contacts" class="text-cyber-blue hover:underline">📋 Full Contacts Report →</a></p>
+
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-4">
+                <div class="bg-dark-bg rounded-lg p-3 text-center">
+                    <div class="text-2xl font-bold text-cyber-blue" id="or-playlists">—</div>
+                    <div class="text-gray-500 text-xs">Playlists</div>
+                </div>
+                <div class="bg-dark-bg rounded-lg p-3 text-center">
+                    <div class="text-2xl font-bold text-cyber-blue" id="or-influencers">—</div>
+                    <div class="text-gray-500 text-xs">Influencers</div>
+                </div>
+                <div class="bg-dark-bg rounded-lg p-3 text-center">
+                    <div class="text-2xl font-bold text-cyber-green" id="or-sent">—</div>
+                    <div class="text-gray-500 text-xs">Sent</div>
+                </div>
+                <div class="bg-dark-bg rounded-lg p-3 text-center">
+                    <div class="text-2xl font-bold text-yellow-400" id="or-followups">—</div>
+                    <div class="text-gray-500 text-xs">Follow-ups Due</div>
+                </div>
+                <div class="bg-dark-bg rounded-lg p-3 text-center">
+                    <div class="text-sm" id="or-scheduler">—</div>
+                    <div class="text-gray-500 text-xs">Scheduler</div>
+                </div>
+            </div>
+
+            <div id="or-status"></div>
+
+            <div class="flex flex-wrap gap-3 mt-4">
+                <button onclick="triggerAutoOutreach()" class="bg-gray-700 hover:bg-gray-600 text-sm px-4 py-2 rounded transition cursor-pointer border border-cyber-green text-cyber-green">
+                    Trigger Auto-Outreach
+                </button>
+                <button onclick="triggerDiscovery()" class="bg-gray-700 hover:bg-gray-600 text-sm px-4 py-2 rounded transition cursor-pointer border border-cyber-blue text-cyber-blue">
+                    Run Discovery
+                </button>
+                <button onclick="triggerFollowups()" class="bg-gray-700 hover:bg-gray-600 text-sm px-4 py-2 rounded transition cursor-pointer border border-yellow-400 text-yellow-400">
+                    Run Follow-ups
+                </button>
+                <a href="http://localhost:8008/admin#outreach" target="_blank" class="bg-gray-700 hover:bg-gray-600 text-sm px-4 py-2 rounded transition border border-gray-600 text-gray-300 inline-block">
+                    Open Outreach Dashboard →
+                </a>
+            </div>
+            <div id="or-result" class="mt-3 text-sm"></div>
+        </div>
+    </div>
 </body>
 </html>

@@ -16,7 +16,8 @@ from app.core.config import get_settings
 from app.services.media.audio import extract_clip as extract_audio_clip
 from app.services.media.clip_selector import select_clips
 from app.services.media.image_source import fetch_images_for_video
-from app.services.media.renderer import TextOverlay, render_video
+from app.services.media.renderer import ArtworkEntry, TextOverlay, render_video
+from app.services.media.overlays import ProviderIconConfig, QRCodeConfig
 
 log = logging.getLogger(__name__)
 
@@ -73,6 +74,19 @@ class VideoConfig:
     font_size_title: int = 0
     font_size_subtitle: int = 0
     text_spacing: int = 0
+
+    # Multi-artwork with timing and animation
+    artwork_entries: list[dict] = field(default_factory=list)
+    # Each dict: {path, start_sec, duration_sec, animation, animation_speed, crossfade_sec}
+
+    # When False, skip auto-selecting clips/images from library — only use explicit paths
+    auto_select_clips: bool = True
+
+    # Provider icon overlay config
+    provider_icon_config: ProviderIconConfig | None = None
+
+    # QR code overlay config
+    qr_code_config: QRCodeConfig | None = None
 
 
 class VideoEngine:
@@ -136,8 +150,8 @@ class VideoEngine:
             else:
                 log.warning("[%s] Image not found: %s", run_id, p)
 
-        # Fetch from URLs or Pexels search
-        if config.image_urls or config.image_query:
+        # Only fetch from URLs/Pexels if auto-selection is enabled
+        if config.auto_select_clips and (config.image_urls or config.image_query):
             fetched = fetch_images_for_video(
                 query=config.image_query or None,
                 image_urls=config.image_urls or None,
@@ -149,14 +163,21 @@ class VideoEngine:
             log.info("[%s] Using %d images", run_id, len(image_paths))
 
         # ── 4. Select video clips ──────────────────────────────────────
-        clip_paths = select_clips(
-            db=db,
-            mood=config.mood or None,
-            tags=config.tags or None,
-            count=config.clip_count,
-        )
-        # If we have images, we can proceed even without video clips
-        if not clip_paths and not image_paths:
+        # Skip auto clip selection in artwork mode or when auto_select_clips=False
+        has_artwork = bool(config.artwork_entries)
+        clip_paths: list[Path] = []
+        if config.auto_select_clips and not has_artwork:
+            clip_paths = select_clips(
+                db=db,
+                mood=config.mood or None,
+                tags=config.tags or None,
+                count=config.clip_count,
+            )
+        elif not config.auto_select_clips:
+            log.info("[%s] Auto clip selection disabled — using only explicit paths", run_id)
+
+        # In artwork mode, images are handled via artwork_entries, not clip_paths
+        if not clip_paths and not image_paths and not has_artwork:
             raise RuntimeError(
                 "No video clips or images available. Download media assets first via "
                 "POST /media/search + POST /media/download/{id}, or provide images."
@@ -190,6 +211,8 @@ class VideoEngine:
                 color=title_color,
                 shadow=True,
                 font_size=title_size,
+                font_family=config.font_family,
+                text_spacing=config.text_spacing,
             ))
         if config.overlay_subtitle:
             text_overlays.append(TextOverlay(
@@ -198,6 +221,8 @@ class VideoEngine:
                 color=subtitle_color,
                 shadow=True,
                 font_size=subtitle_size,
+                font_family=config.font_family,
+                text_spacing=config.text_spacing,
             ))
 
         # ── 7. Build effect config ─────────────────────────────────────
@@ -248,7 +273,33 @@ class VideoEngine:
 
         output_path = self.exports_dir / out_name
 
-        # ── 10. Render ─────────────────────────────────────────────────
+        # ── 10. Build artwork entries if provided ──────────────────────
+        artwork_entries_list = None
+        if config.artwork_entries:
+            artwork_entries_list = []
+            for ae in config.artwork_entries:
+                img_path = ae.get("path") or ae.get("image_path", "")
+                p = Path(img_path)
+                if not p.is_absolute():
+                    # Resolve relative to exports dir (e.g. "exports/image_uploads/foo.png")
+                    base = Path(self.settings.exports_dir).parent  # ai-engine/
+                    p = base / img_path
+                if not p.exists():
+                    log.warning("[%s] Artwork not found: %s (resolved: %s)", run_id, img_path, p)
+                    continue
+                artwork_entries_list.append(ArtworkEntry(
+                    path=str(p),
+                    start_sec=ae.get("start_sec", 0.0),
+                    duration_sec=ae.get("duration_sec", 0.0),
+                    animation=ae.get("animation", "ken_burns"),
+                    animation_speed=ae.get("animation_speed", 1.0),
+                    crossfade_sec=ae.get("crossfade_sec", 0.5),
+                ))
+            if not artwork_entries_list:
+                artwork_entries_list = None
+
+        # ── 11. Render ─────────────────────────────────────────────────
+        target_dur = config.duration_ms / 1000.0
         result = render_video(
             clip_paths=clip_paths,
             audio_path=audio_clip_path,
@@ -256,11 +307,15 @@ class VideoEngine:
             fps=config.fps,
             use_glitch_transitions=config.use_glitch_transitions,
             aspect=config.aspect,
-            image_paths=image_paths,
+            image_paths=image_paths if not artwork_entries_list else None,
             text_overlays=text_overlays,
             effect_config=effect_config,
             visualizer_config=visualizer_config,
             audio_data=audio_data,
+            artwork_entries=artwork_entries_list,
+            target_duration_sec=target_dur,
+            provider_icon_config=config.provider_icon_config,
+            qr_code_config=config.qr_code_config,
         )
 
         # Clean up temp audio

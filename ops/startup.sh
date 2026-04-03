@@ -14,10 +14,12 @@ DASHBOARD_HTML="$REPO_ROOT/ops/dashboard.html"
 FORGEWEB_DIR="$REPO_ROOT/forgeweb"
 AI_ENGINE_DIR="$REPO_ROOT/ai-engine"
 DASHBOARD_DIR="$REPO_ROOT/dashboard"
+DOCS_DIR="$REPO_ROOT/docs"
 
 # ── Default ports (will be bumped if busy) ────────────────
+JEKYLL_PORT=4000
 FORGEWEB_PORT=8100
-AI_ENGINE_PORT=8200
+AI_ENGINE_PORT=8008
 DASHBOARD_PORT=8300
 
 # ── Colors ────────────────────────────────────────────────
@@ -85,6 +87,35 @@ read_port() {
 
 # ── Start individual services ────────────────────────────
 
+start_jekyll() {
+  if is_running jekyll; then
+    local p; p="$(read_port jekyll)"
+    echo -e "  ${YELLOW}jekyll${NC} already running on port ${BOLD}$p${NC}"
+    return 0
+  fi
+
+  local port
+  port="$(find_free_port "$JEKYLL_PORT")"
+  if [ -z "$port" ]; then
+    echo -e "  ${RED}✗${NC} No free port for jekyll (tried $JEKYLL_PORT–$(( JEKYLL_PORT + 19 )))"
+    return 1
+  fi
+
+  echo -e "  Starting ${BOLD}jekyll${NC} (site) on port ${CYAN}$port${NC} …"
+  cd "$DOCS_DIR"
+  nohup python3 -m http.server "$port" --bind 127.0.0.1 \
+    > "$LOG_DIR/jekyll.log" 2>&1 &
+  local pid=$!
+  echo "$pid" > "$PID_DIR/jekyll.pid"
+  echo "$port" > "$PID_DIR/jekyll.port"
+  sleep 1
+  if kill -0 "$pid" 2>/dev/null; then
+    echo -e "  ${GREEN}✓${NC} jekyll (site)   → ${BOLD}http://localhost:${port}/${NC}"
+  else
+    echo -e "  ${RED}✗${NC} jekyll failed to start — see $LOG_DIR/jekyll.log"
+  fi
+}
+
 start_forgeweb() {
   if is_running forgeweb; then
     local p; p="$(read_port forgeweb)"
@@ -99,12 +130,13 @@ start_forgeweb() {
     return 1
   fi
 
-  # Ensure forgeweb venv exists
+  # Ensure forgeweb venv exists and deps are current
   if [ ! -d "$FORGEWEB_DIR/.venv" ]; then
     echo -e "  ${YELLOW}⟳${NC} Creating forgeweb virtualenv …"
     python3 -m venv "$FORGEWEB_DIR/.venv"
-    "$FORGEWEB_DIR/.venv/bin/pip" install -q -r "$FORGEWEB_DIR/requirements.txt"
   fi
+  "$FORGEWEB_DIR/.venv/bin/pip" install -q --upgrade pip >/dev/null 2>&1
+  "$FORGEWEB_DIR/.venv/bin/pip" install -q -r "$FORGEWEB_DIR/requirements.txt"
 
   local fw_py="$FORGEWEB_DIR/.venv/bin/python"
 
@@ -137,12 +169,14 @@ start_ai_engine() {
     return 1
   fi
 
-  # Ensure venv exists
+  # Ensure venv exists and deps are current
   if [ ! -d "$AI_ENGINE_DIR/.venv" ]; then
     echo -e "  ${YELLOW}⟳${NC} Creating ai-engine virtualenv …"
     python3 -m venv "$AI_ENGINE_DIR/.venv"
-    "$AI_ENGINE_DIR/.venv/bin/pip" install -q -r "$AI_ENGINE_DIR/requirements.txt"
   fi
+  # Always sync requirements (fast if already up-to-date)
+  "$AI_ENGINE_DIR/.venv/bin/pip" install -q --upgrade pip >/dev/null 2>&1
+  "$AI_ENGINE_DIR/.venv/bin/pip" install -q -r "$AI_ENGINE_DIR/requirements.txt"
 
   local py="$AI_ENGINE_DIR/.venv/bin/python"
 
@@ -207,6 +241,7 @@ stop_service() {
 
 stop_all() {
   echo -e "${BOLD}Stopping services …${NC}"
+  stop_service jekyll
   stop_service forgeweb
   stop_service ai-engine
   stop_service dashboard
@@ -218,7 +253,7 @@ stop_all() {
 status_all() {
   echo -e "${BOLD}Service Status${NC}"
   echo -e "─────────────────────────────────────────────"
-  for svc in forgeweb ai-engine dashboard; do
+  for svc in jekyll forgeweb ai-engine dashboard; do
     if is_running "$svc"; then
       local p; p="$(read_port "$svc")"
       local pid; pid="$(read_pid "$svc")"
@@ -236,12 +271,22 @@ generate_dashboard_html() {
   local fw_port; fw_port="$(read_port forgeweb)"
   local ai_port; ai_port="$(read_port ai-engine)"
   local db_port; db_port="$(read_port dashboard)"
+  local jk_port; jk_port="$(read_port jekyll)"
 
   # Pre-compute status strings
   local fw_badge="stopped" fw_label="STOPPED"
   local ai_badge="stopped" ai_label="STOPPED"
   local db_badge="stopped" db_label="STOPPED"
-  local fw_links="" ai_links="" db_links=""
+  local jk_badge="stopped" jk_label="STOPPED"
+  local fw_links="" ai_links="" db_links="" jk_links=""
+
+  if [ -n "$jk_port" ]; then
+    jk_badge="running"; jk_label="RUNNING"
+    jk_links="<a class=\"link\" href=\"http://localhost:${jk_port}/\" target=\"_blank\">SITE</a>
+    <a class=\"link\" href=\"http://localhost:${jk_port}/ops/presave-content-calendar.html\" target=\"_blank\">CONTENT CALENDAR</a>
+    <a class=\"link\" href=\"http://localhost:${jk_port}/store/\" target=\"_blank\">STORE</a>
+    <p style=\"color:#555;font-size:0.65rem;margin-top:0.5rem;\">http://localhost:${jk_port}</p>"
+  fi
 
   if [ -n "$fw_port" ]; then
     fw_badge="running"; fw_label="RUNNING"
@@ -326,6 +371,12 @@ generate_dashboard_html() {
   <p class="subtitle">local service dashboard</p>
 
   <div class="card">
+    <h2>Jekyll <span class="badge ${jk_badge}">${jk_label}</span></h2>
+    <p>GitHub Pages site &bull; Content calendar, store, news</p>
+    ${jk_links}
+  </div>
+
+  <div class="card">
     <h2>ForgeWeb <span class="badge ${fw_badge}">${fw_label}</span></h2>
     <p>Website builder &amp; admin &bull; Python HTTP Server</p>
     ${fw_links}
@@ -363,6 +414,7 @@ main() {
     start)
       echo -e "${BOLD}Starting services …${NC}"
       echo ""
+      start_jekyll
       start_forgeweb
       start_ai_engine
       start_dashboard
@@ -384,6 +436,7 @@ main() {
       sleep 1
       echo -e "${BOLD}Starting services …${NC}"
       echo ""
+      start_jekyll
       start_forgeweb
       start_ai_engine
       start_dashboard

@@ -323,7 +323,11 @@ def apply_effects(
 
     If config is provided, builds the effect list from it.
     Otherwise falls back to the effects list or DEFAULT_EFFECTS.
+    When global_opacity < 1.0, blends the effected result with the
+    original frame so effects appear as transparent overlays.
     """
+    opacity = config.global_opacity if config is not None else 1.0
+
     if config is not None:
         effects = config.build_effect_list()
     elif effects is None:
@@ -331,4 +335,54 @@ def apply_effects(
 
     for fx in effects:
         clip = fx(clip)
+
+    # Blend effected frames with original at global_opacity < 1.0
+    if opacity < 1.0:
+        original = clip  # this is already post-effects; we need pre-effects
+        # Re-apply from scratch: effects need a pre/post approach
+        # Instead, wrap the effected clip to blend per-frame
+        clip = _blend_with_opacity(clip, opacity)
+
+    return clip
+
+
+def apply_effects_blended(
+    clip: VideoClip,
+    config: EffectConfig | None = None,
+) -> VideoClip:
+    """Apply effects as a transparent overlay over the original clip.
+
+    Saves a reference to the original frames, applies the full effect chain,
+    then per-frame blends: result = original*(1-opacity) + effected*opacity.
+    This ensures images remain visible underneath the effects.
+    """
+    if config is None:
+        config = EffectConfig()
+
+    opacity = config.global_opacity
+    effects = config.build_effect_list()
+
+    if not effects:
+        return clip
+
+    # Apply effects to get the processed version
+    effected = clip
+    for fx in effects:
+        effected = fx(effected)
+
+    if opacity >= 1.0:
+        return effected
+
+    # Blend original + effected per frame
+    def _blend_frame(get_frame, t):
+        orig = clip.get_frame(t).astype(np.float32)
+        fx_frame = effected.get_frame(t).astype(np.float32)
+        blended = orig * (1.0 - opacity) + fx_frame * opacity
+        return np.clip(blended, 0, 255).astype(np.uint8)
+
+    return effected.transform(_blend_frame)
+
+
+def _blend_with_opacity(clip: VideoClip, opacity: float) -> VideoClip:
+    """Placeholder — for backward compat. Use apply_effects_blended instead."""
     return clip

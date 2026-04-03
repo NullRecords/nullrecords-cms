@@ -1,0 +1,14 @@
+[
+  {
+    "id": "d3c1a878a703",
+    "name": "Test Preset",
+    "settings": {
+      "mood": "electronic",
+      "artwork_mode": true,
+      "qr_enabled": true,
+      "qr_url": "https://www.nullrecords.com"
+    },
+    "created_at": "2026-04-03T18:17:23+00:00",
+    "updated_at": "2026-04-03T18:17:23+00:00"
+  }
+]

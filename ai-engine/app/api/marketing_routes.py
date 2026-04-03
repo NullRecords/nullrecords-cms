@@ -2,12 +2,15 @@
 
 import json
 import glob
+import hashlib
 import os
 import re
 from datetime import datetime, timedelta
 from pathlib import Path
+from typing import Optional
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel
 
 router = APIRouter(prefix="/admin/api/marketing", tags=["marketing"])
 
@@ -146,6 +149,106 @@ def list_news(limit: int = 50, offset: int = 0):
             for a in page
         ],
     }
+
+
+def _save_articles(articles: list):
+    """Write articles back to JSON file."""
+    with open(NEWS_FILE, "w") as f:
+        json.dump(articles, f, indent=2, default=str)
+
+
+class ArticleCreate(BaseModel):
+    title: str
+    content: str = ""
+    source: str = "Manual"
+    url: str = ""
+    author: Optional[str] = None
+    article_type: str = "news"
+    sentiment: str = "neutral"
+    tags: list[str] = []
+    artist_mentioned: list[str] = []
+    image: Optional[str] = None
+
+
+class ArticleUpdate(BaseModel):
+    title: Optional[str] = None
+    content: Optional[str] = None
+    source: Optional[str] = None
+    url: Optional[str] = None
+    author: Optional[str] = None
+    article_type: Optional[str] = None
+    sentiment: Optional[str] = None
+    status: Optional[str] = None
+    tags: Optional[list[str]] = None
+    artist_mentioned: Optional[list[str]] = None
+    image: Optional[str] = None
+
+
+@router.post("/news")
+def create_article(article: ArticleCreate):
+    """Add a new news article."""
+    articles = _load_json(NEWS_FILE)
+    article_id = hashlib.md5(
+        f"{article.title}{datetime.now().isoformat()}".encode()
+    ).hexdigest()[:12]
+    now = datetime.now().isoformat()
+    new_article = {
+        "id": article_id,
+        "title": article.title,
+        "content": article.content,
+        "source": article.source,
+        "url": article.url,
+        "author": article.author,
+        "published_date": now,
+        "discovered_date": now,
+        "artist_mentioned": article.artist_mentioned,
+        "sentiment": article.sentiment,
+        "article_type": article.article_type,
+        "status": "needs_verification",
+        "tags": article.tags,
+        "excerpt": article.content[:200] if article.content else "",
+        "image": article.image,
+    }
+    articles.insert(0, new_article)
+    _save_articles(articles)
+    return {"status": "created", "article": new_article}
+
+
+@router.put("/news/{article_id}")
+def update_article(article_id: str, update: ArticleUpdate):
+    """Update an existing article."""
+    articles = _load_json(NEWS_FILE)
+    for article in articles:
+        if article.get("id") == article_id:
+            for field, value in update.model_dump(exclude_none=True).items():
+                article[field] = value
+            _save_articles(articles)
+            return {"status": "updated", "article": article}
+    raise HTTPException(status_code=404, detail="Article not found")
+
+
+@router.post("/news/{article_id}/verify")
+def verify_article(article_id: str):
+    """Mark an article as verified."""
+    articles = _load_json(NEWS_FILE)
+    for article in articles:
+        if article.get("id") == article_id:
+            article["status"] = "verified"
+            _save_articles(articles)
+            return {"status": "verified", "article": article}
+    raise HTTPException(status_code=404, detail="Article not found")
+
+
+@router.delete("/news/{article_id}")
+def delete_article(article_id: str):
+    """Delete a news article."""
+    articles = _load_json(NEWS_FILE)
+    original_len = len(articles)
+    articles = [a for a in articles if a.get("id") != article_id]
+    if len(articles) == original_len:
+        raise HTTPException(status_code=404, detail="Article not found")
+    _save_articles(articles)
+    return {"status": "deleted", "remaining": len(articles)}
 
 
 @router.get("/report-history")

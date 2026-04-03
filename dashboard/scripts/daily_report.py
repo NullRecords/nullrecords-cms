@@ -50,7 +50,7 @@ try:
     
     # If not found in relative paths, try absolute path to workspace root
     if not env_loaded:
-        workspace_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        workspace_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
         env_path = os.path.join(workspace_root, '.env')
         if os.path.exists(env_path):
             load_dotenv(env_path)
@@ -160,6 +160,7 @@ class DailyReportSystem:
     def __init__(self):
         self.report_date = datetime.now().strftime('%Y-%m-%d')
         self.metrics = DailyMetrics(date=self.report_date)
+        self.ai_engine_url = os.getenv('AI_ENGINE_URL', 'http://localhost:8008')
         self.initialize_apis()
         
     def initialize_apis(self):
@@ -473,114 +474,124 @@ class DailyReportSystem:
         self.metrics.top_videos = []
     
     def collect_email_campaign_data(self):
-        """Collect email campaign statistics"""
+        """Collect email campaign statistics from the AI engine."""
         logging.info("📧 Collecting email campaign data...")
         
+        ai_engine_url = os.getenv('AI_ENGINE_URL', 'http://localhost:8008')
         try:
-            # Check outreach system logs
+            if SCRAPING_AVAILABLE:
+                r = requests.get(f"{ai_engine_url}/admin/api/overview", timeout=5)
+                if r.status_code == 200:
+                    data = r.json()
+                    outreach = data.get("outreach", {})
+                    self.metrics.emails_sent = outreach.get("sent", 0) + outreach.get("delivered", 0)
+                    self.metrics.outreach_campaigns = outreach.get("total", 0)
+                    
+                    # Calculate open rate from tracking data
+                    total = outreach.get("total", 0)
+                    opened = outreach.get("opened", 0)
+                    if total > 0:
+                        self.metrics.email_open_rate = round((opened / total) * 100, 1)
+                    
+                    logging.info(f"✅ Email Data from AI engine: {self.metrics.emails_sent} sent, {self.metrics.outreach_campaigns} total")
+                    return
+        except Exception as e:
+            logging.warning(f"⚠️  Could not reach AI engine for email data: {e}")
+        
+        # Fallback: check outreach system logs
+        try:
             outreach_log_file = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'logs', 'music_outreach.log')
             if os.path.exists(outreach_log_file):
                 with open(outreach_log_file, 'r') as f:
                     log_content = f.read()
-                    
-                # Count emails sent today
                 today = datetime.now().strftime('%Y-%m-%d')
                 today_logs = [line for line in log_content.split('\n') if today in line]
-                
-                # Count successful email sends
                 self.metrics.emails_sent = len([
                     line for line in today_logs 
                     if 'Email sent successfully' in line or '📧 Sent email to' in line
                 ])
-                
-                # Count outreach campaigns
-                self.metrics.outreach_campaigns = len([
-                    line for line in today_logs 
-                    if 'Starting outreach campaign' in line or 'outreach completed' in line
-                ])
-            
-            # Check news system logs
-            news_log_file = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'logs', 'news_monitor.log')
-            if os.path.exists(news_log_file):
-                with open(news_log_file, 'r') as f:
-                    log_content = f.read()
-                    
-                today = datetime.now().strftime('%Y-%m-%d')
-                today_logs = [line for line in log_content.split('\n') if today in line]
-                
-                # Add news notification emails to count
-                news_emails = len([
-                    line for line in today_logs 
-                    if 'Sent new article notification' in line or 'Sent new release notification' in line
-                ])
-                
-                self.metrics.emails_sent += news_emails
-            
-            # Email open/click rates require Brevo API integration
-            # Leave at defaults (0) until configured
-            
-            logging.info(f"✅ Email Data: {self.metrics.emails_sent} emails sent, {self.metrics.outreach_campaigns} campaigns")
-            
+            logging.info(f"✅ Email Data (from logs): {self.metrics.emails_sent} emails sent")
         except Exception as e:
             logging.error(f"❌ Error collecting email data: {e}")
     
     def collect_outreach_data(self):
-        """Collect outreach data from music_outreach system with detailed new sources and responses"""
+        """Collect outreach data from the AI engine API."""
         logging.info("🎯 Collecting outreach data...")
         
+        ai_engine_url = os.getenv('AI_ENGINE_URL', 'http://localhost:8008')
+        
         try:
-            import subprocess
-            import json
+            if not SCRAPING_AVAILABLE:
+                raise ImportError("requests not available")
             
-            # Get outreach report
-            result = subprocess.run([
-                'python3', 'scripts/music_outreach.py', '--report'
-            ], capture_output=True, text=True, cwd='.')
+            # Get overview stats
+            overview = requests.get(f"{ai_engine_url}/admin/api/overview", timeout=5).json()
+            outreach_stats = overview.get("outreach", {})
             
-            if result.returncode == 0:
-                # Parse the outreach report output
-                output = result.stdout
-                
-                # Extract key metrics from the report
-                total_contacts = 0
-                recent_activity = 0
-                status_breakdown = {}
-                responses_received = 0
-                
-                for line in output.split('\n'):
-                    if 'TOTAL CONTACTS:' in line:
-                        total_contacts = int(line.split(':')[1].strip())
-                    elif 'RECENT ACTIVITY' in line and 'days):' in line:
-                        recent_activity = int(line.split('):')[1].split()[0])
-                    elif 'RESPONSES RECEIVED:' in line:
-                        responses_received = int(line.split(':')[1].strip())
-                    elif line.strip() and ':' in line and line.startswith('  '):
-                        # Status breakdown lines
-                        parts = line.strip().split(':')
-                        if len(parts) == 2:
-                            status = parts[0].strip()
-                            count = int(parts[1].strip())
-                            status_breakdown[status] = count
-                
-                # Store in metrics
-                self.metrics.outreach_total_contacts = total_contacts
-                self.metrics.outreach_emails_sent_today = recent_activity
-                self.metrics.outreach_status = status_breakdown
-                
-                # Collect new sources discovered
-                self.metrics.outreach_new_sources = self._get_recent_new_sources()
-                
-                # Collect responses received
-                self.metrics.outreach_responses = self._get_recent_responses(responses_received)
-                
-                logging.info(f"✅ Outreach Data: {total_contacts} total contacts, {recent_activity} emails sent today, {len(self.metrics.outreach_new_sources)} new sources, {len(self.metrics.outreach_responses)} responses")
-                
-            else:
-                logging.warning("⚠️  Could not retrieve outreach data")
-                self._generate_mock_outreach_data()
-                
+            self.metrics.outreach_total_contacts = outreach_stats.get("playlists", 0) + outreach_stats.get("influencers", 0)
+            self.metrics.outreach_emails_sent_today = outreach_stats.get("messages_sent", 0)
+            self.metrics.outreach_status = {
+                "sent": outreach_stats.get("messages_sent", 0),
+                "delivered": outreach_stats.get("delivered", 0),
+                "opened": outreach_stats.get("emails_opened", 0),
+                "clicked": outreach_stats.get("links_clicked", 0),
+                "logged": outreach_stats.get("logged", 0),
+                "needs_dm": 0,
+                "no_contact": 0,
+            }
+            
+            # Get playlists and influencers as "sources"
+            playlists = requests.get(f"{ai_engine_url}/outreach/playlists", timeout=5).json()
+            influencers = requests.get(f"{ai_engine_url}/outreach/influencers", timeout=5).json()
+            
+            # Count recently discovered (last 24h)
+            today = datetime.now().strftime('%Y-%m-%d')
+            new_sources = []
+            for p in playlists:
+                new_sources.append({
+                    'name': p.get('name', 'Unknown'),
+                    'type': f"playlist ({p.get('platform', '?')})",
+                    'contact': p.get('contact', 'none'),
+                    'score': p.get('relevance_score', 0),
+                })
+            for i in influencers:
+                new_sources.append({
+                    'name': i.get('handle', 'Unknown'),
+                    'type': f"influencer ({i.get('platform', '?')})",
+                    'contact': i.get('contact', 'none'),
+                    'score': i.get('relevance_score', 0),
+                })
+            self.metrics.outreach_new_sources = new_sources
+            
+            # Get outreach log for responses
+            outreach_log = requests.get(f"{ai_engine_url}/admin/api/outreach?limit=50", timeout=5).json()
+            responses = []
+            for entry in outreach_log.get("items", []):
+                if entry.get("status") in ("opened", "clicked", "delivered"):
+                    responses.append({
+                        'contact_name': f"{entry.get('target_type', '?')} #{entry.get('target_id', '?')}",
+                        'type': entry.get('status', 'unknown'),
+                        'response_date': entry.get('created_at', ''),
+                        'summary': entry.get('subject', '')[:120],
+                    })
+            self.metrics.outreach_responses = responses
+            
+            # Get scheduler status
+            try:
+                sched = requests.get(f"{ai_engine_url}/scheduler/status", timeout=5).json()
+                if sched.get("running"):
+                    job_info = {j["id"]: j["next_run"] for j in sched.get("jobs", [])}
+                    logging.info(f"✅ Scheduler running with {len(sched.get('jobs', []))} jobs")
+            except Exception:
+                pass
+            
+            logging.info(
+                f"✅ Outreach Data: {self.metrics.outreach_total_contacts} total, "
+                f"{len(new_sources)} sources, {len(responses)} responses/opens"
+            )
+            
         except Exception as e:
-            logging.error(f"❌ Error collecting outreach data: {e}")
+            logging.error(f"❌ Error collecting outreach data from AI engine: {e}")
             self._generate_mock_outreach_data()
     
     def _get_recent_new_sources(self):
@@ -675,8 +686,9 @@ class DailyReportSystem:
         logging.info("📰 Collecting news monitoring data...")
         
         try:
-            # Check news articles file
-            news_file = 'news_articles.json'
+            # Check news articles file — use workspace path
+            workspace_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+            news_file = os.path.join(workspace_root, 'docs', 'news_articles.json')
             if os.path.exists(news_file):
                 with open(news_file, 'r') as f:
                     articles = json.load(f)
@@ -689,6 +701,7 @@ class DailyReportSystem:
                 ]
                 
                 self.metrics.new_articles = len(today_articles)
+                self.metrics.total_articles = len(articles)
                 
                 # Count releases
                 releases = [
@@ -697,32 +710,41 @@ class DailyReportSystem:
                 ]
                 self.metrics.new_releases = len(releases)
                 
-                # Analyze sentiment
+                # Analyze sentiment — across all articles, not just today
                 sentiment_counts = {}
-                for article in today_articles:
+                for article in articles:
                     sentiment = article.get('sentiment', 'neutral')
                     sentiment_counts[sentiment] = sentiment_counts.get(sentiment, 0) + 1
                 
                 self.metrics.content_sentiment = sentiment_counts
-            
-            # Count monitoring sources and get verification summary
-            try:
-                from news_monitor import NewsMonitor
-                monitor = NewsMonitor()
-                self.metrics.monitoring_sources = len(monitor.search_sources)
                 
-                # Get verification summary
-                verification_summary = monitor.get_verification_summary()
-                self.metrics.verification_data = verification_summary
+                # Count by source
+                source_counts = {}
+                for article in articles:
+                    src = article.get('source', 'Unknown')
+                    source_counts[src] = source_counts.get(src, 0) + 1
                 
-            except Exception as e:
-                logging.warning(f"⚠️  Could not load news monitor verification data: {e}")
-                self.metrics.monitoring_sources = 12  # Default count
+                # Build source HTML
+                source_html_parts = []
+                for src, count in sorted(source_counts.items(), key=lambda x: -x[1]):
+                    source_html_parts.append(
+                        f'<div class="metric-item"><span>{src}</span><span>{count}</span></div>'
+                    )
+                self.metrics.news_by_source_html = "\n".join(source_html_parts)
+                
+                # Verification summary from the articles themselves
+                verified = sum(1 for a in articles if a.get('status') == 'verified')
+                needs_verif = sum(1 for a in articles if a.get('status') == 'needs_verification')
                 self.metrics.verification_data = {
-                    "needs_verification": 0,
-                    "verified": 0,
-                    "pending_articles": []
+                    "verified": verified,
+                    "needs_verification": needs_verif,
+                    "pending_articles": [
+                        a for a in articles if a.get('status') == 'needs_verification'
+                    ][:10]
                 }
+                
+                # Count unique sources as monitoring sources
+                self.metrics.monitoring_sources = len(source_counts)
             
             logging.info(f"✅ News Data: {self.metrics.new_articles} articles, {self.metrics.new_releases} releases")
             
@@ -730,39 +752,58 @@ class DailyReportSystem:
             logging.error(f"❌ Error collecting news data: {e}")
     
     def collect_system_health_data(self):
-        """Collect system health and performance metrics"""
+        """Collect system health and performance metrics, including AI engine status."""
         logging.info("🔧 Collecting system health data...")
         
         try:
-            # Check API response times
+            ai_engine_url = os.getenv('AI_ENGINE_URL', 'http://localhost:8008')
             website_url = os.getenv('WEBSITE_BASE_URL', 'https://nullrecords.com')
+            
+            # Check services
             api_tests = {
                 website_url.replace('https://', '').replace('http://', ''): website_url,
-                'google.com': 'https://google.com'
+                'ai-engine': f"{ai_engine_url}/admin/api/overview",
+                'scheduler': f"{ai_engine_url}/scheduler/status",
             }
             
-            for name, url in api_tests.items():
-                try:
-                    start_time = time.time()
-                    response = requests.get(url, timeout=5)
-                    end_time = time.time()
-                    
-                    if response.status_code == 200:
-                        self.metrics.api_response_times[name] = round((end_time - start_time) * 1000, 2)
-                    else:
-                        self.metrics.error_count += 1
+            if SCRAPING_AVAILABLE:
+                for name, url in api_tests.items():
+                    try:
+                        start_time = time.time()
+                        response = requests.get(url, timeout=5)
+                        end_time = time.time()
                         
-                except Exception:
-                    self.metrics.error_count += 1
-                    self.metrics.api_response_times[name] = 'ERROR'
+                        if response.status_code == 200:
+                            self.metrics.api_response_times[name] = round((end_time - start_time) * 1000, 2)
+                        else:
+                            self.metrics.error_count += 1
+                            self.metrics.api_response_times[name] = f'HTTP {response.status_code}'
+                            
+                    except Exception:
+                        self.metrics.error_count += 1
+                        self.metrics.api_response_times[name] = 'OFFLINE'
+            
+            # Check AI engine scheduler status
+            try:
+                sched_resp = requests.get(f"{ai_engine_url}/scheduler/status", timeout=5)
+                if sched_resp.status_code == 200:
+                    sched = sched_resp.json()
+                    if sched.get("running"):
+                        self.metrics.api_response_times['scheduler_jobs'] = len(sched.get("jobs", []))
+                    else:
+                        self.metrics.api_response_times['scheduler_jobs'] = 'STOPPED'
+            except Exception:
+                pass
             
             # Check log files for errors
+            log_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'logs')
             log_files = ['daily_report.log', 'music_outreach.log', 'news_monitor.log']
             today = datetime.now().strftime('%Y-%m-%d')
             
             for log_file in log_files:
-                if os.path.exists(log_file):
-                    with open(log_file, 'r') as f:
+                log_path = os.path.join(log_dir, log_file)
+                if os.path.exists(log_path):
+                    with open(log_path, 'r') as f:
                         content = f.read()
                         today_errors = len([
                             line for line in content.split('\n') 
@@ -846,12 +887,15 @@ class DailyReportSystem:
         new_sources_html = ""
         if self.metrics.outreach_new_sources:
             for source in self.metrics.outreach_new_sources:
-                genres_text = " • ".join(source.get('genres', []))
+                score = source.get('score', 0)
+                score_color = "#00ff88" if score >= 0.7 else "#ffff00" if score >= 0.4 else "#ff8888"
+                contact = source.get('contact', 'none')
+                contact_display = contact[:50] + '...' if len(contact) > 50 else contact
                 new_sources_html += f"""
                     <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
                         <div style="font-weight: bold; color: #00ffff;">{source['name']}</div>
-                        <div style="font-size: 12px; color: #e0e0e0;">{source['type']} • {genres_text}</div>
-                        <div style="font-size: 11px; color: #999;">Contact: {source['contact_method']}</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">{source['type']} • Score: <span style="color:{score_color}">{score:.1f}</span></div>
+                        <div style="font-size: 11px; color: #999;">Contact: {contact_display}</div>
                     </div>
                 """
         else:
@@ -861,12 +905,13 @@ class DailyReportSystem:
         responses_html = ""
         if self.metrics.outreach_responses:
             for response in self.metrics.outreach_responses:
-                response_color = "#00ff00" if response['response_type'] == "interested" else "#ffff00"
+                status = response.get('type', 'unknown')
+                response_color = "#00ff00" if status == "opened" else "#00ff88" if status == "delivered" else "#ffff00"
                 responses_html += f"""
                     <div class="metric-item" style="display: block; margin-bottom: 10px; padding: 10px; background: rgba(0,255,255,0.1); border-radius: 5px;">
                         <div style="font-weight: bold; color: {response_color};">{response['contact_name']}</div>
-                        <div style="font-size: 12px; color: #e0e0e0;">{response['type']} • {response['response_type'].replace('_', ' ').title()}</div>
-                        <div style="font-size: 11px; color: #ccc;">{response['summary']}</div>
+                        <div style="font-size: 12px; color: #e0e0e0;">{status.title()}</div>
+                        <div style="font-size: 11px; color: #ccc;">{response.get('summary', '')}</div>
                     </div>
                 """
         else:
@@ -973,6 +1018,31 @@ class DailyReportSystem:
                     color: #ff0080;
                     font-weight: bold;
                 }}
+                .card-title a {{
+                    color: inherit;
+                    text-decoration: none;
+                    border-bottom: 1px dashed rgba(255,0,128,0.4);
+                    transition: all 0.2s;
+                }}
+                .card-title a:hover {{
+                    color: #00ffff;
+                    border-bottom-color: #00ffff;
+                }}
+                .drill-link {{
+                    display: inline-block;
+                    margin-top: 12px;
+                    padding: 6px 14px;
+                    background: rgba(0,255,255,0.15);
+                    border: 1px solid #00ffff;
+                    border-radius: 5px;
+                    color: #00ffff;
+                    text-decoration: none;
+                    font-size: 12px;
+                    transition: all 0.2s;
+                }}
+                .drill-link:hover {{
+                    background: rgba(0,255,255,0.3);
+                }}
             </style>
         </head>
         <body>
@@ -985,7 +1055,7 @@ class DailyReportSystem:
                 <div class="metrics-grid">
                     <!-- Website Analytics -->
                     <div class="metric-card">
-                        <h3 class="card-title">🌐 Website Analytics</h3>
+                        <h3 class="card-title"><a href="http://localhost:4000/" title="Open site">🌐 Website Analytics</a></h3>
                         <div class="big-number">{self.metrics.website_visitors}</div>
                         <div style="text-align: center; color: #e0e0e0; margin-bottom: 20px;">Unique Visitors</div>
                         
@@ -1016,13 +1086,13 @@ class DailyReportSystem:
                     
                     <!-- Traffic Sources -->
                     <div class="metric-card">
-                        <h3 class="card-title">🚀 Traffic Sources</h3>
+                        <h3 class="card-title"><a href="https://analytics.google.com" target="_blank" title="Google Analytics">🚀 Traffic Sources</a></h3>
                         {traffic_sources_html}
                     </div>
                     
                     <!-- YouTube Metrics -->
                     <div class="metric-card">
-                        <h3 class="card-title">📺 YouTube Channel</h3>
+                        <h3 class="card-title"><a href="https://studio.youtube.com" target="_blank" title="YouTube Studio">📺 YouTube Channel</a></h3>
                         <div class="big-number">{self.metrics.youtube_subscribers}</div>
                         <div style="text-align: center; color: #e0e0e0; margin-bottom: 20px;">Subscribers</div>
                         
@@ -1042,7 +1112,7 @@ class DailyReportSystem:
                     
                     <!-- Email Campaigns -->
                     <div class="metric-card">
-                        <h3 class="card-title">📧 Email Campaigns</h3>
+                        <h3 class="card-title"><a href="https://app.brevo.com" target="_blank" title="Brevo Dashboard">📧 Email Campaigns</a></h3>
                         <div class="big-number">{self.metrics.emails_sent}</div>
                         <div style="text-align: center; color: #e0e0e0; margin-bottom: 20px;">Emails Sent Today</div>
                         
@@ -1062,7 +1132,7 @@ class DailyReportSystem:
                     
                     <!-- Outreach & Discovery -->
                     <div class="metric-card">
-                        <h3 class="card-title">🎯 Music Outreach</h3>
+                        <h3 class="card-title"><a href="http://localhost:8008/admin/contacts" title="Contacts Report">🎯 Music Outreach</a></h3>
                         <div class="big-number">{self.metrics.outreach_emails_sent_today}</div>
                         <div style="text-align: center; color: #e0e0e0; margin-bottom: 10px;">Emails Sent Today</div>
                         <div style="text-align: center; color: #00ffff; margin-bottom: 20px; font-size: 12px;">
@@ -1074,22 +1144,30 @@ class DailyReportSystem:
                             <span class="highlight">{self.metrics.outreach_total_contacts}</span>
                         </div>
                         <div class="metric-item">
-                            <span>Pending:</span>
-                            <span>{self.metrics.outreach_status.get('pending', 0)}</span>
+                            <span>Sent:</span>
+                            <span style="color: #00ff88">{self.metrics.outreach_status.get('sent', 0)}</span>
                         </div>
                         <div class="metric-item">
-                            <span>Contacted:</span>
-                            <span>{self.metrics.outreach_status.get('contacted', 0)}</span>
+                            <span>Delivered:</span>
+                            <span style="color: #00ff88">{self.metrics.outreach_status.get('delivered', 0)}</span>
                         </div>
                         <div class="metric-item">
-                            <span>Manual Review:</span>
-                            <span>{self.metrics.outreach_status.get('manual_submission_required', 0)}</span>
+                            <span>Opened:</span>
+                            <span style="color: #00ffff">{self.metrics.outreach_status.get('opened', 0)}</span>
+                        </div>
+                        <div class="metric-item">
+                            <span>Logged (no email):</span>
+                            <span>{self.metrics.outreach_status.get('logged', 0)}</span>
+                        </div>
+                        <div class="metric-item">
+                            <span>Needs DM:</span>
+                            <span>{self.metrics.outreach_status.get('needs_dm', 0)}</span>
                         </div>
                     </div>
                     
                     <!-- New Sources Discovered -->
                     <div class="metric-card">
-                        <h3 class="card-title">🔍 New Sources Discovered</h3>
+                        <h3 class="card-title"><a href="http://localhost:8008/admin/contacts" title="Contacts Report — All Sources">🔍 New Sources Discovered</a></h3>
                         <div class="big-number">{len(self.metrics.outreach_new_sources or [])}</div>
                         <div style="text-align: center; color: #e0e0e0; margin-bottom: 20px;">Sources Added Today</div>
                         
@@ -1098,7 +1176,7 @@ class DailyReportSystem:
                     
                     <!-- Outreach Responses -->
                     <div class="metric-card">
-                        <h3 class="card-title">📬 Responses Received</h3>
+                        <h3 class="card-title"><a href="http://localhost:8008/admin/contacts?outreach_status=opened" title="Contacts Report — Opened">📬 Responses Received</a></h3>
                         <div class="big-number">{len(self.metrics.outreach_responses or [])}</div>
                         <div style="text-align: center; color: #e0e0e0; margin-bottom: 20px;">Responses Today</div>
                         
@@ -1107,7 +1185,7 @@ class DailyReportSystem:
                     
                     <!-- Voting & Engagement -->
                     <div class="metric-card">
-                        <h3 class="card-title">🗳️ Voting & Engagement</h3>
+                        <h3 class="card-title"><a href="http://localhost:4000/store/" title="Store & Voting">🗳️ Voting & Engagement</a></h3>
                         <div class="big-number">{self.metrics.new_votes}</div>
                         <div style="text-align: center; color: #e0e0e0; margin-bottom: 20px;">New Votes Today</div>
                         
@@ -1122,10 +1200,14 @@ class DailyReportSystem:
                     
                     <!-- News & Content -->
                     <div class="metric-card">
-                        <h3 class="card-title">📰 News Monitoring</h3>
+                        <h3 class="card-title"><a href="http://localhost:8008/admin/news" title="News Management">📰 News Monitoring</a></h3>
                         <div class="big-number">{self.metrics.new_articles}</div>
-                        <div style="text-align: center; color: #e0e0e0; margin-bottom: 20px;">New Articles Found</div>
+                        <div style="text-align: center; color: #e0e0e0; margin-bottom: 20px;">New Articles Today</div>
                         
+                        <div class="metric-item">
+                            <span>Total Articles:</span>
+                            <span class="highlight">{getattr(self.metrics, 'total_articles', 0)}</span>
+                        </div>
                         <div class="metric-item">
                             <span>New Releases:</span>
                             <span class="highlight">{self.metrics.new_releases}</span>
@@ -1146,11 +1228,17 @@ class DailyReportSystem:
                             <span>Needs Verification:</span>
                             <span class="{'status-warning' if getattr(self.metrics, 'verification_data', {}).get('needs_verification', 0) > 0 else 'status-good'}">{getattr(self.metrics, 'verification_data', {}).get('needs_verification', 0)}</span>
                         </div>
+                        
+                        <h4 style="color: #00ffff; margin: 20px 0 10px 0;">By Source:</h4>
+                        {getattr(self.metrics, 'news_by_source_html', '<div style="color:#999">No source data</div>')}
+                        
+                        <a href="http://localhost:8008/admin/news" class="drill-link">📋 Manage Articles</a>
+                        <a href="http://localhost:4000/news/" class="drill-link" style="margin-left: 8px;">🌐 Public News</a>
                     </div>
                     
                     <!-- System Health -->
                     <div class="metric-card">
-                        <h3 class="card-title">🔧 System Health</h3>
+                        <h3 class="card-title"><a href="http://localhost:8008/scheduler/status" title="Scheduler Status">🔧 System Health</a></h3>
                         <div class="big-number status-good">{self.metrics.system_uptime:.1f}%</div>
                         <div style="text-align: center; color: #e0e0e0; margin-bottom: 20px;">Uptime</div>
                         
@@ -1167,6 +1255,16 @@ class DailyReportSystem:
                 <!-- Verification Requests -->
                 {self._generate_verification_section()}
                 
+                <!-- Quick Navigation -->
+                <div style="text-align:center; margin: 20px 0; padding: 12px; background: rgba(0,255,255,0.05); border: 1px solid rgba(0,255,255,0.2); border-radius: 8px;">
+                    <span style="color: #888; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">Quick Links: </span>
+                    <a href="http://localhost:8008/admin/contacts" style="color:#00ffff; text-decoration:none; margin: 0 8px; font-size: 13px;">📋 Contacts Report</a> |
+                    <a href="http://localhost:8008/admin" style="color:#00ffff; text-decoration:none; margin: 0 8px; font-size: 13px;">⚙️ AI Engine</a> |
+                    <a href="http://localhost:8008/admin/news" style="color:#00ffff; text-decoration:none; margin: 0 8px; font-size: 13px;">📰 News</a> |
+                    <a href="http://localhost:4000/ops/presave-content-calendar.html" style="color:#00ffff; text-decoration:none; margin: 0 8px; font-size: 13px;">📅 Calendar</a> |
+                    <a href="http://localhost:8008/admin/contacts/export?format=csv" style="color:#facc15; text-decoration:none; margin: 0 8px; font-size: 13px;">📥 Export Contacts CSV</a>
+                </div>
+
                 <!-- Executive Summary -->
                 <div class="summary-section">
                     <h3 class="summary-title">📊 Executive Summary</h3>
@@ -1175,7 +1273,9 @@ class DailyReportSystem:
                         across {self.metrics.website_sessions} sessions, with an average session duration of {session_duration_minutes} minutes.
                     </p>
                     <p>
-                        <span class="highlight">Content & Outreach:</span> Sent {self.metrics.emails_sent} emails across {self.metrics.outreach_campaigns} campaigns. 
+                        <span class="highlight">Content & Outreach:</span> {self.metrics.outreach_total_contacts} total outreach contacts. 
+                        {self.metrics.outreach_status.get('sent', 0) + self.metrics.outreach_status.get('delivered', 0)} emails sent, 
+                        {self.metrics.outreach_status.get('opened', 0)} opened.
                         Discovered {self.metrics.new_articles} new articles and {self.metrics.new_releases} new releases. 
                         Received {self.metrics.new_votes} new votes bringing total to {self.metrics.total_votes}.
                     </p>
@@ -1210,18 +1310,22 @@ class DailyReportSystem:
         
         articles_html = ""
         for article in pending_articles:
+            artist = article.get('artist_mentioned', article.get('artist', ''))
+            if isinstance(artist, list):
+                artist = ', '.join(artist)
+            article_type = article.get('article_type', article.get('type', 'unknown'))
+            excerpt = article.get('excerpt', article.get('content', ''))[:200]
+            url = article.get('url', '')
             articles_html += f"""
                 <div class="verification-item">
-                    <h4 style="color: #00ffff; margin: 0 0 5px 0;">{article['title']}</h4>
+                    <h4 style="color: #00ffff; margin: 0 0 5px 0;">{article.get('title', 'Untitled')}</h4>
                     <p style="margin: 5px 0; color: #e0e0e0; font-size: 0.9em;">
-                        <strong>Source:</strong> {article['source']} | 
-                        <strong>Type:</strong> {article['type']} | 
-                        <strong>Artist:</strong> {article['artist']}
+                        <strong>Source:</strong> {article.get('source', 'Unknown')} | 
+                        <strong>Type:</strong> {article_type} | 
+                        <strong>Artist:</strong> {artist}
                     </p>
-                    <p style="margin: 5px 0 10px 0; color: #eee; font-size: 0.9em;">{article['excerpt']}</p>
-                    <p style="margin: 0 0 15px 0;">
-                        <a href="{article['url']}" style="color: #ff5758; text-decoration: none;">📄 View Article</a>
-                    </p>
+                    <p style="margin: 5px 0 10px 0; color: #eee; font-size: 0.9em;">{excerpt}</p>
+                    {'<p style="margin: 0 0 15px 0;"><a href="' + url + '" style="color: #ff5758; text-decoration: none;">View Article</a></p>' if url else ''}
                 </div>
             """
         
@@ -1356,9 +1460,11 @@ def main():
         
         # Also create a "latest" copy for easy access
         latest_path = os.path.join(reports_dir, 'daily_report_latest.html')
+        dashboard_latest = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'daily_report_latest.html')
         try:
             import shutil
             shutil.copy2(output_path, latest_path)
+            shutil.copy2(output_path, dashboard_latest)
         except Exception:
             pass
             

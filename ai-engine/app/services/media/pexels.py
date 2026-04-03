@@ -1,5 +1,6 @@
 """Pexels video search plugin."""
 
+import logging
 from typing import Any
 
 import requests
@@ -7,21 +8,22 @@ import requests
 from app.core.config import get_settings
 from app.services.media.base import MediaSource
 
+logger = logging.getLogger(__name__)
+
 
 class PexelsSource(MediaSource):
     source_name = "pexels"
 
     API_BASE = "https://api.pexels.com/videos/search"
 
-    def _get_api_key(self) -> str:
-        settings = get_settings()
-        key = settings.pexels_api_key
-        if not key:
-            raise ValueError("Pexels API key not configured. Set PEXELS_API_KEY in .env or store via /system/credential.")
-        return key
+    def _get_api_key(self) -> str | None:
+        return get_settings().pexels_api_key or None
 
     def search(self, query: str, per_page: int = 10) -> list[dict[str, Any]]:
         api_key = self._get_api_key()
+        if not api_key:
+            logger.warning("Pexels API key not configured — skipping Pexels search")
+            return []
         resp = requests.get(
             self.API_BASE,
             headers={"Authorization": api_key},
