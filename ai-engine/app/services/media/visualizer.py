@@ -106,8 +106,9 @@ def render_visualizer_frame(
     elif viz_type == "circular":
         _draw_circular(draw, w, h, interp_bands, color1, color2, level)
 
-    # Render song info
-    if config.get("show_song_info") and (config.get("song_title") or config.get("artist")):
+    # Render song info ONLY if no separate text overlays are applied
+    # (text overlays are handled by the renderer's _apply_text_overlays)
+    if config.get("show_song_info") and not config.get("skip_song_info") and (config.get("song_title") or config.get("artist")):
         _draw_song_info(draw, w, h, config.get("song_title", ""), config.get("artist", ""), color1)
 
     # Apply glow by blurring + adding

@@ -38,7 +38,7 @@ MAX_CLIP_DURATION = 8.0
 
 PRESETS = {
     "vertical": (1080, 1920),   # 9:16 — TikTok/Reels/Shorts
-    "widescreen": (1920, 1080), # 16:9 — YouTube landscape
+    "widescreen": (1280, 720),  # 16:9 — YouTube landscape (720p)
 }
 
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp", ".bmp"}
@@ -206,13 +206,13 @@ def render_video(
         if final_video.duration > final_target_dur + 0.5:
             log.info("Trimming video %.1fs → %.1fs to match audio", final_video.duration, final_target_dur)
             final_video = final_video.subclipped(0, final_target_dur)
-        elif final_video.duration < final_target_dur - 0.5:
-            # Extend by freezing on last frame
+        elif not artwork_entries and final_video.duration < final_target_dur - 0.5:
+            # Legacy mode only: extend by looping the full video
             deficit = final_target_dur - final_video.duration
-            log.info("Extending video by %.1fs (freeze last frame) to match audio", deficit)
-            last_frame = final_video.get_frame(final_video.duration - 0.04)
-            freeze = VideoClip(lambda t: last_frame, duration=deficit).with_fps(fps)
-            final_video = concatenate_videoclips([final_video, freeze], method="compose")
+            loops = math.ceil(final_target_dur / final_video.duration)
+            log.info("Looping video %dx to fill %.1fs (was %.1fs)", loops, final_target_dur, final_video.duration)
+            looped = concatenate_videoclips([final_video] * loops, method="compose")
+            final_video = looped.subclipped(0, final_target_dur)
 
     # ── 5. Text overlays ────────────────────────────────────────────────
     if text_overlays:
@@ -268,13 +268,22 @@ def render_video(
         final_video.w, final_video.h, fps,
     )
 
+    # Use CRF 18 for high quality; widescreen gets higher bitrate floor
+    ffmpeg_params = ["-crf", "18", "-pix_fmt", "yuv420p"]
+    if aspect == "widescreen":
+        ffmpeg_params += ["-b:v", "4M", "-maxrate", "6M", "-bufsize", "8M"]
+    else:
+        ffmpeg_params += ["-b:v", "5M", "-maxrate", "8M", "-bufsize", "10M"]
+
     final_video.write_videofile(
         str(output_path),
         fps=fps,
         codec="libx264",
         audio_codec="aac",
+        audio_bitrate="192k",
         preset="medium",
         threads=4,
+        ffmpeg_params=ffmpeg_params,
         logger=None,
     )
 
@@ -422,7 +431,6 @@ def render_preview_frame(
 
             overlay_img = Image.new("RGBA", (ow, oh), (0, 0, 0, 0))
             overlay_draw = ImageDraw.Draw(overlay_img)
-            overlay_draw.rectangle([(0, 0), (ow, oh)], fill=(0, 0, 0, 140))
 
             y_cursor = pad
             for i, line in enumerate(lines):
@@ -430,6 +438,7 @@ def render_preview_frame(
                 x = (ow - lw) // 2
                 if ov.shadow:
                     overlay_draw.text((x + 2, y_cursor + 2), line, font=font, fill=(0, 0, 0, 200))
+                    overlay_draw.text((x + 1, y_cursor + 1), line, font=font, fill=(0, 0, 0, 140))
                 overlay_draw.text((x, y_cursor), line, font=font, fill=(*color, 255))
                 y_cursor += lh + spacing
 
@@ -647,24 +656,19 @@ def _apply_text_overlays(
         overlay_w = max_w + pad * 2
         overlay_h = total_h + pad * 2
 
-        # Draw text overlay image
+        # Draw text overlay image (no background — clean text with shadow)
         overlay_img = Image.new("RGBA", (overlay_w, overlay_h), (0, 0, 0, 0))
         overlay_draw = ImageDraw.Draw(overlay_img)
-
-        # Semi-transparent background bar
-        overlay_draw.rectangle(
-            [(0, 0), (overlay_w, overlay_h)],
-            fill=(0, 0, 0, 140),
-        )
 
         y_cursor = pad
         for i, line in enumerate(lines):
             lw, lh = line_bboxes[i]
             x = (overlay_w - lw) // 2
 
-            # Shadow
+            # Shadow for readability
             if ov.shadow:
                 overlay_draw.text((x + 2, y_cursor + 2), line, font=font, fill=(0, 0, 0, 200))
+                overlay_draw.text((x + 1, y_cursor + 1), line, font=font, fill=(0, 0, 0, 140))
 
             overlay_draw.text((x, y_cursor), line, font=font, fill=(*color, 255))
             y_cursor += lh + spacing
@@ -902,29 +906,70 @@ def _render_artwork_sequence(
     if not artwork_clips:
         raise RuntimeError("No artwork clips produced")
 
-    # Concatenate with crossfades
-    if len(artwork_clips) == 1:
-        final = artwork_clips[0]["clip"]
-    else:
-        final = artwork_clips[0]["clip"]
-        for i in range(1, len(artwork_clips)):
-            xfade = min(artwork_clips[i]["crossfade"], 1.0)
-            next_clip = artwork_clips[i]["clip"]
-            if xfade > 0 and final.duration > xfade and next_clip.duration > xfade:
-                final = _crossfade_clips(final, next_clip, xfade, fps)
+    # Build one pass of the artwork sequence with crossfades
+    def _concat_artwork_pass(clips_list):
+        """Concatenate a list of artwork clip dicts with crossfades."""
+        if len(clips_list) == 1:
+            return clips_list[0]["clip"]
+        result = clips_list[0]["clip"]
+        for i in range(1, len(clips_list)):
+            xfade = min(clips_list[i]["crossfade"], 1.0)
+            next_clip = clips_list[i]["clip"]
+            if xfade > 0 and result.duration > xfade and next_clip.duration > xfade:
+                result = _crossfade_clips(result, next_clip, xfade, fps)
             else:
-                final = concatenate_videoclips([final, next_clip], method="compose")
+                result = concatenate_videoclips([result, next_clip], method="compose")
+        return result
 
-    # Ensure artwork fills the full target duration — extend last frame if short
-    if total_duration > 0 and final.duration < total_duration - 0.1:
-        deficit = total_duration - final.duration
+    one_pass = _concat_artwork_pass(artwork_clips)
+    one_pass_dur = one_pass.duration
+
+    # Loop artwork sequence to fill the full target duration
+    if total_duration > 0 and one_pass_dur < total_duration - 0.1:
+        loops_needed = math.ceil(total_duration / one_pass_dur)
         log.info(
-            "Artwork sequence %.1fs < target %.1fs — extending last artwork by %.1fs",
-            final.duration, total_duration, deficit,
+            "Artwork sequence %.1fs < target %.1fs — looping %dx (with animations)",
+            one_pass_dur, total_duration, loops_needed,
         )
-        last_frame = final.get_frame(final.duration - 0.04)
-        freeze = VideoClip(lambda t: last_frame, duration=deficit + 0.2).with_fps(fps)
-        final = concatenate_videoclips([final, freeze], method="compose")
+
+        # Rebuild animated clips for each loop pass (fresh animations)
+        all_passes = [one_pass]
+        for loop_idx in range(1, loops_needed):
+            loop_clips = []
+            for item in prepared:
+                entry = item["entry"]
+                img_arr = item["img"]
+                dur = entry.duration_sec
+                if dur <= 0:
+                    continue
+                animation_fn = _get_animation_fn(entry.animation)
+                clip = _animated_artwork_clip(
+                    img_arr, target_w, target_h, dur, fps,
+                    animation_fn, entry.animation_speed,
+                )
+                loop_clips.append({"clip": clip, "crossfade": entry.crossfade_sec})
+
+            if loop_clips:
+                loop_pass = _concat_artwork_pass(loop_clips)
+                # Crossfade between loop passes for seamless transition
+                xfade = min(loop_clips[0]["crossfade"], 1.0) if loop_clips[0]["crossfade"] > 0 else 0.5
+                prev = all_passes[-1]
+                if xfade > 0 and prev.duration > xfade and loop_pass.duration > xfade:
+                    merged = _crossfade_clips(prev, loop_pass, xfade, fps)
+                    all_passes[-1] = merged
+                else:
+                    all_passes.append(loop_pass)
+
+        if len(all_passes) == 1:
+            final = all_passes[0]
+        else:
+            final = concatenate_videoclips(all_passes, method="compose")
+
+        # Trim to exact target duration
+        if final.duration > total_duration + 0.1:
+            final = final.subclipped(0, total_duration)
+    else:
+        final = one_pass
 
     # Apply effects as a transparent overlay (low opacity to preserve artwork)
     if effect_config:
@@ -950,23 +995,23 @@ def _assign_artwork_durations(prepared: list[dict], total_duration: float):
             if item["entry"].duration_sec <= 0:
                 item["entry"].duration_sec = max(2.0, per_auto)
 
-    # After assignment, ensure total artwork time covers full duration.
-    # Account for crossfade overlaps reducing total time.
-    total_artwork = sum(item["entry"].duration_sec for item in prepared)
-    total_crossfades = sum(
-        min(item["entry"].crossfade_sec, 1.0)
-        for item in prepared[1:]  # first clip has no crossfade in
-    )
-    effective_duration = total_artwork - total_crossfades
-
-    if total_duration > 0 and effective_duration < total_duration:
-        deficit = total_duration - effective_duration
-        # Extend the last artwork to fill the gap
-        prepared[-1]["entry"].duration_sec += deficit + 0.5  # small buffer
-        log.info(
-            "Extended last artwork by %.1fs to fill video duration (%.1fs total)",
-            deficit + 0.5, total_duration,
+    # Only extend the last entry if there were auto-duration entries.
+    # When all entries have explicit durations, let the looping code handle gaps.
+    if auto_count > 0:
+        total_artwork = sum(item["entry"].duration_sec for item in prepared)
+        total_crossfades = sum(
+            min(item["entry"].crossfade_sec, 1.0)
+            for item in prepared[1:]
         )
+        effective_duration = total_artwork - total_crossfades
+
+        if total_duration > 0 and effective_duration < total_duration:
+            deficit = total_duration - effective_duration
+            prepared[-1]["entry"].duration_sec += deficit + 0.5
+            log.info(
+                "Extended last artwork by %.1fs to fill video duration (%.1fs total)",
+                deficit + 0.5, total_duration,
+            )
 
 
 def _get_animation_fn(animation_type: str):

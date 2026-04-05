@@ -149,6 +149,7 @@
           <button class="btn btn-sm" style="border-color:#4ecdc4;color:#4ecdc4" onclick="runNewsSearch()">Search News</button>
           <button class="btn btn-sm" style="border-color:#ff6b6b;color:#ff6b6b" onclick="runDjRadioDiscovery()">Discover DJs &amp; Radio</button>
           <a class="btn btn-sm" style="border-color:var(--yellow);color:var(--yellow)" href="/admin/contacts">📋 Contacts Report</a>
+          <a class="btn btn-sm" style="border-color:var(--green);color:var(--green)" href="/admin/api/contacts/export?format=csv" download="nullrecords_contacts.csv">📥 Export CSV</a>
           <a class="btn btn-sm" href="#" data-page="marketing">Marketing Dashboard</a>
           <a class="btn btn-sm" href="#" data-page="reports">View Reports</a>
         </div>
@@ -735,6 +736,86 @@
             <div>
               <label style="color:var(--muted);font-size:0.7rem">Line Spacing (px)</label>
               <input id="style-spacing" type="number" value="0" min="0" max="100" placeholder="auto" style="width:100%;padding:6px 8px;background:#111;border:1px solid #333;color:#eee;border-radius:4px;font-family:'JetBrains Mono';font-size:0.75rem" />
+            </div>
+          </div>
+
+          <!-- ═══════════════════════════════════════════════════════ -->
+          <!-- QR CODE & PROVIDER ICONS — Prominent section      -->
+          <!-- ═══════════════════════════════════════════════════════ -->
+          <div style="margin-top:1rem;border:2px solid var(--accent);border-radius:10px;padding:1rem;background:linear-gradient(135deg,rgba(0,255,255,0.03),rgba(0,255,255,0.08))">
+            <h3 style="margin:0 0 0.25rem 0;color:var(--accent);font-size:1rem">📱 QR Code &amp; 🏷️ Provider Icons</h3>
+            <p style="color:var(--muted);font-size:0.7rem;margin-bottom:0.75rem">Add a scannable QR code and streaming platform icons to your video</p>
+
+            <!-- ── QR Code ── -->
+            <div style="background:#0a0a0a;border:1px solid #333;border-radius:8px;padding:0.75rem;margin-bottom:0.75rem">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem">
+                <span style="font-weight:bold;color:var(--text);font-size:0.85rem">📱 QR Code Overlay</span>
+                <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer">
+                  <span style="color:var(--muted);font-size:0.75rem">Enable</span>
+                  <input type="checkbox" id="qr-enabled" onchange="document.getElementById('qr-options').style.display=this.checked?'grid':'none'" style="width:18px;height:18px;accent-color:var(--accent)" />
+                </label>
+              </div>
+              <p style="color:var(--muted);font-size:0.65rem;margin-bottom:0.5rem">Embeds a permanent, scannable QR code linking to any URL. Never expires.</p>
+              <div id="qr-options" style="display:none;grid-template-columns:2fr 1fr 1fr;gap:0.5rem">
+                <div>
+                  <label style="color:var(--accent);font-size:0.7rem;font-weight:bold">URL</label>
+                  <input id="qr-url" type="text" value="https://www.nullrecords.com" placeholder="https://www.nullrecords.com" style="width:100%;padding:8px 10px;background:#111;border:1px solid var(--accent);color:#eee;border-radius:4px;font-family:'JetBrains Mono';font-size:0.8rem" />
+                </div>
+                <div>
+                  <label style="color:var(--accent);font-size:0.7rem;font-weight:bold">Position</label>
+                  <select id="qr-position" style="width:100%;padding:8px 10px;background:#111;border:1px solid #444;color:#eee;border-radius:4px;font-size:0.8rem">
+                    <option value="bottom-right" selected>Bottom Right</option>
+                    <option value="bottom-left">Bottom Left</option>
+                    <option value="top-right">Top Right</option>
+                    <option value="top-left">Top Left</option>
+                  </select>
+                </div>
+                <div>
+                  <label style="color:var(--accent);font-size:0.7rem;font-weight:bold">Size (px)</label>
+                  <input id="qr-size" type="number" value="80" min="40" max="200" style="width:100%;padding:8px 10px;background:#111;border:1px solid #444;color:#eee;border-radius:4px;font-family:'JetBrains Mono';font-size:0.8rem" />
+                </div>
+              </div>
+            </div>
+
+            <!-- ── Provider Icons ── -->
+            <div style="background:#0a0a0a;border:1px solid #333;border-radius:8px;padding:0.75rem">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem">
+                <span style="font-weight:bold;color:var(--text);font-size:0.85rem">🏷️ Provider Icon Strip</span>
+                <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer">
+                  <span style="color:var(--muted);font-size:0.75rem">Enable</span>
+                  <input type="checkbox" id="icons-enabled" onchange="document.getElementById('icons-options').style.display=this.checked?'block':'none'" style="width:18px;height:18px;accent-color:var(--accent)" />
+                </label>
+              </div>
+              <p style="color:var(--muted);font-size:0.65rem;margin-bottom:0.5rem">Show streaming platform logos (Spotify, Apple Music, etc.) as a semi-transparent strip.</p>
+              <div id="icons-options" style="display:none">
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.5rem;margin-bottom:0.5rem">
+                  <div>
+                    <label style="color:var(--muted);font-size:0.7rem">Position</label>
+                    <select id="icons-position" style="width:100%;padding:6px 8px;background:#111;border:1px solid #333;color:#eee;border-radius:4px;font-size:0.75rem">
+                      <option value="bottom">Bottom</option>
+                      <option value="top">Top</option>
+                      <option value="middle">Middle</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label style="color:var(--muted);font-size:0.7rem">Icon Size (px)</label>
+                    <input id="icons-size" type="number" value="32" min="16" max="96" style="width:100%;padding:6px 8px;background:#111;border:1px solid #333;color:#eee;border-radius:4px;font-family:'JetBrains Mono';font-size:0.75rem" />
+                  </div>
+                  <div>
+                    <label style="color:var(--muted);font-size:0.7rem">Opacity</label>
+                    <input id="icons-opacity" type="range" min="0.1" max="1.0" step="0.1" value="0.8" style="width:100%" />
+                  </div>
+                </div>
+                <div style="margin-bottom:0.5rem">
+                  <label style="color:var(--muted);font-size:0.7rem">Providers (comma-separated)</label>
+                  <input id="icons-providers" type="text" value="Spotify,Apple Music,YouTube Music,Tidal,Amazon Music,Bandcamp" placeholder="Spotify,Apple Music,..." style="width:100%;padding:6px 8px;background:#111;border:1px solid #333;color:#eee;border-radius:4px;font-family:'JetBrains Mono';font-size:0.75rem" />
+                </div>
+                <div style="display:flex;align-items:center;gap:0.5rem">
+                  <button class="btn btn-sm" onclick="uploadProviderIcon()" style="font-size:0.7rem">📤 Upload Custom Icon</button>
+                  <input type="file" id="icon-upload-input" accept="image/*" style="display:none" onchange="handleIconUpload(this)" />
+                  <span id="icons-status" style="font-size:0.65rem;color:var(--muted)"></span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -1961,6 +2042,28 @@ function resetVideoForm() {
   if (presetSel) presetSel.value = '';
   const histSel = document.getElementById('history-select');
   if (histSel) histSel.value = '';
+}
+
+// ── Provider Icon Upload ──
+function uploadProviderIcon() {
+  document.getElementById('icon-upload-input').click();
+}
+async function handleIconUpload(input) {
+  if (!input.files || !input.files[0]) return;
+  const formData = new FormData();
+  formData.append('file', input.files[0]);
+  const statusEl = document.getElementById('icons-status');
+  statusEl.textContent = 'Uploading...';
+  try {
+    const r = await fetch('/video/provider-icons/upload', { method: 'POST', body: formData });
+    const d = await r.json();
+    statusEl.textContent = d.filename ? `✓ Uploaded: ${d.filename}` : '✗ Upload failed';
+    statusEl.style.color = d.filename ? 'var(--green)' : 'var(--red)';
+  } catch (e) {
+    statusEl.textContent = '✗ ' + e.message;
+    statusEl.style.color = 'var(--red)';
+  }
+  input.value = '';
 }
 
 // ── Image management ──

@@ -592,7 +592,7 @@ def export_contacts(
     result = list_contacts(
         contact_type=contact_type, platform=platform,
         has_email=has_email, has_social=has_social, can_send=can_send,
-        outreach_status="", min_score=min_score, sort="score",
+        contact_method="", outreach_status="", min_score=min_score, sort="score",
         limit=10000, offset=0, db=db,
     )
     items = result["items"]
@@ -608,11 +608,11 @@ def export_contacts(
 
     # CSV export
     columns = [
-        "name", "type", "platform", "curator", "followers", "niche",
+        "id", "name", "type", "platform", "curator", "followers", "niche",
         "url", "contact_method", "contact_value", "has_email", "has_social",
         "can_send", "relevance_score", "outreach_status", "messages_sent",
         "last_outreach_date", "follow_up_due", "raw_contact",
-        "research_notes",
+        "last_contacted", "created_at", "research_notes",
     ]
     output = io.StringIO()
     writer = csv.DictWriter(output, fieldnames=columns, extrasaction="ignore")

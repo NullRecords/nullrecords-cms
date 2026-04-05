@@ -253,6 +253,7 @@ class VideoEngine:
                 "bar_count": config.visualizer_bar_count,
                 "glow": config.visualizer_glow,
                 "show_song_info": config.show_song_info,
+                "skip_song_info": bool(text_overlays),  # don't duplicate text
                 "song_title": config.overlay_text,
                 "artist": config.overlay_subtitle,
                 "spectrum": audio_data["spectrum"],

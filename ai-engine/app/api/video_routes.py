@@ -770,6 +770,7 @@ def generate_preview(req: PreviewRequest):
             "bar_count": req.visualizer_bar_count,
             "glow": req.visualizer_glow,
             "show_song_info": req.show_song_info,
+            "skip_song_info": bool(text_overlays),  # don't duplicate text
             "song_title": req.overlay_text,
             "artist": req.overlay_subtitle,
             "spectrum": spectrum,
