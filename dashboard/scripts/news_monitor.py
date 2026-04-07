@@ -1072,6 +1072,7 @@ class NewsMonitor:
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <script src="/shared-nav.js" defer></script>
 </head>
 <body class="bg-dark-bg text-gray-100 font-mono">
     <!-- Header -->
@@ -1215,6 +1216,7 @@ class NewsMonitor:
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <script src="/shared-nav.js" defer></script>
 </head>
 <body class="bg-dark-bg text-gray-100 font-mono">
     <!-- Header -->
