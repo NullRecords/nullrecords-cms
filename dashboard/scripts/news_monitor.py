@@ -1154,6 +1154,7 @@ class NewsMonitor:
             </p>
         </div>
     </footer>
+    <script src="/shared-header.js"></script>
 </body>
 </html>"""
         
@@ -1294,6 +1295,7 @@ class NewsMonitor:
             </p>
         </div>
     </footer>
+    <script src="/shared-header.js"></script>
 </body>
 </html>"""
         

@@ -39,6 +39,7 @@
     "description": "A new celestial body appears over the earth in the early 20th century, the reactions, stories and misinformation make for an intersting and short read with some running pop-up commentary by Bob the somewhat Humanist.",
     "suggested_donation": 3.00,
     "download_bundle": "books/the_star_nullpress_edition_1.0.3.epub",
+    "bob_humanist": true,
     "active": true
   },
   {
@@ -47,11 +48,12 @@
     "title": "Metamorphosis",
     "author": "Franz Kafka",
     "cover_art": "assets/metamorphosis.png",
-    "ebook_file": "books/metamorphosis.epub",
-    "description": "Coming Soon!",
+    "ebook_file": "books/metamorphosis_null_press_edition_1.0.0.epub",
+    "description": "Gregor Samsa wakes to find himself transformed into a monstrous insect — Kafka's iconic novella of alienation and absurdity, with pop-up commentary by Bob the somewhat Humanist. Null Press Edition with interactive features and hyperlinked notes.",
     "suggested_donation": 3.00,
-    "download_bundle": "books/metamorphosis.epub",
-    "active": false
+    "download_bundle": "books/metamorphosis_null_press_edition_1.0.0.epub",
+    "bob_humanist": true,
+    "active": true
   },
   {
     "id": "space_jazz",
