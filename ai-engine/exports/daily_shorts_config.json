@@ -1,0 +1,130 @@
+{
+  "artist": "My Evil Robot Army",
+  "website": "https://www.nullrecords.com",
+  "profiles": {
+    "spotify": "https://open.spotify.com/artist/MY_EVIL_ROBOT_ARMY_ID",
+    "tiktok": "https://www.tiktok.com/@myevilrobotarmy",
+    "youtube": "https://www.youtube.com/@myevilrobotarmy",
+    "instagram": "https://www.instagram.com/myevilrobotarmy"
+  },
+  "tracks": [
+    {
+      "id": "shelter",
+      "title": "Shelter",
+      "audio_file": "Shelter.wav",
+      "mood": "chill",
+      "tags": ["lofi", "jazz", "chill"],
+      "segments": [
+        {"label": "intro", "start_ms": 0, "duration_ms": 15000},
+        {"label": "groove", "start_ms": 30000, "duration_ms": 15000},
+        {"label": "bridge", "start_ms": 60000, "duration_ms": 15000},
+        {"label": "outro", "start_ms": 90000, "duration_ms": 15000}
+      ]
+    },
+    {
+      "id": "too_much_to_do",
+      "title": "Too Much To Do",
+      "audio_file": "to much to do.wav",
+      "mood": "energetic",
+      "tags": ["electronic", "beat", "hype"],
+      "segments": [
+        {"label": "intro", "start_ms": 0, "duration_ms": 15000},
+        {"label": "drop", "start_ms": 25000, "duration_ms": 15000},
+        {"label": "buildup", "start_ms": 50000, "duration_ms": 15000},
+        {"label": "peak", "start_ms": 75000, "duration_ms": 15000}
+      ]
+    },
+    {
+      "id": "hidden_insite",
+      "title": "Hidden Insite",
+      "audio_file": "hidden insite.wav",
+      "mood": "dark",
+      "tags": ["dark", "ambient", "experimental"],
+      "segments": [
+        {"label": "intro", "start_ms": 0, "duration_ms": 15000},
+        {"label": "main", "start_ms": 20000, "duration_ms": 15000},
+        {"label": "breakdown", "start_ms": 45000, "duration_ms": 15000},
+        {"label": "climax", "start_ms": 70000, "duration_ms": 15000}
+      ]
+    },
+    {
+      "id": "lectroids",
+      "title": "Lectroids",
+      "audio_file": "lectroids.wav",
+      "mood": "electronic",
+      "tags": ["electronic", "synth", "retro"],
+      "segments": [
+        {"label": "intro", "start_ms": 0, "duration_ms": 15000},
+        {"label": "verse", "start_ms": 30000, "duration_ms": 15000},
+        {"label": "hook", "start_ms": 55000, "duration_ms": 15000},
+        {"label": "outro", "start_ms": 80000, "duration_ms": 15000}
+      ]
+    },
+    {
+      "id": "mind_hack",
+      "title": "Mind Hack",
+      "audio_file": "mind hack_1.wav",
+      "mood": "intense",
+      "tags": ["intense", "glitch", "cyber"],
+      "segments": [
+        {"label": "intro", "start_ms": 0, "duration_ms": 15000},
+        {"label": "attack", "start_ms": 20000, "duration_ms": 15000},
+        {"label": "sustain", "start_ms": 45000, "duration_ms": 15000},
+        {"label": "release", "start_ms": 70000, "duration_ms": 15000}
+      ]
+    },
+    {
+      "id": "pattern_watching",
+      "title": "Pattern Watching",
+      "audio_file": "pattern watching.wav",
+      "mood": "chill",
+      "tags": ["lofi", "ambient", "mellow"],
+      "segments": [
+        {"label": "intro", "start_ms": 0, "duration_ms": 15000},
+        {"label": "flow", "start_ms": 25000, "duration_ms": 15000},
+        {"label": "drift", "start_ms": 50000, "duration_ms": 15000},
+        {"label": "fade", "start_ms": 75000, "duration_ms": 15000}
+      ]
+    }
+  ],
+  "image_pool": [
+    "osciallating-overthurster.png",
+    "to-much-to-do.png",
+    "Cosmic vibes with Kyla Egli.png",
+    "Cosmic beauty and stellar beats.png",
+    "cyber_grid.jpg",
+    "light_streaks.jpg",
+    "null_record_art.jpg"
+  ],
+  "default_preset": {
+    "aspect": "vertical",
+    "duration_ms": 15000,
+    "fps": 24,
+    "use_glitch_transitions": true,
+    "visualizer_enabled": true,
+    "visualizer_type": "bars",
+    "visualizer_color": "#00ffff",
+    "visualizer_color2": "#ff5758",
+    "visualizer_glow": true,
+    "beat_flash_enabled": true,
+    "scanline_enabled": true,
+    "overlay_position": "lower-third",
+    "provider_icons_enabled": true,
+    "qr_enabled": true,
+    "qr_url": "https://www.nullrecords.com",
+    "show_song_info": true
+  },
+  "variation_effects": [
+    {"color_shift_enabled": true, "vhs_enabled": false, "scanline_enabled": true},
+    {"color_shift_enabled": false, "vhs_enabled": true, "scanline_enabled": false},
+    {"color_shift_enabled": true, "vhs_enabled": true, "scanline_enabled": true},
+    {"color_shift_enabled": false, "vhs_enabled": false, "scanline_enabled": true, "visualizer_type": "circular"},
+    {"color_shift_enabled": true, "vhs_enabled": false, "scanline_enabled": false, "visualizer_type": "waveform"},
+    {"color_shift_enabled": false, "vhs_enabled": true, "scanline_enabled": true, "visualizer_type": "lines"}
+  ],
+  "hashtags": {
+    "tiktok": ["#MyEvilRobotArmy", "#MERA", "#NullRecords", "#LoFiJazz", "#ElectronicMusic", "#InstrumentalMusic", "#MusicVisualization", "#IndieMusic", "#NewMusic"],
+    "instagram": ["#MyEvilRobotArmy", "#MERA", "#NullRecords", "#LoFiJazz", "#ElectronicMusic", "#InstrumentalMusic", "#MusicVisualization", "#IndieMusic", "#NewMusic", "#Reels"],
+    "youtube": ["My Evil Robot Army", "MERA", "NullRecords", "LoFi Jazz", "Electronic Music", "Shorts"]
+  }
+}

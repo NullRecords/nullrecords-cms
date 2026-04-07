@@ -237,6 +237,287 @@ def _run_media_ingest():
         db.close()
 
 
+# ── Daily Shorts Auto-Generation ─────────────────────────────────────────
+
+
+def _run_daily_shorts_generation():
+    """Auto-generate 3 short-form videos per day from the MERA catalog.
+
+    Reads daily_shorts_config.json for the track catalog and preset,
+    picks tracks/segments/images with variety, renders 3 videos, and
+    writes them to the approval queue (daily_shorts_queue.json) with
+    status 'pending'.
+    """
+    import json
+    import random
+    import uuid
+    from pathlib import Path
+
+    from app.core.config import get_settings
+    from app.core.database import SessionLocal
+    from app.services.media.video_engine import VideoConfig, VideoEngine
+
+    settings = get_settings()
+    exports = Path(settings.exports_dir)
+    config_path = exports / "daily_shorts_config.json"
+    queue_path = exports / "daily_shorts_queue.json"
+
+    if not config_path.exists():
+        logger.warning("daily_shorts_config.json not found — skipping generation")
+        return
+
+    with open(config_path) as f:
+        catalog = json.load(f)
+
+    tracks = catalog.get("tracks", [])
+    image_pool = catalog.get("image_pool", [])
+    preset = catalog.get("default_preset", {})
+    variation_effects = catalog.get("variation_effects", [])
+    hashtags = catalog.get("hashtags", {})
+
+    if not tracks:
+        logger.warning("No tracks in catalog — skipping")
+        return
+
+    # Load existing queue to check what was already generated today
+    queue = []
+    if queue_path.exists():
+        try:
+            queue = json.loads(queue_path.read_text())
+        except Exception:
+            queue = []
+
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    todays_entries = [e for e in queue if e.get("generated_date") == today]
+    if len(todays_entries) >= 3:
+        logger.info("Already generated %d shorts today — skipping", len(todays_entries))
+        return
+
+    needed = 3 - len(todays_entries)
+
+    # Pick tracks + segments with variety (avoid repeating today's picks)
+    used_combos = {(e["track_id"], e["segment_label"]) for e in todays_entries}
+    candidates = []
+    for track in tracks:
+        audio_path = exports / "audio_uploads" / track["audio_file"]
+        if not audio_path.exists():
+            # Try finding the file with a UUID prefix
+            matches = list((exports / "audio_uploads").glob(f"*_{track['audio_file']}"))
+            if matches:
+                audio_path = matches[0]
+            else:
+                continue
+        for seg in track.get("segments", []):
+            combo = (track["id"], seg["label"])
+            if combo not in used_combos:
+                candidates.append((track, seg, str(audio_path)))
+
+    if not candidates:
+        logger.warning("No unused track/segment combos left for today")
+        return
+
+    random.shuffle(candidates)
+    picks = candidates[:needed]
+
+    # Resolve available images
+    available_images = []
+    for img_name in image_pool:
+        for search_dir in [exports / "image_uploads", Path(settings.media_library_dir) / "images"]:
+            exact = search_dir / img_name
+            if exact.exists():
+                available_images.append(str(exact))
+                break
+            # Try glob for UUID-prefixed filenames
+            matches = list(search_dir.glob(f"*_{img_name}"))
+            if matches:
+                available_images.append(str(matches[0]))
+                break
+
+    db = SessionLocal()
+    engine = VideoEngine()
+    generated = 0
+
+    try:
+        for idx, (track, segment, audio_path) in enumerate(picks):
+            try:
+                # Pick effect variation
+                effects = random.choice(variation_effects) if variation_effects else {}
+
+                # Pick 1-3 images for this video
+                imgs = random.sample(available_images, min(3, len(available_images))) if available_images else []
+
+                run_id = uuid.uuid4().hex[:8]
+                output_name = f"daily_{today}_{track['id']}_{segment['label']}_{run_id}.mp4"
+
+                config = VideoConfig(
+                    audio_path=audio_path,
+                    start_ms=segment.get("start_ms", 0),
+                    duration_ms=preset.get("duration_ms", 15000),
+                    mood=track.get("mood", ""),
+                    tags=track.get("tags", []),
+                    output_name=output_name,
+                    fps=preset.get("fps", 24),
+                    use_glitch_transitions=preset.get("use_glitch_transitions", True),
+                    aspect=preset.get("aspect", "vertical"),
+                    image_paths=imgs,
+                    overlay_text=track["title"],
+                    overlay_subtitle="My Evil Robot Army",
+                    overlay_position=preset.get("overlay_position", "lower-third"),
+                    effect_opacity=preset.get("effect_opacity", 1.0),
+                    glitch_opacity=preset.get("glitch_opacity", 0.7),
+                    color_shift_enabled=effects.get("color_shift_enabled", False),
+                    scanline_enabled=effects.get("scanline_enabled", preset.get("scanline_enabled", False)),
+                    vhs_enabled=effects.get("vhs_enabled", False),
+                    beat_flash_enabled=preset.get("beat_flash_enabled", True),
+                    visualizer_enabled=preset.get("visualizer_enabled", True),
+                    visualizer_type=effects.get("visualizer_type", preset.get("visualizer_type", "bars")),
+                    visualizer_color=preset.get("visualizer_color", "#00ffff"),
+                    visualizer_color2=preset.get("visualizer_color2", "#ff5758"),
+                    visualizer_glow=preset.get("visualizer_glow", True),
+                    show_song_info=preset.get("show_song_info", True),
+                    auto_select_clips=len(imgs) == 0,
+                )
+
+                # Add QR code if configured
+                if preset.get("qr_enabled"):
+                    from app.services.media.overlays import QRCodeConfig
+                    config.qr_code_config = QRCodeConfig(
+                        url=preset.get("qr_url", "https://www.nullrecords.com"),
+                    )
+
+                # Add provider icons if configured
+                if preset.get("provider_icons_enabled"):
+                    from app.services.media.overlays import ProviderIconConfig
+                    config.provider_icon_config = ProviderIconConfig()
+
+                result_path = engine.generate_video(db, config)
+
+                # Add to approval queue
+                entry = {
+                    "id": uuid.uuid4().hex[:12],
+                    "status": "pending",
+                    "generated_date": today,
+                    "track_id": track["id"],
+                    "track_title": track["title"],
+                    "segment_label": segment["label"],
+                    "filename": output_name,
+                    "video_path": str(result_path),
+                    "mood": track.get("mood", ""),
+                    "effects": effects,
+                    "images_used": imgs,
+                    "created_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                    "approved_at": None,
+                    "posted_at": None,
+                    "platforms_posted": [],
+                    "caption": f"{track['title']} — My Evil Robot Army\n\n" + " ".join(hashtags.get("tiktok", [])),
+                    "hashtags": hashtags,
+                }
+                queue.append(entry)
+                generated += 1
+                logger.info("Daily short generated: %s (%s / %s)", output_name, track["title"], segment["label"])
+
+            except Exception:
+                logger.exception("Failed to generate daily short for %s/%s", track["id"], segment["label"])
+
+        # Save queue
+        queue_path.write_text(json.dumps(queue, indent=2))
+        logger.info("Daily shorts generation complete — %d new videos queued for approval", generated)
+
+    except Exception:
+        logger.exception("Error in daily shorts generation job")
+    finally:
+        db.close()
+
+
+# ── Scheduled Posting of Approved Shorts ─────────────────────────────────
+
+
+def _run_daily_shorts_posting():
+    """Post approved shorts that are scheduled for today.
+
+    Finds entries in daily_shorts_queue.json with status 'approved'
+    and posts them to configured platforms via the video publish pipeline.
+    Staggers posts across the day based on the entry index.
+    """
+    import json
+    from pathlib import Path
+
+    from app.core.config import get_settings
+
+    settings = get_settings()
+    exports = Path(settings.exports_dir)
+    queue_path = exports / "daily_shorts_queue.json"
+
+    if not queue_path.exists():
+        return
+
+    try:
+        queue = json.loads(queue_path.read_text())
+    except Exception:
+        return
+
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    current_hour = datetime.now(timezone.utc).hour
+
+    # Post schedule: slot 0 at 10:00, slot 1 at 14:00, slot 2 at 18:00 UTC
+    posting_hours = [10, 14, 18]
+    posted_count = 0
+
+    for entry in queue:
+        if entry.get("status") != "approved":
+            continue
+        if entry.get("generated_date") != today:
+            continue
+        if entry.get("posted_at"):
+            continue
+
+        # Determine this entry's posting slot
+        todays_approved = [e for e in queue
+                          if e.get("generated_date") == today
+                          and e.get("status") in ("approved", "posted")]
+        slot_idx = next(
+            (i for i, e in enumerate(todays_approved) if e["id"] == entry["id"]),
+            0
+        )
+        target_hour = posting_hours[slot_idx] if slot_idx < len(posting_hours) else posting_hours[-1]
+
+        if current_hour < target_hour:
+            continue  # Not time yet
+
+        # Attempt to post
+        video_path = Path(entry["video_path"])
+        if not video_path.exists():
+            logger.warning("Video file missing for posting: %s", entry["video_path"])
+            entry["status"] = "error"
+            entry["error"] = "Video file not found"
+            continue
+
+        try:
+            from app.services.media.publishers import publish_video
+            results = publish_video(
+                video_path=str(video_path),
+                title=entry.get("track_title", ""),
+                description=entry.get("caption", ""),
+                tags=entry.get("hashtags", {}).get("youtube", []),
+                platforms=["youtube", "tiktok", "instagram"],
+            )
+            entry["status"] = "posted"
+            entry["posted_at"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
+            entry["platforms_posted"] = [r["platform"] for r in results if r.get("status") in ("uploaded", "manual")]
+            entry["post_results"] = results
+            posted_count += 1
+            logger.info("Posted daily short: %s to %s", entry["filename"], entry["platforms_posted"])
+        except Exception:
+            logger.exception("Failed to post daily short: %s", entry["filename"])
+            entry["status"] = "post_failed"
+            entry["error"] = "Posting failed — will retry next cycle"
+
+    # Save updated queue
+    queue_path.write_text(json.dumps(queue, indent=2))
+    if posted_count:
+        logger.info("Daily shorts posting complete — %d videos posted", posted_count)
+
+
 # ── Scheduler lifecycle ──────────────────────────────────────────────────
 
 
@@ -607,10 +888,27 @@ def start_scheduler():
         replace_existing=True,
     )
 
+    _scheduler.add_job(
+        _run_daily_shorts_generation,
+        trigger=IntervalTrigger(hours=24),
+        id="daily_shorts_generation",
+        name="Auto-generate 3 daily shorts from MERA catalog",
+        replace_existing=True,
+    )
+
+    _scheduler.add_job(
+        _run_daily_shorts_posting,
+        trigger=IntervalTrigger(hours=2),
+        id="daily_shorts_posting",
+        name="Post approved daily shorts on schedule",
+        replace_existing=True,
+    )
+
     _scheduler.start()
     logger.info(
         "Scheduler started — followups every %dm, discovery every %dh, "
-        "media ingest every %dh, news search every 12h, DJ/radio every 48h",
+        "media ingest every %dh, news search every 12h, DJ/radio every 48h, "
+        "daily shorts generation every 24h, daily shorts posting every 2h",
         settings.scheduler_followup_minutes,
         settings.scheduler_discovery_hours,
         settings.scheduler_media_ingest_hours,

@@ -1259,3 +1259,140 @@ async def delete_provider_icon(filename: str):
         raise HTTPException(404, "Icon not found")
     target.unlink()
     return {"deleted": safe}
+
+
+# ── Daily Shorts Queue Management ───────────────────────────────────────
+
+
+def _shorts_queue_path() -> Path:
+    return Path(get_settings().exports_dir) / "daily_shorts_queue.json"
+
+
+def _shorts_config_path() -> Path:
+    return Path(get_settings().exports_dir) / "daily_shorts_config.json"
+
+
+def _load_shorts_queue() -> list[dict]:
+    p = _shorts_queue_path()
+    if p.exists():
+        try:
+            return json.loads(p.read_text())
+        except Exception:
+            return []
+    return []
+
+
+def _save_shorts_queue(queue: list[dict]) -> None:
+    p = _shorts_queue_path()
+    p.write_text(json.dumps(queue, indent=2))
+
+
+@router.get("/daily-shorts/queue")
+async def get_daily_shorts_queue(
+    status: str | None = Query(None, description="Filter by status: pending, approved, posted, rejected"),
+    date: str | None = Query(None, description="Filter by generated_date (YYYY-MM-DD)"),
+):
+    """List all items in the daily shorts approval queue."""
+    queue = _load_shorts_queue()
+    if status:
+        queue = [e for e in queue if e.get("status") == status]
+    if date:
+        queue = [e for e in queue if e.get("generated_date") == date]
+    return {"queue": queue, "total": len(queue)}
+
+
+@router.get("/daily-shorts/queue/{entry_id}")
+async def get_daily_short_entry(entry_id: str):
+    """Get a single queue entry by ID."""
+    queue = _load_shorts_queue()
+    entry = next((e for e in queue if e["id"] == entry_id), None)
+    if not entry:
+        raise HTTPException(404, "Queue entry not found")
+    return entry
+
+
+@router.post("/daily-shorts/queue/{entry_id}/approve")
+async def approve_daily_short(entry_id: str):
+    """Approve a pending short for scheduled posting."""
+    queue = _load_shorts_queue()
+    entry = next((e for e in queue if e["id"] == entry_id), None)
+    if not entry:
+        raise HTTPException(404, "Queue entry not found")
+    if entry["status"] not in ("pending", "rejected"):
+        raise HTTPException(400, f"Cannot approve entry with status '{entry['status']}'")
+    entry["status"] = "approved"
+    entry["approved_at"] = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
+    _save_shorts_queue(queue)
+    return {"id": entry_id, "status": "approved"}
+
+
+@router.post("/daily-shorts/queue/{entry_id}/reject")
+async def reject_daily_short(entry_id: str):
+    """Reject a pending short (won't be posted)."""
+    queue = _load_shorts_queue()
+    entry = next((e for e in queue if e["id"] == entry_id), None)
+    if not entry:
+        raise HTTPException(404, "Queue entry not found")
+    entry["status"] = "rejected"
+    _save_shorts_queue(queue)
+    return {"id": entry_id, "status": "rejected"}
+
+
+@router.delete("/daily-shorts/queue/{entry_id}")
+async def delete_daily_short(entry_id: str):
+    """Delete a queue entry and optionally its video file."""
+    queue = _load_shorts_queue()
+    entry = next((e for e in queue if e["id"] == entry_id), None)
+    if not entry:
+        raise HTTPException(404, "Queue entry not found")
+    # Remove video file if it exists
+    video = Path(entry.get("video_path", ""))
+    if video.exists():
+        video.unlink()
+    queue = [e for e in queue if e["id"] != entry_id]
+    _save_shorts_queue(queue)
+    return {"deleted": entry_id}
+
+
+@router.get("/daily-shorts/config")
+async def get_daily_shorts_config():
+    """Return the current daily shorts catalog configuration."""
+    p = _shorts_config_path()
+    if not p.exists():
+        raise HTTPException(404, "daily_shorts_config.json not found")
+    return json.loads(p.read_text())
+
+
+@router.put("/daily-shorts/config")
+async def update_daily_shorts_config(config: dict):
+    """Update the daily shorts catalog configuration."""
+    p = _shorts_config_path()
+    p.write_text(json.dumps(config, indent=2))
+    return {"success": True}
+
+
+@router.post("/daily-shorts/generate-now")
+async def trigger_daily_shorts_now(db: Session = Depends(get_db)):
+    """Manually trigger daily shorts generation (bypasses scheduler)."""
+    from app.jobs.scheduler import _run_daily_shorts_generation
+    try:
+        _run_daily_shorts_generation()
+        queue = _load_shorts_queue()
+        today = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d")
+        todays = [e for e in queue if e.get("generated_date") == today]
+        return {"success": True, "generated_today": len(todays), "queue": todays}
+    except Exception as exc:
+        raise HTTPException(500, f"Generation failed: {exc}")
+
+
+@router.get("/daily-shorts/preview/{entry_id}")
+async def preview_daily_short(entry_id: str):
+    """Serve the video file for preview/playback."""
+    queue = _load_shorts_queue()
+    entry = next((e for e in queue if e["id"] == entry_id), None)
+    if not entry:
+        raise HTTPException(404, "Queue entry not found")
+    video = Path(entry.get("video_path", ""))
+    if not video.exists():
+        raise HTTPException(404, "Video file not found")
+    return FileResponse(str(video), media_type="video/mp4", filename=entry.get("filename", video.name))
