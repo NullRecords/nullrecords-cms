@@ -38,7 +38,14 @@ app = FastAPI(
 # Allow local services to connect
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8100", "http://localhost:8300", "http://127.0.0.1:8100"],
+    allow_origins=[
+        "http://localhost:8100",
+        "http://localhost:8300",
+        "http://localhost:4001",
+        "http://127.0.0.1:8100",
+        "https://www.nullrecords.com",
+        "https://nullrecords.com",
+    ],
     allow_methods=["*"],
     allow_headers=["*"],
 )

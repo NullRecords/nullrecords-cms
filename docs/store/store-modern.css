@@ -75,8 +75,8 @@ header nav {
 }
 
 .intro-section h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.5rem;
+  font-family: 'Press Start 2P', 'JetBrains Mono', monospace;
+  font-size: 1.4rem;
   margin: 0 0 1rem 0;
   color: #00fff7;
   text-shadow: 0 0 20px #00fff7;
@@ -102,8 +102,8 @@ nav a {
   padding: 0 1rem;
 }
 .section-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 2rem;
+  font-family: 'Press Start 2P', 'JetBrains Mono', monospace;
+  font-size: 1rem;
   margin-bottom: 1.5rem;
   color: #ED7512;
   border-left: 4px solid rgb(208, 178, 185);

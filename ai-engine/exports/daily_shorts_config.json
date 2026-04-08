@@ -13,12 +13,38 @@
       "title": "Shelter",
       "audio_file": "Shelter.wav",
       "mood": "chill",
-      "tags": ["lofi", "jazz", "chill"],
+      "tags": [
+        "lofi",
+        "jazz",
+        "chill"
+      ],
       "segments": [
-        {"label": "intro", "start_ms": 0, "duration_ms": 15000},
-        {"label": "groove", "start_ms": 30000, "duration_ms": 15000},
-        {"label": "bridge", "start_ms": 60000, "duration_ms": 15000},
-        {"label": "outro", "start_ms": 90000, "duration_ms": 15000}
+        {
+          "label": "intro",
+          "start_ms": 0,
+          "duration_ms": 15000
+        },
+        {
+          "label": "groove",
+          "start_ms": 30000,
+          "duration_ms": 15000
+        },
+        {
+          "label": "bridge",
+          "start_ms": 60000,
+          "duration_ms": 15000
+        },
+        {
+          "label": "outro",
+          "start_ms": 90000,
+          "duration_ms": 15000
+        }
+      ],
+      "images": [
+        "33be9144_Cosmic beauty and stellar beats.png",
+        "b3ea8656_Cosmic vibes with Kyla Egli.png",
+        "4d579e93_hell_yes_playground_8s_720x1280 (1).mp4",
+        "78401305_Shelter in a cosmic embrace.png"
       ]
     },
     {
@@ -26,12 +52,38 @@
       "title": "Too Much To Do",
       "audio_file": "to much to do.wav",
       "mood": "energetic",
-      "tags": ["electronic", "beat", "hype"],
+      "tags": [
+        "electronic",
+        "beat",
+        "hype"
+      ],
       "segments": [
-        {"label": "intro", "start_ms": 0, "duration_ms": 15000},
-        {"label": "drop", "start_ms": 25000, "duration_ms": 15000},
-        {"label": "buildup", "start_ms": 50000, "duration_ms": 15000},
-        {"label": "peak", "start_ms": 75000, "duration_ms": 15000}
+        {
+          "label": "intro",
+          "start_ms": 0,
+          "duration_ms": 15000
+        },
+        {
+          "label": "drop",
+          "start_ms": 25000,
+          "duration_ms": 15000
+        },
+        {
+          "label": "buildup",
+          "start_ms": 50000,
+          "duration_ms": 15000
+        },
+        {
+          "label": "peak",
+          "start_ms": 75000,
+          "duration_ms": 15000
+        }
+      ],
+      "images": [
+        "8580c3df_to-much-to-do.png",
+        "8accd6b5_Too much to do_ cosmic reflections.png",
+        "852edc77_Cosmic beats and surreal landscapes.png",
+        "5e1f2cc2_hell_yes_playground_8s_720x1280.mp4"
       ]
     },
     {
@@ -39,12 +91,32 @@
       "title": "Hidden Insite",
       "audio_file": "hidden insite.wav",
       "mood": "dark",
-      "tags": ["dark", "ambient", "experimental"],
+      "tags": [
+        "dark",
+        "ambient",
+        "experimental"
+      ],
       "segments": [
-        {"label": "intro", "start_ms": 0, "duration_ms": 15000},
-        {"label": "main", "start_ms": 20000, "duration_ms": 15000},
-        {"label": "breakdown", "start_ms": 45000, "duration_ms": 15000},
-        {"label": "climax", "start_ms": 70000, "duration_ms": 15000}
+        {
+          "label": "intro",
+          "start_ms": 0,
+          "duration_ms": 15000
+        },
+        {
+          "label": "main",
+          "start_ms": 20000,
+          "duration_ms": 15000
+        },
+        {
+          "label": "breakdown",
+          "start_ms": 45000,
+          "duration_ms": 15000
+        },
+        {
+          "label": "climax",
+          "start_ms": 70000,
+          "duration_ms": 15000
+        }
       ]
     },
     {
@@ -52,12 +124,32 @@
       "title": "Lectroids",
       "audio_file": "lectroids.wav",
       "mood": "electronic",
-      "tags": ["electronic", "synth", "retro"],
+      "tags": [
+        "electronic",
+        "synth",
+        "retro"
+      ],
       "segments": [
-        {"label": "intro", "start_ms": 0, "duration_ms": 15000},
-        {"label": "verse", "start_ms": 30000, "duration_ms": 15000},
-        {"label": "hook", "start_ms": 55000, "duration_ms": 15000},
-        {"label": "outro", "start_ms": 80000, "duration_ms": 15000}
+        {
+          "label": "intro",
+          "start_ms": 0,
+          "duration_ms": 15000
+        },
+        {
+          "label": "verse",
+          "start_ms": 30000,
+          "duration_ms": 15000
+        },
+        {
+          "label": "hook",
+          "start_ms": 55000,
+          "duration_ms": 15000
+        },
+        {
+          "label": "outro",
+          "start_ms": 80000,
+          "duration_ms": 15000
+        }
       ]
     },
     {
@@ -65,12 +157,32 @@
       "title": "Mind Hack",
       "audio_file": "mind hack_1.wav",
       "mood": "intense",
-      "tags": ["intense", "glitch", "cyber"],
+      "tags": [
+        "intense",
+        "glitch",
+        "cyber"
+      ],
       "segments": [
-        {"label": "intro", "start_ms": 0, "duration_ms": 15000},
-        {"label": "attack", "start_ms": 20000, "duration_ms": 15000},
-        {"label": "sustain", "start_ms": 45000, "duration_ms": 15000},
-        {"label": "release", "start_ms": 70000, "duration_ms": 15000}
+        {
+          "label": "intro",
+          "start_ms": 0,
+          "duration_ms": 15000
+        },
+        {
+          "label": "attack",
+          "start_ms": 20000,
+          "duration_ms": 15000
+        },
+        {
+          "label": "sustain",
+          "start_ms": 45000,
+          "duration_ms": 15000
+        },
+        {
+          "label": "release",
+          "start_ms": 70000,
+          "duration_ms": 15000
+        }
       ]
     },
     {
@@ -78,23 +190,46 @@
       "title": "Pattern Watching",
       "audio_file": "pattern watching.wav",
       "mood": "chill",
-      "tags": ["lofi", "ambient", "mellow"],
+      "tags": [
+        "lofi",
+        "ambient",
+        "mellow"
+      ],
       "segments": [
-        {"label": "intro", "start_ms": 0, "duration_ms": 15000},
-        {"label": "flow", "start_ms": 25000, "duration_ms": 15000},
-        {"label": "drift", "start_ms": 50000, "duration_ms": 15000},
-        {"label": "fade", "start_ms": 75000, "duration_ms": 15000}
+        {
+          "label": "intro",
+          "start_ms": 0,
+          "duration_ms": 15000
+        },
+        {
+          "label": "flow",
+          "start_ms": 25000,
+          "duration_ms": 15000
+        },
+        {
+          "label": "drift",
+          "start_ms": 50000,
+          "duration_ms": 15000
+        },
+        {
+          "label": "fade",
+          "start_ms": 75000,
+          "duration_ms": 15000
+        }
       ]
     }
   ],
   "image_pool": [
     "osciallating-overthurster.png",
-    "to-much-to-do.png",
-    "Cosmic vibes with Kyla Egli.png",
-    "Cosmic beauty and stellar beats.png",
     "cyber_grid.jpg",
     "light_streaks.jpg",
-    "null_record_art.jpg"
+    "null_record_art.jpg",
+    "3122ccc9_osciallating-overthurster.png",
+    "83ff90ad_mountain-snow-covered-landscape-winter-preview.jpg",
+    "2eea7ccb_Central_Cascade_Mountains_between_Mission_Ridge_and_Blewett_Pass_Washington.jpg",
+    "gradient_abstract.mp4",
+    "color_pulse.mp4",
+    "03b4a547_hell_yes_playground_8s_720x1280 (2).mp4"
   ],
   "default_preset": {
     "aspect": "vertical",
@@ -115,16 +250,71 @@
     "show_song_info": true
   },
   "variation_effects": [
-    {"color_shift_enabled": true, "vhs_enabled": false, "scanline_enabled": true},
-    {"color_shift_enabled": false, "vhs_enabled": true, "scanline_enabled": false},
-    {"color_shift_enabled": true, "vhs_enabled": true, "scanline_enabled": true},
-    {"color_shift_enabled": false, "vhs_enabled": false, "scanline_enabled": true, "visualizer_type": "circular"},
-    {"color_shift_enabled": true, "vhs_enabled": false, "scanline_enabled": false, "visualizer_type": "waveform"},
-    {"color_shift_enabled": false, "vhs_enabled": true, "scanline_enabled": true, "visualizer_type": "lines"}
+    {
+      "color_shift_enabled": true,
+      "vhs_enabled": false,
+      "scanline_enabled": true
+    },
+    {
+      "color_shift_enabled": false,
+      "vhs_enabled": true,
+      "scanline_enabled": false
+    },
+    {
+      "color_shift_enabled": true,
+      "vhs_enabled": true,
+      "scanline_enabled": true
+    },
+    {
+      "color_shift_enabled": false,
+      "vhs_enabled": false,
+      "scanline_enabled": true,
+      "visualizer_type": "circular"
+    },
+    {
+      "color_shift_enabled": true,
+      "vhs_enabled": false,
+      "scanline_enabled": false,
+      "visualizer_type": "waveform"
+    },
+    {
+      "color_shift_enabled": false,
+      "vhs_enabled": true,
+      "scanline_enabled": true,
+      "visualizer_type": "lines"
+    }
   ],
   "hashtags": {
-    "tiktok": ["#MyEvilRobotArmy", "#MERA", "#NullRecords", "#LoFiJazz", "#ElectronicMusic", "#InstrumentalMusic", "#MusicVisualization", "#IndieMusic", "#NewMusic"],
-    "instagram": ["#MyEvilRobotArmy", "#MERA", "#NullRecords", "#LoFiJazz", "#ElectronicMusic", "#InstrumentalMusic", "#MusicVisualization", "#IndieMusic", "#NewMusic", "#Reels"],
-    "youtube": ["My Evil Robot Army", "MERA", "NullRecords", "LoFi Jazz", "Electronic Music", "Shorts"]
+    "tiktok": [
+      "#MyEvilRobotArmy",
+      "#MERA",
+      "#NullRecords",
+      "#LoFiJazz",
+      "#ElectronicMusic",
+      "#InstrumentalMusic",
+      "#MusicVisualization",
+      "#IndieMusic",
+      "#NewMusic"
+    ],
+    "instagram": [
+      "#MyEvilRobotArmy",
+      "#MERA",
+      "#NullRecords",
+      "#LoFiJazz",
+      "#ElectronicMusic",
+      "#InstrumentalMusic",
+      "#MusicVisualization",
+      "#IndieMusic",
+      "#NewMusic",
+      "#Reels"
+    ],
+    "youtube": [
+      "My Evil Robot Army",
+      "MERA",
+      "NullRecords",
+      "LoFi Jazz",
+      "Electronic Music",
+      "Shorts"
+    ]
   }
 }

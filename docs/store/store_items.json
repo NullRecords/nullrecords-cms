@@ -56,6 +56,19 @@
     "active": true
   },
   {
+    "id": "book003",
+    "type": "book",
+    "title": "Off On a Comet",
+    "author": "Jules Verne",
+    "cover_art": "assets/off_on_a_comet_cover.png",
+    "ebook_file": "books/off_on_a_comet_nullpress.epub",
+    "description": "A comet grazes the Earth and carries a handful of survivors on an extraordinary voyage through the solar system — Jules Verne's wildly inventive adventure, with pop-up commentary by Bob the somewhat Humanist. Null Press Edition with interactive features and hyperlinked notes.",
+    "suggested_donation": 3.00,
+    "download_bundle": "books/off_on_a_comet_nullpress.epub",
+    "bob_humanist": true,
+    "active": true
+  },
+  {
     "id": "space_jazz",
     "type": "music",
     "title": "Space Jazz Album",

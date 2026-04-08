@@ -43,6 +43,7 @@ _engine: VideoEngine | None = None
 
 ALLOWED_AUDIO_EXT = {".mp3", ".wav", ".flac", ".ogg", ".m4a", ".aac", ".wma"}
 ALLOWED_IMAGE_EXT = {".jpg", ".jpeg", ".png", ".webp", ".bmp"}
+ALLOWED_CLIP_EXT = {".mp4", ".mov", ".mpeg", ".mpg", ".avi", ".webm"}
 
 
 def _presets_path() -> Path:
@@ -956,6 +957,62 @@ async def upload_image(file: UploadFile = File(...)):
     return ImageUploadResponse(filename=safe_name, path=str(dest), size_kb=size_kb)
 
 
+def _clip_uploads_dir() -> Path:
+    d = Path(get_settings().exports_dir).parent / "media-library" / "test_clips"
+    d.mkdir(parents=True, exist_ok=True)
+    return d
+
+
+@router.post("/upload-clip", response_model=ImageUploadResponse)
+async def upload_clip(file: UploadFile = File(...)):
+    """Upload a video clip (.mp4, .mov, .mpeg, etc.) to the media library."""
+    if not file.filename:
+        raise HTTPException(status_code=400, detail="No filename provided")
+    ext = Path(file.filename).suffix.lower()
+    if ext not in ALLOWED_CLIP_EXT:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Unsupported clip format '{ext}'. Allowed: {', '.join(sorted(ALLOWED_CLIP_EXT))}",
+        )
+    safe_name = f"{uuid.uuid4().hex[:8]}_{Path(file.filename).stem}{ext}"
+    dest = _clip_uploads_dir() / safe_name
+    with open(dest, "wb") as f:
+        shutil.copyfileobj(file.file, f)
+    size_kb = round(dest.stat().st_size / 1024, 1)
+    log.info("Clip uploaded: %s (%.1f KB)", safe_name, size_kb)
+    return ImageUploadResponse(filename=safe_name, path=str(dest), size_kb=size_kb)
+
+
+@router.get("/clip-preview/{filename}")
+def clip_preview(filename: str):
+    """Serve a video clip for preview."""
+    safe = Path(filename).name
+    clip_dir = _clip_uploads_dir()
+    p = clip_dir / safe
+    if p.exists() and p.is_file():
+        mt = "video/mp4"
+        if safe.endswith(".mov"):
+            mt = "video/quicktime"
+        elif safe.endswith((".mpeg", ".mpg")):
+            mt = "video/mpeg"
+        elif safe.endswith(".webm"):
+            mt = "video/webm"
+        return FileResponse(path=str(p), media_type=mt)
+    # glob fallback for UUID-prefixed names
+    matches = list(clip_dir.glob(f"*_{safe}"))
+    if matches:
+        found = matches[0]
+        mt = "video/mp4"
+        if found.name.endswith(".mov"):
+            mt = "video/quicktime"
+        elif found.name.endswith((".mpeg", ".mpg")):
+            mt = "video/mpeg"
+        elif found.name.endswith(".webm"):
+            mt = "video/webm"
+        return FileResponse(path=str(found), media_type=mt)
+    raise HTTPException(status_code=404, detail=f"Clip not found: {filename}")
+
+
 @router.get("/images")
 def list_images():
     """List all available images (uploaded + downloaded from Pexels)."""
@@ -983,6 +1040,19 @@ def list_images():
                     "source": "pexels",
                     "preview_url": f"/video/image-preview/{f.name}",
                 })
+    # Include video clips from media-library/test_clips
+    clip_dir = _clip_uploads_dir()
+    if clip_dir.exists():
+        for f in clip_dir.glob("*"):
+            if f.suffix.lower() in ALLOWED_CLIP_EXT:
+                images.append({
+                    "filename": f.name,
+                    "path": str(f),
+                    "size_kb": round(f.stat().st_size / 1024, 1),
+                    "source": "clip",
+                    "preview_url": f"/video/clip-preview/{f.name}",
+                    "type": "clip",
+                })
     return images
 
 
@@ -991,25 +1061,28 @@ def image_preview(filename: str):
     """Serve an image for preview in the UI."""
     safe = Path(filename).name
 
-    # Check uploads first
+    def _guess_media_type(name: str) -> str:
+        if name.endswith(".png"):
+            return "image/png"
+        if name.endswith(".webp"):
+            return "image/webp"
+        return "image/jpeg"
+
+    # Check uploads first (exact match)
     p = _image_uploads_dir() / safe
     if p.exists() and p.is_file():
-        media_type = "image/jpeg"
-        if safe.endswith(".png"):
-            media_type = "image/png"
-        elif safe.endswith(".webp"):
-            media_type = "image/webp"
-        return FileResponse(path=str(p), media_type=media_type)
+        return FileResponse(path=str(p), media_type=_guess_media_type(safe))
 
-    # Check media-library/images
+    # Glob fallback for UUID-prefixed uploads (e.g. "img.png" matches "3122ccc9_img.png")
+    matches = list(_image_uploads_dir().glob(f"*_{safe}"))
+    if matches:
+        found = matches[0]
+        return FileResponse(path=str(found), media_type=_guess_media_type(found.name))
+
+    # Check media-library/images (exact match)
     lib = Path(get_settings().media_library_dir) / "images" / safe
     if lib.exists() and lib.is_file():
-        media_type = "image/jpeg"
-        if safe.endswith(".png"):
-            media_type = "image/png"
-        elif safe.endswith(".webp"):
-            media_type = "image/webp"
-        return FileResponse(path=str(lib), media_type=media_type)
+        return FileResponse(path=str(lib), media_type=_guess_media_type(safe))
 
     raise HTTPException(status_code=404, detail=f"Image not found: {filename}")
 
@@ -1021,9 +1094,13 @@ def youtube_status():
     """Check whether YouTube OAuth is set up and authenticated."""
     from app.services.social.youtube import is_authenticated
     settings = get_settings()
-    configured = bool(settings.youtube_client_id and settings.youtube_client_secret)
+    has_oauth = bool(settings.youtube_client_id and settings.youtube_client_secret)
+    has_api_key = bool(settings.youtube_api_key)
+    configured = has_oauth or has_api_key
     return {
         "configured": configured,
+        "has_oauth": has_oauth,
+        "has_api_key": has_api_key,
         "authenticated": is_authenticated() if configured else False,
     }
 
@@ -1396,3 +1473,217 @@ async def preview_daily_short(entry_id: str):
     if not video.exists():
         raise HTTPException(404, "Video file not found")
     return FileResponse(str(video), media_type="video/mp4", filename=entry.get("filename", video.name))
+
+
+@router.put("/daily-shorts/track/{track_id}/images")
+async def set_track_images(track_id: str, body: dict):
+    """Set curated images for a specific track.
+
+    Body: {"images": ["filename1.png", "filename2.jpg"]}
+    """
+    p = _shorts_config_path()
+    if not p.exists():
+        raise HTTPException(404, "Config not found")
+    config = json.loads(p.read_text())
+    track = next((t for t in config.get("tracks", []) if t["id"] == track_id), None)
+    if not track:
+        raise HTTPException(404, f"Track '{track_id}' not found")
+    track["images"] = body.get("images", [])
+    p.write_text(json.dumps(config, indent=2))
+    return {"track_id": track_id, "images": track["images"]}
+
+
+@router.get("/daily-shorts/track/{track_id}/images")
+async def get_track_images(track_id: str):
+    """Get curated images for a specific track."""
+    p = _shorts_config_path()
+    if not p.exists():
+        raise HTTPException(404, "Config not found")
+    config = json.loads(p.read_text())
+    track = next((t for t in config.get("tracks", []) if t["id"] == track_id), None)
+    if not track:
+        raise HTTPException(404, f"Track '{track_id}' not found")
+    return {"track_id": track_id, "images": track.get("images", [])}
+
+
+@router.put("/daily-shorts/image-pool")
+async def update_image_pool(body: dict):
+    """Update the approved global image pool.
+
+    Body: {"image_pool": ["filename1.png", "filename2.jpg"]}
+    """
+    p = _shorts_config_path()
+    if not p.exists():
+        raise HTTPException(404, "Config not found")
+    config = json.loads(p.read_text())
+    config["image_pool"] = body.get("image_pool", [])
+    p.write_text(json.dumps(config, indent=2))
+    return {"image_pool": config["image_pool"]}
+
+
+# ── Track Memory (per-track MD files with frontmatter) ──────────────────
+
+def _track_memory_dir() -> Path:
+    d = Path(get_settings().exports_dir) / "track_memory"
+    d.mkdir(parents=True, exist_ok=True)
+    return d
+
+
+def _parse_track_md(text: str) -> dict:
+    """Parse a track memory MD file into {meta: {...}, body: str}."""
+    import yaml
+    if text.startswith("---"):
+        parts = text.split("---", 2)
+        if len(parts) >= 3:
+            meta = yaml.safe_load(parts[1]) or {}
+            body = parts[2].strip()
+            return {"meta": meta, "body": body}
+    return {"meta": {}, "body": text.strip()}
+
+
+def _serialize_track_md(meta: dict, body: str) -> str:
+    """Serialize meta + body back to frontmatter MD."""
+    import yaml
+    fm = yaml.dump(meta, default_flow_style=False, allow_unicode=True, sort_keys=False)
+    return f"---\n{fm}---\n\n{body}\n"
+
+
+@router.get("/daily-shorts/track-memory")
+def list_track_memories():
+    """List all track memory files with their metadata."""
+    d = _track_memory_dir()
+    results = []
+    for f in sorted(d.glob("*.md")):
+        parsed = _parse_track_md(f.read_text(encoding="utf-8"))
+        results.append({
+            "track_id": parsed["meta"].get("track_id", f.stem),
+            "title": parsed["meta"].get("title", f.stem),
+            "meta": parsed["meta"],
+            "has_body": bool(parsed["body"]),
+        })
+    return results
+
+
+@router.get("/daily-shorts/track-memory/{track_id}")
+def get_track_memory(track_id: str):
+    """Get full track memory (meta + body) for a track."""
+    safe = Path(track_id).stem  # prevent path traversal
+    p = _track_memory_dir() / f"{safe}.md"
+    if not p.exists():
+        raise HTTPException(404, f"No memory file for track '{track_id}'")
+    parsed = _parse_track_md(p.read_text(encoding="utf-8"))
+    return {"track_id": track_id, **parsed}
+
+
+@router.put("/daily-shorts/track-memory/{track_id}")
+async def update_track_memory(track_id: str, body: dict):
+    """Update or create a track memory file.
+
+    Body: {"meta": {...}, "body": "markdown text"}
+    """
+    safe = Path(track_id).stem
+    meta = body.get("meta", {})
+    md_body = body.get("body", "")
+    meta.setdefault("track_id", safe)
+    p = _track_memory_dir() / f"{safe}.md"
+    p.write_text(_serialize_track_md(meta, md_body), encoding="utf-8")
+    log.info("Track memory updated: %s", safe)
+    return {"track_id": safe, "meta": meta, "body": md_body}
+
+
+# ── Social Posting History ──────────────────────────────────────────────
+
+def _posting_history_path() -> Path:
+    return Path(get_settings().exports_dir) / "posting_history.json"
+
+
+@router.get("/daily-shorts/posting-history")
+def get_posting_history():
+    """Get full posting history across all platforms."""
+    p = _posting_history_path()
+    if not p.exists():
+        return []
+    try:
+        return json.loads(p.read_text())
+    except (json.JSONDecodeError, ValueError):
+        return []
+
+
+@router.post("/daily-shorts/posting-history")
+async def add_posting_record(body: dict):
+    """Add a posting record. Body: {track_id, platform, status, video_id, ...}"""
+    p = _posting_history_path()
+    history = []
+    if p.exists():
+        try:
+            history = json.loads(p.read_text())
+        except (json.JSONDecodeError, ValueError):
+            pass
+    from datetime import datetime, timezone
+    body.setdefault("timestamp", datetime.now(timezone.utc).isoformat(timespec="seconds"))
+    history.append(body)
+    p.write_text(json.dumps(history, indent=2))
+    return {"ok": True, "total": len(history)}
+
+
+@router.put("/daily-shorts/posting-history/{index}")
+async def update_posting_record(index: int, body: dict):
+    """Update a posting record by index (0-based).
+
+    Use to add manual platform URLs, video IDs, or stats for TikTok/Instagram.
+    Body: partial dict merged into existing record.
+    """
+    p = _posting_history_path()
+    history = []
+    if p.exists():
+        try:
+            history = json.loads(p.read_text())
+        except (json.JSONDecodeError, ValueError):
+            pass
+    if index < 0 or index >= len(history):
+        raise HTTPException(404, f"Record index {index} out of range (0-{len(history) - 1})")
+    history[index].update(body)
+    p.write_text(json.dumps(history, indent=2))
+    return {"ok": True, "record": history[index]}
+
+
+@router.post("/daily-shorts/refresh-stats")
+async def refresh_platform_stats():
+    """Fetch latest stats from YouTube for all posted videos and update posting history.
+
+    TikTok/Instagram stats must be entered manually.
+    Returns summary of updates made.
+    """
+    from app.services.social.youtube import fetch_video_stats
+
+    p = _posting_history_path()
+    history = []
+    if p.exists():
+        try:
+            history = json.loads(p.read_text())
+        except (json.JSONDecodeError, ValueError):
+            pass
+
+    # Collect YouTube video IDs
+    yt_map = {}  # video_id -> list of record indices
+    for i, rec in enumerate(history):
+        if rec.get("platform") == "youtube" and rec.get("video_id"):
+            vid = rec["video_id"]
+            yt_map.setdefault(vid, []).append(i)
+
+    updated = 0
+    if yt_map:
+        stats = fetch_video_stats(list(yt_map.keys()))
+        from datetime import datetime, timezone
+        now = datetime.now(timezone.utc).isoformat(timespec="seconds")
+        for vid, indices in yt_map.items():
+            if vid in stats:
+                for idx in indices:
+                    history[idx]["stats"] = stats[vid]
+                    history[idx]["stats_updated"] = now
+                    updated += 1
+
+    if updated:
+        p.write_text(json.dumps(history, indent=2))
+    log.info("Stats refresh: %d YouTube records updated", updated)
+    return {"updated": updated, "youtube_videos_checked": len(yt_map)}

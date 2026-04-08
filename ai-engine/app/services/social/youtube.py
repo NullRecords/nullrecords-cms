@@ -20,6 +20,7 @@ SCOPES = "https://www.googleapis.com/auth/youtube.upload"
 AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth"
 TOKEN_URL = "https://oauth2.googleapis.com/token"
 UPLOAD_URL = "https://www.googleapis.com/upload/youtube/v3/videos"
+VIDEOS_URL = "https://www.googleapis.com/youtube/v3/videos"
 
 
 def _load_tokens() -> dict | None:
@@ -66,11 +67,20 @@ def exchange_code(code: str, redirect_uri: str) -> dict:
     return tokens
 
 
-def _refresh_access_token() -> str:
-    """Use the stored refresh token to get a fresh access token."""
+def _get_access_token() -> str:
+    """Get an access token — prefer OAuth refresh, fall back to API key."""
     tokens = _load_tokens()
-    if not tokens or "refresh_token" not in tokens:
-        raise ValueError("No YouTube refresh token. Complete OAuth first via /video/youtube/auth.")
+    if tokens and "refresh_token" in tokens:
+        return _refresh_oauth_token(tokens)
+    # Fall back to API key
+    settings = get_settings()
+    if settings.youtube_api_key:
+        return settings.youtube_api_key
+    raise ValueError("No YouTube credentials. Set YOUTUBE_API_KEY or complete OAuth via /video/youtube/auth.")
+
+
+def _refresh_oauth_token(tokens: dict) -> str:
+    """Use the stored refresh token to get a fresh access token."""
 
     settings = get_settings()
     resp = requests.post(TOKEN_URL, data={
@@ -88,9 +98,13 @@ def _refresh_access_token() -> str:
 
 
 def is_authenticated() -> bool:
-    """Check whether we have a stored refresh token."""
+    """Check whether we can upload — either via stored OAuth tokens or API key."""
     tokens = _load_tokens()
-    return bool(tokens and tokens.get("refresh_token"))
+    if tokens and tokens.get("refresh_token"):
+        return True
+    # API key alone counts as authenticated for upload
+    settings = get_settings()
+    return bool(settings.youtube_api_key)
 
 
 def upload_video(
@@ -105,7 +119,7 @@ def upload_video(
 
     Returns dict with video id, url, and status.
     """
-    access_token = _refresh_access_token()
+    access_token = _get_access_token()
     video = Path(video_path)
     if not video.exists():
         raise FileNotFoundError(f"Video not found: {video_path}")
@@ -160,3 +174,48 @@ def upload_video(
         "url": f"https://www.youtube.com/watch?v={video_id}" if video_id else "",
         "status": result.get("status", {}).get("uploadStatus", "unknown"),
     }
+
+
+def fetch_video_stats(video_ids: list[str]) -> dict[str, dict]:
+    """Fetch statistics for one or more YouTube video IDs.
+
+    Uses the API key (no OAuth needed for public video stats).
+    Returns {video_id: {views, likes, comments, favorites}} for each found video.
+    """
+    settings = get_settings()
+    api_key = settings.youtube_api_key
+    if not api_key:
+        log.warning("No YOUTUBE_API_KEY — cannot fetch stats")
+        return {}
+
+    stats = {}
+    # API allows up to 50 IDs per request
+    for i in range(0, len(video_ids), 50):
+        batch = video_ids[i : i + 50]
+        try:
+            resp = requests.get(
+                VIDEOS_URL,
+                params={
+                    "part": "statistics,snippet",
+                    "id": ",".join(batch),
+                    "key": api_key,
+                },
+                timeout=15,
+            )
+            resp.raise_for_status()
+            for item in resp.json().get("items", []):
+                vid = item["id"]
+                s = item.get("statistics", {})
+                sn = item.get("snippet", {})
+                stats[vid] = {
+                    "views": int(s.get("viewCount", 0)),
+                    "likes": int(s.get("likeCount", 0)),
+                    "comments": int(s.get("commentCount", 0)),
+                    "favorites": int(s.get("favoriteCount", 0)),
+                    "title": sn.get("title", ""),
+                    "published_at": sn.get("publishedAt", ""),
+                }
+        except Exception:
+            log.exception("Failed to fetch YouTube stats for batch starting at %d", i)
+
+    return stats

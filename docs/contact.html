@@ -247,16 +247,55 @@
 </section>
 
 <script>
-function handleContactForm(event) {
+async function handleContactForm(event) {
     event.preventDefault();
     const form = event.target;
-    setTimeout(() => {
+    const btn = form.querySelector('button[type="submit"]');
+    const orig = btn.textContent;
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    const data = {
+        name: form.name.value.trim(),
+        email: form.email.value.trim(),
+        subject: form.subject.value.trim(),
+        message: form.message.value.trim(),
+    };
+
+    let sent = false;
+
+    // Try local AI engine first (works in dev and if self-hosted)
+    try {
+        const r = await fetch('http://localhost:8008/system/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+        });
+        if (r.ok) sent = true;
+    } catch (_) { /* not available */ }
+
+    // Fallback: formsubmit.co (works on production GitHub Pages)
+    if (!sent) {
+        try {
+            const r = await fetch('https://formsubmit.co/ajax/hello@nullrecords.com', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: data.name, email: data.email, _subject: data.subject, message: data.message }),
+            });
+            if (r.ok) sent = true;
+        } catch (_) { /* also failed */ }
+    }
+
+    btn.textContent = orig;
+    btn.disabled = false;
+
+    if (sent) {
         document.getElementById('contact-success').classList.remove('hidden');
         form.reset();
-        setTimeout(() => {
-            document.getElementById('contact-success').classList.add('hidden');
-        }, 5000);
-    }, 500);
+        setTimeout(() => document.getElementById('contact-success').classList.add('hidden'), 5000);
+    } else {
+        alert('Could not send your message. Please email hello@nullrecords.com directly.');
+    }
 }
 </script>
     </main>

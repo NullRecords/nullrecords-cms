@@ -319,19 +319,37 @@ def _run_daily_shorts_generation():
     random.shuffle(candidates)
     picks = candidates[:needed]
 
-    # Resolve available images
-    available_images = []
-    for img_name in image_pool:
-        for search_dir in [exports / "image_uploads", Path(settings.media_library_dir) / "images"]:
-            exact = search_dir / img_name
-            if exact.exists():
-                available_images.append(str(exact))
-                break
-            # Try glob for UUID-prefixed filenames
-            matches = list(search_dir.glob(f"*_{img_name}"))
-            if matches:
-                available_images.append(str(matches[0]))
-                break
+    # Resolve images from a list of filenames → absolute paths
+    def _resolve_images(name_list):
+        resolved = []
+        for img_name in name_list:
+            for search_dir in [exports / "image_uploads", Path(settings.media_library_dir) / "images"]:
+                exact = search_dir / img_name
+                if exact.exists():
+                    resolved.append(str(exact))
+                    break
+                matches = list(search_dir.glob(f"*_{img_name}"))
+                if matches:
+                    resolved.append(str(matches[0]))
+                    break
+        return resolved
+
+    # Global image pool (fallback)
+    available_images = _resolve_images(image_pool)
+
+    # ── Load track memory files for smarter captions & overlays ─────────
+    def _load_track_memory(track_id):
+        """Load a track's memory MD file, return parsed meta + body."""
+        import yaml
+        mem_path = exports / "track_memory" / f"{track_id}.md"
+        if not mem_path.exists():
+            return {}
+        text = mem_path.read_text(encoding="utf-8")
+        if text.startswith("---"):
+            parts = text.split("---", 2)
+            if len(parts) >= 3:
+                return yaml.safe_load(parts[1]) or {}
+        return {}
 
     db = SessionLocal()
     engine = VideoEngine()
@@ -343,11 +361,32 @@ def _run_daily_shorts_generation():
                 # Pick effect variation
                 effects = random.choice(variation_effects) if variation_effects else {}
 
-                # Pick 1-3 images for this video
-                imgs = random.sample(available_images, min(3, len(available_images))) if available_images else []
+                # Prefer per-track curated images, fall back to global pool
+                track_images = _resolve_images(track.get("images", []))
+                pool = track_images if track_images else available_images
+                imgs = random.sample(pool, min(3, len(pool))) if pool else []
 
                 run_id = uuid.uuid4().hex[:8]
                 output_name = f"daily_{today}_{track['id']}_{segment['label']}_{run_id}.mp4"
+
+                # Load per-track memory for caption lines & tags
+                memory = _load_track_memory(track["id"])
+                caption_lines = memory.get("caption_lines", [])
+                mem_tags = memory.get("tags", {})
+
+                # Pick a random caption line for overlay subtitle (fallback to band name)
+                overlay_sub = random.choice(caption_lines) if caption_lines else "My Evil Robot Army"
+
+                # Build platform-specific tags: prefer per-track memory, fall back to global
+                def _build_tags_for(platform):
+                    per_track = mem_tags.get(platform, [])
+                    if per_track:
+                        return per_track
+                    return hashtags.get(platform, [])
+
+                # Build caption with per-track tags
+                caption_tag_str = " ".join(_build_tags_for("tiktok"))
+                caption_text = f"{overlay_sub}\n\n{track['title']} — My Evil Robot Army\n\n{caption_tag_str}"
 
                 config = VideoConfig(
                     audio_path=audio_path,
@@ -361,7 +400,7 @@ def _run_daily_shorts_generation():
                     aspect=preset.get("aspect", "vertical"),
                     image_paths=imgs,
                     overlay_text=track["title"],
-                    overlay_subtitle="My Evil Robot Army",
+                    overlay_subtitle=overlay_sub,
                     overlay_position=preset.get("overlay_position", "lower-third"),
                     effect_opacity=preset.get("effect_opacity", 1.0),
                     glitch_opacity=preset.get("glitch_opacity", 0.7),
@@ -409,8 +448,13 @@ def _run_daily_shorts_generation():
                     "approved_at": None,
                     "posted_at": None,
                     "platforms_posted": [],
-                    "caption": f"{track['title']} — My Evil Robot Army\n\n" + " ".join(hashtags.get("tiktok", [])),
-                    "hashtags": hashtags,
+                    "caption": caption_text,
+                    "caption_line": overlay_sub,
+                    "hashtags": {
+                        "tiktok": _build_tags_for("tiktok"),
+                        "instagram": _build_tags_for("instagram"),
+                        "youtube": _build_tags_for("youtube"),
+                    },
                 }
                 queue.append(entry)
                 generated += 1
@@ -507,6 +551,33 @@ def _run_daily_shorts_posting():
             entry["post_results"] = results
             posted_count += 1
             logger.info("Posted daily short: %s to %s", entry["filename"], entry["platforms_posted"])
+
+            # Append to posting history
+            try:
+                history_path = exports / "posting_history.json"
+                history = []
+                if history_path.exists():
+                    try:
+                        history = json.loads(history_path.read_text())
+                    except Exception:
+                        pass
+                for r in results:
+                    history.append({
+                        "entry_id": entry["id"],
+                        "track_id": entry.get("track_id", ""),
+                        "track_title": entry.get("track_title", ""),
+                        "filename": entry.get("filename", ""),
+                        "platform": r.get("platform", ""),
+                        "status": r.get("status", ""),
+                        "video_id": r.get("video_id", ""),
+                        "url": r.get("url", ""),
+                        "error": r.get("error", ""),
+                        "timestamp": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                    })
+                history_path.write_text(json.dumps(history, indent=2))
+            except Exception:
+                logger.exception("Failed to save posting history entry")
+
         except Exception:
             logger.exception("Failed to post daily short: %s", entry["filename"])
             entry["status"] = "post_failed"
@@ -806,6 +877,63 @@ def _run_auto_outreach():
         db.close()
 
 
+# ── Platform Stats Refresh ───────────────────────────────────────────────
+
+def _run_platform_stats_refresh():
+    """Fetch latest stats from YouTube for all posted shorts.
+
+    Reads posting_history.json, collects YouTube video IDs,
+    calls YouTube Data API v3 for stats, and updates each record.
+    """
+    import json
+    from pathlib import Path
+
+    from app.core.config import get_settings
+    from app.services.social.youtube import fetch_video_stats
+
+    settings = get_settings()
+    exports = Path(settings.exports_dir)
+    history_path = exports / "posting_history.json"
+
+    if not history_path.exists():
+        return
+
+    try:
+        history = json.loads(history_path.read_text())
+    except Exception:
+        return
+
+    if not history:
+        return
+
+    # Collect YouTube video IDs → record indices
+    yt_map: dict[str, list[int]] = {}
+    for i, rec in enumerate(history):
+        if rec.get("platform") == "youtube" and rec.get("video_id"):
+            vid = rec["video_id"]
+            yt_map.setdefault(vid, []).append(i)
+
+    if not yt_map:
+        logger.debug("Platform stats refresh — no YouTube video IDs to check")
+        return
+
+    stats = fetch_video_stats(list(yt_map.keys()))
+    now = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    updated = 0
+
+    for vid, indices in yt_map.items():
+        if vid in stats:
+            for idx in indices:
+                history[idx]["stats"] = stats[vid]
+                history[idx]["stats_updated"] = now
+                updated += 1
+
+    if updated:
+        history_path.write_text(json.dumps(history, indent=2))
+        logger.info("Platform stats refresh — %d YouTube records updated (%d videos)", updated, len(stats))
+    else:
+        logger.debug("Platform stats refresh — no stats returned from YouTube API")
+
 
 def start_scheduler():
     """Create and start the APScheduler background scheduler."""
@@ -904,11 +1032,20 @@ def start_scheduler():
         replace_existing=True,
     )
 
+    _scheduler.add_job(
+        _run_platform_stats_refresh,
+        trigger=IntervalTrigger(hours=6),
+        id="platform_stats_refresh",
+        name="Refresh YouTube stats for posted shorts",
+        replace_existing=True,
+    )
+
     _scheduler.start()
     logger.info(
         "Scheduler started — followups every %dm, discovery every %dh, "
         "media ingest every %dh, news search every 12h, DJ/radio every 48h, "
-        "daily shorts generation every 24h, daily shorts posting every 2h",
+        "daily shorts generation every 24h, daily shorts posting every 2h, "
+        "platform stats refresh every 6h",
         settings.scheduler_followup_minutes,
         settings.scheduler_discovery_hours,
         settings.scheduler_media_ingest_hours,

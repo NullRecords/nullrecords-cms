@@ -331,6 +331,13 @@
     <h1>VIDEO_PRODUCTION</h1>
     <p class="page-sub">Generate vertical shorts &amp; widescreen videos from media assets &amp; audio</p>
 
+    <!-- Video Production sub-tabs -->
+    <div class="tabs">
+      <div class="tab active" data-vtab="studio">Video Studio</div>
+      <div class="tab" data-vtab="dailyshorts">Daily Shorts</div>
+    </div>
+
+    <div id="vtab-studio" class="tab-pane active">
     <div class="grid grid-2 mt">
       <!-- LEFT: Generation form -->
       <div class="card">
@@ -940,6 +947,188 @@
         </div>
       </div>
     </div>
+    </div><!-- /vtab-studio -->
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- DAILY SHORTS — Queue Management & Auto-Generation     -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div id="vtab-dailyshorts" class="tab-pane">
+
+      <!-- Status bar -->
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem">
+        <div class="card" style="flex:1;min-width:140px;text-align:center">
+          <div style="color:var(--muted);font-size:0.7rem">Pending</div>
+          <div id="ds-count-pending" style="font-size:1.75rem;color:var(--accent);font-weight:bold">—</div>
+        </div>
+        <div class="card" style="flex:1;min-width:140px;text-align:center">
+          <div style="color:var(--muted);font-size:0.7rem">Approved</div>
+          <div id="ds-count-approved" style="font-size:1.75rem;color:var(--green);font-weight:bold">—</div>
+        </div>
+        <div class="card" style="flex:1;min-width:140px;text-align:center">
+          <div style="color:var(--muted);font-size:0.7rem">Posted Today</div>
+          <div id="ds-count-posted" style="font-size:1.75rem;color:#8b5cf6;font-weight:bold">—</div>
+        </div>
+        <div class="card" style="flex:1;min-width:140px;text-align:center">
+          <div style="color:var(--muted);font-size:0.7rem">Rejected</div>
+          <div id="ds-count-rejected" style="font-size:1.75rem;color:var(--red);font-weight:bold">—</div>
+        </div>
+      </div>
+
+      <div class="grid grid-2">
+        <!-- LEFT: Queue -->
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <h3>📋 Shorts Queue</h3>
+            <div style="display:flex;gap:0.5rem">
+              <select id="ds-filter" style="padding:4px 8px;background:#111;border:1px solid #333;color:#eee;border-radius:4px;font-size:0.7rem" onchange="loadDailyShortsQueue()">
+                <option value="all">All</option>
+                <option value="pending" selected>Pending</option>
+                <option value="approved">Approved</option>
+                <option value="posted">Posted</option>
+                <option value="rejected">Rejected</option>
+              </select>
+              <button class="btn btn-sm" onclick="loadDailyShortsQueue()" title="Refresh">↻</button>
+            </div>
+          </div>
+          <div id="ds-queue-list" style="margin-top:0.75rem"><div class="empty">Loading…</div></div>
+        </div>
+
+        <!-- RIGHT: Actions + Config -->
+        <div style="display:flex;flex-direction:column;gap:1rem">
+          <!-- Generate Now -->
+          <div class="card">
+            <h3>⚡ Generate Now</h3>
+            <p style="color:var(--muted);font-size:0.7rem;margin:0.5rem 0">Immediately generate a batch of daily shorts and add them to the approval queue.</p>
+            <div style="display:flex;gap:0.5rem;align-items:center">
+              <button class="btn" id="btn-ds-generate" onclick="dailyShortsGenerateNow()">Generate Shorts</button>
+              <span id="ds-generate-status" style="font-size:0.7rem;color:var(--muted)"></span>
+            </div>
+          </div>
+
+          <!-- Posting Schedule -->
+          <div class="card">
+            <h3>🕐 Posting Schedule</h3>
+            <p style="color:var(--muted);font-size:0.7rem;margin:0.5rem 0">Approved shorts post automatically at these UTC times daily:</p>
+            <div id="ds-schedule-slots" style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.5rem">
+              <span style="background:#111;border:1px solid #333;border-radius:4px;padding:4px 12px;font-size:0.8rem;color:var(--accent)">10:00 UTC</span>
+              <span style="background:#111;border:1px solid #333;border-radius:4px;padding:4px 12px;font-size:0.8rem;color:var(--accent)">14:00 UTC</span>
+              <span style="background:#111;border:1px solid #333;border-radius:4px;padding:4px 12px;font-size:0.8rem;color:var(--accent)">18:00 UTC</span>
+            </div>
+            <p style="color:var(--muted);font-size:0.65rem;margin-top:0.5rem">Generation runs every 24h · Posting checks every 2h</p>
+          </div>
+
+          <!-- Config -->
+          <div class="card">
+            <h3>⚙️ Configuration</h3>
+            <div id="ds-config-panel" style="margin-top:0.75rem">
+              <div style="display:flex;flex-direction:column;gap:0.5rem">
+                <div>
+                  <label style="color:var(--muted);font-size:0.7rem">Shorts per Batch</label>
+                  <input id="ds-cfg-count" type="number" value="3" min="1" max="10" style="width:100%;padding:6px 8px;background:#111;border:1px solid #333;color:#eee;border-radius:4px;font-family:'JetBrains Mono';font-size:0.75rem" />
+                </div>
+                <div>
+                  <label style="color:var(--muted);font-size:0.7rem">Default Duration (ms)</label>
+                  <input id="ds-cfg-duration" type="number" value="15000" min="5000" max="60000" step="1000" style="width:100%;padding:6px 8px;background:#111;border:1px solid #333;color:#eee;border-radius:4px;font-family:'JetBrains Mono';font-size:0.75rem" />
+                </div>
+                <div>
+                  <label style="color:var(--muted);font-size:0.7rem">Platforms</label>
+                  <div style="display:flex;gap:0.75rem;margin-top:4px;flex-wrap:wrap">
+                    <label style="display:flex;align-items:center;gap:4px;font-size:0.7rem;color:var(--muted)"><input type="checkbox" id="ds-cfg-youtube" checked /> YouTube</label>
+                    <label style="display:flex;align-items:center;gap:4px;font-size:0.7rem;color:var(--muted)"><input type="checkbox" id="ds-cfg-tiktok" checked /> TikTok</label>
+                    <label style="display:flex;align-items:center;gap:4px;font-size:0.7rem;color:var(--muted)"><input type="checkbox" id="ds-cfg-instagram" checked /> Instagram</label>
+                  </div>
+                </div>
+                <div style="display:flex;gap:0.5rem;margin-top:0.5rem">
+                  <button class="btn btn-sm" onclick="saveDailyShortsConfig()" style="color:var(--green)">💾 Save Config</button>
+                  <button class="btn btn-sm" onclick="loadDailyShortsConfig()">↻ Reload</button>
+                </div>
+                <div id="ds-config-status" style="font-size:0.65rem;color:var(--muted)"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- MERA Catalog with per-track images -->
+          <div class="card">
+            <h3>🎵 MERA Catalog &amp; Track Images</h3>
+            <p style="color:var(--muted);font-size:0.7rem;margin:0.5rem 0">Assign specific images to each track. Tracks with no images use the approved pool below.</p>
+            <div id="ds-tracks-list" style="margin-top:0.25rem"><div class="empty">Loading…</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Approved Image Pool — full width below -->
+      <div class="card" style="margin-top:1rem">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <h3>🖼 Approved Image Pool</h3>
+          <div style="display:flex;gap:0.5rem;align-items:center">
+            <span id="ds-pool-count" style="color:var(--muted);font-size:0.7rem"></span>
+            <button class="btn btn-sm" onclick="loadDsImagePool()" title="Refresh">↻</button>
+          </div>
+        </div>
+        <p style="color:var(--muted);font-size:0.65rem;margin:0.25rem 0 0.75rem">These images are used for any track that doesn't have its own curated images. Click ✕ to remove from pool.</p>
+        <div id="ds-pool-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px">
+          <div class="empty">Loading…</div>
+        </div>
+      </div>
+
+      <!-- Full Image Library — browse and add to pool or tracks -->
+      <div class="card" style="margin-top:1rem">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <h3>📂 Media Library</h3>
+          <div style="display:flex;gap:0.5rem;align-items:center">
+            <span id="ds-lib-count" style="color:var(--muted);font-size:0.7rem"></span>
+            <button class="btn btn-sm" onclick="loadDsImageLibrary()" title="Refresh">↻</button>
+          </div>
+        </div>
+        <p style="color:var(--muted);font-size:0.65rem;margin:0.25rem 0 0.75rem">All images &amp; clips in the library. Click to add to the approved pool or assign to a specific track.</p>
+
+        <!-- Upload area -->
+        <div id="ds-upload-area" style="border:2px dashed #444;border-radius:8px;padding:1rem;margin-bottom:1rem;text-align:center;cursor:pointer;transition:border-color 0.2s,background 0.2s" onclick="document.getElementById('ds-upload-input').click()" ondragover="event.preventDefault();this.style.borderColor='var(--accent)';this.style.background='rgba(255,255,255,0.03)'" ondragleave="this.style.borderColor='#444';this.style.background=''" ondrop="event.preventDefault();this.style.borderColor='#444';this.style.background='';dsHandleDrop(event)">
+          <div style="font-size:1.5rem;margin-bottom:0.25rem">📤</div>
+          <div style="font-size:0.75rem;color:var(--muted)">Drop images or clips here, or <span style="color:var(--accent);text-decoration:underline">browse</span></div>
+          <div style="font-size:0.6rem;color:#666;margin-top:0.25rem">Images: .jpg .png .webp .bmp &nbsp;|&nbsp; Clips: .mp4 .mov .mpeg .avi .webm</div>
+          <input type="file" id="ds-upload-input" multiple accept=".jpg,.jpeg,.png,.webp,.bmp,.mp4,.mov,.mpeg,.mpg,.avi,.webm" style="display:none" onchange="dsUploadFiles(this.files)" />
+        </div>
+        <div id="ds-upload-status" style="display:none;margin-bottom:0.75rem;font-size:0.7rem;color:var(--muted)"></div>
+
+        <div id="ds-lib-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px">
+          <div class="empty">Loading…</div>
+        </div>
+      </div>
+
+      <!-- Social Posting History -->
+      <div class="card" style="margin-top:1rem">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <h3>📡 Posting History</h3>
+          <button class="btn btn-sm" onclick="loadPostingHistory()" title="Refresh">↻</button>
+        </div>
+        <p style="color:var(--muted);font-size:0.65rem;margin:0.25rem 0 0.75rem">Track views, likes, and comments across YouTube, TikTok, Instagram. YouTube stats auto-refresh every 6h. TikTok &amp; Instagram stats can be entered manually.</p>
+        <div id="ds-posting-history"><div class="empty">Loading…</div></div>
+      </div>
+
+      <!-- Track image assignment modal -->
+      <div id="ds-assign-modal" style="display:none;position:fixed;inset:0;z-index:1001;background:rgba(0,0,0,0.85);align-items:center;justify-content:center" onclick="closeDsAssign()">
+        <div style="position:relative;max-width:340px;width:90%;background:#1a1a1a;border:1px solid #333;border-radius:10px;padding:1.25rem" onclick="event.stopPropagation()">
+          <button onclick="closeDsAssign()" style="position:absolute;top:8px;right:12px;background:none;border:none;color:#fff;font-size:1rem;cursor:pointer">✕</button>
+          <h3 style="margin-bottom:0.75rem">Assign Image to Track</h3>
+          <p style="color:var(--muted);font-size:0.7rem;margin-bottom:0.75rem">Image: <span id="ds-assign-filename" style="color:var(--accent)"></span></p>
+          <div style="display:flex;flex-direction:column;gap:0.5rem" id="ds-assign-tracks"></div>
+          <div style="margin-top:0.75rem;border-top:1px solid #333;padding-top:0.75rem">
+            <button class="btn btn-sm" onclick="addToGlobalPool()" style="width:100%;color:var(--green)">+ Add to Approved Pool</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preview modal for daily shorts -->
+      <div id="ds-preview-modal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.85);align-items:center;justify-content:center;cursor:pointer" onclick="closeDsPreview()">
+        <div style="position:relative;max-width:360px;width:90%" onclick="event.stopPropagation()">
+          <button onclick="closeDsPreview()" style="position:absolute;top:-30px;right:0;background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer">✕ Close</button>
+          <video id="ds-preview-video" controls autoplay loop style="width:100%;border-radius:8px;background:#000;max-height:80vh"></video>
+          <p id="ds-preview-label" style="text-align:center;color:var(--muted);font-size:0.7rem;margin-top:0.5rem"></p>
+        </div>
+      </div>
+    </div><!-- /vtab-dailyshorts -->
+
   </section>
 
   <!-- REPORTS PAGE -->
@@ -1014,9 +1203,20 @@ document.querySelectorAll('nav a[data-page]').forEach(a => {
 document.querySelectorAll('.tab[data-mtab]').forEach(t => {
   t.addEventListener('click', () => {
     document.querySelectorAll('.tab[data-mtab]').forEach(x => x.classList.remove('active'));
-    document.querySelectorAll('.tab-pane').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.tab-pane[id^="mtab-"]').forEach(x => x.classList.remove('active'));
     t.classList.add('active');
     document.getElementById('mtab-' + t.dataset.mtab).classList.add('active');
+  });
+});
+
+// Video Production sub-tabs
+document.querySelectorAll('.tab[data-vtab]').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.tab[data-vtab]').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.tab-pane[id^="vtab-"]').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById('vtab-' + t.dataset.vtab).classList.add('active');
+    if (t.dataset.vtab === 'dailyshorts') loadDailyShorts();
   });
 });
 
@@ -2461,19 +2661,25 @@ async function checkYouTubeStatus() {
     const d = await api('/video/youtube/status');
     if (d.authenticated) {
       dot.className = 'dot on';
-      text.textContent = 'YouTube connected';
+      text.textContent = d.has_oauth ? 'YouTube connected (OAuth)' : 'YouTube connected (API key)';
       btn.style.display = 'none';
       badge.textContent = '(auto)';
       badge.style.color = 'var(--green)';
-    } else if (d.configured) {
+    } else if (d.has_oauth) {
       dot.className = 'dot off';
       text.textContent = 'YouTube not authenticated';
       btn.style.display = 'inline-block';
       badge.textContent = '(needs auth)';
       badge.style.color = 'var(--yellow)';
+    } else if (d.has_api_key) {
+      dot.className = 'dot off';
+      text.textContent = 'YouTube API key set — add YOUTUBE_CLIENT_ID & YOUTUBE_CLIENT_SECRET for auto-upload';
+      btn.style.display = 'none';
+      badge.textContent = '(manual)';
+      badge.style.color = 'var(--yellow)';
     } else {
       dot.className = 'dot off';
-      text.textContent = 'YouTube not configured (set YOUTUBE_CLIENT_ID & YOUTUBE_CLIENT_SECRET in .env)';
+      text.textContent = 'YouTube not configured (set YOUTUBE_API_KEY or OAuth credentials in .env)';
       btn.style.display = 'none';
       badge.textContent = '(not configured)';
       badge.style.color = 'var(--red)';
@@ -2589,6 +2795,742 @@ function copyToClipboard(text) {
     el.textContent = 'Copied!';
     setTimeout(() => el.textContent = orig, 1500);
   });
+}
+
+// ═══════════════════════════════════════════════════
+// DAILY SHORTS — Queue Management
+// ═══════════════════════════════════════════════════
+
+async function loadDailyShorts() {
+  await Promise.all([loadDailyShortsQueue(), loadDailyShortsConfig(), loadPostingHistory()]);
+}
+
+async function loadDailyShortsQueue() {
+  const filter = document.getElementById('ds-filter').value;
+  const list = document.getElementById('ds-queue-list');
+  try {
+    const data = await api('/video/daily-shorts/queue');
+    const items = Array.isArray(data) ? data : (data.queue || []);
+
+    // Update counters
+    const today = new Date().toISOString().slice(0, 10);
+    const counts = { pending: 0, approved: 0, posted: 0, rejected: 0 };
+    items.forEach(i => {
+      if (i.status === 'posted' && i.posted_at && i.posted_at.startsWith(today)) counts.posted++;
+      else if (counts[i.status] !== undefined) counts[i.status]++;
+    });
+    document.getElementById('ds-count-pending').textContent = counts.pending;
+    document.getElementById('ds-count-approved').textContent = counts.approved;
+    document.getElementById('ds-count-posted').textContent = counts.posted;
+    document.getElementById('ds-count-rejected').textContent = counts.rejected;
+
+    // Filter
+    const filtered = filter === 'all' ? items : items.filter(i => i.status === filter);
+
+    if (!filtered.length) {
+      list.innerHTML = `<div class="empty">No ${filter === 'all' ? '' : filter + ' '}shorts in queue</div>`;
+      return;
+    }
+
+    list.innerHTML = filtered.map(item => {
+      const statusBadge = {
+        pending: '<span class="badge badge-yellow">PENDING</span>',
+        approved: '<span class="badge badge-green">APPROVED</span>',
+        posted: '<span style="background:#8b5cf6;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.65rem">POSTED</span>',
+        rejected: '<span class="badge badge-red">REJECTED</span>'
+      }[item.status] || item.status;
+
+      const created = item.created_at ? new Date(item.created_at).toLocaleString() : '—';
+      const track = item.track_title || item.track || '—';
+      const effect = item.effect_variation || item.effect || '—';
+
+      let actions = '';
+      if (item.status === 'pending') {
+        actions = `
+          <div style="display:flex;gap:0.25rem;margin-top:0.5rem">
+            <button class="btn btn-sm" onclick="approveDailyShort('${esc(item.id)}')" style="color:var(--green);font-size:0.65rem">✓ Approve</button>
+            <button class="btn btn-sm" onclick="rejectDailyShort('${esc(item.id)}')" style="color:var(--red);font-size:0.65rem">✕ Reject</button>
+            <button class="btn btn-sm" onclick="previewDailyShort('${esc(item.id)}')" style="font-size:0.65rem">👁 Preview</button>
+            <button class="btn btn-sm" onclick="deleteDailyShort('${esc(item.id)}')" style="color:#666;font-size:0.65rem">🗑</button>
+          </div>`;
+      } else if (item.status === 'approved') {
+        actions = `
+          <div style="display:flex;gap:0.25rem;margin-top:0.5rem">
+            <button class="btn btn-sm" onclick="previewDailyShort('${esc(item.id)}')" style="font-size:0.65rem">👁 Preview</button>
+            <button class="btn btn-sm" onclick="rejectDailyShort('${esc(item.id)}')" style="color:var(--red);font-size:0.65rem">✕ Reject</button>
+          </div>`;
+      } else if (item.status === 'posted') {
+        actions = `
+          <div style="display:flex;gap:0.25rem;margin-top:0.5rem">
+            <button class="btn btn-sm" onclick="previewDailyShort('${esc(item.id)}')" style="font-size:0.65rem">👁 Preview</button>
+          </div>`;
+      }
+
+      return `<div style="background:#111;border:1px solid #222;border-radius:6px;padding:0.75rem;margin-bottom:0.5rem">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div>
+            <div style="font-size:0.8rem;color:var(--text);font-weight:bold">${esc(track)}</div>
+            <div style="font-size:0.65rem;color:var(--muted);margin-top:2px">Effect: ${esc(effect)} · ${created}</div>
+          </div>
+          ${statusBadge}
+        </div>
+        ${actions}
+      </div>`;
+    }).join('');
+  } catch (e) {
+    list.innerHTML = `<div class="empty" style="color:var(--red)">Error loading queue: ${esc(e.message)}</div>`;
+  }
+}
+
+async function approveDailyShort(id) {
+  try {
+    const r = await fetch(API + '/video/daily-shorts/queue/' + id + '/approve', { method: 'POST' });
+    if (!r.ok) throw new Error('Approve failed');
+    loadDailyShortsQueue();
+  } catch (e) {
+    alert('Error: ' + e.message);
+  }
+}
+
+async function rejectDailyShort(id) {
+  try {
+    const r = await fetch(API + '/video/daily-shorts/queue/' + id + '/reject', { method: 'POST' });
+    if (!r.ok) throw new Error('Reject failed');
+    loadDailyShortsQueue();
+  } catch (e) {
+    alert('Error: ' + e.message);
+  }
+}
+
+async function deleteDailyShort(id) {
+  if (!confirm('Delete this short from the queue?')) return;
+  try {
+    const r = await fetch(API + '/video/daily-shorts/queue/' + id, { method: 'DELETE' });
+    if (!r.ok) throw new Error('Delete failed');
+    loadDailyShortsQueue();
+  } catch (e) {
+    alert('Error: ' + e.message);
+  }
+}
+
+async function previewDailyShort(id) {
+  const modal = document.getElementById('ds-preview-modal');
+  const vid = document.getElementById('ds-preview-video');
+  const label = document.getElementById('ds-preview-label');
+  label.textContent = 'Loading preview…';
+  vid.src = '';
+  modal.style.display = 'flex';
+  vid.src = API + '/video/daily-shorts/preview/' + id;
+  vid.load();
+  label.textContent = 'Short preview — ID: ' + id;
+}
+
+function closeDsPreview() {
+  const vid = document.getElementById('ds-preview-video');
+  vid.pause();
+  vid.src = '';
+  document.getElementById('ds-preview-modal').style.display = 'none';
+}
+
+async function dailyShortsGenerateNow() {
+  const btn = document.getElementById('btn-ds-generate');
+  const status = document.getElementById('ds-generate-status');
+  btn.disabled = true;
+  status.textContent = 'Generating…';
+  status.style.color = 'var(--accent)';
+  try {
+    const r = await fetch(API + '/video/daily-shorts/generate-now', { method: 'POST' });
+    const data = await r.json();
+    if (!r.ok) throw new Error(data.detail || 'Generation failed');
+    status.textContent = '✓ ' + (data.message || 'Generated!');
+    status.style.color = 'var(--green)';
+    loadDailyShortsQueue();
+  } catch (e) {
+    status.textContent = '✕ ' + e.message;
+    status.style.color = 'var(--red)';
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+async function loadDailyShortsConfig() {
+  try {
+    const data = await api('/video/daily-shorts/config');
+    if (data.default_preset) {
+      if (data.default_preset.count) document.getElementById('ds-cfg-count').value = data.default_preset.count;
+      if (data.default_preset.duration_ms) document.getElementById('ds-cfg-duration').value = data.default_preset.duration_ms;
+    }
+    if (data.platforms) {
+      document.getElementById('ds-cfg-youtube').checked = !!data.platforms.youtube;
+      document.getElementById('ds-cfg-tiktok').checked = !!data.platforms.tiktok;
+      document.getElementById('ds-cfg-instagram').checked = !!data.platforms.instagram;
+    }
+    // Store config globally for image assignment
+    window._dsConfig = data;
+    // Render tracks list with per-track images
+    const tracksList = document.getElementById('ds-tracks-list');
+    if (data.tracks && data.tracks.length) {
+      tracksList.innerHTML = data.tracks.map(t => {
+        const trackImgs = t.images || [];
+        const imgHtml = trackImgs.length
+          ? `<div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:4px">${trackImgs.map(img => `
+              <div style="position:relative;width:48px;height:48px;border-radius:4px;overflow:hidden;border:1px solid #333">
+                <img src="${API}/video/image-preview/${encodeURIComponent(img)}" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none'" />
+                <button onclick="removeTrackImage('${esc(t.id)}','${esc(img)}')" style="position:absolute;top:0;right:0;background:rgba(0,0,0,0.7);color:var(--red);border:none;font-size:0.5rem;cursor:pointer;padding:1px 3px;line-height:1">✕</button>
+              </div>`).join('')}</div>`
+          : `<span style="color:var(--muted);font-size:0.6rem;font-style:italic">Using approved pool</span>`;
+        return `<div style="padding:8px 0;border-bottom:1px solid #1a1a1a">
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.75rem">
+            <span style="color:var(--text);font-weight:bold">${esc(t.title || t.id)}</span>
+            <div style="display:flex;gap:6px;align-items:center">
+              <span style="color:var(--muted);font-size:0.65rem">${t.segments ? t.segments.length + ' seg' : ''} · ${trackImgs.length} img</span>
+              <button class="btn btn-sm" onclick="toggleTrackMemory('${esc(t.id)}')" style="font-size:0.6rem;padding:2px 6px" title="Edit track memory">🧠 Memory</button>
+            </div>
+          </div>
+          ${imgHtml}
+          <div id="track-memory-${esc(t.id)}" style="display:none;margin-top:8px;padding:8px;background:#0a0a0a;border-radius:6px;border:1px solid #222"></div>
+        </div>`;
+      }).join('');
+      }).join('');
+    } else {
+      tracksList.innerHTML = '<div class="empty">No tracks configured</div>';
+    }
+    // Also load image pool and library
+    loadDsImagePool(data.image_pool || []);
+    loadDsImageLibrary();
+  } catch (e) {
+    document.getElementById('ds-config-status').textContent = 'Error loading config: ' + e.message;
+  }
+}
+
+async function saveDailyShortsConfig() {
+  const status = document.getElementById('ds-config-status');
+  try {
+    const body = {
+      default_preset: {
+        count: parseInt(document.getElementById('ds-cfg-count').value) || 3,
+        duration_ms: parseInt(document.getElementById('ds-cfg-duration').value) || 15000
+      },
+      platforms: {
+        youtube: document.getElementById('ds-cfg-youtube').checked,
+        tiktok: document.getElementById('ds-cfg-tiktok').checked,
+        instagram: document.getElementById('ds-cfg-instagram').checked
+      }
+    };
+    const r = await fetch(API + '/video/daily-shorts/config', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    if (!r.ok) throw new Error('Save failed');
+    status.textContent = '✓ Config saved';
+    status.style.color = 'var(--green)';
+  } catch (e) {
+    status.textContent = '✕ ' + e.message;
+    status.style.color = 'var(--red)';
+  }
+}
+
+// ── Daily Shorts Image Pool & Library ──
+
+let _dsImagePool = [];
+let _dsAllImages = [];
+let _dsAssignFilename = '';
+
+function _isClipFilename(name) {
+  const ext = '.' + name.split('.').pop().toLowerCase();
+  return ['.mp4','.mov','.mpeg','.mpg','.avi','.webm'].includes(ext);
+}
+
+function loadDsImagePool(poolFromConfig) {
+  if (poolFromConfig) _dsImagePool = poolFromConfig;
+  const grid = document.getElementById('ds-pool-grid');
+  const count = document.getElementById('ds-pool-count');
+  count.textContent = _dsImagePool.length + ' items';
+  if (!_dsImagePool.length) {
+    grid.innerHTML = '<div class="empty" style="grid-column:1/-1">No media in approved pool. Add from the library below.</div>';
+    return;
+  }
+  grid.innerHTML = _dsImagePool.map((img, idx) => {
+    const isClip = _isClipFilename(img);
+    const previewPath = isClip ? 'clip-preview' : 'image-preview';
+    const mediaEl = isClip
+      ? `<video src="${API}/video/${previewPath}/${encodeURIComponent(img)}" style="width:100%;height:100%;object-fit:cover" muted preload="metadata" onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0"></video>`
+      : `<img src="${API}/video/${previewPath}/${encodeURIComponent(img)}" style="width:100%;height:100%;object-fit:cover" onerror="this.parentElement.innerHTML='<div style=padding:8px;font-size:0.55rem;color:var(--muted);word-break:break-all>${esc(img)}</div>'" />`;
+    return `<div style="position:relative;border-radius:6px;overflow:hidden;border:1px solid #333;aspect-ratio:1;background:#0a0a0a">
+      ${mediaEl}
+      ${isClip ? '<div style="position:absolute;top:2px;left:2px;background:var(--accent);color:#000;font-size:0.45rem;padding:1px 4px;border-radius:3px;font-weight:bold">▶</div>' : ''}
+      <button onclick="removeFromPool(${idx})" style="position:absolute;top:2px;right:2px;background:rgba(0,0,0,0.75);color:var(--red);border:none;font-size:0.65rem;cursor:pointer;padding:2px 5px;border-radius:3px;line-height:1" title="Remove from pool">✕</button>
+      <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.7);padding:2px 4px;font-size:0.5rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(img)}</div>
+    </div>`;
+  }).join('');
+}
+
+async function removeFromPool(index) {
+  _dsImagePool.splice(index, 1);
+  await _saveImagePool();
+  loadDsImagePool();
+}
+
+async function _saveImagePool() {
+  await fetch(API + '/video/daily-shorts/image-pool', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ image_pool: _dsImagePool })
+  });
+}
+
+async function loadDsImageLibrary() {
+  const grid = document.getElementById('ds-lib-grid');
+  const count = document.getElementById('ds-lib-count');
+  try {
+    _dsAllImages = await api('/video/images');
+    const nImg = _dsAllImages.filter(i => i.type !== 'clip').length;
+    const nClip = _dsAllImages.filter(i => i.type === 'clip').length;
+    count.textContent = `${nImg} images, ${nClip} clips`;
+    if (!_dsAllImages.length) {
+      grid.innerHTML = '<div class="empty" style="grid-column:1/-1">No media found. Upload images or clips above.</div>';
+      return;
+    }
+    grid.innerHTML = _dsAllImages.map(img => {
+      const inPool = _dsImagePool.includes(img.filename);
+      const borderColor = inPool ? 'var(--green)' : '#333';
+      const isClip = img.type === 'clip';
+      const mediaEl = isClip
+        ? `<video src="${API}${img.preview_url}" style="width:100%;height:100%;object-fit:cover" muted preload="metadata" onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0"></video>`
+        : `<img src="${API}${img.preview_url}" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none'" />`;
+      const badge = isClip ? '<div style="position:absolute;top:2px;right:2px;background:var(--accent);color:#000;font-size:0.45rem;padding:1px 4px;border-radius:3px;font-weight:bold">▶ clip</div>' : '';
+      return `<div style="position:relative;border-radius:6px;overflow:hidden;border:2px solid ${borderColor};aspect-ratio:1;background:#0a0a0a;cursor:pointer" onclick="openAssignModal('${esc(img.filename)}')" title="${esc(img.filename)}${inPool ? ' (in pool)' : ''}">
+        ${mediaEl}
+        ${badge}
+        ${inPool ? '<div style="position:absolute;top:2px;left:2px;background:var(--green);color:#000;font-size:0.5rem;padding:1px 4px;border-radius:3px;font-weight:bold">✓ Pool</div>' : ''}
+        <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.7);padding:2px 4px;font-size:0.5rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(img.filename)}</div>
+      </div>`;
+    }).join('');
+  } catch (e) {
+    grid.innerHTML = `<div class="empty" style="color:var(--red);grid-column:1/-1">Error: ${esc(e.message)}</div>`;
+  }
+}
+
+const DS_IMAGE_EXTS = ['.jpg','.jpeg','.png','.webp','.bmp'];
+const DS_CLIP_EXTS = ['.mp4','.mov','.mpeg','.mpg','.avi','.webm'];
+
+function dsHandleDrop(e) {
+  const files = e.dataTransfer.files;
+  if (files.length) dsUploadFiles(files);
+}
+
+async function dsUploadFiles(fileList) {
+  const status = document.getElementById('ds-upload-status');
+  const area = document.getElementById('ds-upload-area');
+  const total = fileList.length;
+  let done = 0, failed = 0;
+  status.style.display = 'block';
+  status.style.color = 'var(--muted)';
+  status.textContent = `Uploading 0/${total}…`;
+  area.style.borderColor = 'var(--accent)';
+
+  for (const file of fileList) {
+    const ext = '.' + file.name.split('.').pop().toLowerCase();
+    const isImage = DS_IMAGE_EXTS.includes(ext);
+    const isClip = DS_CLIP_EXTS.includes(ext);
+    if (!isImage && !isClip) {
+      failed++;
+      continue;
+    }
+    const fd = new FormData();
+    fd.append('file', file);
+    try {
+      const endpoint = isClip ? '/video/upload-clip' : '/video/upload-image';
+      const r = await fetch(API + endpoint, { method: 'POST', body: fd });
+      if (!r.ok) throw new Error(await r.text());
+      done++;
+    } catch {
+      failed++;
+    }
+    status.textContent = `Uploading ${done + failed}/${total}…`;
+  }
+
+  area.style.borderColor = '#444';
+  const msg = `✓ ${done} uploaded` + (failed ? `, ${failed} failed` : '');
+  status.style.color = failed ? 'var(--yellow)' : 'var(--green)';
+  status.textContent = msg;
+  document.getElementById('ds-upload-input').value = '';
+  setTimeout(() => { status.style.display = 'none'; }, 4000);
+  loadDsImageLibrary();
+}
+
+function openAssignModal(filename) {
+  _dsAssignFilename = filename;
+  document.getElementById('ds-assign-filename').textContent = filename;
+  const tracks = (window._dsConfig && window._dsConfig.tracks) || [];
+  const container = document.getElementById('ds-assign-tracks');
+  container.innerHTML = tracks.map(t => {
+    const has = (t.images || []).includes(filename);
+    return `<button class="btn btn-sm" onclick="assignToTrack('${esc(t.id)}')" style="text-align:left;justify-content:space-between;display:flex;${has ? 'border-color:var(--green);color:var(--green)' : ''}">
+      <span>${esc(t.title || t.id)}</span>
+      ${has ? '<span>✓</span>' : '<span>+</span>'}
+    </button>`;
+  }).join('');
+  document.getElementById('ds-assign-modal').style.display = 'flex';
+}
+
+function closeDsAssign() {
+  document.getElementById('ds-assign-modal').style.display = 'none';
+}
+
+async function assignToTrack(trackId) {
+  try {
+    // Get current track images
+    const data = await api('/video/daily-shorts/track/' + trackId + '/images');
+    let images = data.images || [];
+    if (images.includes(_dsAssignFilename)) {
+      // Remove if already assigned
+      images = images.filter(f => f !== _dsAssignFilename);
+    } else {
+      images.push(_dsAssignFilename);
+    }
+    const r = await fetch(API + '/video/daily-shorts/track/' + trackId + '/images', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ images })
+    });
+    if (!r.ok) throw new Error('Save failed');
+    closeDsAssign();
+    loadDailyShortsConfig(); // Refresh everything
+  } catch (e) {
+    alert('Error: ' + e.message);
+  }
+}
+
+async function addToGlobalPool() {
+  if (!_dsImagePool.includes(_dsAssignFilename)) {
+    _dsImagePool.push(_dsAssignFilename);
+    await _saveImagePool();
+    loadDsImagePool();
+    loadDsImageLibrary();
+  }
+  closeDsAssign();
+}
+
+async function removeTrackImage(trackId, filename) {
+  try {
+    const data = await api('/video/daily-shorts/track/' + trackId + '/images');
+    const images = (data.images || []).filter(f => f !== filename);
+    const r = await fetch(API + '/video/daily-shorts/track/' + trackId + '/images', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ images })
+    });
+    if (!r.ok) throw new Error('Save failed');
+    loadDailyShortsConfig();
+  } catch (e) {
+    alert('Error: ' + e.message);
+  }
+}
+
+// ── Track Memory Editor ──
+
+async function toggleTrackMemory(trackId) {
+  const el = document.getElementById('track-memory-' + trackId);
+  if (!el) return;
+  if (el.style.display !== 'none') { el.style.display = 'none'; return; }
+  el.style.display = 'block';
+  el.innerHTML = '<div class="empty">Loading…</div>';
+  try {
+    const data = await api('/video/daily-shorts/track-memory/' + trackId);
+    const m = data.meta || {};
+    el.innerHTML = `
+      <div style="font-size:0.7rem;color:var(--accent);font-weight:bold;margin-bottom:6px">🧠 Track Memory — ${esc(m.title || trackId)}</div>
+      <label style="font-size:0.6rem;color:var(--muted)">Caption Lines <span style="font-size:0.5rem">(one per line — randomly picked for overlays)</span></label>
+      <textarea id="tm-captions-${esc(trackId)}" rows="4" style="width:100%;background:#111;border:1px solid #333;color:var(--text);font-size:0.7rem;padding:4px;border-radius:4px;margin:4px 0;font-family:monospace">${esc((m.caption_lines || []).join('\n'))}</textarea>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:4px">
+        <div>
+          <label style="font-size:0.55rem;color:var(--muted)">TikTok Tags</label>
+          <textarea id="tm-tags-tiktok-${esc(trackId)}" rows="3" style="width:100%;background:#111;border:1px solid #333;color:var(--text);font-size:0.6rem;padding:3px;border-radius:4px;font-family:monospace">${esc(((m.tags || {}).tiktok || []).join('\n'))}</textarea>
+        </div>
+        <div>
+          <label style="font-size:0.55rem;color:var(--muted)">Instagram Tags</label>
+          <textarea id="tm-tags-instagram-${esc(trackId)}" rows="3" style="width:100%;background:#111;border:1px solid #333;color:var(--text);font-size:0.6rem;padding:3px;border-radius:4px;font-family:monospace">${esc(((m.tags || {}).instagram || []).join('\n'))}</textarea>
+        </div>
+        <div>
+          <label style="font-size:0.55rem;color:var(--muted)">YouTube Tags</label>
+          <textarea id="tm-tags-youtube-${esc(trackId)}" rows="3" style="width:100%;background:#111;border:1px solid #333;color:var(--text);font-size:0.6rem;padding:3px;border-radius:4px;font-family:monospace">${esc(((m.tags || {}).youtube || []).join('\n'))}</textarea>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:4px">
+        <div>
+          <label style="font-size:0.55rem;color:var(--muted)">Mood</label>
+          <input id="tm-mood-${esc(trackId)}" value="${esc(m.mood || '')}" style="width:100%;background:#111;border:1px solid #333;color:var(--text);font-size:0.65rem;padding:3px 4px;border-radius:4px" />
+        </div>
+        <div>
+          <label style="font-size:0.55rem;color:var(--muted)">Collaborators</label>
+          <input id="tm-collabs-${esc(trackId)}" value="${esc((m.collaborators || []).join(', '))}" style="width:100%;background:#111;border:1px solid #333;color:var(--text);font-size:0.65rem;padding:3px 4px;border-radius:4px" placeholder="comma separated" />
+        </div>
+      </div>
+      <label style="font-size:0.55rem;color:var(--muted);margin-top:4px;display:block">Notes <span style="font-size:0.5rem">(free-form markdown context for AI)</span></label>
+      <textarea id="tm-body-${esc(trackId)}" rows="3" style="width:100%;background:#111;border:1px solid #333;color:var(--text);font-size:0.65rem;padding:4px;border-radius:4px;font-family:monospace">${esc(data.body || '')}</textarea>
+      <div style="display:flex;gap:6px;margin-top:6px;align-items:center">
+        <button class="btn btn-sm" onclick="saveTrackMemory('${esc(trackId)}')" style="background:var(--green);color:#000;font-weight:bold">💾 Save Memory</button>
+        <span id="tm-status-${esc(trackId)}" style="font-size:0.6rem;color:var(--muted)"></span>
+      </div>
+    `;
+  } catch (e) {
+    el.innerHTML = `<div style="font-size:0.65rem;color:var(--muted)">No memory file yet.
+      <button class="btn btn-sm" onclick="createTrackMemory('${esc(trackId)}')" style="margin-left:6px">Create</button></div>`;
+  }
+}
+
+async function saveTrackMemory(trackId) {
+  const status = document.getElementById('tm-status-' + trackId);
+  status.textContent = 'Saving…'; status.style.color = 'var(--muted)';
+  try {
+    const captions = document.getElementById('tm-captions-' + trackId).value.split('\n').map(l => l.trim()).filter(Boolean);
+    const tiktok = document.getElementById('tm-tags-tiktok-' + trackId).value.split('\n').map(l => l.trim()).filter(Boolean);
+    const instagram = document.getElementById('tm-tags-instagram-' + trackId).value.split('\n').map(l => l.trim()).filter(Boolean);
+    const youtube = document.getElementById('tm-tags-youtube-' + trackId).value.split('\n').map(l => l.trim()).filter(Boolean);
+    const mood = document.getElementById('tm-mood-' + trackId).value.trim();
+    const collabs = document.getElementById('tm-collabs-' + trackId).value.split(',').map(s => s.trim()).filter(Boolean);
+    const body = document.getElementById('tm-body-' + trackId).value;
+
+    // Read existing to preserve fields we don't edit
+    let existing = {};
+    try { existing = (await api('/video/daily-shorts/track-memory/' + trackId)).meta || {}; } catch {}
+
+    const meta = { ...existing, caption_lines: captions, tags: { tiktok, instagram, youtube }, mood, collaborators: collabs };
+    const r = await fetch(API + '/video/daily-shorts/track-memory/' + trackId, {
+      method: 'PUT', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ meta, body })
+    });
+    if (!r.ok) throw new Error('Save failed');
+    status.textContent = '✓ Saved'; status.style.color = 'var(--green)';
+  } catch (e) {
+    status.textContent = '✕ ' + e.message; status.style.color = 'var(--red)';
+  }
+}
+
+async function createTrackMemory(trackId) {
+  const meta = { track_id: trackId, title: trackId.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()), artist: 'My Evil Robot Army', mood: '', collaborators: [], caption_lines: [], tags: { tiktok: [], instagram: [], youtube: [] } };
+  await fetch(API + '/video/daily-shorts/track-memory/' + trackId, {
+    method: 'PUT', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ meta, body: '' })
+  });
+  toggleTrackMemory(trackId);
+}
+
+// ── Posting History ──
+
+let _postingHistory = [];
+
+async function loadPostingHistory() {
+  const container = document.getElementById('ds-posting-history');
+  if (!container) return;
+  try {
+    _postingHistory = await api('/video/daily-shorts/posting-history');
+    if (!_postingHistory || !_postingHistory.length) {
+      container.innerHTML = `<div class="empty">No posting history yet. Posts will appear here after approved shorts are published.
+        <div style="margin-top:8px"><button class="btn btn-sm" onclick="showAddPostingRecord()">+ Log Manual Post</button></div></div>`;
+      return;
+    }
+    const sorted = _postingHistory.map((r, i) => ({ ...r, _idx: i })).reverse();
+    const platformColors = { youtube: '#ff0000', tiktok: '#00f2ea', instagram: '#e1306c' };
+    container.innerHTML = `
+      <div style="display:flex;gap:6px;margin-bottom:8px">
+        <button class="btn btn-sm" onclick="refreshPlatformStats()" id="ds-refresh-stats-btn">📊 Refresh YouTube Stats</button>
+        <button class="btn btn-sm" onclick="showAddPostingRecord()">+ Log Manual Post</button>
+      </div>
+      <div style="max-height:400px;overflow-y:auto">
+        <table style="width:100%;font-size:0.65rem;border-collapse:collapse">
+          <thead><tr style="color:var(--muted);border-bottom:1px solid #333;text-align:left">
+            <th style="padding:4px">Date</th><th style="padding:4px">Track</th><th style="padding:4px">Platform</th><th style="padding:4px">Status</th><th style="padding:4px">👁 Views</th><th style="padding:4px">👍 Likes</th><th style="padding:4px">💬 Comments</th><th style="padding:4px">Link / ID</th><th style="padding:4px"></th>
+          </tr></thead>
+          <tbody>${sorted.map(r => {
+            const s = r.stats || {};
+            const hasStats = s.views !== undefined;
+            const viewsStr = hasStats ? Number(s.views).toLocaleString() : '—';
+            const likesStr = hasStats ? Number(s.likes).toLocaleString() : '—';
+            const commentsStr = hasStats ? Number(s.comments).toLocaleString() : '—';
+            const linkId = r.url || (r.video_id ? (r.platform === 'youtube' ? 'https://youtube.com/watch?v=' + r.video_id : r.video_id) : '—');
+            const linkHtml = linkId.startsWith('http') ? '<a href="' + esc(linkId) + '" target="_blank" style="color:var(--accent)">' + esc(linkId.replace(/https?:\\/\\//, '').substring(0, 30)) + '</a>' : esc(linkId);
+            const staleBadge = r.stats_updated ? '<span title="Last updated: ' + esc(r.stats_updated) + '" style="color:var(--muted);font-size:0.45rem;cursor:help"> ↻' + esc(r.stats_updated.substring(5, 10)) + '</span>' : '';
+            return `<tr style="border-bottom:1px solid #1a1a1a">
+              <td style="padding:4px;color:var(--muted)">${esc((r.timestamp || '').substring(0, 10))}</td>
+              <td style="padding:4px;color:var(--text)">${esc(r.track_title || r.track_id || '')}</td>
+              <td style="padding:4px"><span style="background:${platformColors[r.platform] || '#444'};color:#fff;padding:1px 5px;border-radius:3px;font-size:0.55rem;font-weight:bold">${esc(r.platform || '')}</span></td>
+              <td style="padding:4px;color:${r.status === 'uploaded' ? 'var(--green)' : r.status === 'manual' ? 'var(--yellow)' : 'var(--red)'}">${esc(r.status || '')}</td>
+              <td style="padding:4px;color:${hasStats ? 'var(--text)' : 'var(--muted)'};font-weight:${hasStats ? 'bold' : 'normal'}">${viewsStr}${staleBadge}</td>
+              <td style="padding:4px;color:${hasStats ? 'var(--text)' : 'var(--muted)'}">${likesStr}</td>
+              <td style="padding:4px;color:${hasStats ? 'var(--text)' : 'var(--muted)'}">${commentsStr}</td>
+              <td style="padding:4px;font-size:0.55rem">${linkHtml}</td>
+              <td style="padding:4px"><button class="btn btn-sm" onclick="editPostingRecord(${r._idx})" style="font-size:0.5rem;padding:1px 4px" title="Edit">✏️</button></td>
+            </tr>`;
+          }).join('')}</tbody>
+        </table>
+      </div>`;
+  } catch (e) {
+    container.innerHTML = `<div class="empty" style="color:var(--red)">Error: ${esc(e.message)}</div>`;
+  }
+}
+
+async function refreshPlatformStats() {
+  const btn = document.getElementById('ds-refresh-stats-btn');
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ Refreshing…'; }
+  try {
+    const r = await fetch(API + '/video/daily-shorts/refresh-stats', { method: 'POST' });
+    if (!r.ok) throw new Error('Refresh failed');
+    const data = await r.json();
+    if (btn) { btn.textContent = `✓ ${data.updated} updated`; btn.style.color = 'var(--green)'; }
+    setTimeout(() => { if (btn) { btn.textContent = '📊 Refresh YouTube Stats'; btn.style.color = ''; btn.disabled = false; } }, 3000);
+    await loadPostingHistory();
+  } catch (e) {
+    if (btn) { btn.textContent = '✕ ' + e.message; btn.style.color = 'var(--red)'; btn.disabled = false; }
+  }
+}
+
+function showAddPostingRecord() {
+  const tracks = (window._dsConfig && window._dsConfig.tracks) || [];
+  const trackOpts = tracks.map(t => `<option value="${esc(t.id)}">${esc(t.title || t.id)}</option>`).join('');
+  const html = `<div style="background:#111;border:1px solid #333;border-radius:8px;padding:12px;margin-bottom:8px;font-size:0.7rem">
+    <div style="font-weight:bold;color:var(--accent);margin-bottom:8px">Log a Manual Post</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
+      <div>
+        <label style="font-size:0.55rem;color:var(--muted)">Track</label>
+        <select id="mp-track" style="width:100%;background:#0a0a0a;border:1px solid #333;color:var(--text);font-size:0.65rem;padding:3px;border-radius:4px">${trackOpts}</select>
+      </div>
+      <div>
+        <label style="font-size:0.55rem;color:var(--muted)">Platform</label>
+        <select id="mp-platform" style="width:100%;background:#0a0a0a;border:1px solid #333;color:var(--text);font-size:0.65rem;padding:3px;border-radius:4px">
+          <option value="youtube">YouTube</option><option value="tiktok">TikTok</option><option value="instagram">Instagram</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-size:0.55rem;color:var(--muted)">Status</label>
+        <select id="mp-status" style="width:100%;background:#0a0a0a;border:1px solid #333;color:var(--text);font-size:0.65rem;padding:3px;border-radius:4px">
+          <option value="uploaded">Uploaded</option><option value="manual">Manual</option><option value="scheduled">Scheduled</option>
+        </select>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px">
+      <div>
+        <label style="font-size:0.55rem;color:var(--muted)">Post URL</label>
+        <input id="mp-url" placeholder="https://..." style="width:100%;background:#0a0a0a;border:1px solid #333;color:var(--text);font-size:0.65rem;padding:3px;border-radius:4px" />
+      </div>
+      <div>
+        <label style="font-size:0.55rem;color:var(--muted)">Video / Post ID</label>
+        <input id="mp-video-id" placeholder="optional" style="width:100%;background:#0a0a0a;border:1px solid #333;color:var(--text);font-size:0.65rem;padding:3px;border-radius:4px" />
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:6px">
+      <div>
+        <label style="font-size:0.55rem;color:var(--muted)">Views</label>
+        <input id="mp-views" type="number" value="0" style="width:100%;background:#0a0a0a;border:1px solid #333;color:var(--text);font-size:0.65rem;padding:3px;border-radius:4px" />
+      </div>
+      <div>
+        <label style="font-size:0.55rem;color:var(--muted)">Likes</label>
+        <input id="mp-likes" type="number" value="0" style="width:100%;background:#0a0a0a;border:1px solid #333;color:var(--text);font-size:0.65rem;padding:3px;border-radius:4px" />
+      </div>
+      <div>
+        <label style="font-size:0.55rem;color:var(--muted)">Comments</label>
+        <input id="mp-comments" type="number" value="0" style="width:100%;background:#0a0a0a;border:1px solid #333;color:var(--text);font-size:0.65rem;padding:3px;border-radius:4px" />
+      </div>
+    </div>
+    <div style="display:flex;gap:6px;margin-top:8px;align-items:center">
+      <button class="btn btn-sm" onclick="submitManualPost()" style="background:var(--green);color:#000;font-weight:bold">Save</button>
+      <button class="btn btn-sm" onclick="loadPostingHistory()">Cancel</button>
+      <span id="mp-status-msg" style="font-size:0.6rem;color:var(--muted)"></span>
+    </div>
+  </div>`;
+  const container = document.getElementById('ds-posting-history');
+  container.insertAdjacentHTML('afterbegin', html);
+}
+
+async function submitManualPost() {
+  const msg = document.getElementById('mp-status-msg');
+  msg.textContent = 'Saving…';
+  try {
+    const tracks = (window._dsConfig && window._dsConfig.tracks) || [];
+    const trackId = document.getElementById('mp-track').value;
+    const track = tracks.find(t => t.id === trackId);
+    const record = {
+      track_id: trackId,
+      track_title: track ? (track.title || trackId) : trackId,
+      platform: document.getElementById('mp-platform').value,
+      status: document.getElementById('mp-status').value,
+      url: document.getElementById('mp-url').value.trim(),
+      video_id: document.getElementById('mp-video-id').value.trim(),
+      stats: {
+        views: parseInt(document.getElementById('mp-views').value) || 0,
+        likes: parseInt(document.getElementById('mp-likes').value) || 0,
+        comments: parseInt(document.getElementById('mp-comments').value) || 0,
+      },
+    };
+    const r = await fetch(API + '/video/daily-shorts/posting-history', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(record)
+    });
+    if (!r.ok) throw new Error('Save failed');
+    await loadPostingHistory();
+  } catch (e) {
+    msg.textContent = '✕ ' + e.message; msg.style.color = 'var(--red)';
+  }
+}
+
+function editPostingRecord(index) {
+  const rec = _postingHistory[index];
+  if (!rec) return;
+  const s = rec.stats || {};
+  const html = `<div id="edit-pr-${index}" style="background:#111;border:1px solid var(--accent);border-radius:8px;padding:10px;margin:4px 0;font-size:0.65rem">
+    <div style="color:var(--accent);font-weight:bold;margin-bottom:6px">Edit — ${esc(rec.track_title || '')} (${esc(rec.platform || '')})</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+      <div>
+        <label style="font-size:0.5rem;color:var(--muted)">Post URL</label>
+        <input id="epr-url-${index}" value="${esc(rec.url || '')}" style="width:100%;background:#0a0a0a;border:1px solid #333;color:var(--text);font-size:0.6rem;padding:3px;border-radius:4px" />
+      </div>
+      <div>
+        <label style="font-size:0.5rem;color:var(--muted)">Video / Post ID</label>
+        <input id="epr-vid-${index}" value="${esc(rec.video_id || '')}" style="width:100%;background:#0a0a0a;border:1px solid #333;color:var(--text);font-size:0.6rem;padding:3px;border-radius:4px" />
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:4px">
+      <div><label style="font-size:0.5rem;color:var(--muted)">Views</label><input id="epr-views-${index}" type="number" value="${s.views || 0}" style="width:100%;background:#0a0a0a;border:1px solid #333;color:var(--text);font-size:0.6rem;padding:3px;border-radius:4px" /></div>
+      <div><label style="font-size:0.5rem;color:var(--muted)">Likes</label><input id="epr-likes-${index}" type="number" value="${s.likes || 0}" style="width:100%;background:#0a0a0a;border:1px solid #333;color:var(--text);font-size:0.6rem;padding:3px;border-radius:4px" /></div>
+      <div><label style="font-size:0.5rem;color:var(--muted)">Comments</label><input id="epr-comments-${index}" type="number" value="${s.comments || 0}" style="width:100%;background:#0a0a0a;border:1px solid #333;color:var(--text);font-size:0.6rem;padding:3px;border-radius:4px" /></div>
+    </div>
+    <div style="display:flex;gap:6px;margin-top:6px;align-items:center">
+      <button class="btn btn-sm" onclick="savePostingRecordEdit(${index})" style="background:var(--green);color:#000;font-weight:bold">Save</button>
+      <button class="btn btn-sm" onclick="loadPostingHistory()">Cancel</button>
+      <span id="epr-msg-${index}" style="font-size:0.55rem;color:var(--muted)"></span>
+    </div>
+  </div>`;
+  // Insert the edit form inline in the container
+  const container = document.getElementById('ds-posting-history');
+  container.insertAdjacentHTML('beforeend', html);
+  document.getElementById('edit-pr-' + index).scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+async function savePostingRecordEdit(index) {
+  const msg = document.getElementById('epr-msg-' + index);
+  msg.textContent = 'Saving…';
+  try {
+    const update = {
+      url: document.getElementById('epr-url-' + index).value.trim(),
+      video_id: document.getElementById('epr-vid-' + index).value.trim(),
+      stats: {
+        views: parseInt(document.getElementById('epr-views-' + index).value) || 0,
+        likes: parseInt(document.getElementById('epr-likes-' + index).value) || 0,
+        comments: parseInt(document.getElementById('epr-comments-' + index).value) || 0,
+      },
+      stats_updated: new Date().toISOString().substring(0, 19) + 'Z',
+    };
+    const r = await fetch(API + '/video/daily-shorts/posting-history/' + index, {
+      method: 'PUT', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(update)
+    });
+    if (!r.ok) throw new Error('Save failed');
+    await loadPostingHistory();
+  } catch (e) {
+    msg.textContent = '✕ ' + e.message; msg.style.color = 'var(--red)';
+  }
 }
 
 function fmtMs(ms) {

@@ -78,10 +78,10 @@
 .nr-nav-inner {
   max-width: 1100px; margin: 0 auto;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 1rem; height: 56px;
+  padding: 0 1rem; height: 60px;
 }
 .nr-logo-link { display: flex; align-items: center; text-decoration: none; }
-.nr-logo-img { height: 34px; width: auto; }
+.nr-logo-img { height: 44px; width: auto; }
 .nr-nav-links { display: flex; gap: 0.25rem; align-items: center; }
 .nr-nav-link {
   color: #e0e7ff; font-size: 0.8rem; padding: 6px 14px;

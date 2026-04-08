@@ -1,1 +1,300 @@
-[]
+[
+  {
+    "id": "a3aac97fffa9",
+    "status": "approved",
+    "generated_date": "2026-04-07",
+    "track_id": "mind_hack",
+    "track_title": "Mind Hack",
+    "segment_label": "attack",
+    "filename": "daily_2026-04-07_mind_hack_attack_37998e74.mp4",
+    "video_path": "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/videos/daily_2026-04-07_mind_hack_attack_37998e74.mp4",
+    "mood": "intense",
+    "effects": {
+      "color_shift_enabled": true,
+      "vhs_enabled": true,
+      "scanline_enabled": true
+    },
+    "images_used": [
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/ebed8659_to-much-to-do.png",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/media-library/images/null_record_art.jpg",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/media-library/images/light_streaks.jpg"
+    ],
+    "created_at": "2026-04-07T23:23:03+00:00",
+    "posted_at": null,
+    "platforms_posted": [],
+    "caption": "Mind Hack \u2014 My Evil Robot Army\n\n#MyEvilRobotArmy #MERA #NullRecords #LoFiJazz #ElectronicMusic #InstrumentalMusic #MusicVisualization #IndieMusic #NewMusic",
+    "hashtags": {
+      "tiktok": [
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords",
+        "#LoFiJazz",
+        "#ElectronicMusic",
+        "#InstrumentalMusic",
+        "#MusicVisualization",
+        "#IndieMusic",
+        "#NewMusic"
+      ],
+      "instagram": [
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords",
+        "#LoFiJazz",
+        "#ElectronicMusic",
+        "#InstrumentalMusic",
+        "#MusicVisualization",
+        "#IndieMusic",
+        "#NewMusic",
+        "#Reels"
+      ],
+      "youtube": [
+        "My Evil Robot Army",
+        "MERA",
+        "NullRecords",
+        "LoFi Jazz",
+        "Electronic Music",
+        "Shorts"
+      ]
+    },
+    "approved_at": "2026-04-08T00:29:12+00:00"
+  },
+  {
+    "id": "0453175b3db4",
+    "status": "rejected",
+    "generated_date": "2026-04-07",
+    "track_id": "mind_hack",
+    "track_title": "Mind Hack",
+    "segment_label": "intro",
+    "filename": "daily_2026-04-07_mind_hack_intro_8020ed75.mp4",
+    "video_path": "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/videos/daily_2026-04-07_mind_hack_intro_8020ed75.mp4",
+    "mood": "intense",
+    "effects": {
+      "color_shift_enabled": true,
+      "vhs_enabled": true,
+      "scanline_enabled": true
+    },
+    "images_used": [
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/b3ea8656_Cosmic vibes with Kyla Egli.png",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/media-library/images/null_record_art.jpg",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/33be9144_Cosmic beauty and stellar beats.png"
+    ],
+    "created_at": "2026-04-07T23:39:40+00:00",
+    "posted_at": null,
+    "platforms_posted": [],
+    "caption": "Mind Hack \u2014 My Evil Robot Army\n\n#MyEvilRobotArmy #MERA #NullRecords #LoFiJazz #ElectronicMusic #InstrumentalMusic #MusicVisualization #IndieMusic #NewMusic",
+    "hashtags": {
+      "tiktok": [
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords",
+        "#LoFiJazz",
+        "#ElectronicMusic",
+        "#InstrumentalMusic",
+        "#MusicVisualization",
+        "#IndieMusic",
+        "#NewMusic"
+      ],
+      "instagram": [
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords",
+        "#LoFiJazz",
+        "#ElectronicMusic",
+        "#InstrumentalMusic",
+        "#MusicVisualization",
+        "#IndieMusic",
+        "#NewMusic",
+        "#Reels"
+      ],
+      "youtube": [
+        "My Evil Robot Army",
+        "MERA",
+        "NullRecords",
+        "LoFi Jazz",
+        "Electronic Music",
+        "Shorts"
+      ]
+    }
+  },
+  {
+    "id": "34f35a0ca2d9",
+    "status": "post_failed",
+    "generated_date": "2026-04-08",
+    "track_id": "lectroids",
+    "track_title": "Lectroids",
+    "segment_label": "hook",
+    "filename": "daily_2026-04-08_lectroids_hook_4000f837.mp4",
+    "video_path": "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/videos/daily_2026-04-08_lectroids_hook_4000f837.mp4",
+    "mood": "electronic",
+    "effects": {
+      "color_shift_enabled": true,
+      "vhs_enabled": true,
+      "scanline_enabled": true
+    },
+    "images_used": [
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/media-library/images/null_record_art.jpg",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/3122ccc9_osciallating-overthurster.png",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/media-library/images/cyber_grid.jpg"
+    ],
+    "created_at": "2026-04-08T15:02:07+00:00",
+    "approved_at": "2026-04-08T16:53:54+00:00",
+    "posted_at": null,
+    "platforms_posted": [],
+    "caption": "Lectroids \u2014 My Evil Robot Army\n\n#MyEvilRobotArmy #MERA #NullRecords #LoFiJazz #ElectronicMusic #InstrumentalMusic #MusicVisualization #IndieMusic #NewMusic",
+    "hashtags": {
+      "tiktok": [
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords",
+        "#LoFiJazz",
+        "#ElectronicMusic",
+        "#InstrumentalMusic",
+        "#MusicVisualization",
+        "#IndieMusic",
+        "#NewMusic"
+      ],
+      "instagram": [
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords",
+        "#LoFiJazz",
+        "#ElectronicMusic",
+        "#InstrumentalMusic",
+        "#MusicVisualization",
+        "#IndieMusic",
+        "#NewMusic",
+        "#Reels"
+      ],
+      "youtube": [
+        "My Evil Robot Army",
+        "MERA",
+        "NullRecords",
+        "LoFi Jazz",
+        "Electronic Music",
+        "Shorts"
+      ]
+    },
+    "error": "Posting failed \u2014 will retry next cycle"
+  },
+  {
+    "id": "0121f69cd21f",
+    "status": "post_failed",
+    "generated_date": "2026-04-08",
+    "track_id": "pattern_watching",
+    "track_title": "Pattern Watching",
+    "segment_label": "flow",
+    "filename": "daily_2026-04-08_pattern_watching_flow_c9293f30.mp4",
+    "video_path": "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/videos/daily_2026-04-08_pattern_watching_flow_c9293f30.mp4",
+    "mood": "chill",
+    "effects": {
+      "color_shift_enabled": true,
+      "vhs_enabled": false,
+      "scanline_enabled": true
+    },
+    "images_used": [
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/media-library/images/light_streaks.jpg",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/3122ccc9_osciallating-overthurster.png",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/3122ccc9_osciallating-overthurster.png"
+    ],
+    "created_at": "2026-04-08T15:08:59+00:00",
+    "approved_at": "2026-04-08T16:54:19+00:00",
+    "posted_at": null,
+    "platforms_posted": [],
+    "caption": "Pattern Watching \u2014 My Evil Robot Army\n\n#MyEvilRobotArmy #MERA #NullRecords #LoFiJazz #ElectronicMusic #InstrumentalMusic #MusicVisualization #IndieMusic #NewMusic",
+    "hashtags": {
+      "tiktok": [
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords",
+        "#LoFiJazz",
+        "#ElectronicMusic",
+        "#InstrumentalMusic",
+        "#MusicVisualization",
+        "#IndieMusic",
+        "#NewMusic"
+      ],
+      "instagram": [
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords",
+        "#LoFiJazz",
+        "#ElectronicMusic",
+        "#InstrumentalMusic",
+        "#MusicVisualization",
+        "#IndieMusic",
+        "#NewMusic",
+        "#Reels"
+      ],
+      "youtube": [
+        "My Evil Robot Army",
+        "MERA",
+        "NullRecords",
+        "LoFi Jazz",
+        "Electronic Music",
+        "Shorts"
+      ]
+    },
+    "error": "Posting failed \u2014 will retry next cycle"
+  },
+  {
+    "id": "d91a29b2d3e8",
+    "status": "post_failed",
+    "generated_date": "2026-04-08",
+    "track_id": "too_much_to_do",
+    "track_title": "Too Much To Do",
+    "segment_label": "drop",
+    "filename": "daily_2026-04-08_too_much_to_do_drop_3b9d2a2a.mp4",
+    "video_path": "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/videos/daily_2026-04-08_too_much_to_do_drop_3b9d2a2a.mp4",
+    "mood": "energetic",
+    "effects": {
+      "color_shift_enabled": false,
+      "vhs_enabled": false,
+      "scanline_enabled": true,
+      "visualizer_type": "circular"
+    },
+    "images_used": [
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/8580c3df_to-much-to-do.png",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/852edc77_Cosmic beats and surreal landscapes.png",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/8accd6b5_Too much to do_ cosmic reflections.png"
+    ],
+    "created_at": "2026-04-08T15:14:28+00:00",
+    "approved_at": "2026-04-08T16:54:40+00:00",
+    "posted_at": null,
+    "platforms_posted": [],
+    "caption": "Too Much To Do \u2014 My Evil Robot Army\n\n#MyEvilRobotArmy #MERA #NullRecords #LoFiJazz #ElectronicMusic #InstrumentalMusic #MusicVisualization #IndieMusic #NewMusic",
+    "hashtags": {
+      "tiktok": [
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords",
+        "#LoFiJazz",
+        "#ElectronicMusic",
+        "#InstrumentalMusic",
+        "#MusicVisualization",
+        "#IndieMusic",
+        "#NewMusic"
+      ],
+      "instagram": [
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords",
+        "#LoFiJazz",
+        "#ElectronicMusic",
+        "#InstrumentalMusic",
+        "#MusicVisualization",
+        "#IndieMusic",
+        "#NewMusic",
+        "#Reels"
+      ],
+      "youtube": [
+        "My Evil Robot Army",
+        "MERA",
+        "NullRecords",
+        "LoFi Jazz",
+        "Electronic Music",
+        "Shorts"
+      ]
+    },
+    "error": "Posting failed \u2014 will retry next cycle"
+  }
+]

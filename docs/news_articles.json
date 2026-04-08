@@ -21751,5 +21751,2821 @@
     "artist_mentioned": [
       "NullRecords"
     ]
+  },
+  {
+    "title": "Malformed",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/malformed?from=search&amp;search_item_id=2418556856&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725642&amp;search_page_no=1&amp;search_rank=1&amp;search_sig=e1ce6849b412461e2e930d45b8a39f12",
+    "excerpt": "from Explorations\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "e0280c48f818",
+    "discovered_date": "2026-04-08T12:47:53.548646+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "The Pivot",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/the-pivot?from=search&amp;search_item_id=2188692097&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725642&amp;search_page_no=1&amp;search_rank=2&amp;search_sig=63640be930cf3391d4042f6c8d6ea44b",
+    "excerpt": "from Attack\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "a82b867c48bb",
+    "discovered_date": "2026-04-08T12:47:53.548658+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Janky Maze",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/janky-maze?from=search&amp;search_item_id=2372510995&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725642&amp;search_page_no=1&amp;search_rank=3&amp;search_sig=2c8e69e1868ce30562189e7cbaefdc1a",
+    "excerpt": "from Attack\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "f9f88f32c22b",
+    "discovered_date": "2026-04-08T12:47:53.548668+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "What way?",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/what-way?from=search&amp;search_item_id=1625763202&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725642&amp;search_page_no=1&amp;search_rank=4&amp;search_sig=6c8386c82e6a9666ce5d9ad8230a7e01",
+    "excerpt": "from Attack\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "edd880622402",
+    "discovered_date": "2026-04-08T12:47:53.548679+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "New Star",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/new-star?from=search&amp;search_item_id=874257980&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725642&amp;search_page_no=1&amp;search_rank=5&amp;search_sig=1dce0c301670c898c761e85d3d867fee",
+    "excerpt": "from Explorations\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "01e537132329",
+    "discovered_date": "2026-04-08T12:47:53.548688+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Dark Fours",
+    "url": "https://evar-records.com/track/dark-fours?from=search&amp;search_item_id=79905595&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725642&amp;search_page_no=1&amp;search_rank=6&amp;search_sig=8b33cf7f7ef333e828bb5812361ddef6",
+    "excerpt": "from Microjunglizm\n                                                    by Dev/Null",
+    "source": "bandcamp",
+    "id": "3d3f04d705e0",
+    "discovered_date": "2026-04-08T12:47:53.548698+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Warning Sign",
+    "url": "https://evar-records.com/track/warning-sign?from=search&amp;search_item_id=2281086552&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725642&amp;search_page_no=1&amp;search_rank=7&amp;search_sig=cdb41b49577210450279715c06cf7871",
+    "excerpt": "from Microjunglizm\n                                                    by Dev/Null",
+    "source": "bandcamp",
+    "id": "d4e43ce6cc7c",
+    "discovered_date": "2026-04-08T12:47:53.548709+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Orchstomp",
+    "url": "https://evar-records.com/track/orchstomp?from=search&amp;search_item_id=562039834&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725642&amp;search_page_no=1&amp;search_rank=8&amp;search_sig=1cbf2c867c7c474700dbf13c7f04a01f",
+    "excerpt": "from Microjunglizm\n                                                    by Dev/Null",
+    "source": "bandcamp",
+    "id": "dd8ed6077497",
+    "discovered_date": "2026-04-08T12:47:53.548720+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "E-Yeah (DJ Marfox Remix)",
+    "url": "https://evar-records.com/track/e-yeah-dj-marfox-remix?from=search&amp;search_item_id=2925751396&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725642&amp;search_page_no=1&amp;search_rank=9&amp;search_sig=f4f0edb301b63a2aeb9f22055d3ccd60",
+    "excerpt": "from Microjunglizm Remixes\n                                                    by Dev/Null",
+    "source": "bandcamp",
+    "id": "87ffd3230e80",
+    "discovered_date": "2026-04-08T12:47:53.548730+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "E-Yea",
+    "url": "https://evar-records.com/track/e-yea?from=search&amp;search_item_id=3940689130&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725642&amp;search_page_no=1&amp;search_rank=10&amp;search_sig=b2a0e6fe868f626f7be243810220fab0",
+    "excerpt": "from Microjunglizm\n                                                    by Dev/Null",
+    "source": "bandcamp",
+    "id": "db06c0c41502",
+    "discovered_date": "2026-04-08T12:47:53.548740+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Subterranea",
+    "url": "https://aedirecords.bandcamp.com/track/subterranea?from=search&amp;search_item_id=1007478093&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725642&amp;search_page_no=1&amp;search_rank=11&amp;search_sig=c53a07529e1f2092493ec82c0191ca25",
+    "excerpt": "from Lichen\n                                                    by Inskape & Null",
+    "source": "bandcamp",
+    "id": "f8f10d3dbf03",
+    "discovered_date": "2026-04-08T12:47:53.548750+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Shards Of Rhythm",
+    "url": "https://drosstik.bandcamp.com/track/shards-of-rhythm?from=search&amp;search_item_id=2583379752&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725642&amp;search_page_no=1&amp;search_rank=12&amp;search_sig=308b99cba3bb4bad4703c8c0f54a6551",
+    "excerpt": "from 12\" EP (DTK11)\n                                                    by DevNull",
+    "source": "bandcamp",
+    "id": "0ef848592c35",
+    "discovered_date": "2026-04-08T12:47:53.548760+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Black Moon Over Crematoria",
+    "url": "https://nullthronerecords.bandcamp.com/track/black-moon-over-crematoria?from=search&amp;search_item_id=1160802093&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725642&amp;search_page_no=1&amp;search_rank=13&amp;search_sig=67a6d9ac53d73aca4cfb7d5c5727abd9",
+    "excerpt": "from Null For The Null Throne - Null Throne Records Sampler #1\n                                                    by Witchfire",
+    "source": "bandcamp",
+    "id": "f5f1d4ad4d3f",
+    "discovered_date": "2026-04-08T12:47:53.548771+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Pashmina - Stripped",
+    "url": "https://nullvoidrecords.bandcamp.com/track/pashmina-stripped?from=search&amp;search_item_id=336683220&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725642&amp;search_page_no=1&amp;search_rank=14&amp;search_sig=79ba6f88e24d6d8dcb2521bba8704914",
+    "excerpt": "from Perennial Transplant\n                                                    by FLORIDA",
+    "source": "bandcamp",
+    "id": "21652f8690a8",
+    "discovered_date": "2026-04-08T12:47:53.548782+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "ROADTRIP: Mars",
+    "url": "https://nullvoidrecords.bandcamp.com/track/roadtrip-mars?from=search&amp;search_item_id=3670860306&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725642&amp;search_page_no=1&amp;search_rank=15&amp;search_sig=e88b69ea3eeb5d40ccaa0b7883df6b57",
+    "excerpt": "from The Valentines Day Triptych\n                                                    by FLORIDA",
+    "source": "bandcamp",
+    "id": "21552079a543",
+    "discovered_date": "2026-04-08T12:47:53.548791+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "What You Wanted - Stripped",
+    "url": "https://nullvoidrecords.bandcamp.com/track/what-you-wanted-stripped?from=search&amp;search_item_id=3948944527&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725642&amp;search_page_no=1&amp;search_rank=16&amp;search_sig=f824942d25d1713c4327f2a424ec6f96",
+    "excerpt": "from Perennial Transplant\n                                                    by FLORIDA",
+    "source": "bandcamp",
+    "id": "56cd94f2a4eb",
+    "discovered_date": "2026-04-08T12:47:53.548802+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Apt 1245",
+    "url": "https://jellrecords.bandcamp.com/track/apt-1245?from=search&amp;search_item_id=3283276968&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725642&amp;search_page_no=1&amp;search_rank=17&amp;search_sig=57d2db383a9ec61775a15fe7af04c48c",
+    "excerpt": "from Jell Greatest Hits Vol 1\n                                                    by Wallis",
+    "source": "bandcamp",
+    "id": "d1d6f3d2b13e",
+    "discovered_date": "2026-04-08T12:47:53.548813+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "What Life Could Be - Stripped",
+    "url": "https://nullvoidrecords.bandcamp.com/track/what-life-could-be-stripped?from=search&amp;search_item_id=4036596771&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725642&amp;search_page_no=1&amp;search_rank=18&amp;search_sig=d24c5189a08d56b2b9b3503c4f5e8458",
+    "excerpt": "from Perennial Transplant\n                                                    by FLORIDA",
+    "source": "bandcamp",
+    "id": "3e77f0d8c6a1",
+    "discovered_date": "2026-04-08T12:47:53.548824+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Microjunglizm",
+    "url": "https://evar-records.com/album/microjunglizm?from=search&amp;search_item_id=1192455173&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304725675&amp;search_page_no=1&amp;search_rank=1&amp;search_sig=fb4d51283655408907343ede7e5aeb78",
+    "excerpt": "by Dev/Null",
+    "source": "bandcamp",
+    "id": "129532dc30a5",
+    "discovered_date": "2026-04-08T12:47:53.548835+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Null",
+    "url": "https://assemblage23.bandcamp.com/album/null?from=search&amp;search_item_id=3687494245&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304725675&amp;search_page_no=1&amp;search_rank=2&amp;search_sig=4637ead0d554e05c8686a33752c3ade7",
+    "excerpt": "by Assemblage 23",
+    "source": "bandcamp",
+    "id": "127978de4d08",
+    "discovered_date": "2026-04-08T12:47:53.548844+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Great Attractor",
+    "url": "https://ratskinrecords.bandcamp.com/album/great-attractor?from=search&amp;search_item_id=599974226&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304725675&amp;search_page_no=1&amp;search_rank=3&amp;search_sig=ea1a1e343796bc80ae3f31467424fa41",
+    "excerpt": "by KK NULL",
+    "source": "bandcamp",
+    "id": "f1750400f7de",
+    "discovered_date": "2026-04-08T12:47:53.548854+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Microjunglizm Remixes",
+    "url": "https://evar-records.com/album/microjunglizm-remixes?from=search&amp;search_item_id=3166697186&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304725675&amp;search_page_no=1&amp;search_rank=4&amp;search_sig=5ffe2e1089113b3613c563142f6a7813",
+    "excerpt": "by Dev/Null",
+    "source": "bandcamp",
+    "id": "af4501229414",
+    "discovered_date": "2026-04-08T12:47:53.548863+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Quiescence",
+    "url": "https://spikerotrecords.bandcamp.com/album/quiescence?from=search&amp;search_item_id=1260095009&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304725675&amp;search_page_no=1&amp;search_rank=5&amp;search_sig=844180600cd0470fc2f06df2bfe5c802",
+    "excerpt": "by Shores Of Null",
+    "source": "bandcamp",
+    "id": "c9fa32ce24d9",
+    "discovered_date": "2026-04-08T12:47:53.548872+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Null For The Null Throne - Null Throne Records Sampler #1",
+    "url": "https://nullthronerecords.bandcamp.com/album/null-for-the-null-throne-null-throne-records-sampler-1?from=search&amp;search_item_id=2331109994&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304725675&amp;search_page_no=1&amp;search_rank=6&amp;search_sig=6e19b56af3c389dff9e280ba0f20aa93",
+    "excerpt": "by Null Throne Records",
+    "source": "bandcamp",
+    "id": "7e570168df58",
+    "discovered_date": "2026-04-08T12:47:53.548881+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Quiescence",
+    "url": "https://candlelightrecordsuk.bandcamp.com/album/quiescence?from=search&amp;search_item_id=95453993&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304725675&amp;search_page_no=1&amp;search_rank=7&amp;search_sig=4502db27b1606507272a52ee85bbecc6",
+    "excerpt": "by Shores Of Null",
+    "source": "bandcamp",
+    "id": "6cdc75f55f7f",
+    "discovered_date": "2026-04-08T12:47:53.548891+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Attack",
+    "url": "https://myevilrobotarmy.bandcamp.com/album/attack?from=search&amp;search_item_id=1339451387&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304725675&amp;search_page_no=1&amp;search_rank=8&amp;search_sig=c60dff84314d46db63108129e2f74dcd",
+    "excerpt": "by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "dd429851665c",
+    "discovered_date": "2026-04-08T12:47:53.548901+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Explorations",
+    "url": "https://myevilrobotarmy.bandcamp.com/album/explorations?from=search&amp;search_item_id=2299540076&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304725675&amp;search_page_no=1&amp;search_rank=9&amp;search_sig=cc947cee6f71cff1451b48d6e1624701",
+    "excerpt": "by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "924d98b2fa01",
+    "discovered_date": "2026-04-08T12:47:53.548910+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "NULL- Act Of Love",
+    "url": "https://hexrecords.bandcamp.com/album/null-act-of-love?from=search&amp;search_item_id=365352015&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304725675&amp;search_page_no=1&amp;search_rank=10&amp;search_sig=c655cc3afef972f33bff02ec70babf31",
+    "excerpt": "by NULL",
+    "source": "bandcamp",
+    "id": "5d3218b87150",
+    "discovered_date": "2026-04-08T12:47:53.548919+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Beyond The Shores (On Death And Dying)",
+    "url": "https://spikerotrecords.bandcamp.com/album/beyond-the-shores-on-death-and-dying?from=search&amp;search_item_id=816070883&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304725675&amp;search_page_no=1&amp;search_rank=11&amp;search_sig=f109f4513e6c3af7d16c51d768e58dfb",
+    "excerpt": "by Shores Of Null",
+    "source": "bandcamp",
+    "id": "05798dd92fae",
+    "discovered_date": "2026-04-08T12:47:53.548929+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "The Loss Of Beauty",
+    "url": "https://spikerotrecords.bandcamp.com/album/the-loss-of-beauty?from=search&amp;search_item_id=2770663826&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304725675&amp;search_page_no=1&amp;search_rank=12&amp;search_sig=16e6f34b4a27c6275d45cef55e1b2fe2",
+    "excerpt": "by Shores Of Null",
+    "source": "bandcamp",
+    "id": "49d9df196475",
+    "discovered_date": "2026-04-08T12:47:53.548938+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Sleepwalking Days",
+    "url": "https://ifbrecords.bandcamp.com/album/sleepwalking-days?from=search&amp;search_item_id=17186337&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304725675&amp;search_page_no=1&amp;search_rank=13&amp;search_sig=1a87a8dbcd94dd1c62d697ff14c3e268",
+    "excerpt": "by Null",
+    "source": "bandcamp",
+    "id": "f3ad9a5a520c",
+    "discovered_date": "2026-04-08T12:47:53.548948+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "whitestar",
+    "url": "https://nullspennrecords.bandcamp.com/album/whitestar?from=search&amp;search_item_id=1002642578&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304725675&amp;search_page_no=1&amp;search_rank=14&amp;search_sig=f7e258b67a7c598cabbcdb87bf074aef",
+    "excerpt": "by ORIGAMI REPLIKA",
+    "source": "bandcamp",
+    "id": "8f9de83d5a88",
+    "discovered_date": "2026-04-08T12:47:53.548957+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "12\" EP (DTK11)",
+    "url": "https://drosstik.bandcamp.com/album/12-ep-dtk11?from=search&amp;search_item_id=279992190&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304725675&amp;search_page_no=1&amp;search_rank=15&amp;search_sig=49869c0935377f3ac2630d97c1a1d89e",
+    "excerpt": "by DevNull",
+    "source": "bandcamp",
+    "id": "d85f5832ab9a",
+    "discovered_date": "2026-04-08T12:47:53.548966+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "[HBR046] Kategorisch Aggressiv",
+    "url": "https://hackebeilrecords.bandcamp.com/album/hbr046-kategorisch-aggressiv?from=search&amp;search_item_id=2614314339&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304725675&amp;search_page_no=1&amp;search_rank=16&amp;search_sig=e47a3de397aa60851ae74c511300c814",
+    "excerpt": "by Negativ Null",
+    "source": "bandcamp",
+    "id": "71fda1c2a0f6",
+    "discovered_date": "2026-04-08T12:47:53.548976+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "HEAVEN",
+    "url": "https://prrrrrrr.bandcamp.com/album/heaven?from=search&amp;search_item_id=4047718578&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304725675&amp;search_page_no=1&amp;search_rank=17&amp;search_sig=173bc8e5feadedad90943541cdbaa69c",
+    "excerpt": "by NULL PART",
+    "source": "bandcamp",
+    "id": "292e101d2fd9",
+    "discovered_date": "2026-04-08T12:47:53.548985+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Jell Greatest Hits Vol 1",
+    "url": "https://jellrecords.bandcamp.com/album/jell-greatest-hits-vol-1?from=search&amp;search_item_id=3866463031&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304725675&amp;search_page_no=1&amp;search_rank=18&amp;search_sig=3a40a46597cb249d2dfd60464663e548",
+    "excerpt": "by Jell",
+    "source": "bandcamp",
+    "id": "6ac51a74ad50",
+    "discovered_date": "2026-04-08T12:47:53.548994+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Cynic",
+    "url": "https://nullhypothesis.bandcamp.com/track/cynic?from=search&amp;search_item_id=2058583876&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725820&amp;search_page_no=1&amp;search_rank=1&amp;search_sig=270e5de77c7819578bb27d558ac75ee8",
+    "excerpt": "from Party Music For Popular People\n                                                    by null hypothesis",
+    "source": "bandcamp",
+    "id": "9467ed538a03",
+    "discovered_date": "2026-04-08T12:47:53.549129+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Parsing Time",
+    "url": "https://nullhypothesis.bandcamp.com/track/parsing-time?from=search&amp;search_item_id=1633318955&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725820&amp;search_page_no=1&amp;search_rank=2&amp;search_sig=0de02623cdbd4574542194ea3940931e",
+    "excerpt": "from Party Music For Popular People\n                                                    by null hypothesis",
+    "source": "bandcamp",
+    "id": "7a90179c0187",
+    "discovered_date": "2026-04-08T12:47:53.549140+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Hair and Dust",
+    "url": "https://nullhypothesis.bandcamp.com/track/hair-and-dust?from=search&amp;search_item_id=2149950884&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725820&amp;search_page_no=1&amp;search_rank=3&amp;search_sig=14839a3136845d8e67c574307a792322",
+    "excerpt": "from Party Music For Popular People\n                                                    by null hypothesis",
+    "source": "bandcamp",
+    "id": "f00ff97b1889",
+    "discovered_date": "2026-04-08T12:47:53.549151+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "No Name",
+    "url": "https://metropolisrecords.bandcamp.com/track/no-name?from=search&amp;search_item_id=3782030312&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725820&amp;search_page_no=1&amp;search_rank=4&amp;search_sig=0cc04cb9d53780b3bccf21788bf0183d",
+    "excerpt": "from Electronic Saviors - Electronic Music To Cure Cancer Vol VI: Reflection\n                                                    by Null Device",
+    "source": "bandcamp",
+    "id": "99a3872d4a6c",
+    "discovered_date": "2026-04-08T12:47:53.549161+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Cooldown",
+    "url": "https://nullhypothesis.bandcamp.com/track/cooldown?from=search&amp;search_item_id=586401674&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725820&amp;search_page_no=1&amp;search_rank=5&amp;search_sig=16be790fcc4b69788f3232748fdcbbf8",
+    "excerpt": "from Party Music For Popular People\n                                                    by null hypothesis",
+    "source": "bandcamp",
+    "id": "3face5572739",
+    "discovered_date": "2026-04-08T12:47:53.549202+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "VICTORIA POLEVA - Null for Accordion (2005)",
+    "url": "https://nobusinessrecords-cc.bandcamp.com/track/victoria-poleva-null-for-accordion-2005?from=search&amp;search_item_id=266685418&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725820&amp;search_page_no=1&amp;search_rank=6&amp;search_sig=1653577b750f3eea53b4a2e06ab7ffcc",
+    "excerpt": "from Contemporary music from Ukraine\n                                                    by Roman Yusipey (acc)",
+    "source": "bandcamp",
+    "id": "6d3344868263",
+    "discovered_date": "2026-04-08T12:47:53.549231+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Null B",
+    "url": "https://enoughrec.bandcamp.com/track/null-b?from=search&amp;search_item_id=3404468764&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725820&amp;search_page_no=1&amp;search_rank=7&amp;search_sig=fe5359b9f4fe9bc817109a243a651e5d",
+    "excerpt": "from Gray Music\n                                                    by Acreil",
+    "source": "bandcamp",
+    "id": "ef68c9a4273f",
+    "discovered_date": "2026-04-08T12:47:53.549287+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Null A",
+    "url": "https://enoughrec.bandcamp.com/track/null-a?from=search&amp;search_item_id=3948355305&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725820&amp;search_page_no=1&amp;search_rank=8&amp;search_sig=28c3ea598835c93603c3590e03bdb172",
+    "excerpt": "from Gray Music\n                                                    by Acreil",
+    "source": "bandcamp",
+    "id": "832dc8734551",
+    "discovered_date": "2026-04-08T12:47:53.549301+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Null",
+    "url": "https://basickrecords.bandcamp.com/track/null?from=search&amp;search_item_id=2335290141&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725820&amp;search_page_no=1&amp;search_rank=9&amp;search_sig=7a365bf4d1e5db75310b26d7da8262e2",
+    "excerpt": "from Polymorphic Code\n                                                    by THE ALGORITHM",
+    "source": "bandcamp",
+    "id": "0c094202f446",
+    "discovered_date": "2026-04-08T12:47:53.549381+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Derisative",
+    "url": "https://nullhypothesis.bandcamp.com/track/derisative?from=search&amp;search_item_id=269250871&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725820&amp;search_page_no=1&amp;search_rank=10&amp;search_sig=b7441dc74ececd35287a79d7983623e1",
+    "excerpt": "from Party Music For Popular People\n                                                    by null hypothesis",
+    "source": "bandcamp",
+    "id": "4dcd68c5d9ae",
+    "discovered_date": "2026-04-08T12:47:53.549440+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Solace",
+    "url": "https://thebmg.bandcamp.com/track/solace?from=search&amp;search_item_id=182505155&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725820&amp;search_page_no=1&amp;search_rank=11&amp;search_sig=b199857aa321f156db95d073ea89e2fe",
+    "excerpt": "from ...So It Begins [EP]\n                                                    by Apex Null",
+    "source": "bandcamp",
+    "id": "0dc08814fcfc",
+    "discovered_date": "2026-04-08T12:47:53.549464+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Myopiate",
+    "url": "https://thebmg.bandcamp.com/track/myopiate?from=search&amp;search_item_id=3236814205&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725820&amp;search_page_no=1&amp;search_rank=12&amp;search_sig=d718b34fdd29ee07e46b3a60fbe09974",
+    "excerpt": "from ...So It Begins [EP]\n                                                    by Apex Null",
+    "source": "bandcamp",
+    "id": "c3e9bd0b5411",
+    "discovered_date": "2026-04-08T12:47:53.549477+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "From Inside",
+    "url": "https://thebmg.bandcamp.com/track/from-inside?from=search&amp;search_item_id=1505926702&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725820&amp;search_page_no=1&amp;search_rank=13&amp;search_sig=abfc479e1cd9b21348dec27280d508b2",
+    "excerpt": "from ...So It Begins [EP]\n                                                    by Apex Null",
+    "source": "bandcamp",
+    "id": "8bbd14a124a8",
+    "discovered_date": "2026-04-08T12:47:53.549488+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Inherent To Man",
+    "url": "https://thebmg.bandcamp.com/track/inherent-to-man?from=search&amp;search_item_id=2907486782&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725820&amp;search_page_no=1&amp;search_rank=14&amp;search_sig=2b1b2f030824660eda7c8dd282546459",
+    "excerpt": "from ...So It Begins [EP]\n                                                    by Apex Null",
+    "source": "bandcamp",
+    "id": "bdbf75c64a6c",
+    "discovered_date": "2026-04-08T12:47:53.549499+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Sideways",
+    "url": "https://nullhypothesis.bandcamp.com/track/sideways?from=search&amp;search_item_id=166807536&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725820&amp;search_page_no=1&amp;search_rank=15&amp;search_sig=69f702058d82205aa3b92ad5f790ff12",
+    "excerpt": "from Party Music For Popular People\n                                                    by null hypothesis",
+    "source": "bandcamp",
+    "id": "de9da463411d",
+    "discovered_date": "2026-04-08T12:47:53.549510+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Live Laugh Love",
+    "url": "https://nullhypothesis.bandcamp.com/track/live-laugh-love?from=search&amp;search_item_id=2387032465&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725820&amp;search_page_no=1&amp;search_rank=16&amp;search_sig=8ba904725f50ec344eecce5a009998ff",
+    "excerpt": "from Party Music For Popular People\n                                                    by null hypothesis",
+    "source": "bandcamp",
+    "id": "325f7181974e",
+    "discovered_date": "2026-04-08T12:47:53.549520+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Party Music For Popular People",
+    "url": "https://nullhypothesis.bandcamp.com/album/party-music-for-popular-people?from=search&amp;search_item_id=1423103629&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304725838&amp;search_page_no=1&amp;search_rank=1&amp;search_sig=7d7b0a342157b371cf6b42abd7a6bd67",
+    "excerpt": "by null hypothesis",
+    "source": "bandcamp",
+    "id": "def1a5e7b5ba",
+    "discovered_date": "2026-04-08T12:47:53.549532+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "...So It Begins [EP]",
+    "url": "https://thebmg.bandcamp.com/album/so-it-begins-ep?from=search&amp;search_item_id=462456721&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304725838&amp;search_page_no=1&amp;search_rank=2&amp;search_sig=ae1824589d4d954618d139fca38e1b18",
+    "excerpt": "by Apex Null",
+    "source": "bandcamp",
+    "id": "234cf0165204",
+    "discovered_date": "2026-04-08T12:47:53.549541+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "My Evil Robot Army - Topic - YouTube",
+    "url": "https://www.youtube.com/channel/UCm8aZLwluFaTCZuUjrG4ZyQ",
+    "excerpt": "Share your videos with friends, family, and the world\n                      \n                    \n\n                    \n                  \n                \n              \n            \n              \n                \n                   \n                    \n                      \n                        Explorations | My Evil Robot Army",
+    "source": "youtube.com",
+    "id": "16c5c9817b70",
+    "discovered_date": "2026-04-08T12:47:53.549550+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "video",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "\u200eThe Hi to the Low - Album by My Evil Robot Army - Apple Music",
+    "url": "https://music.apple.com/us/album/the-hi-to-the-low/1721081440",
+    "excerpt": "Listen to The Hi to the Low by My Evil Robot Army on Apple Music. 2023. 11 Songs. Duration: 40 minutes.\n                      \n                    \n\n                    \n                  \n                \n              \n            \n              \n                \n                   \n                    \n                      \n                        My Evil Robot Army | Spotify",
+    "source": "music.apple.com",
+    "id": "7b9b3ee77af6",
+    "discovered_date": "2026-04-08T12:47:53.549563+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "mention",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "My Evil Robot Army: albums, songs, playlists | Listen on Deezer",
+    "url": "https://www.deezer.com/en/artist/138912712",
+    "excerpt": "Sign up for Deezer for free and listen to My Evil Robot Army: discography, top tracks and playlists.\n                      \n                    \n\n                    \n                  \n                \n              \n            \n              \n                \n                   \n                    \n                      \n                        My Evil Robot Army Discography - Download Albums in Hi-Res - Qobuz",
+    "source": "deezer.com",
+    "id": "26702984f941",
+    "discovered_date": "2026-04-08T12:47:53.549591+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "mention",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Malformed",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/malformed?from=search&amp;search_item_id=2418556856&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725970&amp;search_page_no=1&amp;search_rank=1&amp;search_sig=b46ba1ed13ca06ceb2a1f12bb6789fce",
+    "excerpt": "from Explorations\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "667a85841e75",
+    "discovered_date": "2026-04-08T12:47:53.549669+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "The Pivot",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/the-pivot?from=search&amp;search_item_id=2188692097&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725970&amp;search_page_no=1&amp;search_rank=2&amp;search_sig=e1ed3641d606e7a35d11b6b21d8dc639",
+    "excerpt": "from Attack\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "64d6e9692e2a",
+    "discovered_date": "2026-04-08T12:47:53.549680+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Janky Maze",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/janky-maze?from=search&amp;search_item_id=2372510995&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725970&amp;search_page_no=1&amp;search_rank=3&amp;search_sig=acc8238be54560b1380f934ae5512752",
+    "excerpt": "from Attack\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "53ba9f882923",
+    "discovered_date": "2026-04-08T12:47:53.549690+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "What way?",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/what-way?from=search&amp;search_item_id=1625763202&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725970&amp;search_page_no=1&amp;search_rank=4&amp;search_sig=b0e175cb9e24edf1dca52f3241a0f929",
+    "excerpt": "from Attack\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "e7132919b18c",
+    "discovered_date": "2026-04-08T12:47:53.549700+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "New Star",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/new-star?from=search&amp;search_item_id=874257980&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725970&amp;search_page_no=1&amp;search_rank=5&amp;search_sig=62faead8d14ed6235c0d61bd439b263e",
+    "excerpt": "from Explorations\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "86fd69aedd84",
+    "discovered_date": "2026-04-08T12:47:53.549711+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Star Swing",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/star-swing?from=search&amp;search_item_id=2130735657&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725970&amp;search_page_no=1&amp;search_rank=6&amp;search_sig=67a24d903a560749175aa71634287caf",
+    "excerpt": "from Explorations\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "ec068d7d4f4e",
+    "discovered_date": "2026-04-08T12:47:53.549720+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Flare Rider",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/flare-rider?from=search&amp;search_item_id=3062206226&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725970&amp;search_page_no=1&amp;search_rank=7&amp;search_sig=04ea2fdfe695b1dff824760337be61d0",
+    "excerpt": "from Explorations\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "97d67e5f9f96",
+    "discovered_date": "2026-04-08T12:47:53.549731+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Tempest in your Tempo",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/tempest-in-your-tempo?from=search&amp;search_item_id=3776446936&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725970&amp;search_page_no=1&amp;search_rank=8&amp;search_sig=f5485add5d3841143a0214e1c12f9432",
+    "excerpt": "from Attack\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "10f24c65bb63",
+    "discovered_date": "2026-04-08T12:47:53.549741+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "The Sun and Moon",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/the-sun-and-moon?from=search&amp;search_item_id=2934873417&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725970&amp;search_page_no=1&amp;search_rank=9&amp;search_sig=04096c87b70a45d40aa02f4e62d9c5fb",
+    "excerpt": "from Explorations\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "25b49e963ceb",
+    "discovered_date": "2026-04-08T12:47:53.549751+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Slide into the Sun",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/slide-into-the-sun?from=search&amp;search_item_id=544409087&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725970&amp;search_page_no=1&amp;search_rank=10&amp;search_sig=65367f83a8bc501bb2fe311b7cb0cfba",
+    "excerpt": "from Explorations\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "a2a372264e39",
+    "discovered_date": "2026-04-08T12:47:53.549761+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Float to the Bottom",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/float-to-the-bottom?from=search&amp;search_item_id=3085553076&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725970&amp;search_page_no=1&amp;search_rank=11&amp;search_sig=383ca80c340791ca3c63c09b1eef9823",
+    "excerpt": "from Winter in My Nature\n                                                    by MERA",
+    "source": "bandcamp",
+    "id": "3186669a5c77",
+    "discovered_date": "2026-04-08T12:47:53.549771+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "A chill on the 85",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/a-chill-on-the-85-2?from=search&amp;search_item_id=1361005092&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304725970&amp;search_page_no=1&amp;search_rank=12&amp;search_sig=43f2c0d316df81727ad97f4fb2268699",
+    "excerpt": "from Winter in My Nature\n                                                    by MERA",
+    "source": "bandcamp",
+    "id": "826973f5d53a",
+    "discovered_date": "2026-04-08T12:47:53.549781+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Attack",
+    "url": "https://myevilrobotarmy.bandcamp.com/album/attack?from=search&amp;search_item_id=1339451387&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304725994&amp;search_page_no=1&amp;search_rank=1&amp;search_sig=6e5d66ce4e5a02183b3fcf5eaf87ac32",
+    "excerpt": "by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "da7d9d5afc02",
+    "discovered_date": "2026-04-08T12:47:53.549791+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Explorations",
+    "url": "https://myevilrobotarmy.bandcamp.com/album/explorations?from=search&amp;search_item_id=2299540076&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304725994&amp;search_page_no=1&amp;search_rank=2&amp;search_sig=8aa69614b4f03adb45508965d396743a",
+    "excerpt": "by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "c868bfcf3f0a",
+    "discovered_date": "2026-04-08T12:47:53.549800+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Winter in My Nature",
+    "url": "https://myevilrobotarmy.bandcamp.com/album/winter-in-my-nature?from=search&amp;search_item_id=2517176565&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304725994&amp;search_page_no=1&amp;search_rank=3&amp;search_sig=15b73163aa5749efc15d755603a55236",
+    "excerpt": "by MERA",
+    "source": "bandcamp",
+    "id": "9a51d491f829",
+    "discovered_date": "2026-04-08T12:47:53.549809+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Spiraling - Album by My Evil Robot Army | Spotify",
+    "url": "https://open.spotify.com/album/1BI1pbLouoWZ0QtoqGMMBi",
+    "excerpt": "Listen to Spiraling on Spotify \u00b7 album \u00b7 My Evil Robot Army \u00b7 2025 \u00b7 8 songs\n                      \n                    \n\n                    \n                  \n                \n              \n            \n              \n                \n                   \n                    \n                      \n                        NullRecords",
+    "source": "open.spotify.com",
+    "id": "6fcb6aee9522",
+    "discovered_date": "2026-04-08T12:47:53.549818+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "mention",
+    "artist_mentioned": [
+      "My Evil Robot Army",
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Unwanted Waves of Radiation - YouTube",
+    "url": "https://www.youtube.com/watch?v=ScvH5mz3I3Q",
+    "excerpt": "Provided to YouTube by NullRecords Unwanted Waves of Radiation \u00b7 My Evil Robot Army The Hi to the Low \u2117 2023 My Evil Robot Army Released on: 2023-12-18 Main Artist: My Evil Robot Army Producer ...\n                      \n                    \n\n                    \n                  \n                \n              \n            \n              \n                \n                   \n                    \n                      \n                        My Evil Robot Army | Spotify",
+    "source": "youtube.com",
+    "id": "0f55a198effb",
+    "discovered_date": "2026-04-08T12:47:53.549834+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "video",
+    "artist_mentioned": [
+      "My Evil Robot Army",
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Bull Ride Null",
+    "url": "https://gerritkelder.bandcamp.com/track/bull-ride-null?from=search&amp;search_item_id=1329832128&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304726358&amp;search_page_no=1&amp;search_rank=1&amp;search_sig=af6287c5b261ffa601fb5c1a741b413c",
+    "excerpt": "from Spectacle Monopalize\n                                                    by Gerrit Kelder",
+    "source": "bandcamp",
+    "id": "15f5b7052594",
+    "discovered_date": "2026-04-08T12:47:53.549961+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "lrnx.null",
+    "url": "https://mumbleetc.com/track/lrnx-null?from=search&amp;search_item_id=1975629254&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304726358&amp;search_page_no=1&amp;search_rank=2&amp;search_sig=729dc970c58708c75b7e17df1a2c0b26",
+    "excerpt": "from FUTURE::DEATH\n                                                    by Riikira",
+    "source": "bandcamp",
+    "id": "20f5950e1a17",
+    "discovered_date": "2026-04-08T12:47:53.549971+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Exotic Music",
+    "url": "https://alpha.bandcamp.com/track/exotic-music?from=search&amp;search_item_id=130685706&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304726358&amp;search_page_no=1&amp;search_rank=3&amp;search_sig=54d380222832c23017b976733029a755",
+    "excerpt": "from The Dominion\n                                                    by Alpha",
+    "source": "bandcamp",
+    "id": "11c99055b9cd",
+    "discovered_date": "2026-04-08T12:47:53.549982+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Malformed",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/malformed?from=search&amp;search_item_id=2418556856&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304726358&amp;search_page_no=1&amp;search_rank=4&amp;search_sig=e8535109cba5b8e6c2e1ddafa8f42a41",
+    "excerpt": "from Explorations\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "010198d085ed",
+    "discovered_date": "2026-04-08T12:47:53.549992+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "The Pivot",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/the-pivot?from=search&amp;search_item_id=2188692097&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304726358&amp;search_page_no=1&amp;search_rank=5&amp;search_sig=aed24d3ac55fa5bda293b31fbb7de356",
+    "excerpt": "from Attack\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "9ea026a89005",
+    "discovered_date": "2026-04-08T12:47:53.550002+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Janky Maze",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/janky-maze?from=search&amp;search_item_id=2372510995&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304726358&amp;search_page_no=1&amp;search_rank=6&amp;search_sig=0a9bc4caafff320d02198f3764a65670",
+    "excerpt": "from Attack\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "f3206cd556c2",
+    "discovered_date": "2026-04-08T12:47:53.550012+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "What way?",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/what-way?from=search&amp;search_item_id=1625763202&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304726358&amp;search_page_no=1&amp;search_rank=7&amp;search_sig=174ca274e632407a9384b7e87ff492b7",
+    "excerpt": "from Attack\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "f93fb5a028d9",
+    "discovered_date": "2026-04-08T12:47:53.550022+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "New Star",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/new-star?from=search&amp;search_item_id=874257980&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304726358&amp;search_page_no=1&amp;search_rank=8&amp;search_sig=07c6a9c94443892d6b845a3caac24fb2",
+    "excerpt": "from Explorations\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "9e8fff79e883",
+    "discovered_date": "2026-04-08T12:47:53.550032+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Null Point",
+    "url": "https://machinistmusic.com/track/null-point?from=search&amp;search_item_id=2538280416&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304726358&amp;search_page_no=1&amp;search_rank=9&amp;search_sig=a2c50308b68b9e1fc1578e24bec4f245",
+    "excerpt": "from Hyperfocus - Crystalized / Null Point\n                                                    by Hyperfocus",
+    "source": "bandcamp",
+    "id": "7f74e62cc4e2",
+    "discovered_date": "2026-04-08T12:47:53.550042+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Xenoglossia live at Ftarri",
+    "url": "https://zeromoon.com/track/xenoglossia-live-at-ftarri?from=search&amp;search_item_id=3555320373&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304726358&amp;search_page_no=1&amp;search_rank=10&amp;search_sig=2edafe919b99077eea721b5740a86ee6",
+    "excerpt": "from Xenoglossia live at Ftarri\n                                                    by Alexei Borisov and KK NULL",
+    "source": "bandcamp",
+    "id": "ef4ab57523f1",
+    "discovered_date": "2026-04-08T12:47:53.550052+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Street Symphony",
+    "url": "https://alpha.bandcamp.com/track/street-symphony?from=search&amp;search_item_id=4168501025&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304726358&amp;search_page_no=1&amp;search_rank=11&amp;search_sig=cc080f74aa866022bcdc8b28629a959a",
+    "excerpt": "from ELEVATORS\n                                                    by Alpha",
+    "source": "bandcamp",
+    "id": "bc0404f5c752",
+    "discovered_date": "2026-04-08T12:47:53.550062+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Hey Baby",
+    "url": "https://alpha.bandcamp.com/track/hey-baby?from=search&amp;search_item_id=2526009233&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304726358&amp;search_page_no=1&amp;search_rank=12&amp;search_sig=c2bcb9bcafe691391dce04431d6dd340",
+    "excerpt": "from ELEVATORS\n                                                    by Alpha",
+    "source": "bandcamp",
+    "id": "99e44a5c6e0e",
+    "discovered_date": "2026-04-08T12:47:53.550073+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Kalidas",
+    "url": "https://alpha.bandcamp.com/track/kalidas?from=search&amp;search_item_id=4267292605&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304726358&amp;search_page_no=1&amp;search_rank=13&amp;search_sig=4533ae9df931b6d561614511e3d1b227",
+    "excerpt": "from The Dominion\n                                                    by Alpha",
+    "source": "bandcamp",
+    "id": "9d7c2854204d",
+    "discovered_date": "2026-04-08T12:47:53.550083+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "DAH NAH ME",
+    "url": "https://alpha.bandcamp.com/track/dah-nah-me?from=search&amp;search_item_id=4108092466&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304726358&amp;search_page_no=1&amp;search_rank=14&amp;search_sig=fb054295665dc1a38a6003aa6c6a495c",
+    "excerpt": "by Alpha",
+    "source": "bandcamp",
+    "id": "c5bd56a4bd13",
+    "discovered_date": "2026-04-08T12:47:53.550094+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Star Swing",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/star-swing?from=search&amp;search_item_id=2130735657&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304726358&amp;search_page_no=1&amp;search_rank=15&amp;search_sig=6b77f8021c0dffc5aea9078e238efb8d",
+    "excerpt": "from Explorations\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "d2d986b2e1b4",
+    "discovered_date": "2026-04-08T12:47:53.550102+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Flare Rider",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/flare-rider?from=search&amp;search_item_id=3062206226&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304726358&amp;search_page_no=1&amp;search_rank=16&amp;search_sig=879322bc9198e1958964ffd61a4fa3d7",
+    "excerpt": "from Explorations\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "643758975f9a",
+    "discovered_date": "2026-04-08T12:47:53.550112+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Tempest in your Tempo",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/tempest-in-your-tempo?from=search&amp;search_item_id=3776446936&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304726358&amp;search_page_no=1&amp;search_rank=17&amp;search_sig=695b3a2ae608d529ce782511dc8fc6ef",
+    "excerpt": "from Attack\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "0d908e6d47ee",
+    "discovered_date": "2026-04-08T12:47:53.550122+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "The Sun and Moon",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/the-sun-and-moon?from=search&amp;search_item_id=2934873417&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304726358&amp;search_page_no=1&amp;search_rank=18&amp;search_sig=83f5a7448cc3dec5efc81286547dedd7",
+    "excerpt": "from Explorations\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "25a577c37580",
+    "discovered_date": "2026-04-08T12:47:53.550131+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Hyperfocus - Crystalized / Null Point",
+    "url": "https://machinistmusic.com/album/hyperfocus-crystalized-null-point?from=search&amp;search_item_id=3039788092&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304726402&amp;search_page_no=1&amp;search_rank=1&amp;search_sig=1657a9cc5ef55d6e369f0b28e3139d92",
+    "excerpt": "by Hyperfocus",
+    "source": "bandcamp",
+    "id": "10c4a020c2f9",
+    "discovered_date": "2026-04-08T12:47:53.550142+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Xenoglossia live at Ftarri",
+    "url": "https://zeromoon.com/album/xenoglossia-live-at-ftarri?from=search&amp;search_item_id=1769582387&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304726402&amp;search_page_no=1&amp;search_rank=2&amp;search_sig=7c6013bd5547556040b7d985b61e33bd",
+    "excerpt": "by Alexei Borisov and KK NULL",
+    "source": "bandcamp",
+    "id": "ba6b8560dd37",
+    "discovered_date": "2026-04-08T12:47:53.550152+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "The Dominion",
+    "url": "https://alpha.bandcamp.com/album/the-dominion?from=search&amp;search_item_id=3045372303&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304726402&amp;search_page_no=1&amp;search_rank=3&amp;search_sig=2bdba284f0aa39ebfb149fb5a3814e4a",
+    "excerpt": "by Alpha",
+    "source": "bandcamp",
+    "id": "61775a1ae445",
+    "discovered_date": "2026-04-08T12:47:53.550161+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Attack",
+    "url": "https://myevilrobotarmy.bandcamp.com/album/attack?from=search&amp;search_item_id=1339451387&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304726402&amp;search_page_no=1&amp;search_rank=4&amp;search_sig=858489dd28d5bb62b1d98f8d39c1373b",
+    "excerpt": "by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "61c854a772f3",
+    "discovered_date": "2026-04-08T12:47:53.550170+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Explorations",
+    "url": "https://myevilrobotarmy.bandcamp.com/album/explorations?from=search&amp;search_item_id=2299540076&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304726402&amp;search_page_no=1&amp;search_rank=5&amp;search_sig=bfc96dacf9c4959a0e9601ceace1687e",
+    "excerpt": "by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "15ca63281146",
+    "discovered_date": "2026-04-08T12:47:53.550178+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Winter in My Nature",
+    "url": "https://myevilrobotarmy.bandcamp.com/album/winter-in-my-nature?from=search&amp;search_item_id=2517176565&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304726402&amp;search_page_no=1&amp;search_rank=6&amp;search_sig=758a97180d62adfa8c89ea6e3a080063",
+    "excerpt": "by MERA",
+    "source": "bandcamp",
+    "id": "3a2081e70421",
+    "discovered_date": "2026-04-08T12:47:53.550187+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "ELEVATORS",
+    "url": "https://alpha.bandcamp.com/album/elevators?from=search&amp;search_item_id=1914911251&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304726402&amp;search_page_no=1&amp;search_rank=7&amp;search_sig=bb5bf744a1a09044e6d8e9cf2e783a87",
+    "excerpt": "by Alpha",
+    "source": "bandcamp",
+    "id": "e366b330c802",
+    "discovered_date": "2026-04-08T12:47:53.550196+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Slow Flows: Bluetooth",
+    "url": "https://alpha.bandcamp.com/album/slow-flows-bluetooth?from=search&amp;search_item_id=314428922&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304726402&amp;search_page_no=1&amp;search_rank=8&amp;search_sig=d29f148b2eb4a4f81848582458844edf",
+    "excerpt": "by Alpha",
+    "source": "bandcamp",
+    "id": "e1092d33bd8a",
+    "discovered_date": "2026-04-08T12:47:53.550205+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "The Revolution Mixtape",
+    "url": "https://alpha.bandcamp.com/album/the-revolution-mixtape?from=search&amp;search_item_id=2101284343&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304726402&amp;search_page_no=1&amp;search_rank=9&amp;search_sig=b25c59f77446ab43dd2181b99ac7835d",
+    "excerpt": "by Alpha",
+    "source": "bandcamp",
+    "id": "5e8b982a423d",
+    "discovered_date": "2026-04-08T12:47:53.550214+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "The Neo Rap Movement",
+    "url": "https://alpha.bandcamp.com/album/the-neo-rap-movement?from=search&amp;search_item_id=3500161003&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304726402&amp;search_page_no=1&amp;search_rank=10&amp;search_sig=bbe9708336115d961a75e0e7b57ff8cc",
+    "excerpt": "by Alpha",
+    "source": "bandcamp",
+    "id": "587b931417e8",
+    "discovered_date": "2026-04-08T12:47:53.550223+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Zero T2 Sixty.1",
+    "url": "https://alpha.bandcamp.com/album/zero-t2-sixty-1?from=search&amp;search_item_id=2366904558&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304726402&amp;search_page_no=1&amp;search_rank=11&amp;search_sig=138df6e0a1ffcf45add3a241396b75da",
+    "excerpt": "by ALPHA",
+    "source": "bandcamp",
+    "id": "12c0878658a2",
+    "discovered_date": "2026-04-08T12:47:53.550232+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Malformed",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/malformed?from=search&amp;search_item_id=2418556856&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753555&amp;search_page_no=1&amp;search_rank=1&amp;search_sig=6859ccc7256258e34346ed91e228200a",
+    "excerpt": "from Explorations\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "ed0b4984d0b2",
+    "discovered_date": "2026-04-08T13:00:12.825929+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "The Pivot",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/the-pivot?from=search&amp;search_item_id=2188692097&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753555&amp;search_page_no=1&amp;search_rank=2&amp;search_sig=c36be20918191a655fbb07aeab0396f8",
+    "excerpt": "from Attack\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "dcb19a39d398",
+    "discovered_date": "2026-04-08T13:00:12.825970+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Janky Maze",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/janky-maze?from=search&amp;search_item_id=2372510995&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753555&amp;search_page_no=1&amp;search_rank=3&amp;search_sig=5d8541cbc89e6d1c63d92955cfc3c489",
+    "excerpt": "from Attack\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "e3dc73f5abd0",
+    "discovered_date": "2026-04-08T13:00:12.825982+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "What way?",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/what-way?from=search&amp;search_item_id=1625763202&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753555&amp;search_page_no=1&amp;search_rank=4&amp;search_sig=6083ee323e3fb098860db569d2143251",
+    "excerpt": "from Attack\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "6d68111a0d36",
+    "discovered_date": "2026-04-08T13:00:12.825993+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "New Star",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/new-star?from=search&amp;search_item_id=874257980&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753555&amp;search_page_no=1&amp;search_rank=5&amp;search_sig=d624baad999595d0ff06652d6fec294a",
+    "excerpt": "from Explorations\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "c10fb4a2e396",
+    "discovered_date": "2026-04-08T13:00:12.826005+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Dark Fours",
+    "url": "https://evar-records.com/track/dark-fours?from=search&amp;search_item_id=79905595&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753555&amp;search_page_no=1&amp;search_rank=6&amp;search_sig=fd20d1e1b528be8ce4e85cb29b95fc35",
+    "excerpt": "from Microjunglizm\n                                                    by Dev/Null",
+    "source": "bandcamp",
+    "id": "c5f1d018311b",
+    "discovered_date": "2026-04-08T13:00:12.826020+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Warning Sign",
+    "url": "https://evar-records.com/track/warning-sign?from=search&amp;search_item_id=2281086552&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753555&amp;search_page_no=1&amp;search_rank=7&amp;search_sig=a71eb09b8abda41e9ef72dc0276fc1fb",
+    "excerpt": "from Microjunglizm\n                                                    by Dev/Null",
+    "source": "bandcamp",
+    "id": "db4621a2a74d",
+    "discovered_date": "2026-04-08T13:00:12.826037+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Orchstomp",
+    "url": "https://evar-records.com/track/orchstomp?from=search&amp;search_item_id=562039834&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753555&amp;search_page_no=1&amp;search_rank=8&amp;search_sig=84b26b40aa989ce0963ad900e5c88a81",
+    "excerpt": "from Microjunglizm\n                                                    by Dev/Null",
+    "source": "bandcamp",
+    "id": "8e264693776f",
+    "discovered_date": "2026-04-08T13:00:12.826051+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "E-Yeah (DJ Marfox Remix)",
+    "url": "https://evar-records.com/track/e-yeah-dj-marfox-remix?from=search&amp;search_item_id=2925751396&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753555&amp;search_page_no=1&amp;search_rank=9&amp;search_sig=f2803791cc7c8df4f9505cf09f02ebe7",
+    "excerpt": "from Microjunglizm Remixes\n                                                    by Dev/Null",
+    "source": "bandcamp",
+    "id": "b87f1a3750b3",
+    "discovered_date": "2026-04-08T13:00:12.826061+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "E-Yea",
+    "url": "https://evar-records.com/track/e-yea?from=search&amp;search_item_id=3940689130&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753555&amp;search_page_no=1&amp;search_rank=10&amp;search_sig=1c727693f9c0f4a68270a1c9b521648b",
+    "excerpt": "from Microjunglizm\n                                                    by Dev/Null",
+    "source": "bandcamp",
+    "id": "398537724bb0",
+    "discovered_date": "2026-04-08T13:00:12.826077+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Subterranea",
+    "url": "https://aedirecords.bandcamp.com/track/subterranea?from=search&amp;search_item_id=1007478093&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753555&amp;search_page_no=1&amp;search_rank=11&amp;search_sig=e72782d66ab2bb5432cc89c3b0ef636c",
+    "excerpt": "from Lichen\n                                                    by Inskape & Null",
+    "source": "bandcamp",
+    "id": "7b609fbf039e",
+    "discovered_date": "2026-04-08T13:00:12.826087+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Shards Of Rhythm",
+    "url": "https://drosstik.bandcamp.com/track/shards-of-rhythm?from=search&amp;search_item_id=2583379752&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753555&amp;search_page_no=1&amp;search_rank=12&amp;search_sig=7af957ee8f66eaa6259e9161ebb19e11",
+    "excerpt": "from 12\" EP (DTK11)\n                                                    by DevNull",
+    "source": "bandcamp",
+    "id": "b68bb5fb9cff",
+    "discovered_date": "2026-04-08T13:00:12.826102+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Black Moon Over Crematoria",
+    "url": "https://nullthronerecords.bandcamp.com/track/black-moon-over-crematoria?from=search&amp;search_item_id=1160802093&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753555&amp;search_page_no=1&amp;search_rank=13&amp;search_sig=09dabc98f1baf30445a6b89b17f400eb",
+    "excerpt": "from Null For The Null Throne - Null Throne Records Sampler #1\n                                                    by Witchfire",
+    "source": "bandcamp",
+    "id": "47315d63b99b",
+    "discovered_date": "2026-04-08T13:00:12.826116+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Pashmina - Stripped",
+    "url": "https://nullvoidrecords.bandcamp.com/track/pashmina-stripped?from=search&amp;search_item_id=336683220&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753555&amp;search_page_no=1&amp;search_rank=14&amp;search_sig=d1da0dc328b98b6a82125d81b57ac923",
+    "excerpt": "from Perennial Transplant\n                                                    by FLORIDA",
+    "source": "bandcamp",
+    "id": "bc63b501bdfc",
+    "discovered_date": "2026-04-08T13:00:12.826127+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "ROADTRIP: Mars",
+    "url": "https://nullvoidrecords.bandcamp.com/track/roadtrip-mars?from=search&amp;search_item_id=3670860306&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753555&amp;search_page_no=1&amp;search_rank=15&amp;search_sig=7b5e0260e9989a0576ae4e0d24d47837",
+    "excerpt": "from The Valentines Day Triptych\n                                                    by FLORIDA",
+    "source": "bandcamp",
+    "id": "a4c4150d39f4",
+    "discovered_date": "2026-04-08T13:00:12.826137+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "What You Wanted - Stripped",
+    "url": "https://nullvoidrecords.bandcamp.com/track/what-you-wanted-stripped?from=search&amp;search_item_id=3948944527&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753555&amp;search_page_no=1&amp;search_rank=16&amp;search_sig=a7fc5f2f486b9776dfdd3160f40a54f2",
+    "excerpt": "from Perennial Transplant\n                                                    by FLORIDA",
+    "source": "bandcamp",
+    "id": "ff8500e4e1d6",
+    "discovered_date": "2026-04-08T13:00:12.826148+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Apt 1245",
+    "url": "https://jellrecords.bandcamp.com/track/apt-1245?from=search&amp;search_item_id=3283276968&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753555&amp;search_page_no=1&amp;search_rank=17&amp;search_sig=556cb494866f3c606595dae2d788a0e7",
+    "excerpt": "from Jell Greatest Hits Vol 1\n                                                    by Wallis",
+    "source": "bandcamp",
+    "id": "28d87a4c5c39",
+    "discovered_date": "2026-04-08T13:00:12.826158+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "What Life Could Be - Stripped",
+    "url": "https://nullvoidrecords.bandcamp.com/track/what-life-could-be-stripped?from=search&amp;search_item_id=4036596771&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753555&amp;search_page_no=1&amp;search_rank=18&amp;search_sig=e016ee08d1228ae486c75be2b442b2cc",
+    "excerpt": "from Perennial Transplant\n                                                    by FLORIDA",
+    "source": "bandcamp",
+    "id": "91f90b28aab3",
+    "discovered_date": "2026-04-08T13:00:12.826170+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Microjunglizm",
+    "url": "https://evar-records.com/album/microjunglizm?from=search&amp;search_item_id=1192455173&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304753617&amp;search_page_no=1&amp;search_rank=1&amp;search_sig=b33df7fe11749b75c9064c15a3cb556d",
+    "excerpt": "by Dev/Null",
+    "source": "bandcamp",
+    "id": "3f2a3d8e56d1",
+    "discovered_date": "2026-04-08T13:00:12.826181+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Null",
+    "url": "https://assemblage23.bandcamp.com/album/null?from=search&amp;search_item_id=3687494245&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304753617&amp;search_page_no=1&amp;search_rank=2&amp;search_sig=c51caff275ee13e6f4830b16f50f7fce",
+    "excerpt": "by Assemblage 23",
+    "source": "bandcamp",
+    "id": "513bceff528e",
+    "discovered_date": "2026-04-08T13:00:12.826190+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Great Attractor",
+    "url": "https://ratskinrecords.bandcamp.com/album/great-attractor?from=search&amp;search_item_id=599974226&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304753617&amp;search_page_no=1&amp;search_rank=3&amp;search_sig=67825336f2915d82d8b6fba05432e259",
+    "excerpt": "by KK NULL",
+    "source": "bandcamp",
+    "id": "093e9be2cf09",
+    "discovered_date": "2026-04-08T13:00:12.826203+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Microjunglizm Remixes",
+    "url": "https://evar-records.com/album/microjunglizm-remixes?from=search&amp;search_item_id=3166697186&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304753617&amp;search_page_no=1&amp;search_rank=4&amp;search_sig=de31585ff5b45ee565d10d4d3549f32c",
+    "excerpt": "by Dev/Null",
+    "source": "bandcamp",
+    "id": "2c4bfea7d82a",
+    "discovered_date": "2026-04-08T13:00:12.826214+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Quiescence",
+    "url": "https://spikerotrecords.bandcamp.com/album/quiescence?from=search&amp;search_item_id=1260095009&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304753617&amp;search_page_no=1&amp;search_rank=5&amp;search_sig=bc29695752b7418af514cd52f15355d8",
+    "excerpt": "by Shores Of Null",
+    "source": "bandcamp",
+    "id": "be921189bece",
+    "discovered_date": "2026-04-08T13:00:12.826226+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Null For The Null Throne - Null Throne Records Sampler #1",
+    "url": "https://nullthronerecords.bandcamp.com/album/null-for-the-null-throne-null-throne-records-sampler-1?from=search&amp;search_item_id=2331109994&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304753617&amp;search_page_no=1&amp;search_rank=6&amp;search_sig=b7891943bc8aaafff836ea78976246bf",
+    "excerpt": "by Null Throne Records",
+    "source": "bandcamp",
+    "id": "a9bfdb0d6132",
+    "discovered_date": "2026-04-08T13:00:12.826236+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Quiescence",
+    "url": "https://candlelightrecordsuk.bandcamp.com/album/quiescence?from=search&amp;search_item_id=95453993&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304753617&amp;search_page_no=1&amp;search_rank=7&amp;search_sig=9182dca8a9dd154c2046b847d83f4cdc",
+    "excerpt": "by Shores Of Null",
+    "source": "bandcamp",
+    "id": "0f4b318e6cda",
+    "discovered_date": "2026-04-08T13:00:12.826246+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Attack",
+    "url": "https://myevilrobotarmy.bandcamp.com/album/attack?from=search&amp;search_item_id=1339451387&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304753617&amp;search_page_no=1&amp;search_rank=8&amp;search_sig=8e79bad6e80b1c0c8203458faf37e736",
+    "excerpt": "by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "044c81780748",
+    "discovered_date": "2026-04-08T13:00:12.826257+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Explorations",
+    "url": "https://myevilrobotarmy.bandcamp.com/album/explorations?from=search&amp;search_item_id=2299540076&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304753617&amp;search_page_no=1&amp;search_rank=9&amp;search_sig=0ee54d9d8cce9debbb6b62296dcd7773",
+    "excerpt": "by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "f47047a97f3f",
+    "discovered_date": "2026-04-08T13:00:12.826267+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "NULL- Act Of Love",
+    "url": "https://hexrecords.bandcamp.com/album/null-act-of-love?from=search&amp;search_item_id=365352015&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304753617&amp;search_page_no=1&amp;search_rank=10&amp;search_sig=42da0e83fe0fc65f25be89960774cefe",
+    "excerpt": "by NULL",
+    "source": "bandcamp",
+    "id": "dfdf842fe2eb",
+    "discovered_date": "2026-04-08T13:00:12.826278+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Beyond The Shores (On Death And Dying)",
+    "url": "https://spikerotrecords.bandcamp.com/album/beyond-the-shores-on-death-and-dying?from=search&amp;search_item_id=816070883&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304753617&amp;search_page_no=1&amp;search_rank=11&amp;search_sig=0e1a4c770261a524c30afc1ce48ee31f",
+    "excerpt": "by Shores Of Null",
+    "source": "bandcamp",
+    "id": "da627885cb29",
+    "discovered_date": "2026-04-08T13:00:12.826289+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "The Loss Of Beauty",
+    "url": "https://spikerotrecords.bandcamp.com/album/the-loss-of-beauty?from=search&amp;search_item_id=2770663826&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304753617&amp;search_page_no=1&amp;search_rank=12&amp;search_sig=4c6530133eade8edecb3b7e47db3ab8c",
+    "excerpt": "by Shores Of Null",
+    "source": "bandcamp",
+    "id": "8cf47d9f9c8a",
+    "discovered_date": "2026-04-08T13:00:12.826299+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Sleepwalking Days",
+    "url": "https://ifbrecords.bandcamp.com/album/sleepwalking-days?from=search&amp;search_item_id=17186337&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304753617&amp;search_page_no=1&amp;search_rank=13&amp;search_sig=07916f5a535d81fbf2a60de6753f85fc",
+    "excerpt": "by Null",
+    "source": "bandcamp",
+    "id": "8ca88ba437d3",
+    "discovered_date": "2026-04-08T13:00:12.826310+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "whitestar",
+    "url": "https://nullspennrecords.bandcamp.com/album/whitestar?from=search&amp;search_item_id=1002642578&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304753617&amp;search_page_no=1&amp;search_rank=14&amp;search_sig=0d60d61813182a45127ee400ad8cf055",
+    "excerpt": "by ORIGAMI REPLIKA",
+    "source": "bandcamp",
+    "id": "275fc7faf57f",
+    "discovered_date": "2026-04-08T13:00:12.826324+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "12\" EP (DTK11)",
+    "url": "https://drosstik.bandcamp.com/album/12-ep-dtk11?from=search&amp;search_item_id=279992190&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304753617&amp;search_page_no=1&amp;search_rank=15&amp;search_sig=470f253007bc1badb8ff8b7cdb844d17",
+    "excerpt": "by DevNull",
+    "source": "bandcamp",
+    "id": "43823b0e3cf6",
+    "discovered_date": "2026-04-08T13:00:12.826333+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "[HBR046] Kategorisch Aggressiv",
+    "url": "https://hackebeilrecords.bandcamp.com/album/hbr046-kategorisch-aggressiv?from=search&amp;search_item_id=2614314339&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304753617&amp;search_page_no=1&amp;search_rank=16&amp;search_sig=43b42c472c5b5fd50f5485ad2f15fd60",
+    "excerpt": "by Negativ Null",
+    "source": "bandcamp",
+    "id": "f1c4b34d99de",
+    "discovered_date": "2026-04-08T13:00:12.826343+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "HEAVEN",
+    "url": "https://prrrrrrr.bandcamp.com/album/heaven?from=search&amp;search_item_id=4047718578&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304753617&amp;search_page_no=1&amp;search_rank=17&amp;search_sig=6ac76918e4fd6c45032d3e335d8201d3",
+    "excerpt": "by NULL PART",
+    "source": "bandcamp",
+    "id": "8a2898d19305",
+    "discovered_date": "2026-04-08T13:00:12.826352+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Jell Greatest Hits Vol 1",
+    "url": "https://jellrecords.bandcamp.com/album/jell-greatest-hits-vol-1?from=search&amp;search_item_id=3866463031&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304753617&amp;search_page_no=1&amp;search_rank=18&amp;search_sig=ec154d1957b1b7f125b77b9b0e444bd9",
+    "excerpt": "by Jell",
+    "source": "bandcamp",
+    "id": "54dfe230b15d",
+    "discovered_date": "2026-04-08T13:00:12.826363+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Cynic",
+    "url": "https://nullhypothesis.bandcamp.com/track/cynic?from=search&amp;search_item_id=2058583876&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753772&amp;search_page_no=1&amp;search_rank=1&amp;search_sig=5d437ece92e42b945306d5f095361c39",
+    "excerpt": "from Party Music For Popular People\n                                                    by null hypothesis",
+    "source": "bandcamp",
+    "id": "f0e9a02f6d6d",
+    "discovered_date": "2026-04-08T13:00:12.826492+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Parsing Time",
+    "url": "https://nullhypothesis.bandcamp.com/track/parsing-time?from=search&amp;search_item_id=1633318955&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753772&amp;search_page_no=1&amp;search_rank=2&amp;search_sig=9bf55ce502af1cf91a374c137b8c4cb5",
+    "excerpt": "from Party Music For Popular People\n                                                    by null hypothesis",
+    "source": "bandcamp",
+    "id": "f84ce7b14c81",
+    "discovered_date": "2026-04-08T13:00:12.826505+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Hair and Dust",
+    "url": "https://nullhypothesis.bandcamp.com/track/hair-and-dust?from=search&amp;search_item_id=2149950884&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753772&amp;search_page_no=1&amp;search_rank=3&amp;search_sig=665604b561f46b9d81eb29cd1cfbd19a",
+    "excerpt": "from Party Music For Popular People\n                                                    by null hypothesis",
+    "source": "bandcamp",
+    "id": "f044c7da0d29",
+    "discovered_date": "2026-04-08T13:00:12.826518+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "No Name",
+    "url": "https://metropolisrecords.bandcamp.com/track/no-name?from=search&amp;search_item_id=3782030312&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753772&amp;search_page_no=1&amp;search_rank=4&amp;search_sig=7f60e65582886206dc19b9e9744a46e3",
+    "excerpt": "from Electronic Saviors - Electronic Music To Cure Cancer Vol VI: Reflection\n                                                    by Null Device",
+    "source": "bandcamp",
+    "id": "8223ade1ec92",
+    "discovered_date": "2026-04-08T13:00:12.826531+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Cooldown",
+    "url": "https://nullhypothesis.bandcamp.com/track/cooldown?from=search&amp;search_item_id=586401674&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753772&amp;search_page_no=1&amp;search_rank=5&amp;search_sig=5d40b483acee6a836c4e22a9b771c8ec",
+    "excerpt": "from Party Music For Popular People\n                                                    by null hypothesis",
+    "source": "bandcamp",
+    "id": "3fc9d34c0b2f",
+    "discovered_date": "2026-04-08T13:00:12.826545+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "VICTORIA POLEVA - Null for Accordion (2005)",
+    "url": "https://nobusinessrecords-cc.bandcamp.com/track/victoria-poleva-null-for-accordion-2005?from=search&amp;search_item_id=266685418&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753772&amp;search_page_no=1&amp;search_rank=6&amp;search_sig=f62e6cdf7e03ea37a4706bae07b856dc",
+    "excerpt": "from Contemporary music from Ukraine\n                                                    by Roman Yusipey (acc)",
+    "source": "bandcamp",
+    "id": "0075a43f6609",
+    "discovered_date": "2026-04-08T13:00:12.826556+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Null B",
+    "url": "https://enoughrec.bandcamp.com/track/null-b?from=search&amp;search_item_id=3404468764&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753772&amp;search_page_no=1&amp;search_rank=7&amp;search_sig=c77d4c9a0dba32658143322bfebec854",
+    "excerpt": "from Gray Music\n                                                    by Acreil",
+    "source": "bandcamp",
+    "id": "eec077223379",
+    "discovered_date": "2026-04-08T13:00:12.826568+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Null A",
+    "url": "https://enoughrec.bandcamp.com/track/null-a?from=search&amp;search_item_id=3948355305&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753772&amp;search_page_no=1&amp;search_rank=8&amp;search_sig=51ff7f70b43024e63b6e8b71e4bd5bc2",
+    "excerpt": "from Gray Music\n                                                    by Acreil",
+    "source": "bandcamp",
+    "id": "1d95cd5f8d3e",
+    "discovered_date": "2026-04-08T13:00:12.826581+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Null",
+    "url": "https://basickrecords.bandcamp.com/track/null?from=search&amp;search_item_id=2335290141&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753772&amp;search_page_no=1&amp;search_rank=9&amp;search_sig=a5128fd2d6ffa13d7339bf304f6627be",
+    "excerpt": "from Polymorphic Code\n                                                    by THE ALGORITHM",
+    "source": "bandcamp",
+    "id": "883954e74e6c",
+    "discovered_date": "2026-04-08T13:00:12.826591+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Derisative",
+    "url": "https://nullhypothesis.bandcamp.com/track/derisative?from=search&amp;search_item_id=269250871&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753772&amp;search_page_no=1&amp;search_rank=10&amp;search_sig=b47bdfceaae44b4b19778579d2dcec51",
+    "excerpt": "from Party Music For Popular People\n                                                    by null hypothesis",
+    "source": "bandcamp",
+    "id": "162479d11bc7",
+    "discovered_date": "2026-04-08T13:00:12.826602+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Solace",
+    "url": "https://thebmg.bandcamp.com/track/solace?from=search&amp;search_item_id=182505155&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753772&amp;search_page_no=1&amp;search_rank=11&amp;search_sig=c0dd3be5594c528832832d3f06278076",
+    "excerpt": "from ...So It Begins [EP]\n                                                    by Apex Null",
+    "source": "bandcamp",
+    "id": "baa51a51fb3f",
+    "discovered_date": "2026-04-08T13:00:12.826613+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Myopiate",
+    "url": "https://thebmg.bandcamp.com/track/myopiate?from=search&amp;search_item_id=3236814205&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753772&amp;search_page_no=1&amp;search_rank=12&amp;search_sig=6575c52d69289dfa46e7afdc59d48f8d",
+    "excerpt": "from ...So It Begins [EP]\n                                                    by Apex Null",
+    "source": "bandcamp",
+    "id": "b54dc3d283e2",
+    "discovered_date": "2026-04-08T13:00:12.826624+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "From Inside",
+    "url": "https://thebmg.bandcamp.com/track/from-inside?from=search&amp;search_item_id=1505926702&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753772&amp;search_page_no=1&amp;search_rank=13&amp;search_sig=cb964ba4a82b56735a68a9e4af2bff3f",
+    "excerpt": "from ...So It Begins [EP]\n                                                    by Apex Null",
+    "source": "bandcamp",
+    "id": "58b79b320c7d",
+    "discovered_date": "2026-04-08T13:00:12.826636+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Inherent To Man",
+    "url": "https://thebmg.bandcamp.com/track/inherent-to-man?from=search&amp;search_item_id=2907486782&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753772&amp;search_page_no=1&amp;search_rank=14&amp;search_sig=fe15021e87696c56ee7926067640fea4",
+    "excerpt": "from ...So It Begins [EP]\n                                                    by Apex Null",
+    "source": "bandcamp",
+    "id": "0504f08d80f4",
+    "discovered_date": "2026-04-08T13:00:12.826646+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Sideways",
+    "url": "https://nullhypothesis.bandcamp.com/track/sideways?from=search&amp;search_item_id=166807536&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753772&amp;search_page_no=1&amp;search_rank=15&amp;search_sig=dc8fe839cf9ab76d0a9f6836cf26aa97",
+    "excerpt": "from Party Music For Popular People\n                                                    by null hypothesis",
+    "source": "bandcamp",
+    "id": "34f10cab8ab7",
+    "discovered_date": "2026-04-08T13:00:12.826657+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Live Laugh Love",
+    "url": "https://nullhypothesis.bandcamp.com/track/live-laugh-love?from=search&amp;search_item_id=2387032465&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753772&amp;search_page_no=1&amp;search_rank=16&amp;search_sig=c40830f633900b944ce5f1a68b2d2e8f",
+    "excerpt": "from Party Music For Popular People\n                                                    by null hypothesis",
+    "source": "bandcamp",
+    "id": "05abba55d25a",
+    "discovered_date": "2026-04-08T13:00:12.826667+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Party Music For Popular People",
+    "url": "https://nullhypothesis.bandcamp.com/album/party-music-for-popular-people?from=search&amp;search_item_id=1423103629&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304753785&amp;search_page_no=1&amp;search_rank=1&amp;search_sig=1c6f1440369a6bde83a4b5f2c94d329d",
+    "excerpt": "by null hypothesis",
+    "source": "bandcamp",
+    "id": "ca066d8349d2",
+    "discovered_date": "2026-04-08T13:00:12.826678+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "...So It Begins [EP]",
+    "url": "https://thebmg.bandcamp.com/album/so-it-begins-ep?from=search&amp;search_item_id=462456721&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304753785&amp;search_page_no=1&amp;search_rank=2&amp;search_sig=bd8707d9c6064ca6fae1cbf7ff58a0af",
+    "excerpt": "by Apex Null",
+    "source": "bandcamp",
+    "id": "6111788a767c",
+    "discovered_date": "2026-04-08T13:00:12.826687+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Malformed",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/malformed?from=search&amp;search_item_id=2418556856&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753876&amp;search_page_no=1&amp;search_rank=1&amp;search_sig=13ceb6e8e5378bc035311e1176f7e746",
+    "excerpt": "from Explorations\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "3c43d1a91d2c",
+    "discovered_date": "2026-04-08T13:00:12.826773+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "The Pivot",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/the-pivot?from=search&amp;search_item_id=2188692097&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753876&amp;search_page_no=1&amp;search_rank=2&amp;search_sig=5a63ab9421ccc10b5294a681b9e01418",
+    "excerpt": "from Attack\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "2b87097e7722",
+    "discovered_date": "2026-04-08T13:00:12.826788+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Janky Maze",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/janky-maze?from=search&amp;search_item_id=2372510995&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753876&amp;search_page_no=1&amp;search_rank=3&amp;search_sig=067c022ed9d358237d33d90d1131765b",
+    "excerpt": "from Attack\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "db6d2cc5a5dd",
+    "discovered_date": "2026-04-08T13:00:12.826798+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "What way?",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/what-way?from=search&amp;search_item_id=1625763202&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753876&amp;search_page_no=1&amp;search_rank=4&amp;search_sig=9e452153b4e3012c0f3c985f27bee5b4",
+    "excerpt": "from Attack\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "1a73562ee991",
+    "discovered_date": "2026-04-08T13:00:12.826813+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "New Star",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/new-star?from=search&amp;search_item_id=874257980&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753876&amp;search_page_no=1&amp;search_rank=5&amp;search_sig=730e02976b205451490bc28af3825275",
+    "excerpt": "from Explorations\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "570e5dc46da0",
+    "discovered_date": "2026-04-08T13:00:12.826823+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Star Swing",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/star-swing?from=search&amp;search_item_id=2130735657&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753876&amp;search_page_no=1&amp;search_rank=6&amp;search_sig=2d8eb43e1bc254e7ba9512edd38b0276",
+    "excerpt": "from Explorations\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "cf5b2463747b",
+    "discovered_date": "2026-04-08T13:00:12.826837+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Flare Rider",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/flare-rider?from=search&amp;search_item_id=3062206226&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753876&amp;search_page_no=1&amp;search_rank=7&amp;search_sig=c7ffe170438e8f41b65170cdceaba09b",
+    "excerpt": "from Explorations\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "97d2f6ef2cce",
+    "discovered_date": "2026-04-08T13:00:12.826847+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Tempest in your Tempo",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/tempest-in-your-tempo?from=search&amp;search_item_id=3776446936&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753876&amp;search_page_no=1&amp;search_rank=8&amp;search_sig=a5c729961f902fd35f3e3d1b057c040b",
+    "excerpt": "from Attack\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "05e9e10e569d",
+    "discovered_date": "2026-04-08T13:00:12.826857+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "The Sun and Moon",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/the-sun-and-moon?from=search&amp;search_item_id=2934873417&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753876&amp;search_page_no=1&amp;search_rank=9&amp;search_sig=ec44c16696b499d8ead77eabca2cf639",
+    "excerpt": "from Explorations\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "12bbce70e2bc",
+    "discovered_date": "2026-04-08T13:00:12.826867+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Slide into the Sun",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/slide-into-the-sun?from=search&amp;search_item_id=544409087&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753876&amp;search_page_no=1&amp;search_rank=10&amp;search_sig=5afa94d861704178a884e61822b2a074",
+    "excerpt": "from Explorations\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "a7048c6a7c51",
+    "discovered_date": "2026-04-08T13:00:12.826882+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Float to the Bottom",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/float-to-the-bottom?from=search&amp;search_item_id=3085553076&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753876&amp;search_page_no=1&amp;search_rank=11&amp;search_sig=e28418f40a768159a780fd936e695321",
+    "excerpt": "from Winter in My Nature\n                                                    by MERA",
+    "source": "bandcamp",
+    "id": "115779766113",
+    "discovered_date": "2026-04-08T13:00:12.826892+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "A chill on the 85",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/a-chill-on-the-85-2?from=search&amp;search_item_id=1361005092&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304753876&amp;search_page_no=1&amp;search_rank=12&amp;search_sig=8f4d8b95da5f0bbd2e1b002830d8bc35",
+    "excerpt": "from Winter in My Nature\n                                                    by MERA",
+    "source": "bandcamp",
+    "id": "12126f09e7ff",
+    "discovered_date": "2026-04-08T13:00:12.826906+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Attack",
+    "url": "https://myevilrobotarmy.bandcamp.com/album/attack?from=search&amp;search_item_id=1339451387&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304753886&amp;search_page_no=1&amp;search_rank=1&amp;search_sig=5cd26783199ea2ee547ba83679bb9ac5",
+    "excerpt": "by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "6a25584b1040",
+    "discovered_date": "2026-04-08T13:00:12.826928+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Explorations",
+    "url": "https://myevilrobotarmy.bandcamp.com/album/explorations?from=search&amp;search_item_id=2299540076&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304753886&amp;search_page_no=1&amp;search_rank=2&amp;search_sig=028e20f7a0d494b8882d62a82daf3017",
+    "excerpt": "by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "3150defa30d8",
+    "discovered_date": "2026-04-08T13:00:12.826943+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Winter in My Nature",
+    "url": "https://myevilrobotarmy.bandcamp.com/album/winter-in-my-nature?from=search&amp;search_item_id=2517176565&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304753886&amp;search_page_no=1&amp;search_rank=3&amp;search_sig=aa1a2b48050ac594687604f31c6ae5e8",
+    "excerpt": "by MERA",
+    "source": "bandcamp",
+    "id": "5d803bb3b1ec",
+    "discovered_date": "2026-04-08T13:00:12.826952+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Bull Ride Null",
+    "url": "https://gerritkelder.bandcamp.com/track/bull-ride-null?from=search&amp;search_item_id=1329832128&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304754241&amp;search_page_no=1&amp;search_rank=1&amp;search_sig=11f6b678e5ff8740bd76218174d612dc",
+    "excerpt": "from Spectacle Monopalize\n                                                    by Gerrit Kelder",
+    "source": "bandcamp",
+    "id": "9f7c7b70af7a",
+    "discovered_date": "2026-04-08T13:00:12.827115+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "lrnx.null",
+    "url": "https://mumbleetc.com/track/lrnx-null?from=search&amp;search_item_id=1975629254&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304754241&amp;search_page_no=1&amp;search_rank=2&amp;search_sig=e7fb6c58c1c8736e0ff18f887406bff5",
+    "excerpt": "from FUTURE::DEATH\n                                                    by Riikira",
+    "source": "bandcamp",
+    "id": "f74f50f66d43",
+    "discovered_date": "2026-04-08T13:00:12.827128+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Exotic Music",
+    "url": "https://alpha.bandcamp.com/track/exotic-music?from=search&amp;search_item_id=130685706&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304754241&amp;search_page_no=1&amp;search_rank=3&amp;search_sig=c3c5898fc543b827a66413bafd780b1f",
+    "excerpt": "from The Dominion\n                                                    by Alpha",
+    "source": "bandcamp",
+    "id": "9e3ecd93b5e3",
+    "discovered_date": "2026-04-08T13:00:12.827138+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Malformed",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/malformed?from=search&amp;search_item_id=2418556856&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304754241&amp;search_page_no=1&amp;search_rank=4&amp;search_sig=ed3f4945fba7a43b49b87d574a14d160",
+    "excerpt": "from Explorations\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "55df3f6f1524",
+    "discovered_date": "2026-04-08T13:00:12.827148+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "The Pivot",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/the-pivot?from=search&amp;search_item_id=2188692097&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304754241&amp;search_page_no=1&amp;search_rank=5&amp;search_sig=9f6d6823d9d853f0610300861e6633d2",
+    "excerpt": "from Attack\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "89d5b82fe37a",
+    "discovered_date": "2026-04-08T13:00:12.827168+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Janky Maze",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/janky-maze?from=search&amp;search_item_id=2372510995&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304754241&amp;search_page_no=1&amp;search_rank=6&amp;search_sig=7456a5df44367c64ab8fd2c2d299c1ca",
+    "excerpt": "from Attack\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "6e33b838a8d1",
+    "discovered_date": "2026-04-08T13:00:12.827179+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "What way?",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/what-way?from=search&amp;search_item_id=1625763202&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304754241&amp;search_page_no=1&amp;search_rank=7&amp;search_sig=a6874e259d545042bc11ffcbb35b2958",
+    "excerpt": "from Attack\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "2f5144f84063",
+    "discovered_date": "2026-04-08T13:00:12.827189+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "New Star",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/new-star?from=search&amp;search_item_id=874257980&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304754241&amp;search_page_no=1&amp;search_rank=8&amp;search_sig=f526b4220295a8b5e61867176e931e29",
+    "excerpt": "from Explorations\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "f4b05d569e7e",
+    "discovered_date": "2026-04-08T13:00:12.827198+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Null Point",
+    "url": "https://machinistmusic.com/track/null-point?from=search&amp;search_item_id=2538280416&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304754241&amp;search_page_no=1&amp;search_rank=9&amp;search_sig=cb71653930b6b0fef8d26be163ad78ab",
+    "excerpt": "from Hyperfocus - Crystalized / Null Point\n                                                    by Hyperfocus",
+    "source": "bandcamp",
+    "id": "f5d81dd3d20d",
+    "discovered_date": "2026-04-08T13:00:12.827208+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Xenoglossia live at Ftarri",
+    "url": "https://zeromoon.com/track/xenoglossia-live-at-ftarri?from=search&amp;search_item_id=3555320373&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304754241&amp;search_page_no=1&amp;search_rank=10&amp;search_sig=3eb7bc17a36a288d29944ad8cf28042f",
+    "excerpt": "from Xenoglossia live at Ftarri\n                                                    by Alexei Borisov and KK NULL",
+    "source": "bandcamp",
+    "id": "5c07d7932c52",
+    "discovered_date": "2026-04-08T13:00:12.827219+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Street Symphony",
+    "url": "https://alpha.bandcamp.com/track/street-symphony?from=search&amp;search_item_id=4168501025&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304754241&amp;search_page_no=1&amp;search_rank=11&amp;search_sig=8998dee91f7418702dd3a931c039dc96",
+    "excerpt": "from ELEVATORS\n                                                    by Alpha",
+    "source": "bandcamp",
+    "id": "af315f67ed2e",
+    "discovered_date": "2026-04-08T13:00:12.827229+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Hey Baby",
+    "url": "https://alpha.bandcamp.com/track/hey-baby?from=search&amp;search_item_id=2526009233&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304754241&amp;search_page_no=1&amp;search_rank=12&amp;search_sig=03f733f5ecb436662cb17f3b224e02a9",
+    "excerpt": "from ELEVATORS\n                                                    by Alpha",
+    "source": "bandcamp",
+    "id": "5fedbf269547",
+    "discovered_date": "2026-04-08T13:00:12.827239+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Kalidas",
+    "url": "https://alpha.bandcamp.com/track/kalidas?from=search&amp;search_item_id=4267292605&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304754241&amp;search_page_no=1&amp;search_rank=13&amp;search_sig=593350f8ec78fb16954b58debe0c9170",
+    "excerpt": "from The Dominion\n                                                    by Alpha",
+    "source": "bandcamp",
+    "id": "9b4e08667dce",
+    "discovered_date": "2026-04-08T13:00:12.827249+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "DAH NAH ME",
+    "url": "https://alpha.bandcamp.com/track/dah-nah-me?from=search&amp;search_item_id=4108092466&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304754241&amp;search_page_no=1&amp;search_rank=14&amp;search_sig=8fd0c6a6b626570f1042edb4406d0b86",
+    "excerpt": "by Alpha",
+    "source": "bandcamp",
+    "id": "05896a1baeae",
+    "discovered_date": "2026-04-08T13:00:12.827259+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Star Swing",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/star-swing?from=search&amp;search_item_id=2130735657&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304754241&amp;search_page_no=1&amp;search_rank=15&amp;search_sig=d4830f0de1cf9eb4f8e2c1ed2759f429",
+    "excerpt": "from Explorations\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "80cd1fb0b28f",
+    "discovered_date": "2026-04-08T13:00:12.827268+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Flare Rider",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/flare-rider?from=search&amp;search_item_id=3062206226&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304754241&amp;search_page_no=1&amp;search_rank=16&amp;search_sig=a0ad2a4fbbd78ffa5b60fc2870b5a046",
+    "excerpt": "from Explorations\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "32c28f4c1652",
+    "discovered_date": "2026-04-08T13:00:12.827288+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Tempest in your Tempo",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/tempest-in-your-tempo?from=search&amp;search_item_id=3776446936&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304754241&amp;search_page_no=1&amp;search_rank=17&amp;search_sig=ac75eedc4063bfbc865aeec8dd8c8ea5",
+    "excerpt": "from Attack\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "425190e6ee1f",
+    "discovered_date": "2026-04-08T13:00:12.827298+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "The Sun and Moon",
+    "url": "https://myevilrobotarmy.bandcamp.com/track/the-sun-and-moon?from=search&amp;search_item_id=2934873417&amp;search_item_type=t&amp;search_match_part=%3F&amp;search_page_id=5304754241&amp;search_page_no=1&amp;search_rank=18&amp;search_sig=fc35d77baa7c911c6d722c0632499143",
+    "excerpt": "from Explorations\n                                                    by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "08a543e4ee8e",
+    "discovered_date": "2026-04-08T13:00:12.827309+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Hyperfocus - Crystalized / Null Point",
+    "url": "https://machinistmusic.com/album/hyperfocus-crystalized-null-point?from=search&amp;search_item_id=3039788092&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304754266&amp;search_page_no=1&amp;search_rank=1&amp;search_sig=4a40f92abbbf4146695d2c3214d84d58",
+    "excerpt": "by Hyperfocus",
+    "source": "bandcamp",
+    "id": "f610786bcb1a",
+    "discovered_date": "2026-04-08T13:00:12.827332+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Xenoglossia live at Ftarri",
+    "url": "https://zeromoon.com/album/xenoglossia-live-at-ftarri?from=search&amp;search_item_id=1769582387&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304754266&amp;search_page_no=1&amp;search_rank=2&amp;search_sig=48439f516c8e11eaf64ab81af9a96e11",
+    "excerpt": "by Alexei Borisov and KK NULL",
+    "source": "bandcamp",
+    "id": "690aa3d0b163",
+    "discovered_date": "2026-04-08T13:00:12.827342+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "The Dominion",
+    "url": "https://alpha.bandcamp.com/album/the-dominion?from=search&amp;search_item_id=3045372303&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304754266&amp;search_page_no=1&amp;search_rank=3&amp;search_sig=e20f416395db53542224def37e352948",
+    "excerpt": "by Alpha",
+    "source": "bandcamp",
+    "id": "4e2376809423",
+    "discovered_date": "2026-04-08T13:00:12.827352+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Attack",
+    "url": "https://myevilrobotarmy.bandcamp.com/album/attack?from=search&amp;search_item_id=1339451387&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304754266&amp;search_page_no=1&amp;search_rank=4&amp;search_sig=9a31e89f729312f7f51c9ea03bd8f632",
+    "excerpt": "by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "6af009351ae7",
+    "discovered_date": "2026-04-08T13:00:12.827363+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Explorations",
+    "url": "https://myevilrobotarmy.bandcamp.com/album/explorations?from=search&amp;search_item_id=2299540076&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304754266&amp;search_page_no=1&amp;search_rank=5&amp;search_sig=35861ded3346225f272c94ce23f07537",
+    "excerpt": "by My Evil Robot Army",
+    "source": "bandcamp",
+    "id": "dcd527dcb232",
+    "discovered_date": "2026-04-08T13:00:12.827377+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "Winter in My Nature",
+    "url": "https://myevilrobotarmy.bandcamp.com/album/winter-in-my-nature?from=search&amp;search_item_id=2517176565&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304754266&amp;search_page_no=1&amp;search_rank=6&amp;search_sig=384dc781af0d380a3b38c81e5085e06f",
+    "excerpt": "by MERA",
+    "source": "bandcamp",
+    "id": "99a060eef950",
+    "discovered_date": "2026-04-08T13:00:12.827393+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "My Evil Robot Army"
+    ]
+  },
+  {
+    "title": "ELEVATORS",
+    "url": "https://alpha.bandcamp.com/album/elevators?from=search&amp;search_item_id=1914911251&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304754266&amp;search_page_no=1&amp;search_rank=7&amp;search_sig=3be08943327ffac8c825f16c981a6099",
+    "excerpt": "by Alpha",
+    "source": "bandcamp",
+    "id": "5050e396c1d9",
+    "discovered_date": "2026-04-08T13:00:12.827403+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Slow Flows: Bluetooth",
+    "url": "https://alpha.bandcamp.com/album/slow-flows-bluetooth?from=search&amp;search_item_id=314428922&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304754266&amp;search_page_no=1&amp;search_rank=8&amp;search_sig=7c5b0608491f50877faf1325a89487ba",
+    "excerpt": "by Alpha",
+    "source": "bandcamp",
+    "id": "d1ca574940c1",
+    "discovered_date": "2026-04-08T13:00:12.827412+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "The Revolution Mixtape",
+    "url": "https://alpha.bandcamp.com/album/the-revolution-mixtape?from=search&amp;search_item_id=2101284343&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304754266&amp;search_page_no=1&amp;search_rank=9&amp;search_sig=17538381d5b5a8e761b932feb8090146",
+    "excerpt": "by Alpha",
+    "source": "bandcamp",
+    "id": "edee90c89d3c",
+    "discovered_date": "2026-04-08T13:00:12.827422+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "The Neo Rap Movement",
+    "url": "https://alpha.bandcamp.com/album/the-neo-rap-movement?from=search&amp;search_item_id=3500161003&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304754266&amp;search_page_no=1&amp;search_rank=10&amp;search_sig=40db27c0d2c4e22863af0850b6a53b4c",
+    "excerpt": "by Alpha",
+    "source": "bandcamp",
+    "id": "8ef893d78fdc",
+    "discovered_date": "2026-04-08T13:00:12.827434+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
+  },
+  {
+    "title": "Zero T2 Sixty.1",
+    "url": "https://alpha.bandcamp.com/album/zero-t2-sixty-1?from=search&amp;search_item_id=2366904558&amp;search_item_type=a&amp;search_match_part=%3F&amp;search_page_id=5304754266&amp;search_page_no=1&amp;search_rank=11&amp;search_sig=6c549a1ceab762aca8cc732985554c24",
+    "excerpt": "by ALPHA",
+    "source": "bandcamp",
+    "id": "24c27cde1d5a",
+    "discovered_date": "2026-04-08T13:00:12.827442+00:00",
+    "status": "needs_verification",
+    "sentiment": "neutral",
+    "article_type": "release",
+    "artist_mentioned": [
+      "NullRecords"
+    ]
   }
 ]
