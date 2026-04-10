@@ -106,5 +106,113 @@
     "url": "",
     "error": "",
     "timestamp": "2026-04-09T21:45:04+00:00"
+  },
+  {
+    "entry_id": "36c08b2ab8f0",
+    "track_id": "hidden_insite",
+    "track_title": "Hidden Insite",
+    "filename": "daily_2026-04-10_hidden_insite_breakdown_843947b8.mp4",
+    "platform": "youtube",
+    "status": "error",
+    "video_id": "",
+    "url": "",
+    "error": "401 Client Error: Unauthorized for url: https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status",
+    "timestamp": "2026-04-10T19:45:04+00:00"
+  },
+  {
+    "entry_id": "36c08b2ab8f0",
+    "track_id": "hidden_insite",
+    "track_title": "Hidden Insite",
+    "filename": "daily_2026-04-10_hidden_insite_breakdown_843947b8.mp4",
+    "platform": "tiktok",
+    "status": "manual",
+    "video_id": "",
+    "url": "",
+    "error": "",
+    "timestamp": "2026-04-10T19:45:04+00:00"
+  },
+  {
+    "entry_id": "36c08b2ab8f0",
+    "track_id": "hidden_insite",
+    "track_title": "Hidden Insite",
+    "filename": "daily_2026-04-10_hidden_insite_breakdown_843947b8.mp4",
+    "platform": "instagram",
+    "status": "manual",
+    "video_id": "",
+    "url": "",
+    "error": "",
+    "timestamp": "2026-04-10T19:45:04+00:00"
+  },
+  {
+    "entry_id": "884cc3993577",
+    "track_id": "hidden_insite",
+    "track_title": "Hidden Insite",
+    "filename": "daily_2026-04-10_hidden_insite_main_3538f63f.mp4",
+    "platform": "youtube",
+    "status": "error",
+    "video_id": "",
+    "url": "",
+    "error": "401 Client Error: Unauthorized for url: https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status",
+    "timestamp": "2026-04-10T19:45:04+00:00"
+  },
+  {
+    "entry_id": "884cc3993577",
+    "track_id": "hidden_insite",
+    "track_title": "Hidden Insite",
+    "filename": "daily_2026-04-10_hidden_insite_main_3538f63f.mp4",
+    "platform": "tiktok",
+    "status": "manual",
+    "video_id": "",
+    "url": "",
+    "error": "",
+    "timestamp": "2026-04-10T19:45:04+00:00"
+  },
+  {
+    "entry_id": "884cc3993577",
+    "track_id": "hidden_insite",
+    "track_title": "Hidden Insite",
+    "filename": "daily_2026-04-10_hidden_insite_main_3538f63f.mp4",
+    "platform": "instagram",
+    "status": "manual",
+    "video_id": "",
+    "url": "",
+    "error": "",
+    "timestamp": "2026-04-10T19:45:04+00:00"
+  },
+  {
+    "entry_id": "3d89ecf00a5d",
+    "track_id": "lectroids",
+    "track_title": "Lectroids",
+    "filename": "daily_2026-04-10_lectroids_verse_ede9a24e.mp4",
+    "platform": "youtube",
+    "status": "error",
+    "video_id": "",
+    "url": "",
+    "error": "401 Client Error: Unauthorized for url: https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status",
+    "timestamp": "2026-04-10T19:45:04+00:00"
+  },
+  {
+    "entry_id": "3d89ecf00a5d",
+    "track_id": "lectroids",
+    "track_title": "Lectroids",
+    "filename": "daily_2026-04-10_lectroids_verse_ede9a24e.mp4",
+    "platform": "tiktok",
+    "status": "manual",
+    "video_id": "",
+    "url": "",
+    "error": "",
+    "timestamp": "2026-04-10T19:45:04+00:00"
+  },
+  {
+    "entry_id": "3d89ecf00a5d",
+    "track_id": "lectroids",
+    "track_title": "Lectroids",
+    "filename": "daily_2026-04-10_lectroids_verse_ede9a24e.mp4",
+    "platform": "instagram",
+    "status": "manual",
+    "video_id": "",
+    "url": "",
+    "error": "",
+    "timestamp": "2026-04-10T19:45:04+00:00"
   }
 ]

@@ -1,231 +1,50 @@
 [
   {
-    "id": "34f35a0ca2d9",
-    "status": "approved",
-    "generated_date": "2026-04-08",
-    "track_id": "lectroids",
-    "track_title": "Lectroids",
-    "segment_label": "hook",
-    "filename": "daily_2026-04-08_lectroids_hook_4000f837.mp4",
-    "video_path": "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/videos/daily_2026-04-08_lectroids_hook_4000f837.mp4",
-    "mood": "electronic",
-    "effects": {
-      "color_shift_enabled": true,
-      "vhs_enabled": true,
-      "scanline_enabled": true
-    },
-    "images_used": [
-      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/media-library/images/null_record_art.jpg",
-      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/3122ccc9_osciallating-overthurster.png",
-      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/media-library/images/cyber_grid.jpg"
-    ],
-    "created_at": "2026-04-08T15:02:07+00:00",
-    "approved_at": "2026-04-08T16:53:54+00:00",
-    "posted_at": null,
-    "platforms_posted": [],
-    "caption": "Lectroids \u2014 My Evil Robot Army\n\n#MyEvilRobotArmy #MERA #NullRecords #LoFiJazz #ElectronicMusic #InstrumentalMusic #MusicVisualization #IndieMusic #NewMusic",
-    "hashtags": {
-      "tiktok": [
-        "#MyEvilRobotArmy",
-        "#MERA",
-        "#NullRecords",
-        "#LoFiJazz",
-        "#ElectronicMusic",
-        "#InstrumentalMusic",
-        "#MusicVisualization",
-        "#IndieMusic",
-        "#NewMusic"
-      ],
-      "instagram": [
-        "#MyEvilRobotArmy",
-        "#MERA",
-        "#NullRecords",
-        "#LoFiJazz",
-        "#ElectronicMusic",
-        "#InstrumentalMusic",
-        "#MusicVisualization",
-        "#IndieMusic",
-        "#NewMusic",
-        "#Reels"
-      ],
-      "youtube": [
-        "My Evil Robot Army",
-        "MERA",
-        "NullRecords",
-        "LoFi Jazz",
-        "Electronic Music",
-        "Shorts"
-      ]
-    },
-    "error": ""
-  },
-  {
-    "id": "0121f69cd21f",
-    "status": "approved",
-    "generated_date": "2026-04-08",
-    "track_id": "pattern_watching",
-    "track_title": "Pattern Watching",
-    "segment_label": "flow",
-    "filename": "daily_2026-04-08_pattern_watching_flow_c9293f30.mp4",
-    "video_path": "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/videos/daily_2026-04-08_pattern_watching_flow_c9293f30.mp4",
-    "mood": "chill",
+    "id": "36c08b2ab8f0",
+    "status": "posted",
+    "generated_date": "2026-04-10",
+    "track_id": "hidden_insite",
+    "track_title": "Hidden Insite",
+    "segment_label": "breakdown",
+    "filename": "daily_2026-04-10_hidden_insite_breakdown_843947b8.mp4",
+    "video_path": "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/videos/daily_2026-04-10_hidden_insite_breakdown_843947b8.mp4",
+    "mood": "dark",
     "effects": {
       "color_shift_enabled": true,
       "vhs_enabled": false,
-      "scanline_enabled": true
+      "scanline_enabled": false,
+      "visualizer_type": "waveform"
     },
     "images_used": [
       "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/media-library/images/light_streaks.jpg",
-      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/3122ccc9_osciallating-overthurster.png",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/media-library/images/cyber_grid.jpg",
       "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/3122ccc9_osciallating-overthurster.png"
     ],
-    "created_at": "2026-04-08T15:08:59+00:00",
-    "approved_at": "2026-04-08T16:54:19+00:00",
-    "posted_at": null,
-    "platforms_posted": [],
-    "caption": "Pattern Watching \u2014 My Evil Robot Army\n\n#MyEvilRobotArmy #MERA #NullRecords #LoFiJazz #ElectronicMusic #InstrumentalMusic #MusicVisualization #IndieMusic #NewMusic",
-    "hashtags": {
-      "tiktok": [
-        "#MyEvilRobotArmy",
-        "#MERA",
-        "#NullRecords",
-        "#LoFiJazz",
-        "#ElectronicMusic",
-        "#InstrumentalMusic",
-        "#MusicVisualization",
-        "#IndieMusic",
-        "#NewMusic"
-      ],
-      "instagram": [
-        "#MyEvilRobotArmy",
-        "#MERA",
-        "#NullRecords",
-        "#LoFiJazz",
-        "#ElectronicMusic",
-        "#InstrumentalMusic",
-        "#MusicVisualization",
-        "#IndieMusic",
-        "#NewMusic",
-        "#Reels"
-      ],
-      "youtube": [
-        "My Evil Robot Army",
-        "MERA",
-        "NullRecords",
-        "LoFi Jazz",
-        "Electronic Music",
-        "Shorts"
-      ]
-    },
-    "error": ""
-  },
-  {
-    "id": "d91a29b2d3e8",
-    "status": "approved",
-    "generated_date": "2026-04-08",
-    "track_id": "too_much_to_do",
-    "track_title": "Too Much To Do",
-    "segment_label": "drop",
-    "filename": "daily_2026-04-08_too_much_to_do_drop_3b9d2a2a.mp4",
-    "video_path": "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/videos/daily_2026-04-08_too_much_to_do_drop_3b9d2a2a.mp4",
-    "mood": "energetic",
-    "effects": {
-      "color_shift_enabled": false,
-      "vhs_enabled": false,
-      "scanline_enabled": true,
-      "visualizer_type": "circular"
-    },
-    "images_used": [
-      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/8580c3df_to-much-to-do.png",
-      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/852edc77_Cosmic beats and surreal landscapes.png",
-      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/8accd6b5_Too much to do_ cosmic reflections.png"
-    ],
-    "created_at": "2026-04-08T15:14:28+00:00",
-    "approved_at": "2026-04-08T16:54:40+00:00",
-    "posted_at": null,
-    "platforms_posted": [],
-    "caption": "Too Much To Do \u2014 My Evil Robot Army\n\n#MyEvilRobotArmy #MERA #NullRecords #LoFiJazz #ElectronicMusic #InstrumentalMusic #MusicVisualization #IndieMusic #NewMusic",
-    "hashtags": {
-      "tiktok": [
-        "#MyEvilRobotArmy",
-        "#MERA",
-        "#NullRecords",
-        "#LoFiJazz",
-        "#ElectronicMusic",
-        "#InstrumentalMusic",
-        "#MusicVisualization",
-        "#IndieMusic",
-        "#NewMusic"
-      ],
-      "instagram": [
-        "#MyEvilRobotArmy",
-        "#MERA",
-        "#NullRecords",
-        "#LoFiJazz",
-        "#ElectronicMusic",
-        "#InstrumentalMusic",
-        "#MusicVisualization",
-        "#IndieMusic",
-        "#NewMusic",
-        "#Reels"
-      ],
-      "youtube": [
-        "My Evil Robot Army",
-        "MERA",
-        "NullRecords",
-        "LoFi Jazz",
-        "Electronic Music",
-        "Shorts"
-      ]
-    },
-    "error": ""
-  },
-  {
-    "id": "313113e42f44",
-    "status": "posted",
-    "generated_date": "2026-04-09",
-    "track_id": "pattern_watching",
-    "track_title": "Pattern Watching",
-    "segment_label": "fade",
-    "filename": "daily_2026-04-09_pattern_watching_fade_42ee9f40.mp4",
-    "video_path": "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/videos/daily_2026-04-09_pattern_watching_fade_42ee9f40.mp4",
-    "mood": "chill",
-    "effects": {
-      "color_shift_enabled": false,
-      "vhs_enabled": true,
-      "scanline_enabled": true,
-      "visualizer_type": "lines"
-    },
-    "images_used": [
-      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/83ff90ad_mountain-snow-covered-landscape-winter-preview.jpg",
-      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/media-library/images/null_record_art.jpg",
-      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/media-library/images/cyber_grid.jpg"
-    ],
-    "created_at": "2026-04-09T18:38:42+00:00",
-    "approved_at": "2026-04-09T20:56:46+00:00",
-    "posted_at": "2026-04-09T21:45:04+00:00",
+    "created_at": "2026-04-10T17:50:36+00:00",
+    "approved_at": "2026-04-10T18:45:34+00:00",
+    "posted_at": "2026-04-10T19:45:04+00:00",
     "platforms_posted": [
       "tiktok",
       "instagram"
     ],
-    "caption": "watching patterns emerge from the noise\n\nPattern Watching \u2014 My Evil Robot Army\n\n#LoFi #Ambient #Mellow #ChillVibes #Instrumental #MyEvilRobotArmy #MERA #NullRecords",
-    "caption_line": "watching patterns emerge from the noise",
+    "caption": "ambient shadows and hidden frequencies\n\nHidden Insite \u2014 My Evil Robot Army\n\n#DarkAmbient #Experimental #DeepListening #Atmospheric #Instrumental #MyEvilRobotArmy #MERA #NullRecords",
+    "caption_line": "ambient shadows and hidden frequencies",
     "hashtags": {
       "tiktok": [
-        "#LoFi",
-        "#Ambient",
-        "#Mellow",
-        "#ChillVibes",
+        "#DarkAmbient",
+        "#Experimental",
+        "#DeepListening",
+        "#Atmospheric",
         "#Instrumental",
         "#MyEvilRobotArmy",
         "#MERA",
         "#NullRecords"
       ],
       "instagram": [
-        "#LoFi",
-        "#Ambient",
-        "#Mellow",
-        "#ChillVibes",
+        "#DarkAmbient",
+        "#Experimental",
+        "#DeepListening",
+        "#Atmospheric",
         "#Instrumental",
         "#MyEvilRobotArmy",
         "#MERA",
@@ -233,9 +52,9 @@
         "#Reels"
       ],
       "youtube": [
-        "LoFi",
-        "Ambient",
-        "Chill Vibes",
+        "Dark Ambient",
+        "Experimental",
+        "Atmospheric",
         "Instrumental",
         "My Evil Robot Army",
         "MERA",
@@ -254,76 +73,165 @@
         "platform": "tiktok",
         "status": "manual",
         "message": "Video ready for manual posting to TikTok",
-        "caption": "Pattern Watching #LoFi #Ambient #ChillVibes #Instrumental #MyEvilRobotArmy #MERA #NullRecords #Shorts"
+        "caption": "Hidden Insite #DarkAmbient #Experimental #Atmospheric #Instrumental #MyEvilRobotArmy #MERA #NullRecords #Shorts"
       },
       {
         "platform": "instagram",
         "status": "manual",
         "message": "Video ready for manual posting to Instagram Reels",
-        "caption": "Pattern Watching\nwatching patterns emerge from the noise\n\nPattern Watching \u2014 My Evil Robot Army\n\n#LoFi #Ambient #Mellow #ChillVibes #Instrumental #MyEvilRobotArmy #MERA #NullRecords\n\n\ud83d\udd17 Link in bio \u2014 nullrecords.com\n\n#LoFi #Ambient #ChillVibes #Instrumental #MyEvilRobotArmy #MERA #NullRecords #Shorts #nullrecords #newmusic #nujazz #experimentalelectronic #musicvideo"
+        "caption": "Hidden Insite\nambient shadows and hidden frequencies\n\nHidden Insite \u2014 My Evil Robot Army\n\n#DarkAmbient #Experimental #DeepListening #Atmospheric #Instrumental #MyEvilRobotArmy #MERA #NullRecords\n\n\ud83d\udd17 Link in bio \u2014 nullrecords.com\n\n#DarkAmbient #Experimental #Atmospheric #Instrumental #MyEvilRobotArmy #MERA #NullRecords #Shorts #nullrecords #newmusic #nujazz #experimentalelectronic #musicvideo"
       }
     ]
   },
   {
-    "id": "036a9b88422c",
+    "id": "884cc3993577",
     "status": "posted",
-    "generated_date": "2026-04-09",
-    "track_id": "pattern_watching",
-    "track_title": "Pattern Watching",
-    "segment_label": "drift",
-    "filename": "daily_2026-04-09_pattern_watching_drift_dc4ff702.mp4",
-    "video_path": "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/videos/daily_2026-04-09_pattern_watching_drift_dc4ff702.mp4",
-    "mood": "chill",
+    "generated_date": "2026-04-10",
+    "track_id": "hidden_insite",
+    "track_title": "Hidden Insite",
+    "segment_label": "main",
+    "filename": "daily_2026-04-10_hidden_insite_main_3538f63f.mp4",
+    "video_path": "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/videos/daily_2026-04-10_hidden_insite_main_3538f63f.mp4",
+    "mood": "dark",
     "effects": {
-      "color_shift_enabled": false,
-      "vhs_enabled": true,
-      "scanline_enabled": false
+      "color_shift_enabled": true,
+      "vhs_enabled": false,
+      "scanline_enabled": false,
+      "visualizer_type": "waveform"
     },
     "images_used": [
-      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/media-library/images/cyber_grid.jpg",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/3122ccc9_osciallating-overthurster.png",
       "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/83ff90ad_mountain-snow-covered-landscape-winter-preview.jpg",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/media-library/images/null_record_art.jpg"
+    ],
+    "created_at": "2026-04-10T17:55:28+00:00",
+    "approved_at": "2026-04-10T18:45:35+00:00",
+    "posted_at": "2026-04-10T19:45:04+00:00",
+    "platforms_posted": [
+      "tiktok",
+      "instagram"
+    ],
+    "caption": "ambient shadows and hidden frequencies\n\nHidden Insite \u2014 My Evil Robot Army\n\n#DarkAmbient #Experimental #DeepListening #Atmospheric #Instrumental #MyEvilRobotArmy #MERA #NullRecords",
+    "caption_line": "ambient shadows and hidden frequencies",
+    "hashtags": {
+      "tiktok": [
+        "#DarkAmbient",
+        "#Experimental",
+        "#DeepListening",
+        "#Atmospheric",
+        "#Instrumental",
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords"
+      ],
+      "instagram": [
+        "#DarkAmbient",
+        "#Experimental",
+        "#DeepListening",
+        "#Atmospheric",
+        "#Instrumental",
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords",
+        "#Reels"
+      ],
+      "youtube": [
+        "Dark Ambient",
+        "Experimental",
+        "Atmospheric",
+        "Instrumental",
+        "My Evil Robot Army",
+        "MERA",
+        "NullRecords",
+        "Shorts"
+      ]
+    },
+    "post_results": [
+      {
+        "platform": "youtube",
+        "status": "error",
+        "message": "401 Client Error: Unauthorized for url: https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status",
+        "error": "401 Client Error: Unauthorized for url: https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status"
+      },
+      {
+        "platform": "tiktok",
+        "status": "manual",
+        "message": "Video ready for manual posting to TikTok",
+        "caption": "Hidden Insite #DarkAmbient #Experimental #Atmospheric #Instrumental #MyEvilRobotArmy #MERA #NullRecords #Shorts"
+      },
+      {
+        "platform": "instagram",
+        "status": "manual",
+        "message": "Video ready for manual posting to Instagram Reels",
+        "caption": "Hidden Insite\nambient shadows and hidden frequencies\n\nHidden Insite \u2014 My Evil Robot Army\n\n#DarkAmbient #Experimental #DeepListening #Atmospheric #Instrumental #MyEvilRobotArmy #MERA #NullRecords\n\n\ud83d\udd17 Link in bio \u2014 nullrecords.com\n\n#DarkAmbient #Experimental #Atmospheric #Instrumental #MyEvilRobotArmy #MERA #NullRecords #Shorts #nullrecords #newmusic #nujazz #experimentalelectronic #musicvideo"
+      }
+    ]
+  },
+  {
+    "id": "3d89ecf00a5d",
+    "status": "posted",
+    "generated_date": "2026-04-10",
+    "track_id": "lectroids",
+    "track_title": "Lectroids",
+    "segment_label": "verse",
+    "filename": "daily_2026-04-10_lectroids_verse_ede9a24e.mp4",
+    "video_path": "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/videos/daily_2026-04-10_lectroids_verse_ede9a24e.mp4",
+    "mood": "electronic",
+    "effects": {
+      "color_shift_enabled": true,
+      "vhs_enabled": false,
+      "scanline_enabled": true
+    },
+    "images_used": [
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/83ff90ad_mountain-snow-covered-landscape-winter-preview.jpg",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/3122ccc9_osciallating-overthurster.png",
       "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/2eea7ccb_Central_Cascade_Mountains_between_Mission_Ridge_and_Blewett_Pass_Washington.jpg"
     ],
-    "created_at": "2026-04-09T18:48:17+00:00",
-    "approved_at": "2026-04-09T20:57:08+00:00",
-    "posted_at": "2026-04-09T21:45:04+00:00",
+    "created_at": "2026-04-10T18:00:50+00:00",
+    "approved_at": "2026-04-10T18:45:36+00:00",
+    "posted_at": "2026-04-10T19:45:04+00:00",
     "platforms_posted": [
       "tiktok",
       "instagram"
     ],
-    "caption": "mellow frequencies, infinite loops\n\nPattern Watching \u2014 My Evil Robot Army\n\n#LoFi #Ambient #Mellow #ChillVibes #Instrumental #MyEvilRobotArmy #MERA #NullRecords",
-    "caption_line": "mellow frequencies, infinite loops",
+    "caption": "analog synths. dark circuits. all vibes.\n\nLectroids \u2014 My Evil Robot Army\n\n#Electro #CyberVibes #AnalogSynth #DarkElectronic #Instrumental #UndergroundMusic #Vibes #MyEvilRobotArmy #MERA #NullRecords",
+    "caption_line": "analog synths. dark circuits. all vibes.",
     "hashtags": {
       "tiktok": [
-        "#LoFi",
-        "#Ambient",
-        "#Mellow",
-        "#ChillVibes",
+        "#Electro",
+        "#CyberVibes",
+        "#AnalogSynth",
+        "#DarkElectronic",
         "#Instrumental",
+        "#UndergroundMusic",
+        "#Vibes",
         "#MyEvilRobotArmy",
         "#MERA",
         "#NullRecords"
       ],
       "instagram": [
-        "#LoFi",
-        "#Ambient",
-        "#Mellow",
-        "#ChillVibes",
+        "#Electro",
+        "#CyberVibes",
+        "#AnalogSynth",
+        "#DarkElectronic",
         "#Instrumental",
+        "#UndergroundMusic",
+        "#Vibes",
+        "#ElectronicMusic",
+        "#SynthWave",
         "#MyEvilRobotArmy",
         "#MERA",
-        "#NullRecords",
-        "#Reels"
+        "#NullRecords"
       ],
       "youtube": [
-        "LoFi",
-        "Ambient",
-        "Chill Vibes",
+        "Electro",
+        "Analog Synth",
+        "Dark Electronic",
         "Instrumental",
+        "Underground Music",
         "My Evil Robot Army",
         "MERA",
-        "NullRecords",
-        "Shorts"
+        "Null Records"
       ]
     },
     "post_results": [
@@ -337,96 +245,13 @@
         "platform": "tiktok",
         "status": "manual",
         "message": "Video ready for manual posting to TikTok",
-        "caption": "Pattern Watching #LoFi #Ambient #ChillVibes #Instrumental #MyEvilRobotArmy #MERA #NullRecords #Shorts"
+        "caption": "Lectroids #Electro #AnalogSynth #DarkElectronic #Instrumental #UndergroundMusic #MyEvilRobotArmy #MERA #NullRecords"
       },
       {
         "platform": "instagram",
         "status": "manual",
         "message": "Video ready for manual posting to Instagram Reels",
-        "caption": "Pattern Watching\nmellow frequencies, infinite loops\n\nPattern Watching \u2014 My Evil Robot Army\n\n#LoFi #Ambient #Mellow #ChillVibes #Instrumental #MyEvilRobotArmy #MERA #NullRecords\n\n\ud83d\udd17 Link in bio \u2014 nullrecords.com\n\n#LoFi #Ambient #ChillVibes #Instrumental #MyEvilRobotArmy #MERA #NullRecords #Shorts #nullrecords #newmusic #nujazz #experimentalelectronic #musicvideo"
-      }
-    ]
-  },
-  {
-    "id": "045f8f5b2ae8",
-    "status": "posted",
-    "generated_date": "2026-04-09",
-    "track_id": "shelter",
-    "track_title": "Shelter",
-    "segment_label": "groove",
-    "filename": "daily_2026-04-09_shelter_groove_130dd5eb.mp4",
-    "video_path": "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/videos/daily_2026-04-09_shelter_groove_130dd5eb.mp4",
-    "mood": "chill",
-    "effects": {
-      "color_shift_enabled": false,
-      "vhs_enabled": true,
-      "scanline_enabled": true,
-      "visualizer_type": "lines"
-    },
-    "images_used": [
-      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/33be9144_Cosmic beauty and stellar beats.png",
-      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/78401305_Shelter in a cosmic embrace.png",
-      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/b3ea8656_Cosmic vibes with Kyla Egli.png"
-    ],
-    "created_at": "2026-04-09T18:57:15+00:00",
-    "approved_at": "2026-04-09T20:57:29+00:00",
-    "posted_at": "2026-04-09T21:45:04+00:00",
-    "platforms_posted": [
-      "tiktok",
-      "instagram"
-    ],
-    "caption": "late night jazz for quiet minds\n\nShelter \u2014 My Evil Robot Army\n\n#LoFi #JazzVibes #ChillBeats #Instrumental #LateNightVibes #MyEvilRobotArmy #MERA #NullRecords",
-    "caption_line": "late night jazz for quiet minds",
-    "hashtags": {
-      "tiktok": [
-        "#LoFi",
-        "#JazzVibes",
-        "#ChillBeats",
-        "#Instrumental",
-        "#LateNightVibes",
-        "#MyEvilRobotArmy",
-        "#MERA",
-        "#NullRecords"
-      ],
-      "instagram": [
-        "#LoFi",
-        "#JazzVibes",
-        "#ChillBeats",
-        "#Instrumental",
-        "#LateNightVibes",
-        "#MyEvilRobotArmy",
-        "#MERA",
-        "#NullRecords",
-        "#Reels"
-      ],
-      "youtube": [
-        "LoFi Jazz",
-        "Chill Beats",
-        "Instrumental",
-        "My Evil Robot Army",
-        "MERA",
-        "NullRecords",
-        "Shorts"
-      ]
-    },
-    "post_results": [
-      {
-        "platform": "youtube",
-        "status": "error",
-        "message": "401 Client Error: Unauthorized for url: https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status",
-        "error": "401 Client Error: Unauthorized for url: https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status"
-      },
-      {
-        "platform": "tiktok",
-        "status": "manual",
-        "message": "Video ready for manual posting to TikTok",
-        "caption": "Shelter #LoFiJazz #ChillBeats #Instrumental #MyEvilRobotArmy #MERA #NullRecords #Shorts"
-      },
-      {
-        "platform": "instagram",
-        "status": "manual",
-        "message": "Video ready for manual posting to Instagram Reels",
-        "caption": "Shelter\nlate night jazz for quiet minds\n\nShelter \u2014 My Evil Robot Army\n\n#LoFi #JazzVibes #ChillBeats #Instrumental #LateNightVibes #MyEvilRobotArmy #MERA #NullRecords\n\n\ud83d\udd17 Link in bio \u2014 nullrecords.com\n\n#LoFiJazz #ChillBeats #Instrumental #MyEvilRobotArmy #MERA #NullRecords #Shorts #nullrecords #newmusic #nujazz #experimentalelectronic #musicvideo"
+        "caption": "Lectroids\nanalog synths. dark circuits. all vibes.\n\nLectroids \u2014 My Evil Robot Army\n\n#Electro #CyberVibes #AnalogSynth #DarkElectronic #Instrumental #UndergroundMusic #Vibes #MyEvilRobotArmy #MERA #NullRecords\n\n\ud83d\udd17 Link in bio \u2014 nullrecords.com\n\n#Electro #AnalogSynth #DarkElectronic #Instrumental #UndergroundMusic #MyEvilRobotArmy #MERA #NullRecords #nullrecords #newmusic #nujazz #experimentalelectronic #musicvideo"
       }
     ]
   }

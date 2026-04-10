@@ -42,10 +42,11 @@ function updateTicker() {
 
 function renderStoreItem(item) {
   const div = document.createElement('div');
-  div.className = item.type === 'book' ? 'card book-card' : 'card';
+  const isBook = item.type === 'book' || item.type === 'audiobook';
+  div.className = isBook ? 'card book-card' : 'card';
   
-  // Add click handler for books
-  if (item.type === 'book') {
+  // Add click handler for books and audiobooks
+  if (isBook) {
     div.style.cursor = 'pointer';
     div.addEventListener('click', function(e) {
       // Don't open modal if clicking on a button
@@ -64,7 +65,7 @@ function renderStoreItem(item) {
         actionButton = `<button class="donate" onclick="event.stopPropagation(); downloadFreeTrack('${item.audio_files[0]}')">FREE PREVIEW</button>`;
       } else {
         actionButton = `<button class="donate" disabled style="background:#aaa;cursor:not-allowed;opacity:0.7;">Preview</button>`;
-      }    } else if (item.type === 'book') {
+      }    } else if (item.type === 'book' || item.type === 'audiobook') {
       actionButton = `<button class=\"donate\" onclick=\"event.stopPropagation(); buyAndDownload('book', '${item.download_bundle}', ${item.suggested_donation}, '${item.title}')\">Buy Now - $${item.suggested_donation.toFixed(2)}</button>`;
     } else if (item.type === 'music') {
       actionButton = `<button class=\"donate\" onclick=\"buyAndDownload('album', '${item.download_bundle}', ${item.suggested_donation}, '${item.title}')\">Buy Now</button>`;
@@ -86,12 +87,14 @@ function renderStoreItem(item) {
     streamingButtons += '</div>';
   }
   
-  // Simplified display for book cards (details shown in modal)
-  if (item.type === 'book') {
+  // Simplified display for book/audiobook cards (details shown in modal)
+  if (isBook) {
+    const typeBadge = item.type === 'audiobook' ? '<div class="meta" style="color:#facc15;font-size:0.75rem;margin-top:0.25rem;">🎧 Audiobook</div>' : '';
     div.innerHTML = `
       <img src="./${item.cover_art}" alt="${item.title} cover" />
       <h3>${item.title}</h3>
       <div class="meta">Author: ${item.author}</div>
+      ${typeBadge}
       <div class="meta" style="font-weight:600; color:#0fa; margin-top: 1rem;">$${item.suggested_donation.toFixed(2)}</div>
       ${actionButton}
     `;
@@ -99,7 +102,7 @@ function renderStoreItem(item) {
     div.innerHTML = `
       <img src="./${item.cover_art}" alt="${item.title} cover" />
       <h3>${item.title}</h3>
-      <div class="meta">${item.type === 'music' ? 'Artist: ' + item.artist : 'Author: ' + item.author}</div>
+      <div class="meta">${item.type === 'music' ? 'Artist: ' + item.artist : 'Author: ' + (item.author || item.artist)}</div>
       <div class="desc">${item.description}</div>
       <div class="meta" style="font-weight:600; color:#0fa;">$${item.suggested_donation.toFixed(2)}</div>
       ${actionButton}
@@ -159,7 +162,7 @@ function donateAndDownload(itemId, amount) {
     
     // Log the download
     const itemName = title || bundle.split('/').pop();
-    logDownload(`${type === 'book' ? 'Book' : 'Album'}: ${itemName}`);
+    logDownload(`${type === 'book' || type === 'audiobook' ? 'Book' : 'Album'}: ${itemName}`);
     
     // Check for Proton Drive link
     if (bundle.startsWith('https://drive.proton.me/')) {
@@ -200,6 +203,25 @@ window.openBookModal = function(book) {
     actionButtonHTML = `<button class="donate" onclick="buyAndDownload('book', '${book.download_bundle}', ${book.suggested_donation}, '${book.title}')">Buy Now - $${book.suggested_donation.toFixed(2)}</button>`;
   }
   document.getElementById('modalActionButton').innerHTML = actionButtonHTML;
+
+  // Audio player for audiobooks
+  const audioPlayerEl = document.getElementById('modalAudioPlayer');
+  if (audioPlayerEl) {
+    if (book.type === 'audiobook' && book.audio_files && book.audio_files.length > 0) {
+      audioPlayerEl.innerHTML = `
+        <div style="margin:1rem 0;padding:0.75rem;background:#111;border-radius:8px;border:1px solid #333;">
+          <div style="font-size:0.75rem;color:#facc15;margin-bottom:0.5rem;">🎧 Listen to Preview</div>
+          <audio controls preload="metadata" style="width:100%;filter:sepia(20%) saturate(70%) hue-rotate(120deg);">
+            <source src="./${book.audio_files[0]}" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+        </div>`;
+      audioPlayerEl.style.display = 'block';
+    } else {
+      audioPlayerEl.innerHTML = '';
+      audioPlayerEl.style.display = 'none';
+    }
+  }
   
   // Setup carousel with screenshots
   setupCarousel(book);

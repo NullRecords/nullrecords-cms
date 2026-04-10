@@ -43,6 +43,20 @@
     "active": true
   },
   {
+    "id": "audiobook001",
+    "type": "audiobook",
+    "title": "The Star (Audiobook)",
+    "author": "H.G. Wells",
+    "cover_art": "assets/the-star.png",
+    "audio_files": ["assets/audio-books/The_Star_audiobook.mp3"],
+    "description": "The first Bob the somewhat Humanist audiobook! H.G. Wells' \"The Star\" read aloud with the same pop-up commentary from the Null Press ebook edition. A new celestial body appears over the earth — experience the reactions, stories, and misinformation with Bob's running commentary in audio form.",
+    "suggested_donation": 3.00,
+    "download_bundle": "assets/audio-books/The_Star_audiobook.mp3",
+    "bob_humanist": true,
+    "play_now": true,
+    "active": true
+  },
+  {
     "id": "book002",
     "type": "book",
     "title": "Metamorphosis",
