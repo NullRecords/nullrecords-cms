@@ -1,1 +1,110 @@
-[]
+[
+  {
+    "entry_id": "313113e42f44",
+    "track_id": "pattern_watching",
+    "track_title": "Pattern Watching",
+    "filename": "daily_2026-04-09_pattern_watching_fade_42ee9f40.mp4",
+    "platform": "youtube",
+    "status": "error",
+    "video_id": "",
+    "url": "",
+    "error": "401 Client Error: Unauthorized for url: https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status",
+    "timestamp": "2026-04-09T21:45:04+00:00"
+  },
+  {
+    "entry_id": "313113e42f44",
+    "track_id": "pattern_watching",
+    "track_title": "Pattern Watching",
+    "filename": "daily_2026-04-09_pattern_watching_fade_42ee9f40.mp4",
+    "platform": "tiktok",
+    "status": "manual",
+    "video_id": "",
+    "url": "",
+    "error": "",
+    "timestamp": "2026-04-09T21:45:04+00:00"
+  },
+  {
+    "entry_id": "313113e42f44",
+    "track_id": "pattern_watching",
+    "track_title": "Pattern Watching",
+    "filename": "daily_2026-04-09_pattern_watching_fade_42ee9f40.mp4",
+    "platform": "instagram",
+    "status": "manual",
+    "video_id": "",
+    "url": "",
+    "error": "",
+    "timestamp": "2026-04-09T21:45:04+00:00"
+  },
+  {
+    "entry_id": "036a9b88422c",
+    "track_id": "pattern_watching",
+    "track_title": "Pattern Watching",
+    "filename": "daily_2026-04-09_pattern_watching_drift_dc4ff702.mp4",
+    "platform": "youtube",
+    "status": "error",
+    "video_id": "",
+    "url": "",
+    "error": "401 Client Error: Unauthorized for url: https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status",
+    "timestamp": "2026-04-09T21:45:04+00:00"
+  },
+  {
+    "entry_id": "036a9b88422c",
+    "track_id": "pattern_watching",
+    "track_title": "Pattern Watching",
+    "filename": "daily_2026-04-09_pattern_watching_drift_dc4ff702.mp4",
+    "platform": "tiktok",
+    "status": "manual",
+    "video_id": "",
+    "url": "",
+    "error": "",
+    "timestamp": "2026-04-09T21:45:04+00:00"
+  },
+  {
+    "entry_id": "036a9b88422c",
+    "track_id": "pattern_watching",
+    "track_title": "Pattern Watching",
+    "filename": "daily_2026-04-09_pattern_watching_drift_dc4ff702.mp4",
+    "platform": "instagram",
+    "status": "manual",
+    "video_id": "",
+    "url": "",
+    "error": "",
+    "timestamp": "2026-04-09T21:45:04+00:00"
+  },
+  {
+    "entry_id": "045f8f5b2ae8",
+    "track_id": "shelter",
+    "track_title": "Shelter",
+    "filename": "daily_2026-04-09_shelter_groove_130dd5eb.mp4",
+    "platform": "youtube",
+    "status": "error",
+    "video_id": "",
+    "url": "",
+    "error": "401 Client Error: Unauthorized for url: https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status",
+    "timestamp": "2026-04-09T21:45:04+00:00"
+  },
+  {
+    "entry_id": "045f8f5b2ae8",
+    "track_id": "shelter",
+    "track_title": "Shelter",
+    "filename": "daily_2026-04-09_shelter_groove_130dd5eb.mp4",
+    "platform": "tiktok",
+    "status": "manual",
+    "video_id": "",
+    "url": "",
+    "error": "",
+    "timestamp": "2026-04-09T21:45:04+00:00"
+  },
+  {
+    "entry_id": "045f8f5b2ae8",
+    "track_id": "shelter",
+    "track_title": "Shelter",
+    "filename": "daily_2026-04-09_shelter_groove_130dd5eb.mp4",
+    "platform": "instagram",
+    "status": "manual",
+    "video_id": "",
+    "url": "",
+    "error": "",
+    "timestamp": "2026-04-09T21:45:04+00:00"
+  }
+]

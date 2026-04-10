@@ -1170,14 +1170,16 @@ function destroyChart(id) { if (chartInstances[id]) { chartInstances[id].destroy
 function chartDefaults() { return { responsive:true, maintainAspectRatio:false, plugins:{legend:{labels:{color:'#999',font:{size:10,family:'JetBrains Mono'}}}} }; }
 
 // ── Navigation ──
-document.querySelectorAll('nav a[data-page]').forEach(a => {
+// Select ALL links with data-page attribute (nav and content area buttons)
+document.querySelectorAll('a[data-page]').forEach(a => {
   a.addEventListener('click', e => {
     e.preventDefault();
     const pg = a.dataset.page;
     document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
     document.getElementById('page-' + pg).style.display = 'block';
     document.querySelectorAll('nav a').forEach(n => n.classList.remove('active'));
-    a.classList.add('active');
+    const navLink = document.querySelector('nav a[data-page="' + pg + '"]');
+    if (navLink) navLink.classList.add('active');
     loadPage(pg);
     window.location.hash = pg;
   });
@@ -2991,7 +2993,6 @@ async function loadDailyShortsConfig() {
           <div id="track-memory-${esc(t.id)}" style="display:none;margin-top:8px;padding:8px;background:#0a0a0a;border-radius:6px;border:1px solid #222"></div>
         </div>`;
       }).join('');
-      }).join('');
     } else {
       tracksList.innerHTML = '<div class="empty">No tracks configured</div>';
     }
@@ -3351,7 +3352,7 @@ async function loadPostingHistory() {
             const likesStr = hasStats ? Number(s.likes).toLocaleString() : '—';
             const commentsStr = hasStats ? Number(s.comments).toLocaleString() : '—';
             const linkId = r.url || (r.video_id ? (r.platform === 'youtube' ? 'https://youtube.com/watch?v=' + r.video_id : r.video_id) : '—');
-            const linkHtml = linkId.startsWith('http') ? '<a href="' + esc(linkId) + '" target="_blank" style="color:var(--accent)">' + esc(linkId.replace(/https?:\\/\\//, '').substring(0, 30)) + '</a>' : esc(linkId);
+            const linkHtml = linkId.startsWith('http') ? '<a href="' + esc(linkId) + '" target="_blank" style="color:var(--accent)">' + esc(linkId.replace(/https?:\/\//, '').substring(0, 30)) + '</a>' : esc(linkId);
             const staleBadge = r.stats_updated ? '<span title="Last updated: ' + esc(r.stats_updated) + '" style="color:var(--muted);font-size:0.45rem;cursor:help"> ↻' + esc(r.stats_updated.substring(5, 10)) + '</span>' : '';
             return `<tr style="border-bottom:1px solid #1a1a1a">
               <td style="padding:4px;color:var(--muted)">${esc((r.timestamp || '').substring(0, 10))}</td>

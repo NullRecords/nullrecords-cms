@@ -69,6 +69,19 @@
     "active": true
   },
   {
+    "id": "book004",
+    "type": "book",
+    "title": "The Underground City",
+    "author": "Jules Verne",
+    "cover_art": "assets/the-underground-city.jpg",
+    "ebook_file": "books/the-underground-city.epub",
+    "description": "Ten years after a Scottish coal mine closes, a mysterious letter leads engineer James Starr back to discover an impossible new world beneath the earth — Jules Verne's subterranean adventure of mystery, light, and darkness, with pop-up commentary by Bob the somewhat Humanist. Null Press Edition with interactive features and hyperlinked notes.",
+    "suggested_donation": 3.00,
+    "download_bundle": "books/the-underground-city.epub",
+    "bob_humanist": true,
+    "active": true
+  },
+  {
     "id": "space_jazz",
     "type": "music",
     "title": "Space Jazz Album",

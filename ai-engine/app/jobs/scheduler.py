@@ -935,6 +935,40 @@ def _run_platform_stats_refresh():
         logger.debug("Platform stats refresh — no stats returned from YouTube API")
 
 
+def _run_press_discovery():
+    """Periodically discover new press contacts for music and books verticals."""
+    from app.services.press.press_discovery import (
+        discover_press_contacts,
+        merge_press_contacts,
+    )
+
+    try:
+        for vertical in ("music", "books"):
+            logger.info("Press discovery starting for vertical: %s", vertical)
+            new = discover_press_contacts(vertical_id=vertical, max_per_search=6)
+            if new:
+                result = merge_press_contacts(new)
+                logger.info(
+                    "Press discovery [%s]: %d added, %d total",
+                    vertical, result["added"], result["total"],
+                )
+            else:
+                logger.info("Press discovery [%s]: no new contacts", vertical)
+    except Exception:
+        logger.exception("Error in press discovery job")
+
+
+def _run_press_enrichment():
+    """Find emails for press contacts that are missing them."""
+    from app.services.press.press_discovery import enrich_all_press_contacts
+
+    try:
+        enriched = enrich_all_press_contacts(max_enrich=10)
+        logger.info("Press enrichment: %d contacts enriched with emails", enriched)
+    except Exception:
+        logger.exception("Error in press enrichment job")
+
+
 def start_scheduler():
     """Create and start the APScheduler background scheduler."""
     global _scheduler
@@ -1021,6 +1055,22 @@ def start_scheduler():
         trigger=IntervalTrigger(hours=24),
         id="daily_shorts_generation",
         name="Auto-generate 3 daily shorts from MERA catalog",
+        replace_existing=True,
+    )
+
+    _scheduler.add_job(
+        _run_press_discovery,
+        trigger=IntervalTrigger(hours=48),
+        id="press_discovery",
+        name="Discover new press contacts for both verticals",
+        replace_existing=True,
+    )
+
+    _scheduler.add_job(
+        _run_press_enrichment,
+        trigger=IntervalTrigger(hours=12),
+        id="press_enrichment",
+        name="Enrich press contacts — find emails",
         replace_existing=True,
     )
 

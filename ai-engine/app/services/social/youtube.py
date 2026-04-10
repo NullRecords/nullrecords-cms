@@ -1,11 +1,15 @@
-"""YouTube upload service — OAuth2 + YouTube Data API v3.
+"""YouTube upload service — OAuth2 / Service Account + YouTube Data API v3.
 
-Handles the full OAuth2 authorization code flow and video uploads.
+Supports two authentication methods:
+1. Service Account (preferred): Uses GOOGLE_SERVICE_ACCOUNT_FILE from .env
+2. OAuth2 User Flow: Uses YOUTUBE_CLIENT_ID + YOUTUBE_CLIENT_SECRET
+
 Tokens are persisted to disk so re-auth is only needed once.
 """
 
 import json
 import logging
+import time
 from pathlib import Path
 
 import requests
@@ -15,12 +19,74 @@ from app.core.config import get_settings
 log = logging.getLogger(__name__)
 
 _TOKEN_FILE = Path(get_settings().exports_dir).parent / ".youtube_tokens.json"
+_SA_TOKEN_CACHE: dict = {}  # In-memory cache for service account tokens
 
-SCOPES = "https://www.googleapis.com/auth/youtube.upload"
+SCOPES = ["https://www.googleapis.com/auth/youtube.upload", "https://www.googleapis.com/auth/youtube"]
 AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth"
 TOKEN_URL = "https://oauth2.googleapis.com/token"
 UPLOAD_URL = "https://www.googleapis.com/upload/youtube/v3/videos"
 VIDEOS_URL = "https://www.googleapis.com/youtube/v3/videos"
+
+
+def _get_service_account_path() -> Path | None:
+    """Get service account JSON path from settings or common locations."""
+    settings = get_settings()
+    
+    # Check explicit setting first
+    sa_file = getattr(settings, 'google_service_account_file', None)
+    if sa_file:
+        p = Path(sa_file)
+        if p.exists():
+            return p
+    
+    # Check common locations
+    common_paths = [
+        Path(settings.exports_dir).parent.parent / "dashboard" / "nullrecords-ga4-credentials.json",
+        Path.home() / ".config" / "gcloud" / "application_default_credentials.json",
+    ]
+    for p in common_paths:
+        if p.exists():
+            return p
+    return None
+
+
+def _get_service_account_token() -> str | None:
+    """Get access token using service account credentials via google-auth library."""
+    global _SA_TOKEN_CACHE
+    
+    sa_path = _get_service_account_path()
+    if not sa_path:
+        return None
+    
+    # Check cache
+    cached = _SA_TOKEN_CACHE.get("token")
+    if cached and _SA_TOKEN_CACHE.get("expires_at", 0) > time.time() + 60:
+        return cached
+    
+    try:
+        from google.oauth2 import service_account
+        from google.auth.transport.requests import Request
+        
+        credentials = service_account.Credentials.from_service_account_file(
+            str(sa_path),
+            scopes=SCOPES
+        )
+        
+        # Refresh to get access token
+        credentials.refresh(Request())
+        
+        _SA_TOKEN_CACHE["token"] = credentials.token
+        _SA_TOKEN_CACHE["expires_at"] = time.time() + 3500  # ~1 hour minus buffer
+        
+        log.info("Service account token obtained successfully")
+        return credentials.token
+        
+    except ImportError:
+        log.warning("google-auth not installed - run: pip install google-auth")
+        return None
+    except Exception as e:
+        log.warning("Service account auth failed: %s", e)
+        return None
 
 
 def _load_tokens() -> dict | None:
@@ -68,15 +134,27 @@ def exchange_code(code: str, redirect_uri: str) -> dict:
 
 
 def _get_access_token() -> str:
-    """Get an access token — prefer OAuth refresh, fall back to API key."""
+    """Get an access token for upload operations.
+    
+    Tries in order:
+    1. Service account (from GOOGLE_SERVICE_ACCOUNT_FILE or common paths)
+    2. OAuth2 refresh token (from stored tokens)
+    """
+    # Try service account first
+    sa_token = _get_service_account_token()
+    if sa_token:
+        return sa_token
+    
+    # Fall back to OAuth2 user tokens
     tokens = _load_tokens()
     if tokens and "refresh_token" in tokens:
         return _refresh_oauth_token(tokens)
-    # Fall back to API key
-    settings = get_settings()
-    if settings.youtube_api_key:
-        return settings.youtube_api_key
-    raise ValueError("No YouTube credentials. Set YOUTUBE_API_KEY or complete OAuth via /video/youtube/auth.")
+    
+    raise ValueError(
+        "YouTube auth not configured. Either:\n"
+        "1. Add service account JSON at dashboard/nullrecords-ga4-credentials.json, or\n"
+        "2. Add YOUTUBE_CLIENT_ID + YOUTUBE_CLIENT_SECRET to .env and authorize via /video/youtube/auth"
+    )
 
 
 def _refresh_oauth_token(tokens: dict) -> str:
@@ -98,13 +176,13 @@ def _refresh_oauth_token(tokens: dict) -> str:
 
 
 def is_authenticated() -> bool:
-    """Check whether we can upload — either via stored OAuth tokens or API key."""
-    tokens = _load_tokens()
-    if tokens and tokens.get("refresh_token"):
+    """Check whether we can upload — service account or OAuth2 tokens."""
+    # Service account available?
+    if _get_service_account_path():
         return True
-    # API key alone counts as authenticated for upload
-    settings = get_settings()
-    return bool(settings.youtube_api_key)
+    # OAuth tokens available?
+    tokens = _load_tokens()
+    return bool(tokens and tokens.get("refresh_token"))
 
 
 def upload_video(
