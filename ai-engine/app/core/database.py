@@ -29,6 +29,6 @@ def get_db():
 
 def init_db():
     """Create all tables. Called once at startup."""
-    from app.models import media, playlist, influencer, outreach, credentials  # noqa: F401
+    from app.models import media, playlist, influencer, outreach, credentials, subscriber  # noqa: F401
 
     Base.metadata.create_all(bind=engine)

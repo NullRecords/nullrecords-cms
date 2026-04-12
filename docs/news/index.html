@@ -3,13 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>System Update Log - NullRecords News</title>
-    <link rel="stylesheet" href="/assets/css/tailwind.css">
+    <title>NullRecords Blog — Nu Jazz News, Releases & Studio Notes</title>
+    <meta name="description" content="News, releases, and studio notes from NullRecords — independent nu jazz, lofi, and experimental electronic music label. DRM-free lossless downloads.">
+    <meta name="author" content="NullRecords">
+    <meta name="theme-color" content="#ff5758">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.nullrecords.com/news/">
+    <meta property="og:title" content="NullRecords Blog — Nu Jazz News, Releases & Studio Notes">
+    <meta property="og:description" content="News, releases, and studio notes from NullRecords — independent nu jazz, lofi, and experimental electronic music label.">
+    <meta property="og:image" content="https://www.nullrecords.com/assets/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.nullrecords.com/news/">
+    <meta property="twitter:title" content="NullRecords Blog — Nu Jazz News, Releases & Studio Notes">
+    <meta property="twitter:description" content="News, releases, and studio notes from NullRecords — independent nu jazz, lofi, and experimental electronic music label.">
+    <meta property="twitter:image" content="https://www.nullrecords.com/assets/og-image.jpg">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cyber-red': '#ff5758',
+                        'cyber-blue': '#00ffff',
+                        'cyber-green': '#00ff41',
+                        'dark-bg': '#0a0a0a',
+                        'dark-card': '#1a1a1a',
+                        'dark-border': '#333333'
+                    },
+                    fontFamily: {
+                        'pixel': ['"Press Start 2P"', 'cursive'],
+                        'mono': ['JetBrains Mono', 'Consolas', 'Monaco', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
     <script src="/shared-nav.js" defer></script>
+    <style>
+        body { background: #0a0a0a; color: #e0e7ff; font-family: 'JetBrains Mono', monospace; }
+        .blog-card { background: #1a1a1a; border: 1px solid #333; transition: transform 0.2s, box-shadow 0.2s; }
+        .blog-card:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0, 255, 65, 0.1); }
+        .tag { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.7rem; border: 1px solid #333; color: #888; }
+        .tag-release { border-color: #00ff41; color: #00ff41; }
+        .tag-guide { border-color: #00ffff; color: #00ffff; }
+        .tag-studio { border-color: #ff5758; color: #ff5758; }
+    </style>
 </head>
 <body class="bg-dark-bg text-gray-100 font-mono">
     <!-- Header -->
@@ -17,1415 +64,219 @@
         <div class="container mx-auto px-4">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
-                    <img src="/assets/logos/logo.png" alt="NullRecords Logo" class="h-10 w-auto animate-float">
+                    <a href="/"><img src="/assets/logos/logo.png" alt="NullRecords Logo" class="h-10 w-auto"></a>
                 </div>
                 <div class="flex items-center space-x-8">
-                    <a href="/" class="text-cyber-blue hover:text-cyber-red transition-colors duration-300 text-sm font-pixel">HOME</a>
-                    <a href="/news/" class="text-cyber-red text-sm font-pixel">NEWS</a>
+                    <a href="/" class="text-cyber-blue hover:text-cyber-red transition-colors text-sm font-pixel">HOME</a>
+                    <a href="/news/" class="text-cyber-red text-sm font-pixel">BLOG</a>
+                    <a href="/store/" class="text-cyber-blue hover:text-cyber-red transition-colors text-sm font-pixel">STORE</a>
+                    <a href="/about.html" class="text-cyber-blue hover:text-cyber-red transition-colors text-sm font-pixel">ABOUT</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- News Content -->
     <main class="container mx-auto px-4 py-12">
         <div class="max-w-4xl mx-auto">
             <!-- Page Header -->
-            <header class="retro-card p-8 rounded-lg mb-8">
+            <header class="mb-12 text-center">
                 <h1 class="font-pixel text-cyber-red text-2xl md:text-3xl mb-4">
-                    SYSTEM_UPDATE.LOG
+                    NullRecords Blog
                 </h1>
-                <p class="text-gray-400 text-sm leading-relaxed">
-                    Latest news, reviews, and mentions from across the digital music landscape. 
-                    Automated monitoring system tracking NullRecords artists and releases.
+                <p class="text-gray-400 text-sm leading-relaxed max-w-2xl mx-auto">
+                    Releases, studio notes, and guides from an independent music label making DRM-free lossless music you actually own.
                 </p>
-                <div class="mt-4 text-xs text-cyber-green">
-                    📡 LAST_SCAN: 2025-12-30 07:00 • 
-                    📰 TOTAL_ENTRIES: 52 • 
-                    🔄 AUTO_UPDATE: ENABLED
-                </div>
             </header>
 
-            <!-- News Articles -->
-            <div class="retro-card p-8 rounded-lg">
-                <div class="space-y-8">
+            <!-- Blog Posts -->
+            <div class="space-y-8">
 
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[RELEASE]</span>
-                                <span class="text-gray-500">&bull;</span>
-                                <span class="text-cyber-blue font-pixel text-xs">NullRecords</span>
-                                <span class="text-gray-500">&bull;</span>
-                                <span class="text-xs text-cyber-red">2025.07.15</span>
-                            </div>
+                <!-- Post: Oscillator Overthruster Release -->
+                <article class="blog-card rounded-lg overflow-hidden">
+                    <div class="p-6 md:p-8">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="tag tag-release">RELEASE</span>
+                            <span class="text-gray-500 text-xs">July 15, 2025</span>
+                        </div>
+                        <h2 class="text-cyber-blue text-xl font-pixel mb-3 hover:text-cyber-red transition-colors">
+                            <a href="/news/oscillator-overthruster.html">New Album: Oscillator Overthruster</a>
+                        </h2>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                            My Evil Robot Army is back with <em>Oscillator Overthruster</em> — experimental electronic and nu jazz fused into something entirely new. Available now as a DRM-free lossless download and on all streaming platforms.
+                        </p>
+                        <a href="/news/oscillator-overthruster.html" class="text-cyber-green text-sm hover:text-cyber-red transition-colors">Read more →</a>
+                    </div>
+                </article>
 
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/5717790f2dec.html">New Album: Oscillator Overthruster</a>
-                            </h3>
+                <!-- Post: Why We Don't Stream (Only) -->
+                <article class="blog-card rounded-lg overflow-hidden">
+                    <div class="p-6 md:p-8">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="tag tag-studio">STUDIO NOTES</span>
+                            <span class="text-gray-500 text-xs">Coming Soon</span>
+                        </div>
+                        <h2 class="text-cyber-blue text-xl font-pixel mb-3">
+                            Why We Sell Downloads in the Streaming Era
+                        </h2>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                            Streaming pays fractions of a cent. Downloads let you own music outright — lossless quality, no DRM, forever. Here's why NullRecords still sells direct.
+                        </p>
+                        <span class="text-gray-600 text-xs">Article coming soon</span>
+                    </div>
+                </article>
 
-                            <div class="mb-3">
-                                <img src="/assets/img/oscillator-overthruster.png" alt="Oscillator Overthruster" class="rounded-lg" style="max-width: 200px;">
-                            </div>
+                <!-- Post: What Is Nu Jazz? -->
+                <article class="blog-card rounded-lg overflow-hidden">
+                    <div class="p-6 md:p-8">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="tag tag-guide">GUIDE</span>
+                            <span class="text-gray-500 text-xs">Coming Soon</span>
+                        </div>
+                        <h2 class="text-cyber-blue text-xl font-pixel mb-3">
+                            What Is Nu Jazz? A Beginner's Guide
+                        </h2>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                            Nu jazz blends traditional jazz improvisation with electronic production, hip-hop beats, and ambient textures. Here's what makes it different — and where to start listening.
+                        </p>
+                        <span class="text-gray-600 text-xs">Article coming soon</span>
+                    </div>
+                </article>
 
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                My Evil Robot Army is back with Oscillator Overthruster — experimental electronic and nu jazz fused into something entirely new. Available now on all streaming platforms.
-                            </p>
+                <!-- Post: Lossless vs Lossy -->
+                <article class="blog-card rounded-lg overflow-hidden">
+                    <div class="p-6 md:p-8">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="tag tag-guide">GUIDE</span>
+                            <span class="text-gray-500 text-xs">Coming Soon</span>
+                        </div>
+                        <h2 class="text-cyber-blue text-xl font-pixel mb-3">
+                            Lossless vs. Lossy Audio: Can You Hear the Difference?
+                        </h2>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                            FLAC, WAV, MP3, AAC — what actually matters for your ears? We break down audio formats, when lossless is worth it, and how streaming compresses your music.
+                        </p>
+                        <span class="text-gray-600 text-xs">Article coming soon</span>
+                    </div>
+                </article>
 
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 My Evil Robot Army</span>
-                                <span class="text-gray-500">💿 Album Release</span>
-                                <a href="/news/5717790f2dec.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                    
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Obscure Sound</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.10.28</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/fb6220a44c16.html">Albums & EPs</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                October 27, 2025Albums & EPsgreta fisler – ‘ephemera’Lausanne-based art-pop singer-songwriter and classically trained guitarist Greta Fisler presents a stirring sound on her self-produced debut album,...
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 MERA</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/fb6220a44c16.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[PLAYLIST]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">SoundCloud Search</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.11</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/a046622dfafd.html">SoundCloud</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                SoundCloudJavaScript is disabledYou need to enable JavaScript to use SoundCloudShow me how to enable itSearch for EverythingSearch for TracksSearch for PlaylistsSearch for PeopleNullRecNull RecordsVor...
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 Null Records</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/a046622dfafd.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[PLAYLIST]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">SoundCloud Search</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.11</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/a046622dfafd.html">SoundCloud</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                SoundCloudJavaScript is disabledYou need to enable JavaScript to use SoundCloudShow me how to enable itSearch for EverythingSearch for TracksSearch for PlaylistsSearch for PeopleMann Mera -Gajendra Ve...
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 MERA</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/a046622dfafd.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Bandcamp</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/2fd75702dcb6.html">Explorations</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                ALBUMExplorationsby My Evil Robot Army6 tracks,
-                                                24 minutesreleased February 10, 2022https://myevilrobotarmy.bandcamp.com/album/explorationstags:
-       ...
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 Evil Robot Army</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/2fd75702dcb6.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Run The Trap</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/f77a9e5f455f.html">Watch Skrillex & Four Tet’s Entire b2b Set From HARD Summer Last Weekend</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                Watch Skrillex & Four Tet’s Entire b2b Set From HARD Summer Last WeekendAugust 11, 2023byMax ChungLeave a CommentSkrillex and Four Tet graced the mainstage last weekend at HARD Summer for quite the me...
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 MERA</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/f77a9e5f455f.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Run The Trap</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/511aa37ba36c.html">The NFL Bans Players From Wearing Beats Headphones On Camera</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                The NFL Bans Players From Wearing Beats Headphones On CameraOctober 7, 2014byHunter Thompson1 CommentEarlier this year professional soccer players playing in the World Cup were forced to not wear Beat...
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 MERA</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/511aa37ba36c.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Run The Trap</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/3eff8273c47d.html">PREMIERE:  Tony Romera Drops Off an Inventive New Single “What’s Going On” for Skrillex’s HOWSLA Compilation</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                PREMIERE:  Tony Romera Drops Off an Inventive New Single “What’s Going On” for Skrillex’s HOWSLA CompilationMay 4, 2017byHunter ThompsonLeave a CommentIt was big news a little over a month ago when OW...
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 MERA</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/3eff8273c47d.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[INTERVIEW]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">This Song Is Sick</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/fd24eb3cc743.html"></a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                Oct 30, 2020Mixtapes / AlbumsPlay TrackJim-E Stack Delivers An Immaculate Sophomore Album With ‘EPHEMERA’Reid BGJim-E Stackhad one of our favorite album rollouts of the whole year. It seemed like each...
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 MERA</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/fd24eb3cc743.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Last.fm Artist Search</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/b827aebbdf3a.html">To-Mera</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                To-Mera28,232listeners
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 MERA</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/b827aebbdf3a.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Consequence of Sound</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/6a61883e2f23.html">Artist(6)</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                Artist(6)Aztec CameraCameraCamera ObscuraCaro EmeraldEmeraldsThe Hidden Cameras
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 MERA</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/6a61883e2f23.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Obscure Sound</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/0231c060ab90.html">Alt Pop/Rock</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                May 5, 2025Alt Pop/Rock/TracksMildenhall – “Boomerang”A grooving rock crunch develops into a harmonious title-touting hook on “Boomerang,” a memorable new single from Mildenhall, a band based in Fayet...
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 MERA</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/0231c060ab90.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Bandcamp</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/21145f533766.html">To-Mera</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                ARTISTTo-MeraUKhttps://to-mera.bandcamp.comgenre: Metaltags:
-                                        
-                                            progressive metal,
-                                   ...
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 MERA</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/21145f533766.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Bandcamp</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/589d5af5b233.html">https://mera.bandcamp.com</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                https://mera.bandcamp.com
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 MERA</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/589d5af5b233.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Bandcamp</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/ab90c67ad7b3.html">https://nullrecords.bandcamp.com</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                https://nullrecords.bandcamp.com
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 NullRecords</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/ab90c67ad7b3.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">ReverbNation</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/5b9ddc4b9cec.html">Show artist results</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                More than 500 Artists matching Evil Robot ArmyShow artist resultsRobot KochRobot KochElectronicaCity:Los Angeles, CAFans:9,081Become A FanEvil LuciferaEvil LuciferaMetal / aggressive symphonic / black...
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 Evil Robot Army</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/5b9ddc4b9cec.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Last.fm Artist Search</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/e4ebbc7c4009.html">My Evil Robot Army</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                My Evil Robot Army100listeners
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 Evil Robot Army</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/e4ebbc7c4009.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Obscure Sound</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/226e0170d479.html">Evil Robot Army</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                Evil Robot Army0 result(s) found.
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 Evil Robot Army</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/226e0170d479.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">ReverbNation</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/5b9ddc4b9cec.html">Show artist results</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                More than 500 Artists matching My Evil Robot Army - Space JazzShow artist resultsJudith Sephuma - My Worship L…Judith Sephuma - My Worship LiveAlternative / JazzCity:Johannesburg, GP, ZAFans:265,810Be...
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 My Evil Robot Army - Space Jazz</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/5b9ddc4b9cec.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Obscure Sound</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/534363ba6266.html">My Evil Robot Army - Space Jazz</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                My Evil Robot Army - Space Jazz0 result(s) found.
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 My Evil Robot Army - Space Jazz</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/534363ba6266.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">ReverbNation</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/5b9ddc4b9cec.html">Show artist results</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                More than 500 Artists matching Null RecordsShow artist results-null--null-Indie / Rock / IndieCity:Ruffs Dale, PAFans:1,041Become A FanSchizofreniks RecordsSchizofreniks RecordsR&B/Soul / AlternativeC...
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 Null Records</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/5b9ddc4b9cec.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Last.fm Artist Search</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/e6322042ffed.html">Null Records</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                Null Records1listener
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 Null Records</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/e6322042ffed.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Obscure Sound</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/e83e821da581.html">Null Records</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                Null Records1 result(s) found.
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 Null Records</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/e83e821da581.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Run The Trap</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/9a42cc5f8ed1.html">Sumera Explores Vulnerability In Intimate Music Video for “F A i T H”</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                Sumera Explores Vulnerability In Intimate Music Video for “F A i T H”October 17, 2017byRTT StaffLeave a CommentBerlin-based poet, artist, producer and songwriter Sumera's new single "F A i T H," came ...
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 MERA</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/9a42cc5f8ed1.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Run The Trap</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/411479b2c4ef.html">ALT:Vision Announces New Partnership With Casablanca Records With Justice Skolnik And Jeremy Zucker Single “Cameras”</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                ALT:Vision Announces New Partnership With Casablanca Records With Justice Skolnik And Jeremy Zucker Single “Cameras”March 9, 2018byJordan FarleyLeave a CommentIt's been two years since we've heard an ...
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 MERA</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/411479b2c4ef.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">ReverbNation</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/5b9ddc4b9cec.html">Show artist results</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                198 Artists matching MERAShow artist resultsmerameraHip Hop / Rock and RollCity:Brooklyn, NYFans:84Become A FanMERAMERAR&B/SoulCity:Auckland, NZFans:1Become A FanMera DriveMera DriveOther / Pop/Rock/S...
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 MERA</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/5b9ddc4b9cec.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Dancing Astronaut</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/e4ac788b64d0.html"></a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                Boomerang Hong Kong Achieves Fifth Consecutive Ranking in DJ Mag’s Top 100 ClubsMay 11, 2025|Dancing Astronaut|MusicHong Kong’s Boomerang is on a mission to prove that Las Vegas doesn’t have all the f...
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 MERA</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/e4ac788b64d0.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Last.fm Artist Search</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/1de82174c733.html">Mera</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                Mera6,258listeners
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 MERA</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/1de82174c733.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Obscure Sound</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/0ee9cc478755.html"></a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                May 5, 2025Alt Pop/Rock/TracksMildenhall – “Boomerang”A grooving rock crunch develops into a harmonious title-touting hook on “Boomerang,” a memorable new single from Mildenhall, a band based in Fayet...
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 MERA</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/0ee9cc478755.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Obscure Sound</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/6938d2217ee4.html">MERA</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                MERA163 result(s) found.
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 MERA</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/6938d2217ee4.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">ReverbNation</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/5b9ddc4b9cec.html">Show artist results</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                More than 500 Artists matching My Evil Robot ArmyShow artist resultsJudith Sephuma - My Worship L…Judith Sephuma - My Worship LiveAlternative / JazzCity:Johannesburg, GP, ZAFans:265,810Become A FanCou...
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 My Evil Robot Army</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/5b9ddc4b9cec.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Last.fm Artist Search</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/e4ebbc7c4009.html">My Evil Robot Army</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                My Evil Robot Army100listeners
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 My Evil Robot Army</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/e4ebbc7c4009.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Obscure Sound</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/122398e4cbc2.html">My Evil Robot Army</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                My Evil Robot Army0 result(s) found.
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 My Evil Robot Army</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/122398e4cbc2.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">ReverbNation</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/dc39a0eca994.html">Your search
-    for "NullRecords"
-     returned no results.</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                Your search
-    for "NullRecords"
-     returned no results.Want to use Google to search for "NullRecords"?Do it!
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 NullRecords</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/dc39a0eca994.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Obscure Sound</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/5270e351bc19.html">NullRecords</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                NullRecords0 result(s) found.
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 NullRecords</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/5270e351bc19.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Bandcamp</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/f3a918ab34a1.html">Attack</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                ALBUMAttackby My Evil Robot Army4 tracks,
-                                                13 minutesreleased May 8, 2018https://myevilrobotarmy.bandcamp.com/album/attacktags:
-                         ...
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 Evil Robot Army</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/f3a918ab34a1.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Bandcamp</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/31618cbcb85e.html"></a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                ALBUMAttackby My Evil Robot Army4 tracks,
-                                                13 minutesreleased May 8, 2018https://myevilrobotarmy.bandcamp.com/album/attacktags:
-                         ...
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 Evil Robot Army</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/31618cbcb85e.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Last.fm</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/101d4dd85add.html">My Evil Robot Army</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                My Evil Robot Army100listeners
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 Evil Robot Army</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/101d4dd85add.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Last.fm</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/101d4dd85add.html">My Evil Robot Army</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                My Evil Robot Army100listeners
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 Evil Robot Army</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/101d4dd85add.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Bandcamp</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/c2069863cf6a.html"></a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                ARTISTFull Spectrum RecordsTexashttps://fullspectrumrecords.bandcamp.comgenre: Experimentaltags:
-                                        
-                                            classical,
-       ...
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 Null Records</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/c2069863cf6a.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Last.fm</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/35479427da7a.html">Null Records</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                Null Records1listener
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 Null Records</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/35479427da7a.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Last.fm</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/35479427da7a.html">Null Records</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                Null Records1listener
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 Null Records</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/35479427da7a.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Bandcamp</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/eedf17634f1e.html">MERA</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                ARTISTMERAUKhttps://mera.bandcamp.comgenre: Metaltags:
-                                        
-                                            electronic,
-                                        
-       ...
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 MERA</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/eedf17634f1e.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Bandcamp</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/f94f86b1c95d.html"></a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                ARTISTMERAUKhttps://mera.bandcamp.comgenre: Metaltags:
-                                        
-                                            electronic,
-                                        
-       ...
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 MERA</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/f94f86b1c95d.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Last.fm</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/ee2edc947b10.html">Mera</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                Mera6,258listeners
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 MERA</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/ee2edc947b10.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Last.fm</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/ee2edc947b10.html">Mera</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                Mera6,258listeners
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 MERA</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/ee2edc947b10.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Bandcamp</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/a6894bedb07a.html">My Evil Robot Army</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                ARTISTMy Evil Robot ArmyPortland, Oregonhttps://myevilrobotarmy.bandcamp.comgenre: Experimentaltags:
-                                        
-                                            electronic,
-  ...
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 My Evil Robot Army</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/a6894bedb07a.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Bandcamp</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/8e220cfee232.html"></a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                ARTISTMy Evil Robot ArmyPortland, Oregonhttps://myevilrobotarmy.bandcamp.comgenre: Experimentaltags:
-                                        
-                                            electronic,
-  ...
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 My Evil Robot Army</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/8e220cfee232.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Last.fm</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/101d4dd85add.html">My Evil Robot Army</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                My Evil Robot Army100listeners
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 My Evil Robot Army</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/101d4dd85add.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Last.fm</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/101d4dd85add.html">My Evil Robot Army</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                My Evil Robot Army100listeners
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 My Evil Robot Army</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/101d4dd85add.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Bandcamp</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/10a5d8f531a7.html">Null Records</a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                LABELNull RecordsPortland, Oregonhttps://nullrecords.bandcamp.com
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 NullRecords</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/10a5d8f531a7.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                        <article class="border-b border-dark-border pb-6 mb-6">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-cyber-green font-pixel text-xs">[NEWS]</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-cyber-blue font-pixel text-xs">Bandcamp</span>
-                                <span class="text-gray-500">•</span>
-                                <span class="text-xs text-cyber-red">2025.09.10</span>
-                            </div>
-                            
-                            <h3 class="text-cyber-blue text-lg font-pixel mb-3 hover:text-cyber-red transition-colors">
-                                <a href="/news/8bcf930c3b21.html"></a>
-                            </h3>
-                            
-                            <p class="text-gray-400 text-sm mb-3 leading-relaxed">
-                                LABELNull RecordsPortland, Oregonhttps://nullrecords.bandcamp.comLABELNLV RecordsSydney, Australiahttps://nlvrecords.bandcamp.comALBUMMicrojunglizmby Dev/Null8 tracks,
-                                ...
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-3 text-xs">
-                                <span class="text-gray-500">🎵 NullRecords</span>
-                                <span class="text-gray-500">📝 Neutral</span>
-                                <a href="/news/8bcf930c3b21.html" class="text-cyber-green hover:text-cyber-red transition-colors">
-                                    READ_MORE →
-                                </a>
-                            </div>
-                        </article>
-                </div>
-                
-                <div class="text-center py-8"><p class="text-gray-500 text-sm font-pixel">END_OF_LOG • 51 ENTRIES_DISPLAYED</p></div>
+                <!-- Post: Best DRM-Free Music Sites -->
+                <article class="blog-card rounded-lg overflow-hidden">
+                    <div class="p-6 md:p-8">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="tag tag-guide">GUIDE</span>
+                            <span class="text-gray-500 text-xs">Coming Soon</span>
+                        </div>
+                        <h2 class="text-cyber-blue text-xl font-pixel mb-3">
+                            Best DRM-Free Music Download Sites in 2026
+                        </h2>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                            Bandcamp, NullRecords, and beyond — a curated list of places where you can buy music and actually own it. No DRM, no subscriptions, no takebacks.
+                        </p>
+                        <span class="text-gray-600 text-xs">Article coming soon</span>
+                    </div>
+                </article>
+
+                <!-- Post: Cosmic Lofi for Studying -->
+                <article class="blog-card rounded-lg overflow-hidden">
+                    <div class="p-6 md:p-8">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="tag tag-guide">GUIDE</span>
+                            <span class="text-gray-500 text-xs">Coming Soon</span>
+                        </div>
+                        <h2 class="text-cyber-blue text-xl font-pixel mb-3">
+                            Cosmic Lofi Music for Studying & Focus
+                        </h2>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                            Lofi beats meet space-jazz textures. Our picks for deep focus playlists — featuring original MERA tracks alongside the best of the cosmic lofi universe.
+                        </p>
+                        <span class="text-gray-600 text-xs">Article coming soon</span>
+                    </div>
+                </article>
+
+                <!-- Post: Making of Space Jazz -->
+                <article class="blog-card rounded-lg overflow-hidden">
+                    <div class="p-6 md:p-8">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="tag tag-studio">STUDIO NOTES</span>
+                            <span class="text-gray-500 text-xs">Coming Soon</span>
+                        </div>
+                        <h2 class="text-cyber-blue text-xl font-pixel mb-3">
+                            The Making of Space Jazz
+                        </h2>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                            Behind the scenes of the Space Jazz album — from initial synth patches to final mastering. How cosmic jazz meets electronic production in a home studio.
+                        </p>
+                        <span class="text-gray-600 text-xs">Article coming soon</span>
+                    </div>
+                </article>
+
             </div>
 
-            <!-- System Info -->
-            <div class="retro-card p-6 rounded-lg mt-8">
-                <h3 class="font-pixel text-cyber-blue text-sm mb-4">SYSTEM_INFO.TXT</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-gray-400">
-                    <div>
-                        <div class="text-cyber-green">MONITORED_ARTISTS:</div>
-                        <div>• NullRecords</div>
-                        <div>• My Evil Robot Army</div>
-                        <div>• MERA</div>
-                    </div>
-                    <div>
-                        <div class="text-cyber-green">SOURCE_TYPES:</div>
-                        <div>• Music Publications</div>
-                        <div>• Social Media</div>
-                        <div>• Blog Networks</div>
-                    </div>
-                    <div>
-                        <div class="text-cyber-green">UPDATE_FREQUENCY:</div>
-                        <div>• Daily Automated Scans</div>
-                        <div>• Real-time Processing</div>
-                        <div>• Manual Override Available</div>
-                    </div>
-                </div>
+            <!-- Email Signup -->
+            <div class="mt-12 p-8 rounded-lg text-center" style="background: #1a1a1a; border: 1px solid #333;">
+                <h2 class="font-pixel text-cyber-green text-lg mb-3">Get a Free Lossless Track</h2>
+                <p class="text-gray-400 text-sm mb-4">Join the mailing list for new releases, studio notes, and a free lossless WAV track.</p>
+                <form onsubmit="handleBlogEmailSignup(event)" class="flex gap-2 flex-wrap justify-center max-w-md mx-auto">
+                    <input type="email" name="email" required placeholder="your@email.com"
+                           class="flex-1 min-w-[200px] px-4 py-3 bg-dark-bg border border-dark-border rounded-lg text-gray-100 font-mono">
+                    <button type="submit" class="bg-cyber-green text-dark-bg font-bold px-6 py-3 rounded-lg hover:opacity-90 transition-opacity">Subscribe</button>
+                </form>
+                <p class="text-gray-600 text-xs mt-2">No spam. Unsubscribe anytime.</p>
             </div>
         </div>
     </main>
 
     <!-- Footer -->
     <footer class="border-t border-dark-border bg-dark-card/50 py-8 mt-16">
-        <div class="container mx-auto px-4 text-center">
-            <p class="text-gray-500 text-sm font-pixel">
-                © 2025 NULLRECORDS • THE INTERSECTION OF MUSIC, ART & TECHNOLOGY
-            </p>
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-gray-500 text-sm font-pixel">
+                    &copy; 2026 NULLRECORDS
+                </p>
+                <div class="flex items-center gap-6 text-sm">
+                    <a href="https://www.youtube.com/@NullRecords" target="_blank" rel="noopener" class="text-gray-500 hover:text-cyber-red transition-colors">YouTube</a>
+                    <a href="https://open.spotify.com/artist/4PBJ1WON6gmxC1L35HHh69" target="_blank" rel="noopener" class="text-gray-500 hover:text-cyber-green transition-colors">Spotify</a>
+                    <a href="https://music.apple.com/us/artist/my-evil-robot-army/1576251082" target="_blank" rel="noopener" class="text-gray-500 hover:text-cyber-blue transition-colors">Apple Music</a>
+                    <a href="https://www.patreon.com/NullRecords" target="_blank" rel="noopener" class="text-gray-500 hover:text-cyber-red transition-colors">Patreon</a>
+                </div>
+            </div>
         </div>
     </footer>
     <script src="/shared-header.js"></script>
+    <script>
+    async function handleBlogEmailSignup(event) {
+        event.preventDefault();
+        const form = event.target;
+        const btn = form.querySelector('button[type="submit"]');
+        const orig = btn.textContent;
+        btn.textContent = 'Subscribing…';
+        btn.disabled = true;
+        const email = form.querySelector('input[name="email"]').value.trim();
+        let ok = false;
+        try {
+            const r = await fetch('https://www.nullrecords.com/api/subscribe', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, source: 'blog' }),
+            });
+            if (r.ok) ok = true;
+        } catch (_) {}
+        if (!ok) {
+            try {
+                const r = await fetch('http://localhost:8008/crm/subscribe', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, source: 'blog' }),
+                });
+                if (r.ok) ok = true;
+            } catch (_) {}
+        }
+        btn.textContent = orig;
+        btn.disabled = false;
+        if (ok) {
+            form.innerHTML = '<p class="text-cyber-green text-sm">You\'re in! Check your inbox for the free lossless track.</p>';
+        } else {
+            alert('Could not subscribe. Please try again or email hello@nullrecords.com.');
+        }
+    }
+    </script>
 </body>
 </html>

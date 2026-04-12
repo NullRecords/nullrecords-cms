@@ -3,7 +3,6 @@ const STORE_ITEMS_URL = './store_items.json';
 const MUSIC_CONTAINER = document.getElementById('music-items');
 const BOOK_CONTAINER = document.getElementById('book-items');
 const BOB_BOOKS_CONTAINER = document.getElementById('bob-books-items');
-const TICKER_CONTAINER = document.getElementById('ticker');
 const DOWNLOADS_KEY = 'nullrecords_downloads';
 
 // Log a download event
@@ -24,21 +23,8 @@ function logDownload(itemTitle) {
   updateTicker();
 }
 
-// Update the ticker display
-function updateTicker() {
-  const downloads = JSON.parse(localStorage.getItem(DOWNLOADS_KEY) || '[]');
-  if (downloads.length === 0) {
-    TICKER_CONTAINER.innerHTML = '<div style="text-align: center; color: #888; padding: 2rem;">No downloads yet. Be the first!</div>';
-    return;
-  }
-  
-  let html = '<div class="ticker">';
-  downloads.forEach(download => {
-    html += `<div class="ticker-item"><span class="ticker-title">${download.title}</span> <span class="ticker-meta">on ${download.date} at ${download.time}</span></div>`;
-  });
-  html += '</div>';
-  TICKER_CONTAINER.innerHTML = html;
-}
+// Update the ticker display (no-op: Download Activity section removed)
+function updateTicker() {}
 
 function renderStoreItem(item) {
   const div = document.createElement('div');

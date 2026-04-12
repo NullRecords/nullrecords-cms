@@ -19,6 +19,7 @@ from app.api.scheduler_routes import router as scheduler_router
 from app.api.campaign_routes import router as campaign_router
 from app.api.tracking_routes import router as tracking_router
 from app.api.press_routes import router as press_router
+from app.api.crm_routes import router as crm_router
 from app.jobs.scheduler import start_scheduler, stop_scheduler
 
 logging.basicConfig(level=logging.INFO, format="%(name)s — %(message)s")
@@ -62,6 +63,7 @@ app.include_router(scheduler_router)
 app.include_router(campaign_router)
 app.include_router(tracking_router)
 app.include_router(press_router)
+app.include_router(crm_router)
 
 # --- Static files ---
 app.mount("/exports", StaticFiles(directory=str(EXPORTS_DIR)), name="exports")
