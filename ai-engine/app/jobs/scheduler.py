@@ -1034,13 +1034,14 @@ def start_scheduler():
         replace_existing=True,
     )
 
-    _scheduler.add_job(
-        _run_news_search,
-        trigger=IntervalTrigger(hours=12),
-        id="news_search",
-        name="Search web for NullRecords/MERA mentions",
-        replace_existing=True,
-    )
+    # NEWS SCRAPER DISABLED — replaced by manual blog posts (2026-04-12)
+    # _scheduler.add_job(
+    #     _run_news_search,
+    #     trigger=IntervalTrigger(hours=12),
+    #     id="news_search",
+    #     name="Search web for NullRecords/MERA mentions",
+    #     replace_existing=True,
+    # )
 
     _scheduler.add_job(
         _run_dj_radio_discovery,
