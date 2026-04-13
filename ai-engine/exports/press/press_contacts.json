@@ -94,5 +94,53 @@
     "last_contacted": null,
     "outreach_count": 0,
     "campaigns": []
+  },
+  {
+    "hash": "373fcfdba6b6",
+    "name": "Submit Music to Radio Stations | One Submit — Online radio stations ...",
+    "url": "https://www.one-submit.com/radio-submission",
+    "snippet": "400+ online radio stations across every genre — indie, jazz, pop, rock, classical and more. Submit your track, get reviewed, get played. From $4 per submission.",
+    "type": "radio_station",
+    "vertical": "music",
+    "email": "",
+    "status": "discovered",
+    "confidence_score": 0.0,
+    "discovered_date": "2026-04-13T17:45:07+00:00",
+    "discovered_via": "jazz radio station submit music",
+    "last_contacted": null,
+    "outreach_count": 0,
+    "campaigns": []
+  },
+  {
+    "hash": "a113d23aecaa",
+    "name": "Internet Music Promotion | Smooth Jazz | MusicSUBMIT",
+    "url": "https://www.musicsubmit.com/Genre_Smooth_Jazz",
+    "snippet": "Smooth Jazz artists can order up to 200 submissions. Below you'll find just a few sample radio stations & blogs where your music may be submitted. LET'S GET STARTED!",
+    "type": "radio_station",
+    "vertical": "music",
+    "email": "",
+    "status": "discovered",
+    "confidence_score": 0.0,
+    "discovered_date": "2026-04-13T17:45:07+00:00",
+    "discovered_via": "jazz radio station submit music",
+    "last_contacted": null,
+    "outreach_count": 0,
+    "campaigns": []
+  },
+  {
+    "hash": "0a413c5b9df1",
+    "name": "SUBMIT MUSIC - smoothjazz.club",
+    "url": "https://www.smoothjazz.club/submitmusic/",
+    "snippet": "Are you a smooth jazz artist, producer, or record label with a new release? We welcome music submissions for possible airplay on our radio programs. Santiago Fontenla is the creator and host of the radio shows Smooth Jazz Discover, Smooth Jazz TOP 100, and Smooth Jazz Classics. These programs are cu",
+    "type": "radio_station",
+    "vertical": "music",
+    "email": "",
+    "status": "discovered",
+    "confidence_score": 0.0,
+    "discovered_date": "2026-04-13T17:45:07+00:00",
+    "discovered_via": "jazz radio station submit music",
+    "last_contacted": null,
+    "outreach_count": 0,
+    "campaigns": []
   }
 ]

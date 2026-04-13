@@ -3,6 +3,7 @@
 import logging
 from datetime import datetime, timezone
 
+import requests
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import func
 from sqlalchemy.orm import Session
@@ -10,6 +11,7 @@ from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.models.subscriber import Subscriber
 from app.schemas.subscriber import (
+    BulkImportItem,
     BulkTagRequest,
     CRMStats,
     SubscribeRequest,
@@ -20,6 +22,8 @@ from app.schemas.subscriber import (
 from app.services.crm.brevo_contacts import send_lead_magnet_email, sync_contact_to_brevo
 
 logger = logging.getLogger(__name__)
+
+BREVO_CONTACTS_URL = "https://api.brevo.com/v3/contacts"
 
 router = APIRouter(prefix="/crm", tags=["crm"])
 
@@ -179,3 +183,114 @@ def crm_stats(db: Session = Depends(get_db)):
         lead_magnet_sent=lead_sent,
         sources=sources,
     )
+
+
+# ── Admin: Sync contacts FROM Brevo into local CRM ────────────────────
+
+@router.post("/sync-from-brevo")
+def sync_from_brevo(db: Session = Depends(get_db)):
+    """Pull all contacts from Brevo and upsert into the local CRM database."""
+    from app.core.config import get_settings
+
+    settings = get_settings()
+    if not settings.smtp_key:
+        raise HTTPException(status_code=500, detail="Brevo API key not configured")
+
+    headers = {
+        "api-key": settings.smtp_key,
+        "Accept": "application/json",
+    }
+
+    imported = 0
+    skipped = 0
+    offset = 0
+    limit = 50
+
+    while True:
+        resp = requests.get(
+            BREVO_CONTACTS_URL,
+            headers=headers,
+            params={"limit": limit, "offset": offset},
+            timeout=15,
+        )
+        if resp.status_code != 200:
+            logger.warning("Brevo list contacts failed: %s %s", resp.status_code, resp.text[:200])
+            break
+
+        data = resp.json()
+        contacts = data.get("contacts", [])
+        if not contacts:
+            break
+
+        for contact in contacts:
+            email = contact.get("email", "").strip().lower()
+            if not email:
+                continue
+
+            existing = db.query(Subscriber).filter(Subscriber.email == email).first()
+            if existing:
+                # Update brevo_contact_id if missing
+                if not existing.brevo_contact_id and contact.get("id"):
+                    existing.brevo_contact_id = str(contact["id"])
+                skipped += 1
+                continue
+
+            attrs = contact.get("attributes", {})
+            name_parts = [attrs.get("FIRSTNAME", ""), attrs.get("LASTNAME", "")]
+            name = " ".join(p for p in name_parts if p).strip() or None
+
+            sub = Subscriber(
+                email=email,
+                name=name,
+                source=attrs.get("SOURCE", "brevo-sync"),
+                tags="brevo-import",
+                status="active",
+                brevo_contact_id=str(contact.get("id", "")),
+            )
+            db.add(sub)
+            imported += 1
+
+        db.commit()
+        offset += limit
+        if offset >= data.get("count", 0):
+            break
+
+    logger.info("Brevo sync complete: %d imported, %d skipped (already in CRM)", imported, skipped)
+    return {"imported": imported, "skipped": skipped}
+
+
+# ── Admin: Bulk import from JSON ───────────────────────────────────────
+
+@router.post("/import")
+def bulk_import(items: list[BulkImportItem], db: Session = Depends(get_db)):
+    """Import a list of emails into the CRM. Skips duplicates, syncs new ones to Brevo."""
+    imported = 0
+    skipped = 0
+
+    for item in items:
+        email_lower = item.email.strip().lower()
+        existing = db.query(Subscriber).filter(Subscriber.email == email_lower).first()
+        if existing:
+            skipped += 1
+            continue
+
+        sub = Subscriber(
+            email=email_lower,
+            name=item.name,
+            source=item.source,
+            tags="import",
+            status="active",
+        )
+        db.add(sub)
+        db.commit()
+        db.refresh(sub)
+
+        brevo_id = sync_contact_to_brevo(email_lower, item.name, item.source)
+        if brevo_id:
+            sub.brevo_contact_id = brevo_id
+            db.commit()
+
+        imported += 1
+
+    logger.info("Bulk import complete: %d imported, %d skipped", imported, skipped)
+    return {"imported": imported, "skipped": skipped}

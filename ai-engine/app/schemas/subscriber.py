@@ -49,3 +49,9 @@ class CRMStats(BaseModel):
     bounced: int
     lead_magnet_sent: int
     sources: dict[str, int]
+
+
+class BulkImportItem(BaseModel):
+    email: EmailStr
+    name: Optional[str] = None
+    source: str = "import"

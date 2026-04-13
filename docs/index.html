@@ -288,7 +288,7 @@
         <div class="mb-16 text-center rounded-2xl p-12 border border-cyber-green/30" style="background: linear-gradient(135deg, #0a1a0a, #0a0a0a);">
             <h2 class="text-3xl font-pixel text-cyber-green mb-4 glow-text">Get a Free Lossless Track</h2>
             <p class="text-xl mb-6 text-gray-400 font-mono">Join the NullRecords mailing list and get a free lossless WAV track delivered to your inbox.</p>
-            <form onsubmit="handleEmailSignup(event)" class="flex flex-col sm:flex-row gap-3 justify-center max-w-lg mx-auto">
+            <form data-subscribe data-source="homepage" class="flex flex-col sm:flex-row gap-3 justify-center max-w-lg mx-auto">
                 <input type="email" name="email" required placeholder="your@email.com"
                        class="flex-1 px-4 py-3 bg-dark-card border border-dark-border rounded-lg text-gray-200 font-mono focus:ring-2 focus:ring-cyber-green focus:border-transparent">
                 <button type="submit" class="bg-cyber-green hover:bg-opacity-80 text-dark-bg font-mono font-bold py-3 px-8 rounded-lg transition-all">
@@ -370,45 +370,7 @@
     <!-- Site Configuration and Navigation -->
     <script src="assets/js/site-config.js"></script>
     
-    <!-- Email Signup -->
-    <script>
-    async function handleEmailSignup(event) {
-        event.preventDefault();
-        const form = event.target;
-        const btn = form.querySelector('button[type="submit"]');
-        const orig = btn.textContent;
-        btn.textContent = 'Subscribing…';
-        btn.disabled = true;
-        const email = form.querySelector('input[name="email"]').value.trim();
-        let ok = false;
-        try {
-            const r = await fetch('https://www.nullrecords.com/api/subscribe', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: email, source: 'homepage' }),
-            });
-            if (r.ok) ok = true;
-        } catch (_) {}
-        // Fallback to AI engine
-        if (!ok) {
-            try {
-                const r = await fetch('http://localhost:8008/crm/subscribe', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: email, source: 'homepage' }),
-                });
-                if (r.ok) ok = true;
-            } catch (_) {}
-        }
-        btn.textContent = orig;
-        btn.disabled = false;
-        if (ok) {
-            form.innerHTML = '<p class="text-cyber-green font-mono text-sm">You\'re in! Check your inbox for the free lossless track.</p>';
-        } else {
-            alert('Could not subscribe. Please try again or email hello@nullrecords.com.');
-        }
-    }
-    </script>
+    <script src="/assets/js/subscribe.js" defer></script>
 
     <!-- Matrix Rain Script -->
     <script>

@@ -215,7 +215,7 @@
             <div class="mt-12 p-8 rounded-lg text-center" style="background: #1a1a1a; border: 1px solid #333;">
                 <h2 class="font-pixel text-cyber-green text-base mb-3">Get a Free Lossless Track</h2>
                 <p class="text-gray-400 text-sm mb-4">Join the mailing list and get a free lossless WAV track delivered to your inbox.</p>
-                <form onsubmit="handleArticleEmailSignup(event)" class="flex gap-2 flex-wrap justify-center max-w-md mx-auto">
+                <form data-subscribe data-source="blog-lossless-vs-lossy" class="flex gap-2 flex-wrap justify-center max-w-md mx-auto">
                     <input type="email" name="email" required placeholder="your@email.com"
                            class="flex-1 min-w-[200px] px-4 py-3 bg-dark-bg border border-dark-border rounded-lg text-gray-100 font-mono">
                     <button type="submit" class="bg-cyber-green text-dark-bg font-bold px-6 py-3 rounded-lg hover:opacity-90 transition-opacity">Get Free Track</button>
@@ -238,41 +238,8 @@
             </div>
         </div>
     </footer>
+    <script src="/assets/js/subscribe.js" defer></script>
     <script src="/shared-header.js"></script>
-    <script>
-    async function handleArticleEmailSignup(event) {
-        event.preventDefault();
-        const form = event.target;
-        const btn = form.querySelector('button[type="submit"]');
-        const orig = btn.textContent;
-        btn.textContent = 'Subscribing\u2026';
-        btn.disabled = true;
-        const email = form.querySelector('input[name="email"]').value.trim();
-        let ok = false;
-        try {
-            const r = await fetch('https://www.nullrecords.com/api/subscribe', {
-                method: 'POST', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, source: 'blog-lossless-vs-lossy' }),
-            });
-            if (r.ok) ok = true;
-        } catch (_) {}
-        if (!ok) {
-            try {
-                const r = await fetch('http://localhost:8008/crm/subscribe', {
-                    method: 'POST', headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, source: 'blog-lossless-vs-lossy' }),
-                });
-                if (r.ok) ok = true;
-            } catch (_) {}
-        }
-        btn.textContent = orig;
-        btn.disabled = false;
-        if (ok) {
-            form.innerHTML = '<p class="text-cyber-green text-sm">You\'re in! Check your inbox for the free track.</p>';
-        } else {
-            alert('Could not subscribe. Please try again or email hello@nullrecords.com.');
-        }
-    }
-    </script>
+
 </body>
 </html>
