@@ -805,5 +805,735 @@
         "Shorts"
       ]
     }
+  },
+  {
+    "id": "341c5ead42e0",
+    "status": "pending",
+    "generated_date": "2026-04-14",
+    "track_id": "pattern_watching",
+    "track_title": "Pattern Watching",
+    "segment_label": "flow",
+    "filename": "daily_2026-04-14_pattern_watching_flow_e66c52b7.mp4",
+    "video_path": "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/videos/daily_2026-04-14_pattern_watching_flow_e66c52b7.mp4",
+    "mood": "chill",
+    "effects": {
+      "color_shift_enabled": true,
+      "vhs_enabled": true,
+      "scanline_enabled": true
+    },
+    "images_used": [
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/media-library/images/cyber_grid.jpg",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/3122ccc9_osciallating-overthurster.png",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/83ff90ad_mountain-snow-covered-landscape-winter-preview.jpg"
+    ],
+    "created_at": "2026-04-14T17:52:16+00:00",
+    "approved_at": null,
+    "posted_at": null,
+    "platforms_posted": [],
+    "caption": "mellow frequencies, infinite loops\n\nPattern Watching \u2014 My Evil Robot Army\n\n#LoFi #Ambient #Mellow #ChillVibes #Instrumental #MyEvilRobotArmy #MERA #NullRecords",
+    "caption_line": "mellow frequencies, infinite loops",
+    "hashtags": {
+      "tiktok": [
+        "#LoFi",
+        "#Ambient",
+        "#Mellow",
+        "#ChillVibes",
+        "#Instrumental",
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords"
+      ],
+      "instagram": [
+        "#LoFi",
+        "#Ambient",
+        "#Mellow",
+        "#ChillVibes",
+        "#Instrumental",
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords",
+        "#Reels"
+      ],
+      "youtube": [
+        "LoFi",
+        "Ambient",
+        "Chill Vibes",
+        "Instrumental",
+        "My Evil Robot Army",
+        "MERA",
+        "NullRecords",
+        "Shorts"
+      ]
+    }
+  },
+  {
+    "id": "2ff1f6ca4e6e",
+    "status": "pending",
+    "generated_date": "2026-04-14",
+    "track_id": "too_much_to_do",
+    "track_title": "Too Much To Do",
+    "segment_label": "peak",
+    "filename": "daily_2026-04-14_too_much_to_do_peak_c796c7b5.mp4",
+    "video_path": "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/videos/daily_2026-04-14_too_much_to_do_peak_c796c7b5.mp4",
+    "mood": "energetic",
+    "effects": {
+      "color_shift_enabled": true,
+      "vhs_enabled": false,
+      "scanline_enabled": false,
+      "visualizer_type": "waveform"
+    },
+    "images_used": [
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/852edc77_Cosmic beats and surreal landscapes.png",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/8580c3df_to-much-to-do.png",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/8accd6b5_Too much to do_ cosmic reflections.png"
+    ],
+    "created_at": "2026-04-14T17:57:00+00:00",
+    "approved_at": null,
+    "posted_at": null,
+    "platforms_posted": [],
+    "caption": "when the list grows but the beat drops harder\n\nToo Much To Do \u2014 My Evil Robot Army\n\n#ElectronicMusic #BeatDrop #Hype #EnergyVibes #Instrumental #MyEvilRobotArmy #MERA #NullRecords",
+    "caption_line": "when the list grows but the beat drops harder",
+    "hashtags": {
+      "tiktok": [
+        "#ElectronicMusic",
+        "#BeatDrop",
+        "#Hype",
+        "#EnergyVibes",
+        "#Instrumental",
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords"
+      ],
+      "instagram": [
+        "#ElectronicMusic",
+        "#BeatDrop",
+        "#Hype",
+        "#EnergyVibes",
+        "#Instrumental",
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords",
+        "#Reels"
+      ],
+      "youtube": [
+        "Electronic Music",
+        "Beat Drop",
+        "Hype",
+        "Instrumental",
+        "My Evil Robot Army",
+        "MERA",
+        "NullRecords",
+        "Shorts"
+      ]
+    }
+  },
+  {
+    "id": "e61a4e010df8",
+    "status": "pending",
+    "generated_date": "2026-04-14",
+    "track_id": "mind_hack",
+    "track_title": "Mind Hack",
+    "segment_label": "attack",
+    "filename": "daily_2026-04-14_mind_hack_attack_e9fef6f5.mp4",
+    "video_path": "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/videos/daily_2026-04-14_mind_hack_attack_e9fef6f5.mp4",
+    "mood": "intense",
+    "effects": {
+      "color_shift_enabled": true,
+      "vhs_enabled": false,
+      "scanline_enabled": false,
+      "visualizer_type": "waveform"
+    },
+    "images_used": [
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/2eea7ccb_Central_Cascade_Mountains_between_Mission_Ridge_and_Blewett_Pass_Washington.jpg",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/83ff90ad_mountain-snow-covered-landscape-winter-preview.jpg",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/3122ccc9_osciallating-overthurster.png"
+    ],
+    "created_at": "2026-04-14T18:01:30+00:00",
+    "approved_at": null,
+    "posted_at": null,
+    "platforms_posted": [],
+    "caption": "pure cyber intensity\n\nMind Hack \u2014 My Evil Robot Army\n\n#CyberPunk #GlitchMusic #Intense #DarkElectronic #Instrumental #MyEvilRobotArmy #MERA #NullRecords",
+    "caption_line": "pure cyber intensity",
+    "hashtags": {
+      "tiktok": [
+        "#CyberPunk",
+        "#GlitchMusic",
+        "#Intense",
+        "#DarkElectronic",
+        "#Instrumental",
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords"
+      ],
+      "instagram": [
+        "#CyberPunk",
+        "#GlitchMusic",
+        "#Intense",
+        "#DarkElectronic",
+        "#Instrumental",
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords",
+        "#Reels"
+      ],
+      "youtube": [
+        "CyberPunk",
+        "Glitch Music",
+        "Intense Electronic",
+        "Instrumental",
+        "My Evil Robot Army",
+        "MERA",
+        "NullRecords",
+        "Shorts"
+      ]
+    }
+  },
+  {
+    "id": "54849c7acec4",
+    "status": "pending",
+    "generated_date": "2026-04-15",
+    "track_id": "too_much_to_do",
+    "track_title": "Too Much To Do",
+    "segment_label": "drop",
+    "filename": "daily_2026-04-15_too_much_to_do_drop_1cd2724f.mp4",
+    "video_path": "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/videos/daily_2026-04-15_too_much_to_do_drop_1cd2724f.mp4",
+    "mood": "energetic",
+    "effects": {
+      "color_shift_enabled": false,
+      "vhs_enabled": true,
+      "scanline_enabled": false
+    },
+    "images_used": [
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/852edc77_Cosmic beats and surreal landscapes.png",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/8580c3df_to-much-to-do.png",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/8accd6b5_Too much to do_ cosmic reflections.png"
+    ],
+    "created_at": "2026-04-15T18:03:00+00:00",
+    "approved_at": null,
+    "posted_at": null,
+    "platforms_posted": [],
+    "caption": "chaos organized into rhythm\n\nToo Much To Do \u2014 My Evil Robot Army\n\n#ElectronicMusic #BeatDrop #Hype #EnergyVibes #Instrumental #MyEvilRobotArmy #MERA #NullRecords",
+    "caption_line": "chaos organized into rhythm",
+    "hashtags": {
+      "tiktok": [
+        "#ElectronicMusic",
+        "#BeatDrop",
+        "#Hype",
+        "#EnergyVibes",
+        "#Instrumental",
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords"
+      ],
+      "instagram": [
+        "#ElectronicMusic",
+        "#BeatDrop",
+        "#Hype",
+        "#EnergyVibes",
+        "#Instrumental",
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords",
+        "#Reels"
+      ],
+      "youtube": [
+        "Electronic Music",
+        "Beat Drop",
+        "Hype",
+        "Instrumental",
+        "My Evil Robot Army",
+        "MERA",
+        "NullRecords",
+        "Shorts"
+      ]
+    }
+  },
+  {
+    "id": "1460e26a1efb",
+    "status": "pending",
+    "generated_date": "2026-04-15",
+    "track_id": "too_much_to_do",
+    "track_title": "Too Much To Do",
+    "segment_label": "intro",
+    "filename": "daily_2026-04-15_too_much_to_do_intro_8758e4d4.mp4",
+    "video_path": "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/videos/daily_2026-04-15_too_much_to_do_intro_8758e4d4.mp4",
+    "mood": "energetic",
+    "effects": {
+      "color_shift_enabled": false,
+      "vhs_enabled": true,
+      "scanline_enabled": true,
+      "visualizer_type": "lines"
+    },
+    "images_used": [
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/8580c3df_to-much-to-do.png",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/8accd6b5_Too much to do_ cosmic reflections.png",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/852edc77_Cosmic beats and surreal landscapes.png"
+    ],
+    "created_at": "2026-04-15T18:11:46+00:00",
+    "approved_at": null,
+    "posted_at": null,
+    "platforms_posted": [],
+    "caption": "too much to do. not enough time. perfect beat.\n\nToo Much To Do \u2014 My Evil Robot Army\n\n#ElectronicMusic #BeatDrop #Hype #EnergyVibes #Instrumental #MyEvilRobotArmy #MERA #NullRecords",
+    "caption_line": "too much to do. not enough time. perfect beat.",
+    "hashtags": {
+      "tiktok": [
+        "#ElectronicMusic",
+        "#BeatDrop",
+        "#Hype",
+        "#EnergyVibes",
+        "#Instrumental",
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords"
+      ],
+      "instagram": [
+        "#ElectronicMusic",
+        "#BeatDrop",
+        "#Hype",
+        "#EnergyVibes",
+        "#Instrumental",
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords",
+        "#Reels"
+      ],
+      "youtube": [
+        "Electronic Music",
+        "Beat Drop",
+        "Hype",
+        "Instrumental",
+        "My Evil Robot Army",
+        "MERA",
+        "NullRecords",
+        "Shorts"
+      ]
+    }
+  },
+  {
+    "id": "179b726e5cb6",
+    "status": "pending",
+    "generated_date": "2026-04-15",
+    "track_id": "shelter",
+    "track_title": "Shelter",
+    "segment_label": "outro",
+    "filename": "daily_2026-04-15_shelter_outro_1f39e563.mp4",
+    "video_path": "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/videos/daily_2026-04-15_shelter_outro_1f39e563.mp4",
+    "mood": "chill",
+    "effects": {
+      "color_shift_enabled": false,
+      "vhs_enabled": false,
+      "scanline_enabled": true,
+      "visualizer_type": "circular"
+    },
+    "images_used": [
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/78401305_Shelter in a cosmic embrace.png",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/b3ea8656_Cosmic vibes with Kyla Egli.png",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/33be9144_Cosmic beauty and stellar beats.png"
+    ],
+    "created_at": "2026-04-15T18:21:04+00:00",
+    "approved_at": null,
+    "posted_at": null,
+    "platforms_posted": [],
+    "caption": "drifting through lo-fi space\n\nShelter \u2014 My Evil Robot Army\n\n#LoFi #JazzVibes #ChillBeats #Instrumental #LateNightVibes #MyEvilRobotArmy #MERA #NullRecords",
+    "caption_line": "drifting through lo-fi space",
+    "hashtags": {
+      "tiktok": [
+        "#LoFi",
+        "#JazzVibes",
+        "#ChillBeats",
+        "#Instrumental",
+        "#LateNightVibes",
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords"
+      ],
+      "instagram": [
+        "#LoFi",
+        "#JazzVibes",
+        "#ChillBeats",
+        "#Instrumental",
+        "#LateNightVibes",
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords",
+        "#Reels"
+      ],
+      "youtube": [
+        "LoFi Jazz",
+        "Chill Beats",
+        "Instrumental",
+        "My Evil Robot Army",
+        "MERA",
+        "NullRecords",
+        "Shorts"
+      ]
+    }
+  },
+  {
+    "id": "5fdba7de6d87",
+    "status": "pending",
+    "generated_date": "2026-04-16",
+    "track_id": "mind_hack",
+    "track_title": "Mind Hack",
+    "segment_label": "attack",
+    "filename": "daily_2026-04-16_mind_hack_attack_b9007e30.mp4",
+    "video_path": "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/videos/daily_2026-04-16_mind_hack_attack_b9007e30.mp4",
+    "mood": "intense",
+    "effects": {
+      "color_shift_enabled": false,
+      "vhs_enabled": false,
+      "scanline_enabled": true,
+      "visualizer_type": "circular"
+    },
+    "images_used": [
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/2eea7ccb_Central_Cascade_Mountains_between_Mission_Ridge_and_Blewett_Pass_Washington.jpg",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/media-library/images/cyber_grid.jpg",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/media-library/images/null_record_art.jpg"
+    ],
+    "created_at": "2026-04-16T17:53:10+00:00",
+    "approved_at": null,
+    "posted_at": null,
+    "platforms_posted": [],
+    "caption": "hacking the mainframe of your mind\n\nMind Hack \u2014 My Evil Robot Army\n\n#CyberPunk #GlitchMusic #Intense #DarkElectronic #Instrumental #MyEvilRobotArmy #MERA #NullRecords",
+    "caption_line": "hacking the mainframe of your mind",
+    "hashtags": {
+      "tiktok": [
+        "#CyberPunk",
+        "#GlitchMusic",
+        "#Intense",
+        "#DarkElectronic",
+        "#Instrumental",
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords"
+      ],
+      "instagram": [
+        "#CyberPunk",
+        "#GlitchMusic",
+        "#Intense",
+        "#DarkElectronic",
+        "#Instrumental",
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords",
+        "#Reels"
+      ],
+      "youtube": [
+        "CyberPunk",
+        "Glitch Music",
+        "Intense Electronic",
+        "Instrumental",
+        "My Evil Robot Army",
+        "MERA",
+        "NullRecords",
+        "Shorts"
+      ]
+    }
+  },
+  {
+    "id": "975c070ccbe4",
+    "status": "pending",
+    "generated_date": "2026-04-16",
+    "track_id": "hidden_insite",
+    "track_title": "Hidden Insite",
+    "segment_label": "climax",
+    "filename": "daily_2026-04-16_hidden_insite_climax_54b71616.mp4",
+    "video_path": "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/videos/daily_2026-04-16_hidden_insite_climax_54b71616.mp4",
+    "mood": "dark",
+    "effects": {
+      "color_shift_enabled": true,
+      "vhs_enabled": true,
+      "scanline_enabled": true
+    },
+    "images_used": [
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/83ff90ad_mountain-snow-covered-landscape-winter-preview.jpg",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/2eea7ccb_Central_Cascade_Mountains_between_Mission_Ridge_and_Blewett_Pass_Washington.jpg",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/3122ccc9_osciallating-overthurster.png"
+    ],
+    "created_at": "2026-04-16T17:59:42+00:00",
+    "approved_at": null,
+    "posted_at": null,
+    "platforms_posted": [],
+    "caption": "some things are only visible in the dark\n\nHidden Insite \u2014 My Evil Robot Army\n\n#DarkAmbient #Experimental #DeepListening #Atmospheric #Instrumental #MyEvilRobotArmy #MERA #NullRecords",
+    "caption_line": "some things are only visible in the dark",
+    "hashtags": {
+      "tiktok": [
+        "#DarkAmbient",
+        "#Experimental",
+        "#DeepListening",
+        "#Atmospheric",
+        "#Instrumental",
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords"
+      ],
+      "instagram": [
+        "#DarkAmbient",
+        "#Experimental",
+        "#DeepListening",
+        "#Atmospheric",
+        "#Instrumental",
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords",
+        "#Reels"
+      ],
+      "youtube": [
+        "Dark Ambient",
+        "Experimental",
+        "Atmospheric",
+        "Instrumental",
+        "My Evil Robot Army",
+        "MERA",
+        "NullRecords",
+        "Shorts"
+      ]
+    }
+  },
+  {
+    "id": "25f1bd2d9cc2",
+    "status": "pending",
+    "generated_date": "2026-04-16",
+    "track_id": "hidden_insite",
+    "track_title": "Hidden Insite",
+    "segment_label": "intro",
+    "filename": "daily_2026-04-16_hidden_insite_intro_a9c7979c.mp4",
+    "video_path": "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/videos/daily_2026-04-16_hidden_insite_intro_a9c7979c.mp4",
+    "mood": "dark",
+    "effects": {
+      "color_shift_enabled": true,
+      "vhs_enabled": true,
+      "scanline_enabled": true
+    },
+    "images_used": [
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/3122ccc9_osciallating-overthurster.png",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/2eea7ccb_Central_Cascade_Mountains_between_Mission_Ridge_and_Blewett_Pass_Washington.jpg",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/83ff90ad_mountain-snow-covered-landscape-winter-preview.jpg"
+    ],
+    "created_at": "2026-04-16T18:06:03+00:00",
+    "approved_at": null,
+    "posted_at": null,
+    "platforms_posted": [],
+    "caption": "some things are only visible in the dark\n\nHidden Insite \u2014 My Evil Robot Army\n\n#DarkAmbient #Experimental #DeepListening #Atmospheric #Instrumental #MyEvilRobotArmy #MERA #NullRecords",
+    "caption_line": "some things are only visible in the dark",
+    "hashtags": {
+      "tiktok": [
+        "#DarkAmbient",
+        "#Experimental",
+        "#DeepListening",
+        "#Atmospheric",
+        "#Instrumental",
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords"
+      ],
+      "instagram": [
+        "#DarkAmbient",
+        "#Experimental",
+        "#DeepListening",
+        "#Atmospheric",
+        "#Instrumental",
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords",
+        "#Reels"
+      ],
+      "youtube": [
+        "Dark Ambient",
+        "Experimental",
+        "Atmospheric",
+        "Instrumental",
+        "My Evil Robot Army",
+        "MERA",
+        "NullRecords",
+        "Shorts"
+      ]
+    }
+  },
+  {
+    "id": "55929df5fd14",
+    "status": "pending",
+    "generated_date": "2026-04-17",
+    "track_id": "pattern_watching",
+    "track_title": "Pattern Watching",
+    "segment_label": "intro",
+    "filename": "daily_2026-04-17_pattern_watching_intro_a4211e2e.mp4",
+    "video_path": "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/videos/daily_2026-04-17_pattern_watching_intro_a4211e2e.mp4",
+    "mood": "chill",
+    "effects": {
+      "color_shift_enabled": false,
+      "vhs_enabled": true,
+      "scanline_enabled": false
+    },
+    "images_used": [
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/media-library/images/null_record_art.jpg",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/media-library/images/cyber_grid.jpg",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/83ff90ad_mountain-snow-covered-landscape-winter-preview.jpg"
+    ],
+    "created_at": "2026-04-17T17:49:09+00:00",
+    "approved_at": null,
+    "posted_at": null,
+    "platforms_posted": [],
+    "caption": "lo-fi drift for the observers\n\nPattern Watching \u2014 My Evil Robot Army\n\n#LoFi #Ambient #Mellow #ChillVibes #Instrumental #MyEvilRobotArmy #MERA #NullRecords",
+    "caption_line": "lo-fi drift for the observers",
+    "hashtags": {
+      "tiktok": [
+        "#LoFi",
+        "#Ambient",
+        "#Mellow",
+        "#ChillVibes",
+        "#Instrumental",
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords"
+      ],
+      "instagram": [
+        "#LoFi",
+        "#Ambient",
+        "#Mellow",
+        "#ChillVibes",
+        "#Instrumental",
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords",
+        "#Reels"
+      ],
+      "youtube": [
+        "LoFi",
+        "Ambient",
+        "Chill Vibes",
+        "Instrumental",
+        "My Evil Robot Army",
+        "MERA",
+        "NullRecords",
+        "Shorts"
+      ]
+    }
+  },
+  {
+    "id": "fb095d686673",
+    "status": "pending",
+    "generated_date": "2026-04-17",
+    "track_id": "lectroids",
+    "track_title": "Lectroids",
+    "segment_label": "hook",
+    "filename": "daily_2026-04-17_lectroids_hook_df4e3341.mp4",
+    "video_path": "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/videos/daily_2026-04-17_lectroids_hook_df4e3341.mp4",
+    "mood": "electronic",
+    "effects": {
+      "color_shift_enabled": true,
+      "vhs_enabled": false,
+      "scanline_enabled": true
+    },
+    "images_used": [
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/2eea7ccb_Central_Cascade_Mountains_between_Mission_Ridge_and_Blewett_Pass_Washington.jpg",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/3122ccc9_osciallating-overthurster.png",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/83ff90ad_mountain-snow-covered-landscape-winter-preview.jpg"
+    ],
+    "created_at": "2026-04-17T17:53:00+00:00",
+    "approved_at": null,
+    "posted_at": null,
+    "platforms_posted": [],
+    "caption": "this one hits like machines waking up\n\nLectroids \u2014 My Evil Robot Army\n\n#Electro #CyberVibes #AnalogSynth #DarkElectronic #Instrumental #UndergroundMusic #Vibes #MyEvilRobotArmy #MERA #NullRecords",
+    "caption_line": "this one hits like machines waking up",
+    "hashtags": {
+      "tiktok": [
+        "#Electro",
+        "#CyberVibes",
+        "#AnalogSynth",
+        "#DarkElectronic",
+        "#Instrumental",
+        "#UndergroundMusic",
+        "#Vibes",
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords"
+      ],
+      "instagram": [
+        "#Electro",
+        "#CyberVibes",
+        "#AnalogSynth",
+        "#DarkElectronic",
+        "#Instrumental",
+        "#UndergroundMusic",
+        "#Vibes",
+        "#ElectronicMusic",
+        "#SynthWave",
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords"
+      ],
+      "youtube": [
+        "Electro",
+        "Analog Synth",
+        "Dark Electronic",
+        "Instrumental",
+        "Underground Music",
+        "My Evil Robot Army",
+        "MERA",
+        "Null Records"
+      ]
+    }
+  },
+  {
+    "id": "d3d4bba4da04",
+    "status": "pending",
+    "generated_date": "2026-04-17",
+    "track_id": "too_much_to_do",
+    "track_title": "Too Much To Do",
+    "segment_label": "peak",
+    "filename": "daily_2026-04-17_too_much_to_do_peak_df2164bf.mp4",
+    "video_path": "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/videos/daily_2026-04-17_too_much_to_do_peak_df2164bf.mp4",
+    "mood": "energetic",
+    "effects": {
+      "color_shift_enabled": false,
+      "vhs_enabled": false,
+      "scanline_enabled": true,
+      "visualizer_type": "circular"
+    },
+    "images_used": [
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/852edc77_Cosmic beats and surreal landscapes.png",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/8580c3df_to-much-to-do.png",
+      "/Users/greglind/Projects/NullRecords/nullrecords-website/ai-engine/exports/image_uploads/8accd6b5_Too much to do_ cosmic reflections.png"
+    ],
+    "created_at": "2026-04-17T17:57:24+00:00",
+    "approved_at": null,
+    "posted_at": null,
+    "platforms_posted": [],
+    "caption": "when the list grows but the beat drops harder\n\nToo Much To Do \u2014 My Evil Robot Army\n\n#ElectronicMusic #BeatDrop #Hype #EnergyVibes #Instrumental #MyEvilRobotArmy #MERA #NullRecords",
+    "caption_line": "when the list grows but the beat drops harder",
+    "hashtags": {
+      "tiktok": [
+        "#ElectronicMusic",
+        "#BeatDrop",
+        "#Hype",
+        "#EnergyVibes",
+        "#Instrumental",
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords"
+      ],
+      "instagram": [
+        "#ElectronicMusic",
+        "#BeatDrop",
+        "#Hype",
+        "#EnergyVibes",
+        "#Instrumental",
+        "#MyEvilRobotArmy",
+        "#MERA",
+        "#NullRecords",
+        "#Reels"
+      ],
+      "youtube": [
+        "Electronic Music",
+        "Beat Drop",
+        "Hype",
+        "Instrumental",
+        "My Evil Robot Army",
+        "MERA",
+        "NullRecords",
+        "Shorts"
+      ]
+    }
   }
 ]

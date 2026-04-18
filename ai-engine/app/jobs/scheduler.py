@@ -731,6 +731,82 @@ def _run_news_search():
         logger.exception("Error in news search job")
 
 
+def _run_brevo_crm_sync():
+    """Pull contacts from Brevo into the local CRM database every 6 hours."""
+    from app.core.database import SessionLocal
+    from app.models.subscriber import Subscriber
+    from app.services.crm.brevo_contacts import _headers
+
+    import requests
+
+    settings = get_settings()
+    if not settings.smtp_key:
+        logger.info("Brevo API key not configured — skipping CRM sync")
+        return
+
+    db = SessionLocal()
+    try:
+        imported = 0
+        skipped = 0
+        offset = 0
+        limit = 50
+        url = "https://api.brevo.com/v3/contacts"
+
+        while True:
+            resp = requests.get(
+                url,
+                headers=_headers(),
+                params={"limit": limit, "offset": offset},
+                timeout=15,
+            )
+            if resp.status_code != 200:
+                logger.warning("Brevo sync — list failed: %s %s", resp.status_code, resp.text[:200])
+                break
+
+            data = resp.json()
+            contacts = data.get("contacts", [])
+            if not contacts:
+                break
+
+            for contact in contacts:
+                email = contact.get("email", "").strip().lower()
+                if not email:
+                    continue
+
+                existing = db.query(Subscriber).filter(Subscriber.email == email).first()
+                if existing:
+                    if not existing.brevo_contact_id and contact.get("id"):
+                        existing.brevo_contact_id = str(contact["id"])
+                    skipped += 1
+                    continue
+
+                attrs = contact.get("attributes", {})
+                name_parts = [attrs.get("FIRSTNAME", ""), attrs.get("LASTNAME", "")]
+                name = " ".join(p for p in name_parts if p).strip() or None
+
+                sub = Subscriber(
+                    email=email,
+                    name=name,
+                    source=attrs.get("SOURCE", "brevo-sync"),
+                    tags="brevo-import",
+                    status="active",
+                    brevo_contact_id=str(contact.get("id", "")),
+                )
+                db.add(sub)
+                imported += 1
+
+            db.commit()
+            offset += limit
+            if offset >= data.get("count", 0):
+                break
+
+        logger.info("Brevo CRM sync complete — %d imported, %d skipped", imported, skipped)
+    except Exception:
+        logger.exception("Error in Brevo CRM sync job")
+    finally:
+        db.close()
+
+
 def _run_dj_radio_discovery():
     """Discover DJs, radio stations, and shows for outreach."""
     from app.core.database import SessionLocal
@@ -1044,6 +1120,14 @@ def start_scheduler():
     # )
 
     _scheduler.add_job(
+        _run_brevo_crm_sync,
+        trigger=IntervalTrigger(hours=6),
+        id="brevo_crm_sync",
+        name="Sync Brevo contacts into local CRM",
+        replace_existing=True,
+    )
+
+    _scheduler.add_job(
         _run_dj_radio_discovery,
         trigger=IntervalTrigger(hours=48),
         id="dj_radio_discovery",
@@ -1094,7 +1178,7 @@ def start_scheduler():
     _scheduler.start()
     logger.info(
         "Scheduler started — followups every %dm, discovery every %dh, "
-        "media ingest every %dh, news search every 12h, DJ/radio every 48h, "
+        "media ingest every %dh, Brevo CRM sync every 6h, DJ/radio every 48h, "
         "daily shorts generation every 24h, daily shorts posting every 2h, "
         "platform stats refresh every 6h",
         settings.scheduler_followup_minutes,

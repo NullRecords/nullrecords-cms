@@ -16,7 +16,7 @@
   var cfgItems = cfg.items || [
     { title: 'Home', url: '/' },
     { title: 'Store', url: '/store/' },
-    { title: 'Blog', url: '/news/' },
+    { title: 'News', url: '/news/' },
     { title: 'About', url: '/about.html' },
     { title: 'Contact', url: '/contact.html' },
   ];
